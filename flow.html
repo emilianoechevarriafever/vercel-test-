@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Channel Filter – Mandatory Sequence of PVs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .slide {
+      width: 960px;
+      max-width: 100vw;
+      background: white;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ===== HEADER BAR ===== */
+    .header-bar {
+      background: #2d2d3f;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-bar .subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-bar .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ===== TITLE ===== */
+    .title-section {
+      padding: 32px 32px 24px;
+    }
+    .title-section h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.4;
+    }
+
+    /* ===== FLOW DIAGRAM ===== */
+    .flow-section {
+      padding: 0 32px 32px;
+    }
+    .flow-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 3px 8px;
+      margin-bottom: 16px;
+      background: #fafafa;
+    }
+    .flow-container {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 32px 24px;
+      overflow-x: auto;
+    }
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: max-content;
+    }
+
+    .flow-box {
+      border-radius: 8px;
+      padding: 16px 14px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      min-width: 110px;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: default;
+    }
+    a.flow-box {
+      cursor: pointer;
+    }
+    a.flow-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .flow-box.home {
+      background: #e8e8e8;
+      border: 2px solid #ccc;
+      color: #444;
+    }
+    .flow-box.pdp {
+      background: #ffe0b2;
+      border: 2px solid #ffb74d;
+      color: #5d4037;
+    }
+    .flow-box.pdp-dots {
+      background: #fff3e0;
+      border: 2px dashed #ffb74d;
+      color: #8d6e63;
+      min-width: 90px;
+      font-size: 20px;
+      letter-spacing: 4px;
+    }
+    .flow-box.checkout {
+      background: #80deea;
+      border: 2px solid #4dd0e1;
+      color: #004d40;
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+      color: #999;
+      flex-shrink: 0;
+    }
+    .flow-arrow svg {
+      width: 32px;
+      height: 16px;
+    }
+
+    /* Click hint */
+    .click-hint {
+      display: block;
+      font-size: 9px;
+      font-weight: 400;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    /* ===== PROS / CONS ===== */
+    .analysis {
+      display: flex;
+      gap: 24px;
+      padding: 0 32px 32px;
+    }
+    .analysis-card {
+      flex: 1;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .analysis-card.pros {
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+    }
+    .analysis-card.cons {
+      background: #fce4ec;
+      border: 1px solid #ef9a9a;
+    }
+    .analysis-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .analysis-card.pros h3 { color: #2e7d32; }
+    .analysis-card.cons h3 { color: #c62828; }
+    .analysis-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .analysis-card ul li {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+      color: #333;
+    }
+    .analysis-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .analysis-card.pros ul li::before { background: #66bb6a; }
+    .analysis-card.cons ul li::before { background: #ef5350; }
+    .analysis-card ul li strong {
+      font-weight: 700;
+    }
+
+    /* ===== LINK TO FIGJAM ===== */
+    .figjam-link {
+      padding: 0 32px 32px;
+    }
+    .figjam-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #0079ca;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .figjam-link a:hover { color: #005a9e; }
+
+    /* ===== PAGE NUMBER ===== */
+    .page-number {
+      position: absolute;
+      bottom: 16px;
+      right: 32px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ===== PROTO SECTION ===== */
+    .proto-section {
+      padding: 0 32px 48px;
+    }
+    .proto-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+    }
+    .proto-frames {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .proto-frame {
+      flex-shrink: 0;
+      width: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #e0e0e0;
+      background: white;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.15s;
+    }
+    .proto-frame:hover {
+      border-color: #0079ca;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .proto-frame.active {
+      border-color: #0079ca;
+      border-width: 3px;
+    }
+    .proto-frame .frame-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .proto-frame .frame-label {
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .proto-frame .frame-label .step {
+      background: #0079ca;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+    .proto-frame .frame-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 0;
+      color: #ccc;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .analysis { flex-direction: column; }
+      .title-section h1 { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+
+    <!-- Header Bar -->
+    <div class="header-bar">
+      <span class="subtitle">Ai. Mandatory sequence of PVs</span>
+      <span class="ai-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Channel Filter Flow
+      </span>
+    </div>
+
+    <!-- Title -->
+    <div class="title-section">
+      <h1>MVP platform will already include all required functionalities for an optimized purchasing experience</h1>
+    </div>
+
+    <!-- Flow Diagram -->
+    <div class="flow-section">
+      <span class="flow-label">Mandatory Sequence of PVs</span>
+      <div class="flow-container">
+        <div class="flow">
+          <!-- Entry arrow -->
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- Home Page -->
+          <div class="flow-box home">
+            Home page
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- PDP A - Queen -->
+          <a href="index.html" class="flow-box pdp">
+            Product detail<br>page A
+            <span class="click-hint">→ Queen</span>
+          </a>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- PDP B - Coldplay -->
+          <a href="coldplay.html" class="flow-box pdp">
+            Product detail<br>page B
+            <span class="click-hint">→ Coldplay</span>
+          </a>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- PDP ... -->
+          <div class="flow-box pdp-dots">
+            ...
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- PDP N -->
+          <div class="flow-box pdp">
+            Product detail<br>page N
+            <span class="click-hint">→ ABBA</span>
+          </div>
+
+          <div class="flow-arrow">
+            <svg viewBox="0 0 32 16"><line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/><polygon points="28,4 32,8 28,12" fill="currentColor"/></svg>
+          </div>
+
+          <!-- Checkout -->
+          <div class="flow-box checkout">
+            Checkout
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proto Screens Preview -->
+    <div class="proto-section">
+      <h2>Proto screens</h2>
+      <div class="proto-frames">
+        <a href="index.html" class="proto-frame active">
+          <iframe src="index.html" class="frame-img" style="width:200%;height:680px;transform:scale(0.5);transform-origin:top left;pointer-events:none;border:none;" title="Queen"></iframe>
+          <div class="frame-label">
+            <span class="step">A</span>
+            Tribute to Queen
+          </div>
+        </a>
+        <a href="coldplay.html" class="proto-frame">
+          <iframe src="coldplay.html" class="frame-img" style="width:200%;height:680px;transform:scale(0.5);transform-origin:top left;pointer-events:none;border:none;" title="Coldplay"></iframe>
+          <div class="frame-label">
+            <span class="step">B</span>
+            Tribute to Coldplay
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Pros & Cons -->
+    <div class="analysis">
+      <div class="analysis-card pros">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round"><polyline points="20,6 9,17 4,12"/></svg>
+          Pros
+        </h3>
+        <ul>
+          <li><strong>User:</strong> Lot of flexibility to select each product's attributes or characteristics.</li>
+          <li><strong>Business:</strong> It fosters cross/up-sell.</li>
+        </ul>
+      </div>
+      <div class="analysis-card cons">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Cons
+        </h3>
+        <ul>
+          <li><strong>User:</strong> Forces users to go through many steps in a preset order.</li>
+          <li><strong>Business:</strong> It will hurt CVR.</li>
+          <li>It requires backend cart development so that we can sell different plan ids (that are not add-ons) within a same transaction.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Figjam Link -->
+    <div class="figjam-link">
+      <a href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        See Figjam flow chart doc
+      </a>
+    </div>
+
+    <span class="page-number">49</span>
+  </div>
+</body>
+</html>
