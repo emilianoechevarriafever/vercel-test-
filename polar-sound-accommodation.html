@@ -74,6 +74,7 @@
 
     /* Pill levels */
     .pill-level { display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x; }
+    .pill-level.centered { justify-content:center; }
     .pill-level::-webkit-scrollbar { display:none; }
     .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
@@ -598,11 +599,13 @@
     setupLevel('level-nights', 'nights');
     setupLevel('level-type', 'type');
 
-    // Show pill arrow in a row only when that row overflows to the right
+    // Center pills when they fit; show arrow when they overflow. Enable swipe when overflow.
     function updatePillsArrows() {
       document.querySelectorAll('.pill-level').forEach(level => {
+        const overflows = level.scrollWidth > level.clientWidth;
+        level.classList.toggle('centered', !overflows);
         const arrow = level.querySelector('.pill-arrow');
-        if (arrow) arrow.classList.toggle('visible', level.scrollWidth > level.clientWidth);
+        if (arrow) arrow.classList.toggle('visible', overflows);
       });
     }
 
