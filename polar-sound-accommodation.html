@@ -524,10 +524,25 @@
       renderRooms();
     }
 
-    function renderRooms() {
+    function renderRooms(autoSelect) {
       roomRowsEl.innerHTML = '';
       const rooms = getCurrentRooms();
-      const travelers = parseInt(state.travelers);
+
+      // Auto-select cheapest non-sold-out room if fresh render
+      if (autoSelect !== false) {
+        const hasAny = Object.values(roomCounts).some(v => v > 0);
+        if (!hasAny && rooms.length > 0) {
+          let cheapestIdx = -1;
+          let cheapestPrice = Infinity;
+          rooms.forEach((r, i) => {
+            if (!r.soldout && r.price < cheapestPrice) {
+              cheapestPrice = r.price;
+              cheapestIdx = i;
+            }
+          });
+          if (cheapestIdx >= 0) roomCounts[cheapestIdx] = 1;
+        }
+      }
 
       rooms.forEach((room, i) => {
         if (!(i in roomCounts)) roomCounts[i] = 0;
@@ -551,11 +566,11 @@
         if (!room.soldout) {
           row.querySelector('.amt-btn.plus').addEventListener('click', () => {
             roomCounts[i]++;
-            renderRooms();
+            renderRooms(false);
           });
           row.querySelector('.amt-btn.minus').addEventListener('click', () => {
             if (roomCounts[i] > 0) roomCounts[i]--;
-            renderRooms();
+            renderRooms(false);
           });
         }
 

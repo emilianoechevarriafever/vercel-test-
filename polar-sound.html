@@ -610,14 +610,27 @@
       });
     });
 
-    // Pill switching
+    // Pill switching — reset counts & pre-select cheapest
     document.querySelectorAll('.ticket-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
+        preselectCheapest();
       });
     });
 
+    // Pre-select the cheapest ticket (qty 1), reset others to 0
+    function preselectCheapest() {
+      let minIdx = 0;
+      let minPrice = Infinity;
+      prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
+      rows.forEach((row, i) => {
+        row.querySelector('.amt-count').textContent = (i === minIdx) ? '1' : '0';
+      });
+      updateTotal();
+    }
+
+    // Initial pre-selection
     updateTotal();
   </script>
 </body>
