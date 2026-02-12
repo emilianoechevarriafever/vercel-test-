@@ -538,10 +538,25 @@
       if (stickyMode === 'tickets') {
         ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // Get it → go to accommodation
+        // Save ticket selections to localStorage before navigating
+        saveTicketsToCart();
         window.location.href = 'polar-sound-accommodation.html';
       }
     });
+
+    function saveTicketsToCart() {
+      const ticketNames = ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const activePill = document.querySelector('.ticket-pill.active');
+      const passType = activePill ? activePill.textContent : 'Day Ticket';
+      const cartTickets = [];
+      rows.forEach((row, i) => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          cartTickets.push({ name: ticketNames[i] + ' (' + passType + ')', price: prices[i], qty: qty });
+        }
+      });
+      localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
+    }
 
     // Hide inline CTA since sticky handles it
     inlineCta.style.display = 'none';

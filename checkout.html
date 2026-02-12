@@ -150,27 +150,31 @@
     <!-- Date -->
     <div class="date-row">
       <div class="label">Date</div>
-      <div class="value">Friday, 13 Mar - 6:00 PM</div>
+      <div class="value">March 13 &amp; 14, 2026</div>
     </div>
 
-    <!-- Tickets and Extras -->
-    <div class="checkout-section">
-      <h3>Tickets and extras</h3>
-      <div class="ticket-summary-row">
-        <span class="ticket-label">
-          2 x Double Room
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        </span>
-        <span class="ticket-val">&euro;1,119.40</span>
-      </div>
+    <!-- Tickets Section (from polar-sound.html) -->
+    <div class="checkout-section" id="section-tickets">
+      <h3>Festival Passes</h3>
+      <div id="ticket-items"></div>
+    </div>
+
+    <!-- Accommodation Section (from polar-sound-accommodation.html) -->
+    <div class="checkout-section" id="section-accommodation">
+      <h3>Accommodation</h3>
+      <div id="accommodation-items"></div>
     </div>
 
     <!-- Price Details -->
     <div class="price-details">
       <h3>Price details</h3>
       <div class="price-row">
-        <span class="price-label">Subtotal</span>
-        <span class="price-val">&euro;1,119.40</span>
+        <span class="price-label">Festival Passes</span>
+        <span class="price-val" id="subtotal-tickets">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Accommodation</span>
+        <span class="price-val" id="subtotal-accommodation">&euro;0.00</span>
       </div>
       <div class="price-row">
         <span class="price-label">Fees</span>
@@ -184,7 +188,7 @@
       </div>
       <div class="price-row total">
         <span class="price-label">Total</span>
-        <span class="price-val">&euro;1,119.40</span>
+        <span class="price-val" id="grand-total">&euro;0.00</span>
       </div>
     </div>
 
@@ -275,5 +279,76 @@
     </div>
 
   </div>
+
+  <script>
+    // ========== LOAD CART FROM LOCALSTORAGE ==========
+    const tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]');
+    const accommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+
+    const infoIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:#536b75;cursor:pointer;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
+
+    function formatEur(n) {
+      return '\u20AC' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // Render ticket line items
+    let ticketTotal = 0;
+    const ticketItemsEl = document.getElementById('ticket-items');
+    const sectionTickets = document.getElementById('section-tickets');
+
+    if (tickets.length === 0) {
+      sectionTickets.style.display = 'none';
+    } else {
+      tickets.forEach(t => {
+        const lineTotal = t.price * t.qty;
+        ticketTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${t.qty} x ${t.name} ${infoIcon}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        ticketItemsEl.appendChild(row);
+      });
+    }
+
+    // Render accommodation line items
+    let accommodationTotal = 0;
+    const accommodationItemsEl = document.getElementById('accommodation-items');
+    const sectionAccommodation = document.getElementById('section-accommodation');
+
+    if (accommodation.length === 0) {
+      sectionAccommodation.style.display = 'none';
+    } else {
+      accommodation.forEach(a => {
+        const lineTotal = a.price * a.qty;
+        accommodationTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${a.qty} x ${a.name} ${infoIcon}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        accommodationItemsEl.appendChild(row);
+        // Show detail line if available
+        if (a.detail) {
+          const detail = document.createElement('div');
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 8px;';
+          detail.textContent = a.detail;
+          accommodationItemsEl.appendChild(detail);
+        }
+      });
+    }
+
+    // Update price breakdown
+    const grandTotal = ticketTotal + accommodationTotal;
+    document.getElementById('subtotal-tickets').textContent = formatEur(ticketTotal);
+    document.getElementById('subtotal-accommodation').textContent = formatEur(accommodationTotal);
+    document.getElementById('grand-total').textContent = formatEur(grandTotal);
+
+    // Update Pay button
+    const payBtn = document.querySelector('.pay-btn');
+    payBtn.textContent = 'Pay ' + formatEur(grandTotal);
+  </script>
 </body>
 </html>

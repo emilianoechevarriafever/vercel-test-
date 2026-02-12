@@ -439,9 +439,33 @@
       if (stickyMode === 'tickets') {
         ticketSection.scrollIntoView({ behavior:'smooth', block:'start' });
       } else {
-        if (getTotal() > 0) window.location.href = 'checkout.html';
+        if (getTotal() > 0) {
+          saveAccommodationToCart();
+          window.location.href = 'checkout.html';
+        }
       }
     });
+
+    function saveAccommodationToCart() {
+      const rooms = getCurrentRooms();
+      const cartAccommodation = [];
+      // Build context label
+      const travelLabel = document.querySelector('#level-travelers .ticket-pill.active')?.textContent || '';
+      const nightsLabel = document.querySelector('#level-nights .ticket-pill.active')?.textContent || '';
+      const hotelName = state.name || '';
+      rooms.forEach((room, i) => {
+        const qty = roomCounts[i] || 0;
+        if (qty > 0 && !room.soldout) {
+          cartAccommodation.push({
+            name: room.name + ' — ' + hotelName,
+            detail: travelLabel + ', ' + nightsLabel,
+            price: room.price,
+            qty: qty
+          });
+        }
+      });
+      localStorage.setItem('cart_accommodation', JSON.stringify(cartAccommodation));
+    }
 
     function updateSticky() {
       if (stickyMode !== 'getit') return;
