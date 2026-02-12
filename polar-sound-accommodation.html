@@ -82,10 +82,8 @@
     /* Pill levels */
     .pill-level { display:flex; gap:12px; align-items:center; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; scrollbar-width:none; }
     .pill-level::-webkit-scrollbar { display:none; }
-    .ticket-pill { flex-shrink:0; padding:8px 16px; border:1.5px solid var(--color-border-light); border-radius:4px; font-size:13px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; position:relative; white-space:nowrap; text-align:center; transition:all 0.15s; }
-    .ticket-pill.active { border-color:#1db1de; color:#1db1de; }
-    .ticket-pill.active::after { content:''; position:absolute; top:-2px; right:-2px; width:16px; height:16px; background:#1db1de; border-radius:0 3px 0 6px; }
-    .ticket-pill.active::before { content:'\2713'; position:absolute; top:-1px; right:0; font-size:9px; color:white; z-index:1; font-weight:700; }
+    .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
+    .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
     .ticket-pill.disabled { color:var(--color-text-disable); border-color:#eee; pointer-events:none; }
     .pill-arrow { flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
