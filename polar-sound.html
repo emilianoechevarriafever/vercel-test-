@@ -224,7 +224,7 @@
 
     <!-- Hero Gallery -->
     <div class="hero">
-      <img class="hero-bg" src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80" alt="Polar Sound Occident Festival">
+      <img class="hero-bg" src="img/polar-sound-hero.png" alt="Polar Sound Occident Festival">
       <div class="social-tools">
         <button class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
         <button class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
@@ -512,35 +512,78 @@
       </div>
     </div>
 
-    <!-- Sticky CTA -->
+    <!-- Sticky CTA (single button: Tickets → scrolls → becomes Get it) -->
     <div class="sticky-cta">
-      <button class="cta-btn" onclick="document.getElementById('ticket-section').scrollIntoView({behavior:'smooth',block:'start'})">Tickets</button>
+      <button class="cta-btn" id="sticky-btn">Tickets</button>
     </div>
 
   </div>
 
   <script>
-    // Dynamic ticket pricing
+    // === SINGLE CTA BEHAVIOR ===
+    const stickyBtn = document.getElementById('sticky-btn');
+    const inlineCta = document.getElementById('cta-get-it');
+    const ticketSection = document.getElementById('ticket-section');
+    let stickyMode = 'tickets'; // 'tickets' or 'getit'
+
+    // Intersection Observer: detect when ticket section is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          stickyMode = 'getit';
+          updateStickyBtn();
+        } else {
+          stickyMode = 'tickets';
+          stickyBtn.textContent = 'Tickets';
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(ticketSection);
+
+    stickyBtn.addEventListener('click', () => {
+      if (stickyMode === 'tickets') {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        // Get it → go to accommodation
+        window.location.href = 'polar-sound-accommodation.html';
+      }
+    });
+
+    // Hide inline CTA since sticky handles it
+    inlineCta.style.display = 'none';
+
+    function updateStickyBtn() {
+      if (stickyMode === 'getit') {
+        const total = getTotal();
+        if (total > 0) {
+          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
+          stickyBtn.style.opacity = '1';
+        } else {
+          stickyBtn.textContent = '\u20AC0.00 \u2014 Get it';
+          stickyBtn.style.opacity = '0.5';
+        }
+      }
+    }
+
+    // === DYNAMIC TICKET PRICING ===
     const prices = [45.00, 50.00, 85.00, 90.00];
     const rows = document.querySelectorAll('.ticket-row');
-    const ctaBtn = document.getElementById('cta-get-it');
 
-    function updateTotal() {
+    function getTotal() {
       let total = 0;
       rows.forEach((row, i) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
         total += count * prices[i];
+      });
+      return total;
+    }
+
+    function updateTotal() {
+      rows.forEach((row) => {
+        const count = parseInt(row.querySelector('.amt-count').textContent);
         row.classList.toggle('selected', count > 0);
       });
-      if (total > 0) {
-        ctaBtn.textContent = '€' + total.toFixed(2) + ' — Get it';
-        ctaBtn.style.opacity = '1';
-        ctaBtn.style.pointerEvents = 'auto';
-      } else {
-        ctaBtn.textContent = '€0.00 — Get it';
-        ctaBtn.style.opacity = '0.5';
-        ctaBtn.style.pointerEvents = 'none';
-      }
+      updateStickyBtn();
     }
 
     rows.forEach((row, i) => {

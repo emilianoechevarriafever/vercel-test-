@@ -6,7 +6,7 @@
   <title>Polar Sound Occident 2026: Alojamientos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
@@ -16,7 +16,7 @@
       --color-text: #06232c;
       --color-text-secondary: #5a7385;
       --color-text-subtle: #536b75;
-      --color-text-disable: #ccc;
+      --color-text-disable: #b0b8bf;
       --color-border: #ccd2d8;
       --color-border-light: #ddd;
       --color-accent: #6f41d7;
@@ -27,13 +27,11 @@
     body { font-family:var(--font); background:#f5f5f5; display:flex; justify-content:center; color:var(--color-text); }
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; overflow-x:hidden; position:relative; }
 
-    /* Status Bar */
     .status-bar { display:flex; align-items:center; justify-content:space-between; padding:14px 16px 8px; background:white; }
     .status-bar .time { font-weight:600; font-size:17px; letter-spacing:-0.68px; }
     .status-bar .icons { display:flex; gap:5px; align-items:center; }
     .status-bar .icons svg { height:12px; }
 
-    /* Navbar */
     .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:white; position:sticky; top:0; z-index:100; border-bottom:1px solid var(--color-border); }
     .navbar .logo { height:32px; }
     .nav-icons { display:flex; align-items:center; gap:16px; }
@@ -42,17 +40,19 @@
     .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
     .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
 
-    /* Hero */
+    /* Hero with overlay */
     .hero { position:relative; width:100%; height:375px; overflow:hidden; }
     .hero img.hero-bg { width:100%; height:100%; object-fit:cover; }
-    .hero .social-tools { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:16px; }
+    .hero .overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,35,44,0.3) 0%, rgba(6,35,44,0.6) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+    .hero .overlay .brand-text { font-family:var(--font); font-size:36px; font-weight:800; color:white; letter-spacing:4px; text-transform:uppercase; text-shadow:0 2px 20px rgba(0,0,0,0.5); }
+    .hero .overlay .brand-sub { font-family:var(--font); font-size:16px; font-weight:600; color:rgba(255,255,255,0.9); letter-spacing:2px; }
+    .hero .social-tools { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:16px; z-index:2; }
     .hero .social-btn { width:44px; height:44px; background:white; border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.15); cursor:pointer; }
     .hero .social-btn svg { width:20px; height:20px; color:#333; }
-    .hero .dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; }
+    .hero .dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:2; }
     .hero .dots span { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); }
     .hero .dots span.active { background:white; }
 
-    /* Title */
     .title-section { padding:16px; }
     .tag-selling { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#fff3e0; border-radius:4px; color:#e65100; font-size:12px; font-weight:600; margin-bottom:12px; }
     .tag-selling svg { width:14px; height:14px; }
@@ -65,7 +65,6 @@
     .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
     .divider { height:1px; background:var(--color-border); margin:0 16px; }
 
-    /* Description */
     .description { padding:20px 16px; font-size:15px; line-height:22px; }
     .description p { margin-bottom:12px; }
     .description .subtitle { font-weight:600; font-size:16px; margin-bottom:8px; margin-top:16px; }
@@ -73,28 +72,26 @@
     .description ul li { margin-bottom:4px; }
     .description a { color:var(--color-primary); text-decoration:underline; }
 
-    /* Section Header */
     .section-header { display:flex; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--color-border); }
     .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
     .section-header h2 { font-size:20px; font-weight:600; line-height:24px; flex:1; }
 
-    /* Ticket Selector */
     .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
 
-    /* Pill level row */
+    /* Pill levels */
     .pill-level { display:flex; gap:12px; align-items:center; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; scrollbar-width:none; }
     .pill-level::-webkit-scrollbar { display:none; }
-    .pill-level:last-of-type { border-bottom:none; }
-    .ticket-pill { flex-shrink:0; padding:8px 16px; border:1.5px solid var(--color-border-light); border-radius:4px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; position:relative; white-space:nowrap; text-align:center; }
+    .ticket-pill { flex-shrink:0; padding:8px 16px; border:1.5px solid var(--color-border-light); border-radius:4px; font-size:13px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; position:relative; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:#1db1de; color:#1db1de; }
     .ticket-pill.active::after { content:''; position:absolute; top:-2px; right:-2px; width:16px; height:16px; background:#1db1de; border-radius:0 3px 0 6px; }
     .ticket-pill.active::before { content:'\2713'; position:absolute; top:-1px; right:0; font-size:9px; color:white; z-index:1; font-weight:700; }
-    .ticket-pill.disabled { color:var(--color-text-disable); border-color:#eee; }
+    .ticket-pill.disabled { color:var(--color-text-disable); border-color:#eee; pointer-events:none; }
     .pill-arrow { flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
 
-    /* Ticket row */
-    .ticket-row { display:flex; align-items:center; padding:16px 0; border:1.5px solid var(--color-border-light); border-radius:8px; margin-top:16px; position:relative; overflow:hidden; }
+    /* Ticket rows */
+    #room-rows { margin-top:16px; }
+    .ticket-row { display:flex; align-items:center; padding:16px 0; border:1.5px solid var(--color-border-light); border-radius:8px; margin-bottom:12px; position:relative; overflow:hidden; }
     .ticket-row.selected { border-color:#1db1de; background:#fafeff; }
     .ticket-row.selected::after { content:''; position:absolute; top:0; right:0; width:0; height:0; border-style:solid; border-width:0 28px 28px 0; border-color:transparent #1db1de transparent transparent; }
     .ticket-row .ticket-content { flex:1; padding:0 12px 0 16px; }
@@ -107,17 +104,18 @@
     .ticket-row.selected .amt-btn.minus { background:var(--color-primary-weak); color:var(--color-primary); }
     .ticket-row.selected .amt-btn.plus { background:var(--color-primary-weak); color:var(--color-primary); }
     .ticket-amount .amt-count { width:24px; text-align:center; font-size:16px; font-weight:500; }
+    /* Sold out */
+    .ticket-row.soldout { opacity:0.6; pointer-events:none; }
+    .ticket-row.soldout .ticket-amount { display:none; }
+    .ticket-row .soldout-tag { display:none; background:var(--color-bg-disable); color:var(--color-text-disable); font-size:12px; font-weight:600; padding:6px 14px; border-radius:4px; margin-right:12px; }
+    .ticket-row.soldout .soldout-tag { display:block; }
 
-    /* Selling fast banner */
-    .selling-fast-banner { display:flex; align-items:center; justify-content:center; gap:6px; background:#fef3e2; border-radius:8px; padding:10px; margin:16px 0 20px; font-size:14px; font-weight:500; color:var(--color-text); }
-
-    /* CTA Buttons */
-    .cta-primary { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; }
+    .selling-fast-banner { display:flex; align-items:center; justify-content:center; gap:6px; background:#fef3e2; border-radius:8px; padding:10px; margin:4px 0 20px; font-size:14px; font-weight:500; color:var(--color-text); }
+    .cta-primary { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; display:none; }
     .cta-primary:hover { background:#006bb3; }
     .cta-secondary { width:100%; height:48px; background:white; border:1.5px solid var(--color-border); border-radius:100px; color:var(--color-text); font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
     .cta-secondary svg { width:18px; height:18px; }
 
-    /* Reviews */
     .reviews { padding:20px 16px; }
     .reviews h3 { font-size:18px; font-weight:600; margin-bottom:16px; }
     .rating-big { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
@@ -130,30 +128,26 @@
     .review-card .review-date { font-size:12px; color:var(--color-text-secondary); margin:2px 0 6px; }
     .review-card .review-text { font-size:14px; line-height:20px; }
 
-    /* Help */
     .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
     .help-section span { font-size:15px; font-weight:500; }
     .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
 
-    /* Location */
     .location { padding:20px 16px; }
     .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
     .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
     .location .map-placeholder { width:100%; height:160px; background:#e8e8e8; border-radius:8px; overflow:hidden; }
     .location .map-placeholder img { width:100%; height:100%; object-fit:cover; }
 
-    /* Footer */
     .footer { background:black; color:white; padding:32px 16px 140px; }
     .footer-cols { display:flex; justify-content:space-between; margin-bottom:24px; }
     .footer-col h5 { font-size:14px; font-weight:600; margin-bottom:8px; }
     .footer-col ul { list-style:none; }
-    .footer-col ul li { font-size:13px; line-height:20px; margin-bottom:4px; opacity:0.8; cursor:pointer; }
+    .footer-col ul li { font-size:13px; line-height:20px; margin-bottom:4px; opacity:0.8; }
     .footer .legal { border-top:1px solid var(--color-text-subtle); padding-top:16px; font-size:12px; opacity:0.7; }
     .footer .legal a { color:white; }
 
-    /* Sticky CTA */
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; }
-    .sticky-cta .cta-btn { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
   </style>
@@ -161,7 +155,6 @@
 <body>
   <div class="phone">
 
-    <!-- Status Bar -->
     <div class="status-bar">
       <span class="time">9:41</span>
       <div class="icons">
@@ -171,7 +164,6 @@
       </div>
     </div>
 
-    <!-- Navbar -->
     <nav class="navbar">
       <a href="index.html"><img class="logo" src="https://www.figma.com/api/mcp/asset/2d837376-2d05-400a-92df-699043758961" alt="Fever"></a>
       <div class="nav-icons">
@@ -183,9 +175,13 @@
       </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero with hotel image + Polar Sound overlay -->
     <div class="hero">
-      <img class="hero-bg" src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80" alt="Polar Sound Occident Festival">
+      <img class="hero-bg" src="img/baqueira-hotel.png" alt="Hotel Baqueira Beret">
+      <div class="overlay">
+        <div class="brand-text">POLAR SOUND</div>
+        <div class="brand-sub">&#10070; Occident</div>
+      </div>
       <div class="social-tools">
         <button class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
         <button class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
@@ -193,7 +189,6 @@
       <div class="dots"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
     </div>
 
-    <!-- Title -->
     <div class="title-section">
       <div class="tag-selling">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l2.3 5.1H16l-4.6 3.5 1.7 5.4L8 10.8 2.9 14l1.7-5.4L0 5.1h5.7z"/></svg>
@@ -213,35 +208,14 @@
 
     <div class="divider"></div>
 
-    <!-- Description -->
     <div class="description">
-      <p>&#11088; <strong>Polar Sound Occident Festival.</strong> Tras el Sold Out de la edici&oacute;n anterior, regresa el 13 y 14 de marzo de 2026 para celebrar su nueva edici&oacute;n.</p>
-
+      <p>&#10071; <strong>Al reservar tu alojamiento estar&aacute;s comprando tambi&eacute;n tu acceso a los 2 d&iacute;as del festival.</strong></p>
+      <p>&#127915; Alojamiento + Abono con acceso a los 2 d&iacute;as. Podr&aacute;s elegir entre opciones de viaje de 1 a 6 personas, alojamiento de 2 o 3 noches, y una amplia variedad de hoteles y apartamentos.</p>
       <p class="subtitle">&#127908; Line up por d&iacute;as</p>
       <ul>
-        <li><strong>Viernes 13:</strong> Lori Meyers, Silo&eacute;, Fuzz by Dj Nano, Leire Mart&iacute;nez, Paula Mattheus, Ardiya, Pavlenha.</li>
-        <li><strong>S&aacute;bado 14:</strong> Juan Mag&aacute;n, Taburete, Marlon, Sexy Zebras, Hey Kid, Besmaya, Luigii Nieto, Caco Monteverde.</li>
+        <li><strong>Viernes 13:</strong> Lori Meyers, Silo&eacute;, Fuzz by Dj Nano, Leire Mart&iacute;nez, Paula Mattheus</li>
+        <li><strong>S&aacute;bado 14:</strong> Juan Mag&aacute;n, Taburete, Marlon, Sexy Zebras, Hey Kid, Besmaya</li>
       </ul>
-
-      <p>&#10071; <strong>Al reservar tu alojamiento estar&aacute;s comprando tambi&eacute;n tu acceso a los 2 d&iacute;as del festival.</strong></p>
-
-      <p>&#127915; Alojamiento + Abono con acceso a los 2 d&iacute;as del festival. Podr&aacute;s elegir:</p>
-      <ul>
-        <li>Opciones de viaje de 1 a 6 personas</li>
-        <li>Alojamiento durante 2 noches (viernes y s&aacute;bado) o 3 noches (jueves a domingo)</li>
-        <li>Amplia variedad de apartamentos u hoteles</li>
-        <li>Tipo de apartamento o habitaci&oacute;n hotelera</li>
-      </ul>
-
-      <p class="subtitle">Qu&eacute; vas a disfrutar</p>
-      <ul>
-        <li>&#9975;&#65039; Espectaculares pistas de esqu&iacute; por la ma&ntilde;ana</li>
-        <li>&#127925; El mejor apr&egrave;s-ski con temazos en directo</li>
-        <li>&#127911; DJs tras los conciertos para cerrar la noche</li>
-        <li>&#9924; Uno de los enclaves naturales m&aacute;s alucinantes de la pen&iacute;nsula</li>
-      </ul>
-
-      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:16px;"><em>*Todos los compradores recibir&aacute;n una comunicaci&oacute;n de las marcas patrocinadoras.</em></p>
     </div>
 
     <div class="divider"></div>
@@ -254,7 +228,7 @@
 
     <div class="ticket-selector">
       <!-- Level 1: Travelers -->
-      <div class="pill-level" data-level="travelers">
+      <div class="pill-level" id="level-travelers">
         <div class="ticket-pill active" data-value="2">Viaje 2 personas + Abono</div>
         <div class="ticket-pill" data-value="3">Viaje 3 personas + Abono</div>
         <div class="ticket-pill" data-value="4">Viaje 4 personas + Abono</div>
@@ -262,46 +236,32 @@
       </div>
 
       <!-- Level 2: Nights -->
-      <div class="pill-level" data-level="nights">
+      <div class="pill-level" id="level-nights">
         <div class="ticket-pill active" data-value="3">3 noches (12, 13 y 14 de marzo)</div>
         <div class="ticket-pill" data-value="2">2 noches (13 y 14 de marzo)</div>
       </div>
 
       <!-- Level 3: Type -->
-      <div class="pill-level" data-level="type">
+      <div class="pill-level" id="level-type">
         <div class="ticket-pill active" data-value="hotel">Hotel</div>
         <div class="ticket-pill" data-value="apartamento">Apartamento</div>
         <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
       </div>
 
-      <!-- Level 4: Hotel name -->
-      <div class="pill-level" data-level="hotel">
+      <!-- Level 4: Hotel/Apartment name -->
+      <div class="pill-level" id="level-name">
         <div class="pill-arrow" style="transform:rotate(180deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-        <div class="ticket-pill active" data-value="ac">AC</div>
-        <div class="ticket-pill" data-value="melia">Meli&aacute; De tredos</div>
-        <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <!-- Populated by JS -->
       </div>
 
-      <!-- Room row -->
-      <div class="ticket-row selected" id="room-row">
-        <div class="ticket-content">
-          <div class="ticket-name">Habitaci&oacute;n Doble</div>
-          <div class="ticket-price" id="room-price">559,70 &euro;</div>
-        </div>
-        <div class="ticket-amount">
-          <button class="amt-btn minus" id="room-minus">&minus;</button>
-          <span class="amt-count" id="room-count">2</span>
-          <button class="amt-btn plus" id="room-plus">+</button>
-        </div>
-      </div>
+      <!-- Room rows (populated by JS) -->
+      <div id="room-rows"></div>
 
       <!-- Selling fast -->
-      <div class="selling-fast-banner">
-        &#128293; &iexcl;Tickets volando!
-      </div>
+      <div class="selling-fast-banner">&#128293; &iexcl;Tickets volando!</div>
 
-      <!-- CTA -->
-      <button class="cta-primary" id="cta-buy" onclick="window.location.href='checkout.html'">1.119,40 &euro; &mdash; Comprar ahora</button>
+      <!-- Inline CTA (hidden, sticky handles it) -->
+      <button class="cta-primary" id="cta-inline"></button>
       <button class="cta-secondary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M7 6V4m10 2V4"/></svg>
         Regala esta experiencia
@@ -316,35 +276,16 @@
         <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
         <span class="count">basado en 462 opiniones</span>
       </div>
-      <div class="review-card">
-        <div class="reviewer">Ignacio A.</div>
-        <div class="review-date">mar 2025</div>
-        <div class="review-text">Fu&eacute; muy buena experiencia en general, muy c&oacute;modo tener todos los servicios que consumimos juntos en la app.</div>
-      </div>
-      <div class="review-card">
-        <div class="reviewer">Valentina Q.</div>
-        <div class="review-date">mar 2025</div>
-        <div class="review-text">Las mejores noches de mi vida!!!</div>
-      </div>
-      <div class="review-card">
-        <div class="reviewer">Mario P.</div>
-        <div class="review-date">mar 2025</div>
-        <div class="review-text">Muy buena, la organizaci&oacute;n estupenda, lo disfrutamos mucho.</div>
-      </div>
-      <div class="review-card">
-        <div class="reviewer">Carmen P.</div>
-        <div class="review-date">mar 2025</div>
-        <div class="review-text">Muy bien organizado y muy buena m&uacute;sica. Ha estado fenomenal.</div>
-      </div>
+      <div class="review-card"><div class="reviewer">Ignacio A.</div><div class="review-date">mar 2025</div><div class="review-text">Muy buena experiencia, todo muy bien organizado.</div></div>
+      <div class="review-card"><div class="reviewer">Valentina Q.</div><div class="review-date">mar 2025</div><div class="review-text">Las mejores noches de mi vida!!!</div></div>
+      <div class="review-card"><div class="reviewer">Carmen P.</div><div class="review-date">mar 2025</div><div class="review-text">Muy bien organizado y muy buena m&uacute;sica.</div></div>
     </div>
 
-    <!-- Help -->
     <div class="help-section">
       <span>&iquest;Alguna duda?</span>
       <a href="#">Cont&aacute;ctanos aqu&iacute;</a>
     </div>
 
-    <!-- Getting There -->
     <div class="section-header">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
       <h2>&iquest;C&oacute;mo llegar?</h2>
@@ -352,70 +293,287 @@
     <div class="location">
       <div class="loc-name">Estaci&oacute;n de Esqu&iacute; Baqueira Beret</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
-      <div class="map-placeholder">
-        <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80" alt="Mapa Baqueira">
-      </div>
+      <div class="map-placeholder"><img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80" alt="Mapa"></div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
       <div class="footer-cols">
-        <div class="footer-col">
-          <h5>Acerca de Fever</h5>
-          <ul><li>Prensa</li><li>&Uacute;nete al equipo</li><li>Becas</li><li>Tarjetas Regalo</li><li>Centro de asistencia</li></ul>
-        </div>
-        <div class="footer-col">
-          <h5>Colabora</h5>
-          <ul><li>Gestiona tu evento</li><li>Publica tu evento</li><li>Afiliados</li><li>Embajadores</li></ul>
-        </div>
+        <div class="footer-col"><h5>Acerca de Fever</h5><ul><li>Prensa</li><li>&Uacute;nete al equipo</li><li>Tarjetas Regalo</li><li>Centro de asistencia</li></ul></div>
+        <div class="footer-col"><h5>Colabora</h5><ul><li>Gestiona tu evento</li><li>Publica tu evento</li><li>Afiliados</li></ul></div>
       </div>
-      <div class="legal">
-        <a href="#">T&eacute;rminos de uso</a> | <a href="#">Pol&iacute;tica de privacidad</a> | <a href="#">Cookies</a>
-        <div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div>
-      </div>
+      <div class="legal"><a href="#">T&eacute;rminos</a> | <a href="#">Privacidad</a> | <a href="#">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
     </div>
 
-    <!-- Sticky CTA -->
+    <!-- Sticky CTA: single button -->
     <div class="sticky-cta">
-      <button class="cta-btn" onclick="document.getElementById('ticket-section').scrollIntoView({behavior:'smooth',block:'start'})">Tickets</button>
+      <button class="cta-btn" id="sticky-btn">Tickets</button>
     </div>
-
   </div>
 
   <script>
-    const unitPrice = 559.70;
-    const countEl = document.getElementById('room-count');
-    const ctaBtn = document.getElementById('cta-buy');
+    // ========== DATA ==========
+    const DATA = {
+      "2": {
+        "3": {
+          "hotel": {
+            "AC": [
+              { name: "Habitaci\u00f3n Doble", price: 559.70 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Habitaci\u00f3n Doble", price: 620.00 },
+              { name: "Suite Junior", price: 890.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Estudio (2 pax)", price: 480.00 },
+            ],
+            "Garona": [
+              { name: "Apartamento 1 dormitorio", price: 520.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "AC": [
+              { name: "Habitaci\u00f3n Doble", price: 420.50 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Habitaci\u00f3n Doble", price: 480.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Estudio (2 pax)", price: 360.00 },
+            ]
+          }
+        }
+      },
+      "3": {
+        "3": {
+          "hotel": {
+            "Tuc Blanc": [
+              { name: "Habitaci\u00f3n Doble + 1 supletorio", price: 422.60 },
+              { name: "Habitaci\u00f3n Doble + 1 supletorio - Oferta", price: 428.60, soldout: true },
+            ],
+            "Garona": [
+              { name: "Triple", price: 510.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Apartamento 1 dormitorio + supletorio", price: 540.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "Tuc Blanc": [
+              { name: "Habitaci\u00f3n Doble + 1 supletorio", price: 340.00 },
+            ],
+            "Garona": [
+              { name: "Triple", price: 390.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Apartamento 1 dormitorio + supletorio", price: 420.00 },
+            ]
+          }
+        }
+      },
+      "4": {
+        "3": {
+          "hotel": {
+            "AC": [
+              { name: "2x Habitaci\u00f3n Doble", price: 559.70 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Suite Familiar", price: 980.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Apartamento 2 dormitorios", price: 680.00 },
+            ],
+            "Garona": [
+              { name: "Apartamento 2 dormitorios", price: 720.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "AC": [
+              { name: "2x Habitaci\u00f3n Doble", price: 420.50 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Apartamento 2 dormitorios", price: 520.00 },
+            ]
+          }
+        }
+      }
+    };
 
-    function updatePrice() {
-      const count = parseInt(countEl.textContent);
-      const total = (count * unitPrice).toFixed(2).replace('.', ',');
-      ctaBtn.textContent = total + ' \u20AC \u2014 Comprar ahora';
-      document.getElementById('room-row').classList.toggle('selected', count > 0);
-      ctaBtn.style.opacity = count > 0 ? '1' : '0.5';
-      ctaBtn.style.pointerEvents = count > 0 ? 'auto' : 'none';
+    // ========== STATE ==========
+    let state = { travelers: "2", nights: "3", type: "hotel", name: null };
+    let roomCounts = {};
+
+    // ========== ELEMENTS ==========
+    const stickyBtn = document.getElementById('sticky-btn');
+    const ticketSection = document.getElementById('ticket-section');
+    const levelName = document.getElementById('level-name');
+    const roomRowsEl = document.getElementById('room-rows');
+    let stickyMode = 'tickets';
+
+    // ========== STICKY CTA ==========
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { stickyMode = 'getit'; updateSticky(); }
+        else { stickyMode = 'tickets'; stickyBtn.textContent = 'Tickets'; stickyBtn.style.opacity = '1'; }
+      });
+    }, { threshold: 0.1 });
+    obs.observe(ticketSection);
+
+    stickyBtn.addEventListener('click', () => {
+      if (stickyMode === 'tickets') {
+        ticketSection.scrollIntoView({ behavior:'smooth', block:'start' });
+      } else {
+        if (getTotal() > 0) window.location.href = 'checkout.html';
+      }
+    });
+
+    function updateSticky() {
+      if (stickyMode !== 'getit') return;
+      const total = getTotal();
+      if (total > 0) {
+        stickyBtn.textContent = formatPrice(total) + ' \u20AC \u2014 Comprar ahora';
+        stickyBtn.style.opacity = '1';
+      } else {
+        stickyBtn.textContent = '0,00 \u20AC \u2014 Comprar ahora';
+        stickyBtn.style.opacity = '0.5';
+      }
     }
 
-    document.getElementById('room-plus').addEventListener('click', () => {
-      countEl.textContent = parseInt(countEl.textContent) + 1;
-      updatePrice();
-    });
-    document.getElementById('room-minus').addEventListener('click', () => {
-      const val = parseInt(countEl.textContent);
-      if (val > 0) { countEl.textContent = val - 1; updatePrice(); }
-    });
+    function formatPrice(n) {
+      return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 
-    // Pill switching per level
-    document.querySelectorAll('.pill-level').forEach(level => {
+    function getTotal() {
+      let total = 0;
+      const rooms = getCurrentRooms();
+      rooms.forEach((r, i) => {
+        if (!r.soldout) total += (roomCounts[i] || 0) * r.price;
+      });
+      return total;
+    }
+
+    // ========== DATA LOOKUP ==========
+    function getNames() {
+      const d = DATA[state.travelers]?.[state.nights]?.[state.type];
+      return d ? Object.keys(d) : [];
+    }
+
+    function getCurrentRooms() {
+      if (!state.name) return [];
+      return DATA[state.travelers]?.[state.nights]?.[state.type]?.[state.name] || [];
+    }
+
+    // ========== RENDER ==========
+    function renderNamePills() {
+      const names = getNames();
+      // Clear existing pills (keep arrows)
+      const arrows = levelName.querySelectorAll('.pill-arrow');
+      levelName.innerHTML = '';
+      if (arrows[0]) levelName.appendChild(arrows[0]);
+
+      if (names.length === 0) { state.name = null; renderRooms(); return; }
+      if (!names.includes(state.name)) state.name = names[0];
+
+      names.forEach(n => {
+        const pill = document.createElement('div');
+        pill.className = 'ticket-pill' + (n === state.name ? ' active' : '');
+        pill.textContent = n;
+        pill.addEventListener('click', () => {
+          state.name = n;
+          roomCounts = {};
+          renderNamePills();
+        });
+        levelName.appendChild(pill);
+      });
+
+      // Right arrow
+      const rightArrow = document.createElement('div');
+      rightArrow.className = 'pill-arrow';
+      rightArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+      levelName.appendChild(rightArrow);
+
+      renderRooms();
+    }
+
+    function renderRooms() {
+      roomRowsEl.innerHTML = '';
+      const rooms = getCurrentRooms();
+      const travelers = parseInt(state.travelers);
+
+      rooms.forEach((room, i) => {
+        if (!(i in roomCounts)) roomCounts[i] = 0;
+
+        const row = document.createElement('div');
+        row.className = 'ticket-row' + (room.soldout ? ' soldout' : '') + (roomCounts[i] > 0 ? ' selected' : '');
+
+        row.innerHTML = `
+          <div class="ticket-content">
+            <div class="ticket-name">${room.name}</div>
+            <div class="ticket-price">${formatPrice(room.price)} \u20AC</div>
+          </div>
+          <span class="soldout-tag">Agotado</span>
+          <div class="ticket-amount">
+            <button class="amt-btn minus">\u2212</button>
+            <span class="amt-count">${roomCounts[i]}</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        `;
+
+        if (!room.soldout) {
+          row.querySelector('.amt-btn.plus').addEventListener('click', () => {
+            roomCounts[i]++;
+            renderRooms();
+          });
+          row.querySelector('.amt-btn.minus').addEventListener('click', () => {
+            if (roomCounts[i] > 0) roomCounts[i]--;
+            renderRooms();
+          });
+        }
+
+        roomRowsEl.appendChild(row);
+      });
+
+      updateSticky();
+    }
+
+    // ========== PILL EVENTS ==========
+    function setupLevel(id, stateKey) {
+      const level = document.getElementById(id);
       level.querySelectorAll('.ticket-pill').forEach(pill => {
         pill.addEventListener('click', () => {
           level.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
           pill.classList.add('active');
+          state[stateKey] = pill.dataset.value;
+          roomCounts = {};
+          state.name = null;
+          renderNamePills();
         });
       });
-    });
+    }
 
-    updatePrice();
+    setupLevel('level-travelers', 'travelers');
+    setupLevel('level-nights', 'nights');
+    setupLevel('level-type', 'type');
+
+    // Initial render
+    renderNamePills();
   </script>
 </body>
 </html>
