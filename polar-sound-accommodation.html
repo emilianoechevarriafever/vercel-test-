@@ -55,14 +55,7 @@
     .hero .dots span.active { background:white; }
 
     .title-section { padding:16px; }
-    .tag-selling { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#fff3e0; border-radius:4px; color:#e65100; font-size:12px; font-weight:600; margin-bottom:12px; }
-    .tag-selling svg { width:14px; height:14px; }
-    .rating-row { display:flex; align-items:center; gap:6px; margin-bottom:8px; }
-    .rating-row .stars { color:#f5a623; font-size:14px; }
-    .rating-row .score { font-weight:600; font-size:14px; }
-    .rating-row .count { font-size:14px; color:var(--color-text-secondary); }
-    .venue-row { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--color-text-secondary); margin-bottom:8px; }
-    .venue-row svg { width:18px; height:18px; flex-shrink:0; }
+    .tag-selling { display:inline-flex; align-items:center; padding:10px 18px; background:#e65100; border-radius:8px; color:white; font-size:14px; font-weight:700; margin-bottom:12px; }
     .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
     .divider { height:1px; background:var(--color-border); margin:0 16px; }
 
@@ -80,12 +73,13 @@
     .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
 
     /* Pill levels */
-    .pill-level { display:flex; gap:12px; align-items:center; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; scrollbar-width:none; }
+    .pill-level { display:flex; gap:12px; align-items:center; justify-content:center; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; scrollbar-width:none; }
     .pill-level::-webkit-scrollbar { display:none; }
     .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
     .ticket-pill.disabled { color:var(--color-text-disable); border-color:#eee; pointer-events:none; }
-    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:none; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow.visible { display:flex; }
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
 
     /* Ticket rows — coupon style */
@@ -95,9 +89,9 @@
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
     .ticket-row .ticket-more { font-size:12px; font-weight:600; color:var(--color-primary); padding:4px 0; cursor:pointer; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); margin-top:auto; }
-    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 8px 8px 0; background:var(--color-bg-disable); position:relative; }
+    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 8px 8px 0; background:white; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; background:white; border-radius:100px; padding:4px; }
-    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s; background:var(--color-bg-disable); color:var(--color-text); }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s; background:white; color:var(--color-text); border:1px solid var(--color-border-light); }
     .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
 
     /* Selected state */
@@ -107,8 +101,8 @@
 
     /* Ticket notch divider */
     .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:16px; display:flex; flex-direction:column; align-items:center; pointer-events:none; z-index:2; }
-    .ticket-notch::before { content:''; position:absolute; top:-8px; width:16px; height:16px; border-radius:50%; background:#f5f5f5; border:1.5px solid var(--color-border-light); }
-    .ticket-notch::after { content:''; position:absolute; bottom:-8px; width:16px; height:16px; border-radius:50%; background:#f5f5f5; border:1.5px solid var(--color-border-light); }
+    .ticket-notch::before { content:''; position:absolute; top:-4px; left:4px; width:4px; height:8px; border-left:1.5px solid var(--color-border-light); border-top-left-radius:8px; border-bottom-left-radius:8px; background:transparent; }
+    .ticket-notch::after { content:''; position:absolute; bottom:-4px; left:4px; width:4px; height:8px; border-left:1.5px solid var(--color-border-light); border-top-left-radius:8px; border-bottom-left-radius:8px; background:transparent; }
     .ticket-notch .notch-line { position:absolute; top:12px; bottom:12px; width:0; border-left:1.5px dashed var(--color-border-light); }
     .ticket-row.selected .ticket-notch::before,
     .ticket-row.selected .ticket-notch::after { border-color:var(--color-primary); }
@@ -122,7 +116,7 @@
     .ticket-row .soldout-tag { display:none; position:absolute; right:12px; top:50%; transform:translateY(-50%); background:var(--color-bg-disable); color:var(--color-text-disable); font-size:12px; font-weight:600; padding:6px 14px; border-radius:4px; }
     .ticket-row.soldout .soldout-tag { display:block; }
 
-    .selling-fast-banner { display:flex; align-items:center; justify-content:center; gap:6px; background:#fef3e2; border-radius:8px; padding:10px; margin:4px 0 20px; font-size:14px; font-weight:500; color:var(--color-text); }
+    .selling-fast-banner { display:flex; align-items:center; padding:10px 18px; background:#e65100; border-radius:8px; margin:4px 0 20px; font-size:14px; font-weight:700; color:white; }
     .cta-primary { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; display:none; }
     .cta-primary:hover { background:#006bb3; }
     .cta-secondary { width:100%; height:48px; background:white; border:1.5px solid var(--color-border); border-radius:100px; color:var(--color-text); font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
@@ -193,19 +187,7 @@
     </div>
 
     <div class="title-section">
-      <div class="tag-selling">
-        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l2.3 5.1H16l-4.6 3.5 1.7 5.4L8 10.8 2.9 14l1.7-5.4L0 5.1h5.7z"/></svg>
-        Tickets Selling Fast
-      </div>
-      <div class="rating-row">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-        <span class="score">4.5</span>
-        <span class="count">(462)</span>
-      </div>
-      <div class="venue-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-        Baqueira Beret Ski Resort
-      </div>
+      <div class="tag-selling">Tickets Selling Fast</div>
       <h1>Polar Sound Occident 2026: Passes &amp; Accommodation</h1>
     </div>
 
@@ -261,7 +243,7 @@
       <div id="room-rows"></div>
 
       <!-- Selling fast -->
-      <div class="selling-fast-banner">&#128293; Tickets Selling Fast!</div>
+      <div class="selling-fast-banner">Tickets Selling Fast</div>
 
       <!-- Inline CTA (hidden, sticky handles it) -->
       <button class="cta-primary" id="cta-inline"></button>
@@ -303,13 +285,16 @@
       <div class="legal"><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
     </div>
 
-    <!-- Sticky CTA: single button -->
+    <!-- Sticky CTA: single button (label: Accommodations until selector is seen, then "Get it") -->
     <div class="sticky-cta">
-      <button class="cta-btn" id="sticky-btn">Tickets</button>
+      <button class="cta-btn" id="sticky-btn">Accommodations</button>
     </div>
   </div>
 
   <script>
+    // Ensure accommodation PV CTA never shows "Tickets"
+    document.getElementById('sticky-btn').textContent = 'Accommodations';
+
     // ========== DATA ==========
     const DATA = {
       "2": {
@@ -436,7 +421,7 @@
           updateSticky();
         } else if (!hasSeenTickets) {
           stickyMode = 'tickets';
-          stickyBtn.textContent = 'Tickets';
+          stickyBtn.textContent = 'Accommodations';
           stickyBtn.style.opacity = '1';
         } else {
           stickyMode = 'getit';
@@ -544,6 +529,7 @@
       levelName.appendChild(rightArrow);
 
       renderRooms();
+      if (typeof updatePillsArrows === 'function') updatePillsArrows();
     }
 
     function renderRooms(autoSelect) {
@@ -625,8 +611,18 @@
     setupLevel('level-nights', 'nights');
     setupLevel('level-type', 'type');
 
+    // Show pill arrow in a row only when that row overflows to the right
+    function updatePillsArrows() {
+      document.querySelectorAll('.pill-level').forEach(level => {
+        const arrow = level.querySelector('.pill-arrow');
+        if (arrow) arrow.classList.toggle('visible', level.scrollWidth > level.clientWidth);
+      });
+    }
+
     // Initial render
     renderNamePills();
+    updatePillsArrows();
+    window.addEventListener('resize', updatePillsArrows);
   </script>
 </body>
 </html>

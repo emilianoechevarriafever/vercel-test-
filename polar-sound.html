@@ -73,14 +73,7 @@
 
     /* === TITLE SECTION === */
     .title-section { padding:16px; }
-    .tag-selling { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#fff3e0; border-radius:4px; color:#e65100; font-size:12px; font-weight:600; margin-bottom:12px; }
-    .tag-selling svg { width:14px; height:14px; }
-    .rating-row { display:flex; align-items:center; gap:6px; margin-bottom:8px; }
-    .rating-row .stars { color:#f5a623; font-size:14px; }
-    .rating-row .score { font-weight:600; font-size:14px; }
-    .rating-row .count { font-size:14px; color:var(--color-text-secondary); }
-    .venue-row { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--color-text-secondary); margin-bottom:8px; }
-    .venue-row svg { width:18px; height:18px; flex-shrink:0; }
+    .tag-selling { display:inline-flex; align-items:center; padding:10px 18px; background:#e65100; border-radius:8px; color:white; font-size:14px; font-weight:700; margin-bottom:12px; }
     .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
     .divider { height:1px; background:var(--color-border); margin:0 16px; }
 
@@ -106,11 +99,12 @@
     .no-fees-banner span { font-size:14px; font-weight:500; color:var(--color-text); }
 
     /* Ticket type pills */
-    .ticket-pills { display:flex; gap:12px; align-items:center; margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
+    .ticket-pills { display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
     .ticket-pills::-webkit-scrollbar { display:none; }
     .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
-    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:none; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow.visible { display:flex; }
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
 
     /* Ticket rows — coupon style */
@@ -119,9 +113,9 @@
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
     .ticket-row .ticket-more { font-size:12px; font-weight:600; color:var(--color-primary); padding:4px 0; cursor:pointer; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); margin-top:auto; }
-    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 8px 8px 0; background:var(--color-bg-disable); position:relative; }
+    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 8px 8px 0; background:white; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; background:white; border-radius:100px; padding:4px; }
-    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s; background:var(--color-bg-disable); color:var(--color-text); }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s; background:white; color:var(--color-text); border:1px solid var(--color-border-light); }
     .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
 
     /* Selected state */
@@ -129,17 +123,17 @@
     .ticket-row.selected .ticket-selector-right { border-color:var(--color-primary); background:var(--color-primary-weak); }
     .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:var(--color-primary); }
 
-    /* Ticket notch divider (dashed line with circles) */
+    /* Ticket notch: dashed line with inward semicircles (no fill, no outer line) */
     .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:16px; display:flex; flex-direction:column; align-items:center; pointer-events:none; z-index:2; }
-    .ticket-notch::before { content:''; position:absolute; top:-8px; width:16px; height:16px; border-radius:50%; background:#f5f5f5; border:1.5px solid var(--color-border-light); }
-    .ticket-notch::after { content:''; position:absolute; bottom:-8px; width:16px; height:16px; border-radius:50%; background:#f5f5f5; border:1.5px solid var(--color-border-light); }
+    .ticket-notch::before { content:''; position:absolute; top:-4px; left:4px; width:4px; height:8px; border-left:1.5px solid var(--color-border-light); border-top-left-radius:8px; border-bottom-left-radius:8px; background:transparent; }
+    .ticket-notch::after { content:''; position:absolute; bottom:-4px; left:4px; width:4px; height:8px; border-left:1.5px solid var(--color-border-light); border-top-left-radius:8px; border-bottom-left-radius:8px; background:transparent; }
     .ticket-notch .notch-line { position:absolute; top:12px; bottom:12px; width:0; border-left:1.5px dashed var(--color-border-light); }
     .ticket-row.selected .ticket-notch::before,
     .ticket-row.selected .ticket-notch::after { border-color:var(--color-primary); }
     .ticket-row.selected .notch-line { border-color:var(--color-primary); }
 
     /* Selling fast banner */
-    .selling-fast-banner { display:flex; align-items:center; justify-content:center; gap:6px; background:#fef3e2; border-radius:8px; padding:10px; margin:16px 0 20px; font-size:14px; font-weight:500; color:var(--color-text); }
+    .selling-fast-banner { display:flex; align-items:center; padding:10px 18px; background:#e65100; border-radius:8px; margin:16px 0 20px; font-size:14px; font-weight:700; color:white; }
 
     /* CTA Buttons */
     .cta-primary { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; }
@@ -235,19 +229,7 @@
 
     <!-- Title Section -->
     <div class="title-section">
-      <div class="tag-selling">
-        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l2.3 5.1H16l-4.6 3.5 1.7 5.4L8 10.8 2.9 14l1.7-5.4L0 5.1h5.7z"/></svg>
-        Tickets Selling Fast
-      </div>
-      <div class="rating-row">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-        <span class="score">4.5</span>
-        <span class="count">(462)</span>
-      </div>
-      <div class="venue-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-        Baqueira Beret Ski Resort
-      </div>
+      <div class="tag-selling">Tickets Selling Fast</div>
       <h1>Polar Sound Occident Festival 2026 - Passes</h1>
     </div>
 
@@ -301,10 +283,10 @@
       </div>
 
       <!-- Type pills -->
-      <div class="ticket-pills">
+      <div class="ticket-pills" id="ticket-pills-row">
         <div class="ticket-pill active">Day Ticket</div>
         <div class="ticket-pill">2 Day Pass</div>
-        <div class="pill-arrow">
+        <div class="pill-arrow" id="pills-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
@@ -375,9 +357,7 @@
       </div>
 
       <!-- Selling Fast banner -->
-      <div class="selling-fast-banner">
-        &#128293; Tickets Selling Fast
-      </div>
+      <div class="selling-fast-banner">Tickets Selling Fast</div>
 
       <!-- CTA buttons -->
       <button class="cta-primary" id="cta-get-it" onclick="window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
@@ -657,6 +637,16 @@
 
     // Initial pre-selection
     updateTotal();
+
+    // Show pills arrow only when there is overflow to the right
+    function updatePillsArrow() {
+      const row = document.getElementById('ticket-pills-row');
+      const arrow = document.getElementById('pills-arrow');
+      if (!row || !arrow) return;
+      arrow.classList.toggle('visible', row.scrollWidth > row.clientWidth);
+    }
+    updatePillsArrow();
+    window.addEventListener('resize', updatePillsArrow);
   </script>
 </body>
 </html>
