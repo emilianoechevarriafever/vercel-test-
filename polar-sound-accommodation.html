@@ -73,7 +73,7 @@
     .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
 
     /* Pill levels */
-    .pill-level { display:flex; gap:12px; align-items:center; justify-content:center; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; scrollbar-width:none; }
+    .pill-level { display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x; }
     .pill-level::-webkit-scrollbar { display:none; }
     .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
@@ -285,15 +285,14 @@
       <div class="legal"><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
     </div>
 
-    <!-- Sticky CTA: single button (label: Accommodations until selector is seen, then "Get it") -->
+    <!-- Sticky CTA: "Select accommodations" → scroll; then "Skip" or "€X — Get it" -->
     <div class="sticky-cta">
-      <button class="cta-btn" id="sticky-btn">Accommodations</button>
+      <button class="cta-btn" id="sticky-btn">Select accommodations</button>
     </div>
   </div>
 
   <script>
-    // Ensure accommodation PV CTA never shows "Tickets"
-    document.getElementById('sticky-btn').textContent = 'Accommodations';
+    document.getElementById('sticky-btn').textContent = 'Select accommodations';
 
     // ========== DATA ==========
     const DATA = {
@@ -421,7 +420,7 @@
           updateSticky();
         } else if (!hasSeenTickets) {
           stickyMode = 'tickets';
-          stickyBtn.textContent = 'Accommodations';
+          stickyBtn.textContent = 'Select accommodations';
           stickyBtn.style.opacity = '1';
         } else {
           stickyMode = 'getit';
@@ -437,6 +436,10 @@
       } else {
         if (getTotal() > 0) {
           saveAccommodationToCart();
+          window.location.href = 'checkout.html';
+        } else {
+          // Skip: go to checkout without accommodation
+          localStorage.setItem('cart_accommodation', '[]');
           window.location.href = 'checkout.html';
         }
       }
@@ -470,8 +473,8 @@
         stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
         stickyBtn.style.opacity = '1';
       } else {
-        stickyBtn.textContent = '\u20AC0.00 \u2014 Get it';
-        stickyBtn.style.opacity = '0.5';
+        stickyBtn.textContent = 'Skip';
+        stickyBtn.style.opacity = '1';
       }
     }
 
@@ -532,25 +535,9 @@
       if (typeof updatePillsArrows === 'function') updatePillsArrows();
     }
 
-    function renderRooms(autoSelect) {
+    function renderRooms() {
       roomRowsEl.innerHTML = '';
       const rooms = getCurrentRooms();
-
-      // Auto-select cheapest non-sold-out room if fresh render
-      if (autoSelect !== false) {
-        const hasAny = Object.values(roomCounts).some(v => v > 0);
-        if (!hasAny && rooms.length > 0) {
-          let cheapestIdx = -1;
-          let cheapestPrice = Infinity;
-          rooms.forEach((r, i) => {
-            if (!r.soldout && r.price < cheapestPrice) {
-              cheapestPrice = r.price;
-              cheapestIdx = i;
-            }
-          });
-          if (cheapestIdx >= 0) roomCounts[cheapestIdx] = 1;
-        }
-      }
 
       rooms.forEach((room, i) => {
         if (!(i in roomCounts)) roomCounts[i] = 0;
@@ -578,11 +565,11 @@
         if (!room.soldout) {
           row.querySelector('.amt-btn.plus').addEventListener('click', () => {
             roomCounts[i]++;
-            renderRooms(false);
+            renderRooms();
           });
           row.querySelector('.amt-btn.minus').addEventListener('click', () => {
             if (roomCounts[i] > 0) roomCounts[i]--;
-            renderRooms(false);
+            renderRooms();
           });
         }
 
