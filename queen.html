@@ -6,7 +6,7 @@
   <title>Candlelight: Tribute to Queen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,800&family=Red+Hat+Text:wght@400;500;650;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -20,12 +20,11 @@
       --color-bg-neutral: #f2f3f3;
       --color-danger: #18824c;
       --color-warning: #ff8c00;
-      --font-body: 'Red Hat Text', sans-serif;
-      --font-ui: 'Montserrat', sans-serif;
+      --font: 'Montserrat', sans-serif;
     }
 
     body {
-      font-family: var(--font-body);
+      font-family: var(--font);
       background: #f5f5f5;
       display: flex;
       justify-content: center;
@@ -74,8 +73,8 @@
       top: 0;
       z-index: 100;
     }
-    .navbar .logo-link { text-decoration: none; }
-    .navbar .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-style: italic; font-size: 26px; color: #06232c; letter-spacing: -0.5px; line-height: 1; }
+    .navbar .logo-link { text-decoration: none; display: flex; align-items: center; }
+    .navbar .logo-link img { height: 22px; width: auto; }
     .navbar .nav-icons {
       display: flex;
       align-items: center;
@@ -143,7 +142,7 @@
       border: none;
       border-radius: 4px;
       padding: 6px 12px;
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-weight: 600;
       font-size: 14px;
       cursor: pointer;
@@ -211,7 +210,7 @@
       padding: 8px 16px 12px;
     }
     .plan-title h1 {
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-size: 20px;
       font-weight: 650;
       line-height: 28px;
@@ -228,7 +227,7 @@
       background: var(--color-accent);
       border-radius: 4px;
       color: white;
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-size: 12px;
       line-height: 16px;
     }
@@ -282,7 +281,7 @@
       position: relative;
       z-index: 1;
       color: white;
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-size: 14px;
       line-height: 18px;
     }
@@ -321,7 +320,7 @@
     /* ===== DESCRIPTION ===== */
     .description {
       padding: 24px 16px;
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-size: 16px;
       line-height: 22px;
       color: var(--color-text-main);
@@ -354,7 +353,7 @@
     }
     .section-header svg { width: 24px; height: 24px; flex-shrink: 0; }
     .section-header h2 {
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-size: 18px;
       font-weight: 400;
       line-height: 24px;
@@ -378,7 +377,7 @@
     }
     .banner svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--color-accent); }
     .banner span {
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-size: 14px;
       color: var(--color-text-main);
     }
@@ -487,13 +486,13 @@
     }
     .ticket-row .ticket-name {
       flex: 1;
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
     }
     .ticket-row .ticket-price {
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
@@ -531,7 +530,7 @@
       color: var(--color-text-main);
     }
     .stepper .count {
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-size: 20px;
       line-height: 28px;
       text-align: center;
@@ -575,7 +574,7 @@
       margin-bottom: 32px;
     }
     .footer-col h3 {
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-weight: 650;
       font-size: 16px;
       line-height: 22px;
@@ -619,13 +618,13 @@
     }
     .footer .legal a {
       color: white;
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-size: 14px;
       line-height: 20px;
       text-decoration: underline;
     }
     .footer .legal span {
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-size: 14px;
       line-height: 20px;
     }
@@ -664,7 +663,7 @@
       border: none;
       border-radius: 64px;
       color: white;
-      font-family: var(--font-ui);
+      font-family: var(--font);
       font-weight: 600;
       font-size: 16px;
       cursor: pointer;
@@ -714,7 +713,7 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-      <a href="index.html" class="logo-link"><span class="logo-text">fever</span></a>
+      <a href="index.html" class="logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
       <div class="nav-icons">
         <!-- Search -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
