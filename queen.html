@@ -608,13 +608,14 @@
       border: 1px solid #e0e0e0;
       background: white;
       margin-bottom: 12px;
-      overflow: hidden;
+      overflow: visible;
       position: relative;
     }
     .ticket-card.active {
-      background: #e6f2ff;
       border-color: #0079ca;
     }
+    .ticket-card.active .ticket-card-left { background: white; }
+    .ticket-card.active .ticket-card-right { background: #e6f2ff; }
     .ticket-card-left {
       flex: 1;
       padding: 14px 12px 14px 16px;
@@ -623,6 +624,7 @@
       justify-content: center;
       gap: 4px;
       min-width: 0;
+      background: white;
     }
     .ticket-card-left .ticket-title {
       font-family: var(--font-ui);
@@ -646,38 +648,42 @@
       line-height: 22px;
       color: var(--color-text-main);
     }
-    /* Dashed divider with inward semicircular notches */
+    /* Dashed divider with inward semicircular notches (cutouts into the border) */
     .ticket-card-divider {
-      width: 12px;
+      width: 14px;
       flex-shrink: 0;
       position: relative;
       display: flex;
       justify-content: center;
+      background: transparent;
     }
     .ticket-card-divider::before {
       content: '';
       position: absolute;
-      left: 5px;
+      left: 6px;
       top: 0;
       bottom: 0;
       width: 0;
       border-left: 1px dashed #b0b0b0;
     }
     .ticket-card.active .ticket-card-divider::before { border-left-color: #0079ca; }
+    /* Inward-facing semicircle notches: circles split left/right to match sections, overlapping border */
     .ticket-card-divider .notch-top,
     .ticket-card-divider .notch-bottom {
       position: absolute;
-      left: 0;
-      width: 12px;
-      height: 12px;
-      background: white;
+      left: -1px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      z-index: 1;
+      z-index: 2;
+      background: linear-gradient(to right, white 50%, #e8e8e8 50%);
     }
-    .ticket-card-divider .notch-top { top: -6px; }
-    .ticket-card-divider .notch-bottom { bottom: -6px; }
+    .ticket-card-divider .notch-top { top: -7px; }
+    .ticket-card-divider .notch-bottom { bottom: -7px; }
     .ticket-card.active .ticket-card-divider .notch-top,
-    .ticket-card.active .ticket-card-divider .notch-bottom { background: #e6f2ff; }
+    .ticket-card.active .ticket-card-divider .notch-bottom {
+      background: linear-gradient(to right, white 50%, #e6f2ff 50%);
+    }
     .ticket-card-right {
       width: 100px;
       flex-shrink: 0;
@@ -685,6 +691,7 @@
       align-items: center;
       justify-content: center;
       padding: 12px 16px 12px 12px;
+      background: #f5f5f5;
     }
     .ticket-qty {
       display: flex;
