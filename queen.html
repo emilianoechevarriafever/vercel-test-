@@ -6,7 +6,7 @@
   <title>Candlelight: Tribute to Queen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Red+Hat+Text:wght@400;500;650;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,800&family=Red+Hat+Text:wght@400;500;650;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -74,11 +74,8 @@
       top: 0;
       z-index: 100;
     }
-    .navbar .logo {
-      height: 24px;
-      width: auto;
-      object-fit: contain;
-    }
+    .navbar .logo-link { text-decoration: none; }
+    .navbar .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-style: italic; font-size: 26px; color: #06232c; letter-spacing: -0.5px; line-height: 1; }
     .navbar .nav-icons {
       display: flex;
       align-items: center;
@@ -717,7 +714,7 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-      <a href="index.html"><img class="logo" src="https://www.figma.com/api/mcp/asset/2d837376-2d05-400a-92df-699043758961" alt="Fever"></a>
+      <a href="index.html" class="logo-link"><span class="logo-text">fever</span></a>
       <div class="nav-icons">
         <!-- Search -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
