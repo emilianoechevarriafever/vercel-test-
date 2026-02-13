@@ -95,7 +95,13 @@
     .ticket-row { display:flex; align-items:stretch; min-height:96px; margin-bottom:16px; position:relative; border-radius:8px; }
     .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; gap:8px; border:1.5px solid var(--color-border-light); border-right:none; border-radius:8px 0 0 8px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
-    .ticket-row .ticket-more { font-size:12px; font-weight:600; color:var(--color-primary); text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; }
+    .ticket-row .ticket-more,
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; color:var(--color-primary); text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; background:none; border:none; font-family:var(--font); }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:13px; line-height:20px; color:var(--color-text); }
+    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
+    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
+    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
+    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); margin-top:auto; }
     .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 8px 8px 0; background:white; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; background:white; border-radius:100px; padding:4px; }
@@ -578,7 +584,15 @@
         row.innerHTML = `
           <div class="ticket-content">
             <div class="ticket-name">${room.name}</div>
-            <div class="ticket-more">More info</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Accommodation for your trip, includes:</div>
+              <ul>
+                <li>2-day festival pass (access to both days)</li>
+                <li>Check-in from 15:00, check-out before 12:00</li>
+                <li>Free cancellation until 48h before arrival</li>
+              </ul>
+            </div>
             <div class="ticket-price">\u20AC${formatPrice(room.price)}</div>
           </div>
           <span class="soldout-tag">Sold out</span>
@@ -604,6 +618,17 @@
         }
 
         roomRowsEl.appendChild(row);
+      });
+
+      // More info / Less info toggle (same as tickets PV)
+      roomRowsEl.querySelectorAll('.ticket-info-toggle').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const row = this.closest('.ticket-row');
+          const expanded = row.classList.toggle('ticket-info-expanded');
+          this.textContent = expanded ? 'Less info' : 'More info';
+          this.setAttribute('aria-expanded', expanded);
+        });
       });
 
       updateSticky();
