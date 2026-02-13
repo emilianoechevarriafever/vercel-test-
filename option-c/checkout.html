@@ -53,7 +53,7 @@
     .event-summary .event-venue svg { width:12px; height:12px; flex-shrink:0; }
 
     /* Section */
-    .checkout-section { padding:16px; border-bottom:1px solid var(--color-border); }
+    .checkout-section { padding:16px; }
     .checkout-section h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
 
     /* Date Row */
@@ -82,18 +82,6 @@
     .sticky-pay .pay-btn:hover { background:#0066b3; }
     .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
     .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
-
-    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
-    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
-    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
-    .flow-stepper .step:last-child::after { display:none; }
-    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-secondary); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
-    .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
-    .flow-stepper .step.done .dot::before { content:'✓'; font-size:11px; }
-    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
-    .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
-    .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
-    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
 
     /* Payment Method */
     .payment-section { padding:16px; }
@@ -196,12 +184,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </div>
     </nav>
-    <div class="flow-stepper">
-      <div class="step done"><span class="dot"></span><span class="label">Tickets</span></div>
-      <div class="step done"><span class="dot"></span><span class="label">Accommodation</span></div>
-      <div class="step done"><span class="dot"></span><span class="label">Transport</span></div>
-      <div class="step current"><span class="dot">4</span><span class="label">Checkout</span></div>
-    </div>
     </header>
 
     <!-- Event Summary -->
