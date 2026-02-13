@@ -191,6 +191,34 @@
       border-radius: 4px;
       font-family: var(--font);
     }
+    /* Heart like button (Figma Donations 6648-11915) */
+    .card-like {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      padding: 0;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .card-like:hover { background: rgba(0,0,0,0.35); }
+    .card-like svg {
+      width: 18px;
+      height: 18px;
+      color: white;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+      transition: fill 0.2s;
+    }
+    .card-like.liked svg { fill: currentColor; color: #e3264c; filter: none; }
+    .card-like.liked:hover { background: rgba(227,38,76,0.15); }
     .event-card .card-title {
       margin-top: 8px;
       font-size: 13px;
@@ -245,6 +273,7 @@
       border-radius: 4px;
       font-family: var(--font);
     }
+    .featured-card .card-img .card-like { top: 8px; right: 8px; }
     .featured-card .card-title {
       margin-top: 8px;
       font-size: 14px;
@@ -369,6 +398,7 @@
         <!-- Card 1: POLAR SOUND - links to polar-sound.html -->
         <a href="polar-sound.html" class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="img/polar-sound-hero.png" alt="Polar Sound Occident 2026">
             <span class="rank">1</span>
           </div>
@@ -380,6 +410,7 @@
         <!-- Card 2: CANDLELIGHT QUEEN - links to queen.html -->
         <a href="queen.html" class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://www.figma.com/api/mcp/asset/ce91371a-0850-403b-a1ac-382ad4d6a985" alt="Candlelight: Tribute to Queen">
             <span class="card-badge">Fever Original</span>
             <span class="rank">2</span>
@@ -392,6 +423,7 @@
         <!-- Card 3 -->
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Brunch">
             <span class="rank">3</span>
           </div>
@@ -403,6 +435,7 @@
         <!-- Card 4 -->
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80" alt="Museo Banksy">
             <span class="rank">4</span>
           </div>
@@ -422,6 +455,7 @@
       <div class="card-scroll">
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Candlelight Vivaldi">
             <span class="card-badge">Fever Original</span>
           </div>
@@ -433,6 +467,7 @@
         <!-- Featured larger card -->
         <a href="queen.html" class="featured-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://www.figma.com/api/mcp/asset/7cfc8bff-289c-4301-aa1e-134204dcb25a" alt="Candlelight Queen vs ABBA">
             <span class="card-badge">Fever Original</span>
           </div>
@@ -443,6 +478,7 @@
 
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&q=80" alt="Jazz Room">
             <span class="card-badge">Fever Original</span>
           </div>
@@ -462,6 +498,7 @@
       <div class="card-scroll">
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=400&q=80" alt="We Will Rock You">
           </div>
           <div class="card-title">We Will Rock You - Musical</div>
@@ -471,6 +508,7 @@
 
         <a href="coldplay.html" class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://www.figma.com/api/mcp/asset/f8865e45-78be-4e4e-bc6a-4bc42045032c" alt="Candlelight Coldplay">
             <span class="card-badge">Fever Original</span>
           </div>
@@ -481,6 +519,7 @@
 
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80" alt="Flamenco">
           </div>
           <div class="card-title">Teatro Flamenco: Emociones Show</div>
@@ -499,6 +538,7 @@
       <div class="card-scroll">
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80" alt="F1 GP">
           </div>
           <div class="card-title">FORMULA 1&reg; Spanish Grand Prix 2026</div>
@@ -508,6 +548,7 @@
 
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80" alt="Candlelight Hans Zimmer">
             <span class="card-badge">Fever Original</span>
           </div>
@@ -518,6 +559,7 @@
 
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80" alt="Whitney Houston">
           </div>
           <div class="card-title">Whitney Houston Hologram Tour</div>
@@ -536,6 +578,7 @@
       <div class="card-scroll">
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=400&q=80" alt="Escape Room">
           </div>
           <div class="card-title">Chaos Lab - Madrid</div>
@@ -543,6 +586,7 @@
         </div>
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&q=80" alt="Machu Picchu">
           </div>
           <div class="card-title">Machu Picchu: Journey to the Lost City</div>
@@ -551,6 +595,7 @@
         </div>
         <div class="event-card">
           <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&q=80" alt="Parque Warner">
           </div>
           <div class="card-title">Parque Warner Madrid</div>
@@ -646,5 +691,14 @@
     </div>
 
   </div>
+  <script>
+    document.querySelectorAll('.card-like').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.classList.toggle('liked');
+      });
+    });
+  </script>
 </body>
 </html>
