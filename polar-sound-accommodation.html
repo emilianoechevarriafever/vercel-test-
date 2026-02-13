@@ -441,11 +441,10 @@
       } else {
         if (getTotal() > 0) {
           saveAccommodationToCart();
-          window.location.href = 'checkout.html';
+          window.location.href = 'polar-sound-transportations.html';
         } else {
-          // Skip: go to checkout without accommodation
           localStorage.setItem('cart_accommodation', '[]');
-          window.location.href = 'checkout.html';
+          window.location.href = 'polar-sound-transportations.html';
         }
       }
     });

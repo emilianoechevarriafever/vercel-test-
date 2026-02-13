@@ -207,6 +207,12 @@
       <div id="accommodation-items"></div>
     </div>
 
+    <!-- Transportation Section -->
+    <div class="checkout-section" id="section-transportation">
+      <h3>Transportation</h3>
+      <div id="transportation-items"></div>
+    </div>
+
     <!-- Price Details -->
     <div class="price-details">
       <h3>Price details</h3>
@@ -217,6 +223,10 @@
       <div class="price-row">
         <span class="price-label">Accommodation</span>
         <span class="price-val" id="subtotal-accommodation">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Transportation</span>
+        <span class="price-val" id="subtotal-transportation">&euro;0.00</span>
       </div>
       <div class="price-row">
         <span class="price-label">Fees</span>
@@ -335,6 +345,7 @@
     // ========== LOAD CART FROM LOCALSTORAGE ==========
     const tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]');
     const accommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+    const transportation = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
 
     const infoIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:#536b75;cursor:pointer;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
 
@@ -391,10 +402,37 @@
       });
     }
 
+    // Render transportation line items
+    let transportationTotal = 0;
+    const transportationItemsEl = document.getElementById('transportation-items');
+    const sectionTransportation = document.getElementById('section-transportation');
+    if (transportation.length === 0) {
+      sectionTransportation.style.display = 'none';
+    } else {
+      transportation.forEach(t => {
+        const lineTotal = t.price * (t.qty || 1);
+        transportationTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${(t.qty || 1)} x ${t.name} ${infoIcon}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        transportationItemsEl.appendChild(row);
+        if (t.detail) {
+          const detail = document.createElement('div');
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 8px;';
+          detail.textContent = t.detail;
+          transportationItemsEl.appendChild(detail);
+        }
+      });
+    }
+
     // Update price breakdown
-    const grandTotal = ticketTotal + accommodationTotal;
+    const grandTotal = ticketTotal + accommodationTotal + transportationTotal;
     document.getElementById('subtotal-tickets').textContent = formatEur(ticketTotal);
     document.getElementById('subtotal-accommodation').textContent = formatEur(accommodationTotal);
+    document.getElementById('subtotal-transportation').textContent = formatEur(transportationTotal);
     document.getElementById('grand-total').textContent = formatEur(grandTotal);
 
     // Update Pay button

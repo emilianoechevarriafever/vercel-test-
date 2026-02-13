@@ -87,6 +87,10 @@
       <h3>Accommodation</h3>
       <div id="accommodation-items"></div>
     </div>
+    <div class="cart-section" id="section-transportation">
+      <h3>Transportation</h3>
+      <div id="transportation-items"></div>
+    </div>
 
     <div class="cart-total">
       <span>Total</span>
@@ -101,20 +105,24 @@
   <script>
     let cartTickets = [];
     let cartAccommodation = [];
+    let cartTransportation = [];
 
     function loadCart() {
       try {
         cartTickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]');
         cartAccommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+        cartTransportation = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
       } catch (e) {
         cartTickets = [];
         cartAccommodation = [];
+        cartTransportation = [];
       }
     }
 
     function saveCart() {
       localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
       localStorage.setItem('cart_accommodation', JSON.stringify(cartAccommodation));
+      localStorage.setItem('cart_transportation', JSON.stringify(cartTransportation));
     }
 
     function renderItem(item, index, type) {
@@ -133,7 +141,7 @@
       const moreBtn = div.querySelector('.qty-wrap button:last-child');
       const removeBtn = div.querySelector('.btn-remove');
       function updateQty(delta) {
-        const arr = type === 'tickets' ? cartTickets : cartAccommodation;
+        const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
         arr[index].qty = Math.max(1, (arr[index].qty || 1) + delta);
         saveCart();
         render();
@@ -143,7 +151,7 @@
       qtyInput.addEventListener('change', function() {
         const v = parseInt(this.value, 10);
         if (!isNaN(v) && v >= 1) {
-          const arr = type === 'tickets' ? cartTickets : cartAccommodation;
+          const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
           arr[index].qty = v;
           saveCart();
           render();
@@ -151,7 +159,8 @@
       });
       removeBtn.addEventListener('click', () => {
         if (type === 'tickets') cartTickets.splice(index, 1);
-        else cartAccommodation.splice(index, 1);
+        else if (type === 'accommodation') cartAccommodation.splice(index, 1);
+        else cartTransportation.splice(index, 1);
         saveCart();
         render();
       });
@@ -168,18 +177,26 @@
         const p = parseFloat(String(item.price).replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
         t += p * (item.qty || 1);
       });
+      cartTransportation.forEach(item => {
+        const p = parseFloat(String(item.price).replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+        t += p * (item.qty || 1);
+      });
       return t;
     }
 
     function render() {
       const ticketContainer = document.getElementById('ticket-items');
       const accomContainer = document.getElementById('accommodation-items');
+      const transportContainer = document.getElementById('transportation-items');
       ticketContainer.innerHTML = '';
       accomContainer.innerHTML = '';
+      transportContainer.innerHTML = '';
       cartTickets.forEach((item, i) => ticketContainer.appendChild(renderItem(item, i, 'tickets')));
       cartAccommodation.forEach((item, i) => accomContainer.appendChild(renderItem(item, i, 'accommodation')));
+      cartTransportation.forEach((item, i) => transportContainer.appendChild(renderItem(item, i, 'transportation')));
       if (cartTickets.length === 0) ticketContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No passes in cart.</p>';
       if (cartAccommodation.length === 0) accomContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No accommodation in cart.</p>';
+      if (cartTransportation.length === 0) transportContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No transport in cart.</p>';
       document.getElementById('cart-grand-total').textContent = '€' + getTotal().toFixed(2);
     }
 
