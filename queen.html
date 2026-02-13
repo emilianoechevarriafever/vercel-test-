@@ -328,6 +328,7 @@
     .plan-title {
       padding: 8px 16px 12px;
     }
+    .plan-title .tickets-selling-fast-top { margin-bottom: 8px; }
     .plan-title h1 {
       font-family: var(--font-body);
       font-size: 20px;
@@ -569,24 +570,27 @@
       width: 100%;
     }
 
-    /* Ticket selling fast — above (Figma 37-19882 + ref: orange pill, white bold) */
+    /* Tickets Selling Fast — Figma 37-20538 (hero + ticket area) */
+    .tickets-selling-fast-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 20px;
+      padding: 4px 12px;
+      background: #df7b00;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: #031419;
+    }
     .tickets-selling-fast-top {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 10px 20px;
-      background: #E58D20;
-      border-radius: 999px;
+      justify-content: flex-start;
       margin-bottom: 16px;
     }
-    .tickets-selling-fast-top span {
-      font-family: var(--font-ui);
-      font-size: 14px;
-      font-weight: 700;
-      color: white;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
+    .tickets-selling-fast-top .tickets-selling-fast-badge { margin: 0; }
 
     /* Ticket selling fast — below (beige + flame) */
     .tickets-selling-fast-bottom {
@@ -1012,8 +1016,9 @@
       <div class="rounded-top"></div>
     </div>
 
-    <!-- Plan Title -->
+    <!-- Plan Title (hero below image) -->
     <div class="plan-title">
+      <div class="tickets-selling-fast-top"><span class="tickets-selling-fast-badge">Tickets Selling Fast</span></div>
       <h1>Candlelight: Tribute to Queen</h1>
       <div><span class="tag">Fever Exclusive</span></div>
     </div>
@@ -1118,9 +1123,9 @@
 
       <div class="divider" style="margin-bottom: 24px;"></div>
 
-      <!-- Tickets selling fast (above — orange pill, white bold) -->
+      <!-- Tickets selling fast (Figma 37-20538) -->
       <div class="tickets-selling-fast-top">
-        <span>¡Tickets volando!</span>
+        <span class="tickets-selling-fast-badge">Tickets Selling Fast</span>
       </div>
 
       <!-- Banner -->
