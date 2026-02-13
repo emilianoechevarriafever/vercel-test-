@@ -24,7 +24,8 @@
     body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); }
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; overflow-x:hidden; position:relative; }
 
-    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; position:sticky; top:0; z-index:100; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
     .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
     .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
     .nav-icons { display:flex; align-items:center; gap:16px; }
@@ -81,14 +82,14 @@
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; }
     .sticky-cta .cta-btn { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
 
-    .flow-stepper { position:sticky; top:56px; z-index:99; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
     .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
     .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
     .flow-stepper .step:last-child::after { display:none; }
     .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
     .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
-    .flow-stepper .step.done .dot::before { content:'✓'; font-size:11px; }
-    .flow-stepper .step.done.skipped .dot { background:var(--color-text-disable); }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:var(--color-primary); color:white; }
     .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
     .flow-stepper .step.done .label { color:var(--color-text-secondary); }
     .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
@@ -102,6 +103,7 @@
 <body>
   <div class="phone">
 
+    <header class="sticky-header">
     <nav class="navbar">
       <a href="#" id="nav-logo" class="logo-link"><img id="nav-logo-img" src="img/fever-logo.png" alt="Fever"></a>
       <div class="nav-icons">
@@ -112,13 +114,13 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </div>
     </nav>
-
     <div class="flow-stepper" id="flow-stepper">
       <a href="#" id="step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
       <a href="#" id="step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
       <div class="step current"><span class="dot">3</span><span class="label">Transport</span></div>
       <a href="#" id="step4" class="step"><span class="dot">4</span><span class="label" id="step4-label">Checkout</span></a>
     </div>
+    </header>
 
     <div class="hero">
       <img class="hero-bg" id="hero-img" src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" alt="Transport to festival">
