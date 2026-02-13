@@ -79,6 +79,18 @@
     .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
     .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
 
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-secondary); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'✓'; font-size:11px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
+    .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+
     /* Payment Method */
     .payment-section { padding:16px; }
     .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
@@ -175,13 +187,20 @@
       <img class="avatar" src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
     </nav>
 
+    <div class="flow-stepper">
+      <div class="step done"><span class="dot"></span><span class="label">Tickets</span></div>
+      <div class="step done"><span class="dot"></span><span class="label">Accommodation</span></div>
+      <div class="step done"><span class="dot"></span><span class="label">Transport</span></div>
+      <div class="step current"><span class="dot">4</span><span class="label">Checkout</span></div>
+    </div>
+
     <!-- Event Summary -->
     <div class="event-summary">
       <div class="event-thumb">
         <img src="img/polar-sound-hero.png" alt="Polar Sound Festival">
       </div>
       <div class="event-info">
-        <div class="event-name">Polar Sound 2026: Passes &amp; Accommodation</div>
+        <div class="event-name">Polar Sound 2026</div>
         <div class="event-venue">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           Baqueira Beret Ski Resort
