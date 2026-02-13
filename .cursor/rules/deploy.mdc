@@ -1,0 +1,21 @@
+---
+description: Deploy y remotos — evitar que los cambios no lleguen a Vercel
+globs:
+alwaysApply: true
+---
+
+# Deploy y remotos
+
+- **Vercel** despliega desde el repo **emilianoechevarriafever/vercel-test-** (remote `personal`).
+- **Feverup/test_emi** es el repo principal (remote `origin`).
+
+Cuando hagas **commit y push** (o el usuario pida "push" / "subir cambios"):
+
+1. Hacer push a **ambos** remotos para que Vercel y el repo principal estén al día:
+   ```bash
+   git push origin main
+   git push personal main
+   ```
+2. Si solo se pide "push", asumir que debe ir a **origin y personal** para que lo desplegado en Vercel coincida con el código.
+
+Así los cambios (p. ej. nuevas páginas como polar-sound-transportations.html) se ven en https://vercel-test-teal-one-54.vercel.app sin tener que acordarse de un segundo push manual.
