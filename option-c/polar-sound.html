@@ -143,6 +143,7 @@
     /* Active (selected): Figma 37-20045 — container #EBF3FE, buttons #F4F6F9 */
     .ticket-row.selected { border-color:var(--color-primary); }
     .ticket-row.selected .ticket-selector-right { background:#EBF3FE; border-radius:0 8px 8px 0; }
+    .ticket-row.selected .ticket-selector-right::before { content:''; position:absolute; left:-14px; top:0; bottom:0; width:14px; background:#EBF3FE; z-index:0; border-radius:8px 0 0 8px; }
     .ticket-row.selected .stepper { background:transparent; }
     .ticket-row.selected .amt-btn { background:#F4F6F9; color:var(--color-primary); }
     .ticket-row.selected .amt-btn.plus { background:#F4F6F9; color:var(--color-primary); }
