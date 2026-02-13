@@ -5,6 +5,7 @@
   "sources": [
     "Figma: Channel Filter (kbO5ndGZw55jpydY4o1Xdr)",
     "Figma: Feed Web (9ykILr8gMmYmzODxLUS7DW)",
+    "Figma: ignt.comp.fields (lDAA8IoWGUjpiHOke2AtC3, node 77-8972)",
     "Fever proto (fever-proto-craft-31 CSS)"
   ],
   "color": {
@@ -104,6 +105,31 @@
     "elevation-02": { "value": "0 4px 12px 0 rgba(0,0,0,0.12)", "source": "fever-proto" },
     "frosted-glass": { "value": "BACKGROUND_BLUR radius 40", "source": "figma" }
   },
+  "input": {
+    "description": "Input/field components (Figma ignt.comp.fields)",
+    "background": {
+      "main": { "value": "#FFFFFF", "source": "figma" },
+      "disable": { "value": "#F2F3F3", "source": "figma" }
+    },
+    "border": {
+      "main": { "value": "#CCD2D8", "source": "figma" },
+      "primary-hover": { "value": "#0068B0", "source": "figma" },
+      "danger": { "value": "#EB0052", "source": "figma" },
+      "danger-hover": { "value": "#D10047", "source": "figma" },
+      "disable": { "value": "#F2F3F3", "source": "figma" }
+    },
+    "text": {
+      "danger": { "value": "#EB0052", "source": "figma" },
+      "disable": { "value": "#A7B2BA", "source": "figma" }
+    },
+    "focusRing": { "value": "0 0 0 4px rgba(0, 87, 255, 0.32)", "description": "Primary focus ring; Figma shadow/accessibility/primary/focus" },
+    "iconButton": {
+      "width-small": { "value": 32, "unit": "px", "source": "figma" },
+      "height-small": { "value": 32, "unit": "px", "source": "figma" },
+      "borderRadius": { "value": 64, "source": "figma" }
+    },
+    "touchArea": { "value": 44, "unit": "px", "source": "figma" }
+  },
   "motion": {
     "ease-out-cubic": { "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "source": "fever-proto" },
     "transition-smooth": { "value": "all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)", "source": "fever-proto" }
@@ -132,6 +158,17 @@
       "--radius": "0.75rem",
       "--elevation-01": "0 1px 3px 0 rgba(0,0,0,0.08)",
       "--elevation-02": "0 4px 12px 0 rgba(0,0,0,0.12)"
+    },
+    "input": {
+      "--color-input-bg": "#FFFFFF",
+      "--color-input-border": "#CCD2D8",
+      "--color-input-border-focus": "#0057FF",
+      "--color-input-border-error": "#EB0052",
+      "--color-input-border-disabled": "#F2F3F3",
+      "--color-input-bg-disabled": "#F2F3F3",
+      "--color-input-text-disabled": "#A7B2BA",
+      "--color-input-error-text": "#EB0052",
+      "--color-input-focus-ring": "0 0 0 4px rgba(0, 87, 255, 0.32)"
     }
   }
 }

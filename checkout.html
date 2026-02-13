@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    /* Fever Design System */
+    /* Fever Design System + ignt.comp.fields (Figma 77-8972) */
     :root {
       --color-primary: #0057FF;
       --color-text: #0A1E42;
@@ -19,6 +19,16 @@
       --color-bg: #ffffff;
       --color-bg-neutral: #F5F7F9;
       --font: 'Montserrat', sans-serif;
+      /* Input field tokens (Figma ignt.comp.fields) */
+      --color-input-bg: #FFFFFF;
+      --color-input-border: #CCD2D8;
+      --color-input-border-focus: #0057FF;
+      --color-input-border-error: #EB0052;
+      --color-input-border-disabled: #F2F3F3;
+      --color-input-bg-disabled: #F2F3F3;
+      --color-input-text-disabled: #A7B2BA;
+      --color-input-error-text: #EB0052;
+      --color-input-focus-ring: 0 0 0 4px rgba(0, 87, 255, 0.32);
     }
     body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); }
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; overflow-x:hidden; position:relative; padding-bottom:120px; }
@@ -88,11 +98,43 @@
     .card-brands .brand.mc { background:#eb001b; color:white; }
     .card-brands .brand.amex { background:#006fcf; color:white; }
 
-    /* Form fields */
-    .form-group { margin-bottom:12px; }
-    .form-field { width:100%; height:48px; border:1px solid var(--color-border); border-radius:8px; padding:0 16px; font-family:var(--font); font-size:14px; color:var(--color-text); outline:none; transition:border-color 0.15s; }
-    .form-field:focus { border-color:var(--color-primary); }
-    .form-field::placeholder { color:#aab4bc; }
+    /* Form fields (Figma ignt.comp.fields 77-8972) */
+    .form-group { margin-bottom:16px; }
+    .form-group .field-label { display:block; font-size:12px; font-weight:600; line-height:16px; color:var(--color-text); margin-bottom:6px; }
+    .form-group .input-wrap { position:relative; display:flex; align-items:center; }
+    .form-group .input-wrap .form-field {
+      width:100%; height:48px; min-width:0;
+      border:1px solid var(--color-input-border);
+      border-radius:8px;
+      padding:0 16px;
+      font-family:var(--font); font-size:16px; line-height:24px;
+      color:var(--color-text);
+      background:var(--color-input-bg);
+      outline:none;
+      transition:border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-group .input-wrap .form-field::placeholder { color:var(--color-text-secondary); }
+    .form-group .input-wrap .form-field:focus {
+      border-color:var(--color-input-border-focus);
+      box-shadow:var(--color-input-focus-ring);
+    }
+    .form-group .input-wrap .form-field:disabled,
+    .form-group.is-disabled .input-wrap .form-field {
+      background:var(--color-input-bg-disabled);
+      border-color:var(--color-input-border-disabled);
+      color:var(--color-input-text-disabled);
+    }
+    .form-group.is-error .input-wrap .form-field {
+      border-color:var(--color-input-border-error);
+    }
+    .form-group.is-error .input-wrap .form-field:focus { box-shadow:none; }
+    .form-group .field-error { display:flex; align-items:center; gap:6px; margin-top:6px; font-size:12px; line-height:16px; color:var(--color-input-error-text); }
+    .form-group .field-error svg { width:16px; height:16px; flex-shrink:0; }
+    .form-group .input-wrap .field-clear { position:absolute; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-text); opacity:0.6; }
+    .form-group .input-wrap .field-clear:hover { opacity:1; }
+    .form-group .input-wrap .field-clear { visibility:hidden; }
+    .form-group .input-wrap .field-clear.visible { visibility:visible; }
+    .form-group.has-clear .input-wrap .form-field { padding-right:44px; }
     .form-row { display:flex; gap:12px; }
     .form-row .form-group { flex:1; }
 
@@ -211,20 +253,33 @@
         </div>
       </div>
 
-      <!-- Card form -->
-      <div class="form-group">
-        <input type="text" class="form-field" placeholder="Card number" maxlength="19">
+      <!-- Card form (Figma ignt.comp.fields) -->
+      <div class="form-group has-clear">
+        <label class="field-label" for="card-number">Card number</label>
+        <div class="input-wrap">
+          <input id="card-number" type="text" class="form-field" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
+          <button type="button" class="field-clear" aria-label="Clear" title="Clear">&#215;</button>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <input type="text" class="form-field" placeholder="Expiry" maxlength="5">
+          <label class="field-label" for="card-expiry">Expiry</label>
+          <div class="input-wrap">
+            <input id="card-expiry" type="text" class="form-field" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+          </div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-field" placeholder="CVC" maxlength="4">
+          <label class="field-label" for="card-cvc">CVC</label>
+          <div class="input-wrap">
+            <input id="card-cvc" type="text" class="form-field" placeholder="123" maxlength="4" autocomplete="cc-csc">
+          </div>
         </div>
       </div>
       <div class="form-group">
-        <input type="text" class="form-field" placeholder="Postal code">
+        <label class="field-label" for="postal-code">Postal code</label>
+        <div class="input-wrap">
+          <input id="postal-code" type="text" class="form-field" placeholder="Postal code" autocomplete="postal-code">
+        </div>
       </div>
 
       <div class="security-note">
@@ -348,6 +403,16 @@
     // Update Pay button
     const payBtn = document.querySelector('.pay-btn');
     payBtn.textContent = 'Pay ' + formatEur(grandTotal);
+
+    // Card number clear button (Figma ignt.comp.fields)
+    const cardInput = document.getElementById('card-number');
+    const clearBtn = cardInput && cardInput.closest('.form-group').querySelector('.field-clear');
+    if (cardInput && clearBtn) {
+      function toggleClear() { clearBtn.classList.toggle('visible', cardInput.value.length > 0); }
+      cardInput.addEventListener('input', toggleClear);
+      cardInput.addEventListener('focus', toggleClear);
+      clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); });
+    }
   </script>
 </body>
 </html>
