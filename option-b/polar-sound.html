@@ -120,9 +120,9 @@
     .pill-arrow.visible { display:flex; }
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
 
-    /* Ticket rows — real ticket shape: rounded body + right stub with dashed line */
-    .ticket-row { display:flex; align-items:stretch; min-height:88px; margin-bottom:16px; position:relative; border-radius:12px; overflow:visible; }
-    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:1.5px solid var(--color-border-light); border-right:none; border-radius:12px 0 0 12px; background:#fff; min-height:60px; }
+    /* Ticket rows — Figma: active (498-6345) / inactive (498-6367) */
+    .ticket-row { display:flex; align-items:stretch; min-height:88px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; border:1px solid var(--color-border-light); background:#fff; }
+    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:none; border-right:none; border-radius:8px 0 0 8px; background:#fff; min-height:60px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); }
     .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; color:var(--color-primary); text-decoration:underline; cursor:pointer; padding:2px 0; margin-top:2px; background:none; border:none; font-family:var(--font); }
@@ -132,24 +132,28 @@
     .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
     .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
     .ticket-row .ticket-info-detail li { margin-bottom:2px; }
-    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 12px 12px 0; background:#fafafa; position:relative; }
-    .ticket-row .stepper { display:flex; align-items:center; background:white; border-radius:100px; padding:4px 6px; border:1px solid var(--color-border-light); box-shadow:0 1px 2px rgba(0,0,0,0.04); }
-    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s; background:white; color:var(--color-text); border:1px solid var(--color-border-light); }
+    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:none; border-left:none; border-radius:0 8px 8px 0; background:#fafafa; position:relative; }
+    .ticket-row .stepper { display:flex; align-items:center; background:#e8e8e8; border-radius:100px; padding:4px 6px; border:1px solid var(--color-border-light); }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s; background:#e0e0e0; color:var(--color-primary); }
     .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; color:var(--color-text); }
-    .ticket-row.qty-zero .amt-btn.minus { background:var(--color-bg-disable); color:var(--color-text-disable); border-color:#e0e0e0; cursor:default; }
+    .ticket-row .amt-btn.plus { background:var(--color-primary); color:white; }
+    .ticket-row.qty-zero .amt-btn.minus { background:#e0e0e0; color:var(--color-text-disable); cursor:default; }
     .ticket-row.qty-zero .amt-count { color:var(--color-text-disable); }
+    .ticket-row.qty-zero .amt-btn.plus { background:var(--color-primary); color:white; }
 
-    /* Selected state — blue border, light blue stub */
-    .ticket-row.selected .ticket-content { border-color:var(--color-primary); }
-    .ticket-row.selected .ticket-selector-right { border-color:var(--color-primary); background:var(--color-primary-weak); }
-    .ticket-row.selected .stepper { border-color:var(--color-primary); background:var(--color-primary-weak); }
-    .ticket-row.selected .amt-btn { background:var(--color-primary); color:white; border-color:var(--color-primary); }
+    /* Active (selected): blue border, light blue stub, stepper light gray + blue border, buttons light gray with blue icon */
+    .ticket-row.selected { border-color:var(--color-primary); }
+    .ticket-row.selected .ticket-content { border-color:transparent; }
+    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); border-radius:0 8px 8px 0; }
+    .ticket-row.selected .stepper { background:#e8e8e8; border-color:var(--color-primary); }
+    .ticket-row.selected .amt-btn { background:#e0e0e0; color:var(--color-primary); border:none; }
+    .ticket-row.selected .amt-btn.plus { background:#e0e0e0; color:var(--color-primary); }
 
-    /* Ticket notch: vertical dashed line + semicircular cutouts (torn ticket stub) */
+    /* Ticket notch: vertical dashed line + semicircular cutouts (Figma perforation) */
     .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:14px; display:flex; flex-direction:column; align-items:center; pointer-events:none; z-index:2; }
-    .ticket-notch::before { content:''; position:absolute; top:0; left:0; width:7px; height:10px; border-left:1.5px solid var(--color-border-light); border-bottom:1.5px solid var(--color-border-light); border-radius:0 0 0 12px; background:transparent; }
-    .ticket-notch::after { content:''; position:absolute; bottom:0; left:0; width:7px; height:10px; border-left:1.5px solid var(--color-border-light); border-top:1.5px solid var(--color-border-light); border-radius:12px 0 0 0; background:transparent; }
-    .ticket-notch .notch-line { position:absolute; top:14px; bottom:14px; left:6px; width:0; border-left:1.5px dashed var(--color-border-light); }
+    .ticket-notch::before { content:''; position:absolute; top:0; left:0; width:7px; height:10px; border-left:1px solid var(--color-border-light); border-bottom:1px solid var(--color-border-light); border-radius:0 0 0 8px; background:transparent; }
+    .ticket-notch::after { content:''; position:absolute; bottom:0; left:0; width:7px; height:10px; border-left:1px solid var(--color-border-light); border-top:1px solid var(--color-border-light); border-radius:8px 0 0 0; background:transparent; }
+    .ticket-notch .notch-line { position:absolute; top:14px; bottom:14px; left:6px; width:0; border-left:1px dashed var(--color-border-light); }
     .ticket-row.selected .ticket-notch::before,
     .ticket-row.selected .ticket-notch::after { border-color:var(--color-primary); }
     .ticket-row.selected .notch-line { border-color:var(--color-primary); }
