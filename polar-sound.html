@@ -122,9 +122,16 @@
 
     /* Ticket rows — real ticket shape: rounded body + right stub with dashed line */
     .ticket-row { display:flex; align-items:stretch; min-height:88px; margin-bottom:16px; position:relative; border-radius:12px; overflow:visible; }
-    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:1.5px solid var(--color-border-light); border-right:none; border-radius:12px 0 0 12px; background:#fff; }
+    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:1.5px solid var(--color-border-light); border-right:none; border-radius:12px 0 0 12px; background:#fff; min-height:60px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); }
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; color:var(--color-primary); text-decoration:underline; cursor:pointer; padding:2px 0; margin-top:2px; background:none; border:none; font-family:var(--font); }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:13px; line-height:20px; color:var(--color-text); }
+    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
+    .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
+    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
+    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
+    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
     .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1.5px solid var(--color-border-light); border-left:none; border-radius:0 12px 12px 0; background:#fafafa; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; background:white; border-radius:100px; padding:4px 6px; border:1px solid var(--color-border-light); box-shadow:0 1px 2px rgba(0,0,0,0.04); }
     .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s; background:white; color:var(--color-text); border:1px solid var(--color-border-light); }
@@ -395,6 +402,13 @@
         <div class="ticket-row selected">
           <div class="ticket-content">
             <div class="ticket-name">General - Tier 5</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+              <ul>
+                <li>Access to the 2 days of the festival</li>
+              </ul>
+            </div>
             <div class="ticket-price">&euro;87.50</div>
           </div>
           <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -409,6 +423,15 @@
         <div class="ticket-row">
           <div class="ticket-content">
             <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+              <ul>
+                <li>Access to the 2 days of the festival</li>
+                <li>60 Tokens to spend in the event</li>
+                <li>+10 bonus tokens</li>
+              </ul>
+            </div>
             <div class="ticket-price">&euro;147.50</div>
           </div>
           <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -715,6 +738,17 @@
 
     bindSteppers(document.getElementById('panel-day'));
     bindSteppers(document.getElementById('panel-2day'));
+
+    // 2 Day Pass: More info / Less info toggle (independent per ticket row)
+    document.getElementById('panel-2day').addEventListener('click', function(e) {
+      const btn = e.target.closest('.ticket-info-toggle');
+      if (!btn) return;
+      e.preventDefault();
+      const row = btn.closest('.ticket-row');
+      const expanded = row.classList.toggle('ticket-info-expanded');
+      btn.textContent = expanded ? 'Less info' : 'More info';
+      btn.setAttribute('aria-expanded', expanded);
+    });
 
     // Pill switching — show/hide panel, pre-select cheapest
     document.querySelectorAll('.ticket-pill').forEach(pill => {
