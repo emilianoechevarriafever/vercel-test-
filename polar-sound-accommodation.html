@@ -161,7 +161,7 @@
     .sticky-cta .cta-btn { width:100%; height:48px; background:var(--color-primary); border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
 
     /* Flow stepper (accommodation → transport → checkout) */
-    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper { position:sticky; top:56px; z-index:99; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
     .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
     .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
     .flow-stepper .step:last-child::after { display:none; }
@@ -172,7 +172,7 @@
     .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
     .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
     .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-    .flow-stepper a.step { text-decoration:none; color:inherit; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
   </style>
@@ -195,7 +195,7 @@
       <a href="polar-sound.html#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
       <div class="step current"><span class="dot">2</span><span class="label">Accommodation</span></div>
       <a href="polar-sound-transportations.html" class="step"><span class="dot">3</span><span class="label">Transport</span></a>
-      <div class="step"><span class="dot">4</span><span class="label">Checkout</span></div>
+      <a href="checkout.html" class="step"><span class="dot">4</span><span class="label">Checkout</span></a>
     </div>
 
     <!-- Hero with hotel image + Polar Sound overlay -->
