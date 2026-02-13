@@ -79,6 +79,21 @@
     .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
     .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
 
+    .flow-stepper { position:sticky; top:56px; z-index:99; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-secondary); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:#b0b8bf; }
+    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
+    .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+
     /* Payment Method */
     .payment-section { padding:16px; }
     .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
@@ -174,6 +189,13 @@
       <a href="/home" class="logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
       <img class="avatar" src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
     </nav>
+
+    <div class="flow-stepper">
+      <a href="polar-sound.html#ticket-section" id="stepper-step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
+      <a href="polar-sound-accommodation.html#ticket-section" id="stepper-step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
+      <a href="polar-sound-transportations.html" id="stepper-step3" class="step done"><span class="dot"></span><span class="label">Transport</span></a>
+      <div class="step current"><span class="dot">4</span><span class="label">Checkout</span></div>
+    </div>
 
     <!-- Event Summary -->
     <div class="event-summary">
@@ -436,6 +458,13 @@
     document.getElementById('grand-total').textContent = formatEur(grandTotal);
     document.getElementById('row-accommodation').style.display = accommodationTotal === 0 ? 'none' : 'flex';
     document.getElementById('row-transportation').style.display = transportationTotal === 0 ? 'none' : 'flex';
+
+    var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
+    var hasAccommodation = accommodation.length > 0 && accommodation.some(function(a) { return (a.qty || 0) > 0; });
+    var hasTransport = transportation.length > 0 && transportation.some(function(t) { return ((t.qty || 1) > 0 && (t.price || 0) > 0); });
+    if (!hasTickets) { var s1 = document.getElementById('stepper-step1'); if (s1) s1.classList.add('skipped'); }
+    if (!hasAccommodation) { var s2 = document.getElementById('stepper-step2'); if (s2) s2.classList.add('skipped'); }
+    if (!hasTransport) { var s3 = document.getElementById('stepper-step3'); if (s3) s3.classList.add('skipped'); }
 
     // Update Pay button
     const payBtn = document.querySelector('.pay-btn');
