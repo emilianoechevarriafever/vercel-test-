@@ -128,7 +128,7 @@
     .section-header h2 { font-size: 18px; font-weight: 700; color: var(--color-text-main); }
     .section-header a { font-size: 14px; font-weight: 600; color: var(--color-primary); text-decoration: none; }
 
-    /* Card Carousel — aspect ratio from Figma Donations (6648-11888), uniform cards */
+    /* Card Carousel — Top 10: portrait 2:3 aspect ratio (ref. correct layout) */
     .card-scroll {
       display: flex;
       gap: 16px;
@@ -139,7 +139,7 @@
     .card-scroll::-webkit-scrollbar { display: none; }
     .card-scroll .card-img {
       width: 150px;
-      aspect-ratio: 4/5;
+      aspect-ratio: 2/3;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
@@ -157,7 +157,7 @@
     .event-card:hover { transform: translateY(-2px); }
     .event-card .card-img {
       width: 150px;
-      aspect-ratio: 4/5;
+      aspect-ratio: 2/3;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
@@ -216,7 +216,7 @@
       color: var(--color-text-main);
     }
 
-    /* Featured Card (same aspect ratio as event-card for uniform carousel) */
+    /* Featured Card (same 2:3 aspect ratio as event-card for Top 10 carousel) */
     .featured-card {
       flex-shrink: 0;
       width: 150px;
@@ -227,7 +227,7 @@
     .featured-card:hover { transform: translateY(-2px); }
     .featured-card .card-img {
       width: 150px;
-      aspect-ratio: 4/5;
+      aspect-ratio: 2/3;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
