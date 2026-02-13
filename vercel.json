@@ -1,8 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/strategy-flows.html" },
-    { "source": "/index.html", "destination": "/strategy-flows.html" },
-    { "source": "/home", "destination": "/index.html" },
+    { "source": "/home", "destination": "/home.html" },
     { "source": "/option-b/home", "destination": "/option-b/index.html" }
   ]
 }

@@ -235,7 +235,7 @@
     </div>
 
     <!-- Payment Method -->
-    <div class="payment-section">
+    <div class="payment-section" id="payment-method">
       <h3>Payment method</h3>
 
       <!-- New card (selected) -->
@@ -410,6 +410,10 @@
       cardInput.addEventListener('focus', toggleClear);
       clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); });
     }
+
+    // Option B: desde cart, viewport directo en Payment method (detalle de compra arriba)
+    var paymentEl = document.getElementById('payment-method');
+    if (paymentEl) paymentEl.scrollIntoView({ behavior: 'auto', block: 'start' });
   </script>
 </body>
 </html>
