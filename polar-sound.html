@@ -77,8 +77,8 @@
 
     /* === TITLE SECTION === */
     .title-section { padding:16px; }
-        /* Tickets Selling Fast — Figma 37-20538 */
-    .tag-selling, .selling-fast-banner {
+        /* Tickets Selling Fast — top tag: Figma 37-20538 (unchanged) */
+    .tag-selling {
       display: inline-flex; align-items: center;
       min-height: 20px; padding: 4px 12px;
       background: #df7b00; border-radius: 4px;
@@ -86,7 +86,15 @@
       color: #031419;
     }
     .tag-selling { margin-bottom: 12px; }
-    .selling-fast-banner { margin: 16px 0 20px; }
+    /* Below ticket selector: Figma 498-6430 — light peach bg, flame/clock icon, dark gray text */
+    .selling-fast-banner {
+      display: flex; align-items: center; gap: 10px;
+      margin: 16px 0 20px; padding: 12px 16px;
+      background: #f5e6dc; border-radius: 8px;
+      font-family: var(--font); font-size: 14px; font-weight: 500; line-height: 20px;
+      color: #37474f;
+    }
+    .selling-fast-banner .selling-fast-icon { width: 20px; height: 20px; flex-shrink: 0; color: #b06500; }
     .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
     .divider { height:1px; background:var(--color-border); margin:0 16px; }
 
@@ -398,7 +406,7 @@
             </div>
           </div>
         </div>
-        <div class="selling-fast-banner">Tickets Selling Fast</div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 23c0 0 7-4 7-11 0-3.5-2.6-6.5-7-8-4.4 1.5-7 4.5-7 8 0 7 7 11 7 11z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
       <!-- Panel: 2 Day Pass -->
@@ -447,7 +455,7 @@
             </div>
           </div>
         </div>
-        <div class="selling-fast-banner">Tickets Selling Fast</div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 23c0 0 7-4 7-11 0-3.5-2.6-6.5-7-8-4.4 1.5-7 4.5-7 8 0 7 7 11 7 11z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
       <!-- CTA (sticky handles click; this is fallback) -->
