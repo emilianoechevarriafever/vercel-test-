@@ -114,7 +114,7 @@
       <a href="#" id="step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
       <a href="#" id="step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
       <div class="step current"><span class="dot">3</span><span class="label">Transport</span></div>
-      <div class="step"><span class="dot">4</span><span class="label">Checkout</span></div>
+      <div class="step"><span class="dot">4</span><span class="label" id="step4-label">Checkout</span></div>
     </div>
 
     <div class="hero">
@@ -189,6 +189,7 @@
 
     document.getElementById('step1').href = isOptionB ? 'option-b/polar-sound.html' : 'polar-sound.html';
     document.getElementById('step2').href = isOptionB ? 'option-b/polar-sound-accommodation.html' : 'polar-sound-accommodation.html';
+    if (isOptionB) document.getElementById('step4-label').textContent = 'Cart';
 
     function render() {
       transportRowsEl.innerHTML = '';
