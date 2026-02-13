@@ -687,13 +687,13 @@
     function updateStickyBtn() {
       if (stickyMode === 'getit') {
         const total = getTotal();
-        const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
-        const label = is2day ? 'Continue' : 'Get it';
         if (total > 0) {
+          const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
+          const label = is2day ? 'Continue' : 'Get it';
           stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
           stickyBtn.style.opacity = '1';
         } else {
-          stickyBtn.textContent = '\u20AC0.00 \u2014 ' + label;
+          stickyBtn.textContent = 'Select a ticket';
           stickyBtn.style.opacity = '0.5';
         }
       }
