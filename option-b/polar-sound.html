@@ -320,82 +320,114 @@
 
       <!-- Type pills -->
       <div class="ticket-pills" id="ticket-pills-row">
-        <div class="ticket-pill active">Day Ticket</div>
-        <div class="ticket-pill">2 Day Pass</div>
+        <div class="ticket-pill active" data-panel="day">Day Ticket</div>
+        <div class="ticket-pill" data-panel="2day">2 Day Pass</div>
         <div class="pill-arrow" id="pills-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
 
-      <!-- Ticket rows (coupon style) -->
-      <div class="ticket-row selected">
-        <div class="ticket-content">
-          <div class="ticket-name">Friday - Tier 1</div>
-          <div class="ticket-more">More info</div>
-          <div class="ticket-price">&euro;45.00</div>
-        </div>
-        <div class="ticket-notch"><span class="notch-line"></span></div>
-        <div class="ticket-selector-right">
-          <div class="stepper ticket-amount">
-            <button class="amt-btn minus">&minus;</button>
-            <span class="amt-count">1</span>
-            <button class="amt-btn plus">+</button>
+      <!-- Panel: Day Ticket -->
+      <div class="ticket-panel" id="panel-day" data-panel="day">
+        <div class="ticket-row selected">
+          <div class="ticket-content">
+            <div class="ticket-name">Friday - Tier 1</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;45.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">1</span>
+              <button class="amt-btn plus">+</button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="ticket-row">
-        <div class="ticket-content">
-          <div class="ticket-name">Saturday - Tier 2</div>
-          <div class="ticket-more">More info</div>
-          <div class="ticket-price">&euro;50.00</div>
-        </div>
-        <div class="ticket-notch"><span class="notch-line"></span></div>
-        <div class="ticket-selector-right">
-          <div class="stepper ticket-amount">
-            <button class="amt-btn minus">&minus;</button>
-            <span class="amt-count">0</span>
-            <button class="amt-btn plus">+</button>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Saturday - Tier 2</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;50.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="ticket-row">
-        <div class="ticket-content">
-          <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-          <div class="ticket-more">More info</div>
-          <div class="ticket-price">&euro;85.00</div>
-        </div>
-        <div class="ticket-notch"><span class="notch-line"></span></div>
-        <div class="ticket-selector-right">
-          <div class="stepper ticket-amount">
-            <button class="amt-btn minus">&minus;</button>
-            <span class="amt-count">0</span>
-            <button class="amt-btn plus">+</button>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;85.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="ticket-row">
-        <div class="ticket-content">
-          <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-          <div class="ticket-more">More info</div>
-          <div class="ticket-price">&euro;90.00</div>
-        </div>
-        <div class="ticket-notch"><span class="notch-line"></span></div>
-        <div class="ticket-selector-right">
-          <div class="stepper ticket-amount">
-            <button class="amt-btn minus">&minus;</button>
-            <span class="amt-count">0</span>
-            <button class="amt-btn plus">+</button>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;90.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
           </div>
         </div>
+        <div class="selling-fast-banner">Tickets Selling Fast</div>
       </div>
 
-      <!-- Selling Fast banner -->
-      <div class="selling-fast-banner">Tickets Selling Fast</div>
+      <!-- Panel: 2 Day Pass -->
+      <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
+        <div class="ticket-row selected">
+          <div class="ticket-content">
+            <div class="ticket-name">General - Tier 5</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;87.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">1</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;147.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="selling-fast-banner">Tickets Selling Fast</div>
+      </div>
 
-      <!-- CTA buttons -->
+      <!-- CTA (sticky handles click; this is fallback) -->
       <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
     </div>
 
@@ -595,16 +627,25 @@
       }
     });
 
-    function saveTicketsToCart() {
-      const ticketNames = ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+    function getActivePanel() {
       const activePill = document.querySelector('.ticket-pill.active');
-      const passType = activePill ? activePill.textContent : 'Day Ticket';
+      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+      return document.getElementById('panel-' + panelId);
+    }
+
+    function saveTicketsToCart() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const is2day = panel.id === 'panel-2day';
+      const ticketNames = is2day
+        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
+        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const prices = is2day ? [87.50, 147.50] : [45.00, 50.00, 85.00, 90.00];
       const cartTickets = [];
       rows.forEach((row, i) => {
         const qty = parseInt(row.querySelector('.amt-count').textContent);
-        if (qty > 0) {
-          cartTickets.push({ name: ticketNames[i] + ' (' + passType + ')', price: prices[i], qty: qty });
-        }
+        if (qty > 0) cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
       });
       localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
     }
@@ -615,69 +656,91 @@
     function updateStickyBtn() {
       if (stickyMode === 'getit') {
         const total = getTotal();
+        const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
+        const label = is2day ? 'Continue' : 'Get it';
         if (total > 0) {
-          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
+          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
           stickyBtn.style.opacity = '1';
         } else {
-          stickyBtn.textContent = '\u20AC0.00 \u2014 Get it';
+          stickyBtn.textContent = '\u20AC0.00 \u2014 ' + label;
           stickyBtn.style.opacity = '0.5';
         }
       }
     }
 
-    // === DYNAMIC TICKET PRICING ===
-    const prices = [45.00, 50.00, 85.00, 90.00];
-    const rows = document.querySelectorAll('.ticket-row');
+    // === DYNAMIC TICKET PRICING (per panel) ===
+    const pricesDay = [45.00, 50.00, 85.00, 90.00];
+    const prices2Day = [87.50, 147.50];
 
     function getTotal() {
+      const panel = getActivePanel();
+      if (!panel) return 0;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let total = 0;
       rows.forEach((row, i) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
-        total += count * prices[i];
+        total += count * (prices[i] || 0);
       });
       return total;
     }
 
     function updateTotal() {
-      rows.forEach((row) => {
+      const panel = getActivePanel();
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
         row.classList.toggle('selected', count > 0);
       });
       updateStickyBtn();
     }
 
-    rows.forEach((row, i) => {
-      const minus = row.querySelector('.amt-btn.minus');
-      const plus = row.querySelector('.amt-btn.plus');
-      const countEl = row.querySelector('.amt-count');
-
-      plus.addEventListener('click', () => {
-        countEl.textContent = parseInt(countEl.textContent) + 1;
-        updateTotal();
+    function bindSteppers(panel) {
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      rows.forEach((row) => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', () => {
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          updateTotal();
+        });
+        minus.addEventListener('click', () => {
+          const val = parseInt(countEl.textContent);
+          if (val > 0) countEl.textContent = val - 1;
+          updateTotal();
+        });
       });
-      minus.addEventListener('click', () => {
-        const val = parseInt(countEl.textContent);
-        if (val > 0) countEl.textContent = val - 1;
-        updateTotal();
-      });
-    });
+    }
 
-    // Pill switching — reset counts & pre-select cheapest
+    bindSteppers(document.getElementById('panel-day'));
+    bindSteppers(document.getElementById('panel-2day'));
+
+    // Pill switching — show/hide panel, pre-select cheapest
     document.querySelectorAll('.ticket-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
+        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
+        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
         preselectCheapest();
       });
     });
 
-    // Pre-select the cheapest ticket (qty 1), reset others to 0
     function preselectCheapest() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let minIdx = 0;
       let minPrice = Infinity;
       prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
       rows.forEach((row, i) => {
-        row.querySelector('.amt-count').textContent = (i === minIdx) ? '1' : '0';
+        const el = row.querySelector('.amt-count');
+        if (el) el.textContent = (i === minIdx) ? '1' : '0';
       });
       updateTotal();
     }
