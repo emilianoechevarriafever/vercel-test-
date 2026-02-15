@@ -90,7 +90,7 @@
       color: #031419;
     }
     .tag-selling { margin-bottom: 12px; }
-    /* Below ticket selector: Figma 498-6430 — light peach bg, flame/clock icon, dark gray text */
+    /* Below ticket selector: Figma 498-6430 — light peach bg, flame icon, dark gray text */
     .selling-fast-banner {
       display: flex; align-items: center; gap: 10px;
       margin: 16px 0 20px; padding: 12px 16px;
@@ -134,32 +134,22 @@
 
     /* Ticket rows — Figma inactive 778-27370 (layout, colors, typography, spacing) */
     .ticket-row { display:flex; align-items:stretch; min-height:88px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; border:1px solid #ccd2d8; background:#ffffff; }
-    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:none; border-right:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:60px; }
+    .ticket-row .ticket-content { flex:1; padding:14px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; border:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:60px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:20px; color:#031419; }
+    .ticket-row .ticket-more { font-size:12px; font-weight:600; line-height:18px; color:#0079ca; text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:20px; color:#031419; }
-    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:18px; color:#0079ca; text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; background:none; border:none; font-family:var(--font); }
-    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:#031419; }
-    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
-    .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
-    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
-    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
-    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
-    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:none; border-left:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
+    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
     .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s, border-color 0.15s; background:#f2f3f3; border:1px solid #ccd2d8; color:#a7b2ba; }
     .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; line-height:20px; color:#031419; }
     .ticket-row .amt-btn.plus { background:#e6f4ff; border:1px solid #b3d9f5; color:#0079ca; }
-    .ticket-row.qty-zero .amt-btn.minus { background:#f2f3f3; border-color:#ccd2d8; color:#a7b2ba; cursor:default; }
-    .ticket-row.qty-zero .amt-count { color:#a7b2ba; }
-    .ticket-row.qty-zero .amt-btn.plus { background:#e6f4ff; border-color:#b3d9f5; color:#0079ca; }
 
     /* Active (selected): Figma 1097-15545 — right bg #e6f4ff (primary-weak), buttons #F4F6F9 */
     .ticket-row.selected { border-color:#0079ca; }
-    .ticket-row.selected .ticket-content { border-color:transparent; }
     .ticket-row.selected .ticket-selector-right { background:#e6f4ff; border-radius:0 8px 8px 0; }
     .ticket-row.selected .ticket-selector-right::before { content:''; position:absolute; left:-8px; top:0; bottom:0; width:8px; background:#e6f4ff; z-index:0; }
     .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
-    .ticket-row.selected .amt-btn { background:#F4F6F9; color:#0079ca; border:none; }
+    .ticket-row.selected .amt-btn { background:#F4F6F9; color:#0079ca; }
     .ticket-row.selected .amt-btn.plus { background:#F4F6F9; color:#0079ca; }
 
     /* Ticket notch: vertical dashed line + semicircular cutouts (Figma perforation) — inactive #ccd2d8 */
@@ -235,24 +225,35 @@
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; display:flex; flex-direction:column; gap:0; }
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
 
-    /* Flow stepper (shown only when returning from a later step) */
-    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
-    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
-    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
-    .flow-stepper .step:last-child::after { display:none; }
-    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
-    .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
-    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
-    .flow-stepper .step.done.skipped .dot { background:var(--color-primary); color:white; }
-    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
-    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
-    .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
-    .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
-    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
-    .flow-stepper.stepper-hidden { display:none !important; }
+    /* === BOTTOM SHEETS (Figma: Select your add-ons style) === */
+    .sheet-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:400; opacity:0; visibility:hidden; transition:opacity 0.25s, visibility 0.25s; }
+    .sheet-overlay.open { opacity:1; visibility:visible; }
+    .sheet { position:fixed; left:50%; transform:translateX(-50%) translateY(100%); bottom:0; width:393px; max-width:100vw; max-height:75vh; background:white; border-radius:16px 16px 0 0; z-index:401; transition:transform 0.3s ease; box-shadow:0 -4px 20px rgba(0,0,0,0.15); display:flex; flex-direction:column; }
+    .sheet.open { transform:translateX(-50%) translateY(0); }
+    .sheet .sheet-handle { width:36px; height:4px; background:#ddd; border-radius:2px; margin:12px auto 0; flex-shrink:0; }
+    .sheet .sheet-header { display:flex; align-items:center; justify-content:center; position:relative; padding:8px 48px 16px; }
+    .sheet .sheet-title { font-size:18px; font-weight:700; color:var(--color-text); text-align:center; }
+    .sheet .sheet-close { position:absolute; right:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; color:var(--color-text-secondary); }
+    .sheet .sheet-close svg { width:20px; height:20px; }
+    .sheet .sheet-content { padding:0 16px; overflow-y:auto; flex:1; min-height:0; }
+    .sheet .sheet-footer { padding:16px; border-top:1px solid var(--color-border); flex-shrink:0; }
+    .sheet .sheet-footer .sheet-btn { width:100%; height:48px; border-radius:100px; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; border:none; }
+    .sheet .sheet-footer .sheet-btn-primary { background:#0079ca; color:white; }
+    .sheet .sheet-footer .sheet-btn-skip { background:#f0f0f0; color:var(--color-text); }
+    .sheet .sheet-row { display:flex; align-items:stretch; min-height:72px; margin-bottom:12px; position:relative; border-radius:12px; border:1.5px solid var(--color-border-light); }
+    .sheet .sheet-row .sheet-row-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:center; gap:2px; border-right:none; border-radius:12px 0 0 12px; }
+    .sheet .sheet-row .sheet-row-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
+    .sheet .sheet-row .sheet-row-price { font-size:14px; font-weight:600; color:var(--color-text); }
+    .sheet .sheet-row .sheet-row-price.free { font-weight:500; color:var(--color-text-secondary); }
+    .sheet .sheet-row .sheet-row-right { width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:8px; }
+    .sheet .sheet-row .sheet-stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
+    .sheet .sheet-row .sheet-stepper .amt-btn { width:28px; height:28px; border-radius:50%; border:1px solid var(--color-border-light); background:white; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; font-weight:400; color:var(--color-text); }
+    .sheet .sheet-row .sheet-stepper .amt-count { width:28px; text-align:center; font-size:14px; font-weight:600; }
+    .sheet .sheet-row.selected { border-color:#0079ca; }
+    .sheet .sheet-row.selected .sheet-row-right { background:var(--color-primary-weak); border-radius:0 12px 12px 0; }
+    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:var(--color-primary); color:white; border-color:var(--color-primary); }
 
-    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } .sheet { width:100vw; } }
   </style>
 </head>
 <body>
@@ -260,7 +261,7 @@
 
     <header class="sticky-header">
     <nav class="navbar">
-      <a href="/home" class="logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
+      <a href="index.html" class="logo-link"><img src="../img/fever-logo.png" alt="Fever"></a>
       <div class="nav-icons">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -269,17 +270,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </div>
     </nav>
-    <div id="tickets-flow-stepper" class="flow-stepper stepper-hidden" aria-hidden="true">
-      <div class="step current"><span class="dot">1</span><span class="label">Tickets</span></div>
-      <a href="polar-sound-accommodation.html#ticket-section" class="step"><span class="dot">2</span><span class="label">Accommodation</span></a>
-      <a href="polar-sound-transportations.html" class="step"><span class="dot">3</span><span class="label">Transport</span></a>
-      <a href="checkout.html" class="step"><span class="dot">4</span><span class="label">Checkout</span></a>
-    </div>
     </header>
 
     <!-- Hero Gallery (Figma Channel Filter) -->
     <div class="hero">
-      <img class="hero-bg" src="img/polar-sound-hero.png" alt="Polar Sound Festival">
+      <img class="hero-bg" src="../img/polar-sound-hero.png" alt="Polar Sound Festival">
       <div class="side-buttons">
         <button type="button" class="side-btn" aria-label="Like"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
         <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
@@ -307,7 +302,7 @@
 
       <p>&#128680; <strong>Passes now on sale!</strong> Lori Meyers, Juan Mag&aacute;n, Leire Mart&iacute;nez, Besmaya, and many more to be announced are waiting for you!</p>
 
-      <p>&#127976; Want a Pass + accommodation? <a href="polar-sound-accommodation.html" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){}">Click here</a></p>
+      <p>&#127976; Want a Pass + accommodation? <a href="add-ons.html">Click here</a></p>
       <p>&#128656; Buy your bus and shuttle tickets to Polar Sound <a href="#">here</a></p>
       <p>&#128176; Not ready to buy add-ons yet? Purchase them later separately <a href="#">here</a></p>
 
@@ -350,125 +345,83 @@
 
       <!-- Type pills -->
       <div class="ticket-pills" id="ticket-pills-row">
-        <div class="ticket-pill active" data-panel="day">Day Ticket</div>
-        <div class="ticket-pill" data-panel="2day">2 Day Pass</div>
+        <div class="ticket-pill active">Day Ticket</div>
+        <div class="ticket-pill">2 Day Pass</div>
         <div class="pill-arrow" id="pills-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
 
-      <!-- Panel: Day Ticket -->
-      <div class="ticket-panel" id="panel-day" data-panel="day">
-        <div class="ticket-row selected">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1</div>
-            <div class="ticket-price">&euro;45.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">1</span>
-              <button class="amt-btn plus">+</button>
-            </div>
+      <!-- Ticket rows (coupon style) -->
+      <div class="ticket-row selected">
+        <div class="ticket-content">
+          <div class="ticket-name">Friday - Tier 1</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;45.00</div>
+        </div>
+        <div class="ticket-notch"><span class="notch-line"></span></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">1</span>
+            <button class="amt-btn plus">+</button>
           </div>
         </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2</div>
-            <div class="ticket-price">&euro;50.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-price">&euro;85.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-price">&euro;90.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 23c0 0 7-4 7-11 0-3.5-2.6-6.5-7-8-4.4 1.5-7 4.5-7 8 0 7 7 11 7 11z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
-      <!-- Panel: 2 Day Pass -->
-      <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
-        <div class="ticket-row selected">
-          <div class="ticket-content">
-            <div class="ticket-name">General - Tier 5</div>
-            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
-            <div class="ticket-info-detail">
-              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
-              <ul>
-                <li>Access to the 2 days of the festival</li>
-              </ul>
-            </div>
-            <div class="ticket-price">&euro;87.50</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">1</span>
-              <button class="amt-btn plus">+</button>
-            </div>
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Saturday - Tier 2</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;50.00</div>
+        </div>
+        <div class="ticket-notch"><span class="notch-line"></span></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
           </div>
         </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
-            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
-            <div class="ticket-info-detail">
-              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
-              <ul>
-                <li>Access to the 2 days of the festival</li>
-                <li>60 Tokens to spend in the event</li>
-                <li>+10 bonus tokens</li>
-              </ul>
-            </div>
-            <div class="ticket-price">&euro;147.50</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 23c0 0 7-4 7-11 0-3.5-2.6-6.5-7-8-4.4 1.5-7 4.5-7 8 0 7 7 11 7 11z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
-      <!-- CTA (sticky handles click; this is fallback) -->
-      <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;85.00</div>
+        </div>
+        <div class="ticket-notch"><span class="notch-line"></span></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;90.00</div>
+        </div>
+        <div class="ticket-notch"><span class="notch-line"></span></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selling Fast banner -->
+      <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 23c0 0 7-4 7-11 0-3.5-2.6-6.5-7-8-4.4 1.5-7 4.5-7 8 0 7 7 11 7 11z"/></svg><span>Tickets selling fast</span></div>
+
+      <!-- CTA buttons -->
+      <button class="cta-primary" id="cta-get-it" onclick="window.location.href='add-ons.html'">&euro;45.00 &mdash; Get it</button>
     </div>
 
     <!-- Reviews -->
@@ -618,17 +571,89 @@
 
   </div>
 
-  <script>
-    // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
-    (function() {
-      try {
-        if (sessionStorage.getItem('polar_flow_visited')) {
-          var el = document.getElementById('tickets-flow-stepper');
-          if (el) { el.classList.remove('stepper-hidden'); el.setAttribute('aria-hidden', 'false'); }
-        }
-      } catch (e) {}
-    })();
+  <!-- Bottom sheet 1: Accommodation (ticket selector only) -->
+  <div class="sheet-overlay" id="overlay-sheet-acc"></div>
+  <div class="sheet" id="sheet-acc">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">Accommodation</h2>
+      <button type="button" class="sheet-close" id="sheet-acc-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="sheet-content">
+      <div class="sheet-row" data-name="Hotel 2 nights" data-price="120">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Hotel 2 nights</div>
+          <div class="sheet-row-price">&euro;120.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-row" data-name="Apartment 2 nights" data-price="90">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Apartment 2 nights</div>
+          <div class="sheet-row-price">&euro;90.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer">
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-continue">No accommodation</button>
+    </div>
+  </div>
 
+  <!-- Bottom sheet 2: Transport (ticket selector only) -->
+  <div class="sheet-overlay" id="overlay-sheet-transport"></div>
+  <div class="sheet" id="sheet-transport">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">Transport</h2>
+      <button type="button" class="sheet-close" id="sheet-transport-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="sheet-content">
+      <div class="sheet-row" data-name="Bus Barcelona – Baqueira" data-price="49">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Bus Barcelona – Baqueira</div>
+          <div class="sheet-row-price">&euro;49.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-row" data-name="Shuttle Madrid – Baqueira" data-price="69">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Shuttle Madrid – Baqueira</div>
+          <div class="sheet-row-price">&euro;69.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer">
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-continue">No transport</button>
+    </div>
+  </div>
+
+  <script>
     // === SINGLE CTA BEHAVIOR ===
     const stickyBtn = document.getElementById('sticky-btn');
     const inlineCta = document.getElementById('cta-get-it');
@@ -660,32 +685,21 @@
       if (stickyMode === 'tickets') {
         ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // Save ticket selections to localStorage before navigating
         saveTicketsToCart();
-        try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
-        window.location.href = 'polar-sound-accommodation.html';
+        openSheet('sheet-acc');
       }
     });
 
-    function getActivePanel() {
-      const activePill = document.querySelector('.ticket-pill.active');
-      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
-      return document.getElementById('panel-' + panelId);
-    }
-
     function saveTicketsToCart() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const is2day = panel.id === 'panel-2day';
-      const ticketNames = is2day
-        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
-        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
-      const prices = is2day ? [87.50, 147.50] : [45.00, 50.00, 85.00, 90.00];
+      const ticketNames = ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const activePill = document.querySelector('.ticket-pill.active');
+      const passType = activePill ? activePill.textContent : 'Day Ticket';
       const cartTickets = [];
       rows.forEach((row, i) => {
         const qty = parseInt(row.querySelector('.amt-count').textContent);
-        if (qty > 0) cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
+        if (qty > 0) {
+          cartTickets.push({ name: ticketNames[i] + ' (' + passType + ')', price: prices[i], qty: qty });
+        }
       });
       localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
     }
@@ -697,9 +711,7 @@
       if (stickyMode === 'getit') {
         const total = getTotal();
         if (total > 0) {
-          const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
-          const label = is2day ? 'Continue' : 'Get it';
-          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
+          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
           stickyBtn.style.opacity = '1';
         } else {
           stickyBtn.textContent = 'Select a ticket';
@@ -708,92 +720,59 @@
       }
     }
 
-    // === DYNAMIC TICKET PRICING (per panel) ===
-    const pricesDay = [45.00, 50.00, 85.00, 90.00];
-    const prices2Day = [87.50, 147.50];
+    // === DYNAMIC TICKET PRICING ===
+    const prices = [45.00, 50.00, 85.00, 90.00];
+    const rows = document.querySelectorAll('.ticket-selector .ticket-row');
 
     function getTotal() {
-      const panel = getActivePanel();
-      if (!panel) return 0;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let total = 0;
       rows.forEach((row, i) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
-        total += count * (prices[i] || 0);
+        total += count * prices[i];
       });
       return total;
     }
 
     function updateTotal() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      panel.querySelectorAll('.ticket-row').forEach((row) => {
+      rows.forEach((row) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
         row.classList.toggle('selected', count > 0);
-        row.classList.toggle('qty-zero', count === 0);
       });
       updateStickyBtn();
     }
 
-    function bindSteppers(panel) {
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
-      rows.forEach((row, i) => {
-        const minus = row.querySelector('.amt-btn.minus');
-        const plus = row.querySelector('.amt-btn.plus');
-        const countEl = row.querySelector('.amt-count');
-        if (!countEl) return;
-        plus.addEventListener('click', () => {
-          countEl.textContent = parseInt(countEl.textContent) + 1;
-          updateTotal();
-        });
-        minus.addEventListener('click', () => {
-          const val = parseInt(countEl.textContent);
-          if (val > 0) countEl.textContent = val - 1;
-          updateTotal();
-        });
+    rows.forEach((row, i) => {
+      const minus = row.querySelector('.amt-btn.minus');
+      const plus = row.querySelector('.amt-btn.plus');
+      const countEl = row.querySelector('.amt-count');
+
+      plus.addEventListener('click', () => {
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+        updateTotal();
       });
-    }
-
-    bindSteppers(document.getElementById('panel-day'));
-    bindSteppers(document.getElementById('panel-2day'));
-
-    // 2 Day Pass: More info / Less info toggle (independent per ticket row)
-    document.getElementById('panel-2day').addEventListener('click', function(e) {
-      const btn = e.target.closest('.ticket-info-toggle');
-      if (!btn) return;
-      e.preventDefault();
-      const row = btn.closest('.ticket-row');
-      const expanded = row.classList.toggle('ticket-info-expanded');
-      btn.textContent = expanded ? 'Less info' : 'More info';
-      btn.setAttribute('aria-expanded', expanded);
+      minus.addEventListener('click', () => {
+        const val = parseInt(countEl.textContent);
+        if (val > 0) countEl.textContent = val - 1;
+        updateTotal();
+      });
     });
 
-    // Pill switching — show/hide panel, pre-select cheapest
+    // Pill switching — reset counts & pre-select cheapest
     document.querySelectorAll('.ticket-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
-        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
-        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
-        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
         preselectCheapest();
       });
     });
 
+    // Pre-select the cheapest ticket (qty 1), reset others to 0
     function preselectCheapest() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let minIdx = 0;
       let minPrice = Infinity;
       prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
       rows.forEach((row, i) => {
-        const el = row.querySelector('.amt-count');
-        if (el) el.textContent = (i === minIdx) ? '1' : '0';
+        row.querySelector('.amt-count').textContent = (i === minIdx) ? '1' : '0';
       });
       updateTotal();
     }
@@ -811,10 +790,101 @@
     updatePillsArrow();
     window.addEventListener('resize', updatePillsArrow);
 
-    if (window.location.hash === '#ticket-section') {
-      var el = document.getElementById('ticket-section');
-      if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
+    // === BOTTOM SHEETS: Accommodation → Transport → Checkout ===
+    function openSheet(id) {
+      document.getElementById('overlay-' + id).classList.add('open');
+      document.getElementById(id).classList.add('open');
+      if (id === 'sheet-acc') updateSheetAccBtn();
+      if (id === 'sheet-transport') updateSheetTransportBtn();
     }
+    function closeSheet(id) {
+      document.getElementById('overlay-' + id).classList.remove('open');
+      document.getElementById(id).classList.remove('open');
+    }
+
+    document.getElementById('overlay-sheet-acc').addEventListener('click', function() { closeSheet('sheet-acc'); });
+    document.getElementById('overlay-sheet-transport').addEventListener('click', function() { closeSheet('sheet-transport'); });
+    document.getElementById('sheet-acc-close').addEventListener('click', function() { closeSheet('sheet-acc'); });
+    document.getElementById('sheet-transport-close').addEventListener('click', function() { closeSheet('sheet-transport'); });
+
+    function updateSheetAccBtn() {
+      let totalQty = 0;
+      let totalPrice = 0;
+      document.querySelectorAll('#sheet-acc .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent) || 0;
+        const price = parseFloat(row.dataset.price) || 0;
+        totalQty += qty;
+        totalPrice += qty * price;
+      });
+      const btn = document.getElementById('sheet-acc-continue');
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No accommodation';
+    }
+    function updateSheetTransportBtn() {
+      let totalQty = 0;
+      let totalPrice = 0;
+      document.querySelectorAll('#sheet-transport .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent) || 0;
+        const price = parseFloat(row.dataset.price) || 0;
+        totalQty += qty;
+        totalPrice += qty * price;
+      });
+      const btn = document.getElementById('sheet-transport-continue');
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No transport';
+    }
+    function bindSheetSteppers(sheetId, updateBtn) {
+      const sheet = document.getElementById(sheetId);
+      if (!sheet) return;
+      sheet.querySelectorAll('.sheet-row').forEach(row => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', function(e) {
+          e.stopPropagation();
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          row.classList.add('selected');
+          if (typeof updateBtn === 'function') updateBtn();
+        });
+        minus.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const val = parseInt(countEl.textContent);
+          if (val > 0) {
+            countEl.textContent = val - 1;
+            row.classList.toggle('selected', parseInt(countEl.textContent) > 0);
+            if (typeof updateBtn === 'function') updateBtn();
+          }
+        });
+      });
+    }
+    bindSheetSteppers('sheet-acc', updateSheetAccBtn);
+    bindSheetSteppers('sheet-transport', updateSheetTransportBtn);
+    updateSheetAccBtn();
+    updateSheetTransportBtn();
+
+    document.getElementById('sheet-acc-continue').addEventListener('click', function() {
+      const acc = [];
+      document.querySelectorAll('#sheet-acc .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          acc.push({ name: row.dataset.name, price: parseFloat(row.dataset.price), qty: qty });
+        }
+      });
+      localStorage.setItem('cart_accommodation', JSON.stringify(acc));
+      closeSheet('sheet-acc');
+      openSheet('sheet-transport');
+    });
+
+    document.getElementById('sheet-transport-continue').addEventListener('click', function() {
+      const tr = [];
+      document.querySelectorAll('#sheet-transport .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          tr.push({ name: row.dataset.name, price: parseFloat(row.dataset.price), qty: qty });
+        }
+      });
+      localStorage.setItem('cart_transportation', JSON.stringify(tr));
+      window.location.href = 'cart.html';
+    });
   </script>
 </body>
 </html>

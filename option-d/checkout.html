@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Checkout - Polar Sound 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --color-primary: #0057FF;
+      --color-text: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-border: #E6EAEE;
+      --color-border-light: #E6EAEE;
+      --color-bg: #ffffff;
+      --color-bg-neutral: #F5F7F9;
+      --font: 'Montserrat', sans-serif;
+      --color-input-bg: #FFFFFF;
+      --color-input-border: #CCD2D8;
+      --color-input-border-focus: #0057FF;
+      --color-input-border-error: #EB0052;
+      --color-input-border-disabled: #F2F3F3;
+      --color-input-bg-disabled: #F2F3F3;
+      --color-input-text-disabled: #A7B2BA;
+      --color-input-error-text: #EB0052;
+      --color-input-focus-ring: 0 0 0 4px rgba(0, 87, 255, 0.32);
+    }
+    body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
+    .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; padding-bottom:120px; }
+
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:16px; }
+    .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
+    .avatar-wrap { position:relative; }
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+
+    .event-summary { display:flex; gap:12px; padding:16px; align-items:center; border-bottom:1px solid var(--color-border); }
+    .event-summary .event-thumb { width:56px; height:56px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+    .event-summary .event-thumb img { width:100%; height:100%; object-fit:cover; }
+    .event-summary .event-info { flex:1; }
+    .event-summary .event-name { font-size:14px; font-weight:600; line-height:20px; margin-bottom:2px; }
+    .event-summary .event-venue { font-size:12px; color:var(--color-text-secondary); display:flex; align-items:center; gap:4px; }
+    .event-summary .event-venue svg { width:12px; height:12px; flex-shrink:0; }
+
+    .checkout-section { padding:16px; border-bottom:1px solid var(--color-border); }
+    .checkout-section:last-of-type { border-bottom:none; }
+    .checkout-section h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
+
+    .date-row { padding:16px; border-bottom:1px solid var(--color-border); }
+    .date-row .label { font-size:14px; font-weight:700; color:var(--color-primary); margin-bottom:4px; }
+    .date-row .value { font-size:14px; color:var(--color-text); }
+
+    /* Editable order item row - same small spacing as price rows */
+    .order-item { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--color-border); gap:12px; }
+    .order-item:last-child { border-bottom:none; }
+    .order-item .item-info { flex:1; }
+    .order-item .item-name { font-size:14px; font-weight:500; margin-bottom:2px; }
+    .order-item .item-detail { font-size:12px; color:var(--color-text-secondary); }
+    .order-item .item-row { display:flex; align-items:center; gap:8px; margin-top:6px; }
+    .order-item .qty-wrap { display:flex; align-items:center; gap:4px; border:1px solid var(--color-border); border-radius:8px; overflow:hidden; }
+    .order-item .qty-wrap button { width:32px; height:32px; border:none; background:var(--color-bg-neutral); font-size:18px; cursor:pointer; line-height:1; }
+    .order-item .qty-wrap input { width:40px; border:none; text-align:center; font-size:14px; font-weight:600; }
+    .order-item .item-price { font-size:14px; font-weight:600; }
+    .order-item .btn-remove { background:none; border:none; color:var(--color-text-secondary); font-size:12px; cursor:pointer; text-decoration:underline; padding:0; }
+
+    .price-details { padding:16px; border-bottom:1px solid var(--color-border); }
+    .price-details h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
+    .price-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:14px; }
+    .price-row .price-label { color:var(--color-text); }
+    .price-row .price-val { font-weight:500; }
+    .price-row.total { border-top:1px solid var(--color-border); margin-top:4px; padding-top:8px; padding-bottom:0; font-weight:700; font-size:16px; }
+
+    .sticky-pay { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px 8px; }
+    .sticky-pay .pay-btn { display:block; width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:background 0.2s; }
+    .sticky-pay .pay-btn:hover { background:#0066b3; }
+    .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
+    .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
+
+    .payment-section { padding:16px; }
+    .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
+
+    .card-type-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--color-border); margin-bottom:16px; }
+    .card-type-row .radio { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .card-type-row .radio.active { background:var(--color-primary); }
+    .card-type-row .radio.active::after { content:''; width:6px; height:6px; background:white; border-radius:50%; }
+    .card-type-row .radio-empty { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); flex-shrink:0; }
+    .card-type-row svg { width:18px; height:18px; color:var(--color-text); }
+    .card-type-row .label { font-size:14px; font-weight:500; flex:1; }
+    .card-brands { display:flex; align-items:center; gap:8px; flex-wrap:nowrap; }
+    .card-brands .brand-logo { display:inline-flex; align-items:center; justify-content:center; width:40px; height:28px; border:1px solid var(--color-border); border-radius:4px; padding:3px; box-sizing:border-box; flex-shrink:0; }
+    .card-brands .brand-logo svg { width:100%; height:100%; object-fit:contain; display:block; }
+
+    .form-group { margin-bottom:16px; }
+    .form-group .field-label { display:block; font-size:12px; font-weight:600; line-height:16px; color:var(--color-text); margin-bottom:6px; }
+    .form-group .input-wrap { position:relative; display:flex; align-items:center; }
+    .form-group .input-wrap .form-field {
+      width:100%; height:48px; min-width:0;
+      border:1px solid var(--color-input-border);
+      border-radius:8px;
+      padding:0 16px;
+      font-family:var(--font); font-size:16px; line-height:24px;
+      color:var(--color-text);
+      background:var(--color-input-bg);
+      outline:none;
+      transition:border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-group .input-wrap .form-field::placeholder { color:var(--color-text-secondary); }
+    .form-group .input-wrap .form-field:focus {
+      border-color:var(--color-input-border-focus);
+      box-shadow:var(--color-input-focus-ring);
+    }
+    .form-group .input-wrap .field-clear { position:absolute; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-text); opacity:0.6; }
+    .form-group .input-wrap .field-clear.visible { visibility:visible; }
+    .form-group .input-wrap .field-clear { visibility:hidden; }
+    .form-group.has-clear .input-wrap .form-field { padding-right:44px; }
+    .form-row { display:flex; gap:12px; }
+    .form-row .form-group { flex:1; }
+
+    .security-note { display:flex; align-items:center; gap:8px; padding:8px 0; font-size:12px; color:var(--color-text-secondary); }
+    .security-note svg { width:14px; height:14px; flex-shrink:0; }
+
+    .alt-payment { display:flex; align-items:center; gap:12px; padding:16px 0; border-bottom:1px solid var(--color-border); }
+    .alt-payment .radio-empty { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); flex-shrink:0; }
+    .alt-payment .pay-logo { height:20px; }
+    .alt-payment .pay-info { flex:1; }
+    .alt-payment .pay-name { font-size:14px; font-weight:500; }
+    .alt-payment .pay-sub { font-size:12px; color:var(--color-text-secondary); }
+
+    .checkbox-area { padding:16px 0; }
+    .checkbox-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; }
+    .checkbox-row .cb { width:18px; height:18px; border-radius:4px; border:2px solid var(--color-border); flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .checkbox-row .cb.checked { background:var(--color-primary); border-color:var(--color-primary); }
+    .checkbox-row .cb.checked::after { content:'\2713'; color:white; font-size:11px; font-weight:700; }
+    .checkbox-row .cb-label { font-size:13px; line-height:18px; color:var(--color-text); }
+    .checkbox-row .cb-label a { color:var(--color-primary); }
+
+    .legal-links { padding:8px 0 24px; }
+    .legal-links a { display:block; font-size:13px; color:var(--color-primary); margin-bottom:6px; text-decoration:none; }
+    .legal-links a svg { width:12px; height:12px; display:inline; margin-left:2px; vertical-align:middle; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo-link"><img src="../img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="avatar-wrap"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+    </header>
+
+    <div class="event-summary">
+      <div class="event-thumb">
+        <img src="../img/polar-sound-hero.png" alt="Polar Sound Festival">
+      </div>
+      <div class="event-info">
+        <div class="event-name">Occident - Polar Sound 2026</div>
+        <div class="event-venue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Baqueira Beret Ski Resort
+        </div>
+      </div>
+    </div>
+
+    <div class="date-row">
+      <div class="label">Date</div>
+      <div class="value">March 13 &amp; 14, 2026</div>
+    </div>
+
+    <div class="checkout-section" id="section-tickets">
+      <h3>Festival Passes</h3>
+      <div id="ticket-items"></div>
+    </div>
+
+    <div class="checkout-section" id="section-accommodation">
+      <h3>Accommodation</h3>
+      <div id="accommodation-items"></div>
+    </div>
+
+    <div class="checkout-section" id="section-transportation">
+      <h3>Transportation</h3>
+      <div id="transportation-items"></div>
+    </div>
+
+    <div class="price-details">
+      <h3>Price details</h3>
+      <div class="price-row">
+        <span class="price-label">Festival Passes</span>
+        <span class="price-val" id="subtotal-tickets">&euro;0.00</span>
+      </div>
+      <div class="price-row" id="row-accommodation">
+        <span class="price-label">Accommodation</span>
+        <span class="price-val" id="subtotal-accommodation">&euro;0.00</span>
+      </div>
+      <div class="price-row" id="row-transportation">
+        <span class="price-label">Transportation</span>
+        <span class="price-val" id="subtotal-transportation">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Fees</span>
+        <span class="price-val">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Tax</span>
+        <span class="price-val" id="tax-val">&euro;0.00</span>
+      </div>
+      <div class="price-row total">
+        <span class="price-label">Total</span>
+        <span class="price-val" id="grand-total">&euro;0.00</span>
+      </div>
+    </div>
+
+    <div class="payment-section" id="payment-section">
+      <h3>Payment method</h3>
+
+      <div class="card-type-row">
+        <div class="radio active"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <span class="label">New card</span>
+        <div class="card-brands">
+          <span class="brand-logo"><svg viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="22" rx="3" fill="#1A1F71"/><text x="16" y="14.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="700" font-size="9">VISA</text></svg></span>
+          <span class="brand-logo"><svg viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="8" r="6" fill="#EB001B"/><circle cx="15" cy="8" r="6" fill="#F79E1B"/><path d="M12 4.3a6 6 0 0 1 0 7.4 6 6 0 0 1 0-7.4z" fill="#FF5F00"/></svg></span>
+          <span class="brand-logo"><svg viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="16" rx="2" fill="#006FCF"/><path d="M8 5.5h2.5L9.5 8 10.5 10.5H8l-.8-1.5h1.2L8 5.5zm4.5 0h2.2l1.4 2 1.4-2h2.2v5h-1.5V7.2l-1.3 1.8h-1l-1.3-1.8v3.3h-1.5V5.5zm8.2 3.2c0 1-.8 1.6-2 1.6-.7 0-1.3-.2-1.7-.6v2.3h-1.5V5.5h1.4v.6c.4-.5 1-.7 1.7-.7 1.2 0 2 .6 2 1.6zm-1.6 0c0-.5-.4-.8-1-.8s-1 .3-1 .8.4.8 1 .8 1-.3 1-.8zM6 5.5v5h5v-1.2H7.5V5.5H6z" fill="white"/></svg></span>
+        </div>
+      </div>
+
+      <div class="form-group has-clear">
+        <label class="field-label" for="card-number">Card number</label>
+        <div class="input-wrap">
+          <input id="card-number" type="text" class="form-field" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
+          <button type="button" class="field-clear" aria-label="Clear">&#215;</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="field-label" for="card-expiry">Expiry</label>
+          <div class="input-wrap">
+            <input id="card-expiry" type="text" class="form-field" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="card-cvc">CVC</label>
+          <div class="input-wrap">
+            <input id="card-cvc" type="text" class="form-field" placeholder="123" maxlength="4" autocomplete="cc-csc">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="field-label" for="postal-code">Postal code</label>
+        <div class="input-wrap">
+          <input id="postal-code" type="text" class="form-field" placeholder="Postal code" autocomplete="postal-code">
+        </div>
+      </div>
+
+      <div class="security-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Your payment info is stored securely
+      </div>
+
+      <div class="alt-payment">
+        <div class="radio-empty"></div>
+        <div class="pay-info">
+          <div class="pay-name" style="display:flex;align-items:center;gap:4px;">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            Apple Pay
+          </div>
+        </div>
+      </div>
+
+      <div class="alt-payment">
+        <div class="radio-empty"></div>
+        <div class="pay-info">
+          <div class="pay-name" style="color:#003087;font-weight:700;">Pay<span style="color:#009cde">Pal</span></div>
+          <div class="pay-sub">Pay in 3 interest-free payments</div>
+        </div>
+      </div>
+
+      <div class="checkbox-area">
+        <div class="checkbox-row">
+          <div class="cb checked" onclick="this.classList.toggle('checked')"></div>
+          <span class="cb-label">Required <a href="#">terms & conditions</a> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+        </div>
+        <div class="checkbox-row">
+          <div class="cb" onclick="this.classList.toggle('checked')"></div>
+          <span class="cb-label">Keep me updated on the latest news</span>
+        </div>
+      </div>
+
+      <div class="legal-links">
+        <a href="#">Terms and conditions of use <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+        <a href="#">Privacy policy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+    </div>
+
+    <div class="sticky-pay">
+      <button class="pay-btn" id="pay-btn">Pay</button>
+      <div class="powered-by"><a href="index.html">feverup.com</a></div>
+    </div>
+
+  </div>
+
+  <script>
+    let cartTickets = [];
+    let cartAccommodation = [];
+    let cartTransportation = [];
+
+    function loadCart() {
+      try {
+        cartTickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]');
+        cartAccommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+        cartTransportation = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
+      } catch (e) {
+        cartTickets = [];
+        cartAccommodation = [];
+        cartTransportation = [];
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
+      localStorage.setItem('cart_accommodation', JSON.stringify(cartAccommodation));
+      localStorage.setItem('cart_transportation', JSON.stringify(cartTransportation));
+    }
+
+    function parsePrice(item) {
+      if (typeof item.price === 'number' && !isNaN(item.price)) return item.price;
+      const s = String(item.price || '').replace(/[^\d.,]/g, '').replace(',', '.');
+      return parseFloat(s) || 0;
+    }
+
+    function formatEur(n) {
+      return '\u20AC' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function renderOrderItem(item, index, type) {
+      const div = document.createElement('div');
+      div.className = 'order-item';
+      div.dataset.type = type;
+      div.dataset.index = index;
+      const unitPrice = parsePrice(item);
+      const qty = item.qty || 1;
+      const lineTotal = unitPrice * qty;
+      div.innerHTML = '<div class="item-info"><div class="item-name">' + (item.name || 'Item') + '</div>' +
+        (item.detail ? '<div class="item-detail">' + item.detail + '</div>' : '') +
+        '<div class="item-row"><div class="qty-wrap"><button type="button" aria-label="Less">−</button><input type="number" min="1" value="' + qty + '" aria-label="Quantity"><button type="button" aria-label="More">+</button></div></div></div>' +
+        '<div class="item-price">' + formatEur(lineTotal) + '</div>' +
+        '<button type="button" class="btn-remove">Remove</button>';
+
+      const qtyInput = div.querySelector('input');
+      const lessBtn = div.querySelector('.qty-wrap button:first-child');
+      const moreBtn = div.querySelector('.qty-wrap button:last-child');
+      const removeBtn = div.querySelector('.btn-remove');
+
+      function updateQty(delta) {
+        const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
+        if (!arr[index]) return;
+        arr[index].qty = Math.max(1, (arr[index].qty || 1) + delta);
+        saveCart();
+        render();
+      }
+      lessBtn.addEventListener('click', () => updateQty(-1));
+      moreBtn.addEventListener('click', () => updateQty(1));
+      qtyInput.addEventListener('change', function() {
+        const v = parseInt(this.value, 10);
+        if (!isNaN(v) && v >= 1) {
+          const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
+          if (arr[index]) { arr[index].qty = v; saveCart(); render(); }
+        }
+      });
+      removeBtn.addEventListener('click', () => {
+        if (type === 'tickets') cartTickets.splice(index, 1);
+        else if (type === 'accommodation') cartAccommodation.splice(index, 1);
+        else cartTransportation.splice(index, 1);
+        saveCart();
+        render();
+      });
+      return div;
+    }
+
+    function getSubtotals() {
+      let ticketTotal = 0, accommodationTotal = 0, transportationTotal = 0;
+      cartTickets.forEach(item => { ticketTotal += parsePrice(item) * (item.qty || 1); });
+      cartAccommodation.forEach(item => { accommodationTotal += parsePrice(item) * (item.qty || 1); });
+      cartTransportation.forEach(item => { transportationTotal += parsePrice(item) * (item.qty || 1); });
+      return { ticketTotal, accommodationTotal, transportationTotal };
+    }
+
+    function render() {
+      const ticketContainer = document.getElementById('ticket-items');
+      const accomContainer = document.getElementById('accommodation-items');
+      const transportContainer = document.getElementById('transportation-items');
+      const sectionTickets = document.getElementById('section-tickets');
+      const sectionAccommodation = document.getElementById('section-accommodation');
+      const sectionTransportation = document.getElementById('section-transportation');
+
+      ticketContainer.innerHTML = '';
+      accomContainer.innerHTML = '';
+      transportContainer.innerHTML = '';
+
+      cartTickets.forEach((item, i) => ticketContainer.appendChild(renderOrderItem(item, i, 'tickets')));
+      cartAccommodation.forEach((item, i) => accomContainer.appendChild(renderOrderItem(item, i, 'accommodation')));
+      cartTransportation.forEach((item, i) => transportContainer.appendChild(renderOrderItem(item, i, 'transportation')));
+
+      if (cartTickets.length === 0) {
+        ticketContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No passes.</p>';
+      }
+      if (cartAccommodation.length === 0) {
+        accomContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No accommodation.</p>';
+      }
+      if (cartTransportation.length === 0) {
+        transportContainer.innerHTML = '<p style="font-size:14px; color:var(--color-text-secondary);">No transport.</p>';
+      }
+
+      const { ticketTotal, accommodationTotal, transportationTotal } = getSubtotals();
+      const subtotal = ticketTotal + accommodationTotal + transportationTotal;
+      const taxRate = 0.10;
+      const taxAmount = Math.round(subtotal * taxRate * 100) / 100;
+      const grandTotal = subtotal + taxAmount;
+
+      document.getElementById('subtotal-tickets').textContent = formatEur(ticketTotal);
+      document.getElementById('subtotal-accommodation').textContent = formatEur(accommodationTotal);
+      document.getElementById('subtotal-transportation').textContent = formatEur(transportationTotal);
+      document.getElementById('tax-val').textContent = formatEur(taxAmount);
+      document.getElementById('grand-total').textContent = formatEur(grandTotal);
+      document.getElementById('row-accommodation').style.display = accommodationTotal === 0 ? 'none' : 'flex';
+      document.getElementById('row-transportation').style.display = transportationTotal === 0 ? 'none' : 'flex';
+
+      const payBtn = document.getElementById('pay-btn');
+      payBtn.textContent = 'Pay ' + formatEur(grandTotal);
+      payBtn.onclick = function() { alert('Purchase completed! (demo)'); };
+    }
+
+    loadCart();
+    render();
+
+    // Scroll viewport to payment methods on load
+    document.getElementById('payment-section').scrollIntoView({ behavior: 'auto', block: 'start' });
+
+    // Card number clear button
+    const cardInput = document.getElementById('card-number');
+    const clearBtn = cardInput && cardInput.closest('.form-group').querySelector('.field-clear');
+    if (cardInput && clearBtn) {
+      function toggleClear() { clearBtn.classList.toggle('visible', cardInput.value.length > 0); }
+      cardInput.addEventListener('input', toggleClear);
+      cardInput.addEventListener('focus', toggleClear);
+      clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); });
+    }
+  </script>
+</body>
+</html>
