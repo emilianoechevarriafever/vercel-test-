@@ -153,13 +153,15 @@
     .ticket-row.selected .amt-btn { background:#F4F6F9; color:#0079ca; }
     .ticket-row.selected .amt-btn.plus { background:#F4F6F9; color:#0079ca; }
 
-    /* Ticket notch: vertical dashed line + semicircular cutouts (Figma perforation) — inactive #ccd2d8 */
-    .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:14px; display:flex; flex-direction:column; align-items:center; pointer-events:none; z-index:2; }
-    .ticket-notch::before { content:''; position:absolute; top:0; left:0; width:7px; height:10px; border-left:1px solid #ccd2d8; border-bottom:1px solid #ccd2d8; border-radius:0 0 0 8px; background:transparent; }
-    .ticket-notch::after { content:''; position:absolute; bottom:0; left:0; width:7px; height:10px; border-left:1px solid #ccd2d8; border-top:1px solid #ccd2d8; border-radius:8px 0 0 0; background:transparent; }
-    .ticket-notch .notch-line { position:absolute; top:14px; bottom:14px; left:6px; width:0; border-left:1px dashed #ccd2d8; }
-    .ticket-row.selected .ticket-notch::before,
-    .ticket-row.selected .ticket-notch::after { border-color:#0079ca; }
+    /* Ticket perforation: semicircular cutouts with border + dashed line (Figma 778-26883) */
+    .ticket-row { --ticket-border: #ccd2d8; --selector-bg: #fff; }
+    .ticket-row.selected { --ticket-border: #0079ca; --selector-bg: #e6f4ff; }
+    .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:1px; pointer-events:none; z-index:2; }
+    .ticket-notch::before,
+    .ticket-notch::after { content:''; position:absolute; left:50%; width:12px; height:12px; margin-left:-6px; border-radius:50%; border:1px solid var(--ticket-border); background:linear-gradient(to right, #fff 50%, var(--selector-bg) 50%); box-sizing:border-box; }
+    .ticket-notch::before { top:-6px; }
+    .ticket-notch::after { bottom:-6px; }
+    .ticket-notch .notch-line { position:absolute; top:12px; bottom:12px; left:0; width:0; margin-left:-1px; border-left:1px dashed #ccd2d8; }
     .ticket-row.selected .notch-line { border-color:#0079ca; }
 
     /* Selling fast banner */
