@@ -3,12 +3,12 @@ description: Hacer commit y push automáticamente al terminar cambios
 alwaysApply: true
 ---
 
-# Commit y push automáticos
+# Commit y push automáticos (OBLIGATORIO)
 
-Cuando termines de implementar cambios en el repositorio (editar archivos, completar una tarea que el usuario pidió):
+**Siempre** que edites o crees archivos en el repo, al terminar la tarea:
 
-1. **Sin que el usuario tenga que pedirlo**: haz `git add` de los archivos modificados, `git commit` con un mensaje claro y descriptivo, y `git push` a **origin** y **personal** (según la regla "Deploy y remotos").
-2. **No preguntes** "¿hago commit y push?"; asúmelo como parte de cerrar la tarea.
-3. **Excepción**: si el usuario dice explícitamente "no hagas push", "no subas", "solo commit" o similar, entonces no hagas push (o solo commit, según indique).
+1. Ejecuta `git add -A` (o los archivos tocados), `git commit -m "mensaje descriptivo"` y `git push origin main` y `git push personal main` (ver regla "Deploy y remotos").
+2. **No esperes** a que el usuario pida "push" o "commit". Es parte del cierre de la tarea.
+3. **No preguntes** "¿hago commit?"; hazlo salvo que diga "no subas" / "solo commit".
 
-Así el usuario no tiene que decir "push, commit" en cada conversación.
+Si no haces push, los cambios no se ven en Vercel ni en el repo remoto. El usuario ya indicó que quiere esto siempre.

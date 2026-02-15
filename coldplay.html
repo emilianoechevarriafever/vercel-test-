@@ -157,19 +157,21 @@
       gap: 4px;
       width: 100%;
     }
-    .slide-indicators .dot {
+    /* Barras horizontales (Figma), no círculos */
+    .slide-indicators .bar {
       flex: 1;
+      min-width: 0;
       height: 3px;
       border-radius: 100px;
       background: rgba(255,255,255,0.5);
     }
-    .slide-indicators .dot.active { background: white; }
-    .slide-indicators .dot.partial {
+    .slide-indicators .bar.active { background: white; }
+    .slide-indicators .bar.partial {
       background: rgba(255,255,255,0.5);
       position: relative;
       overflow: hidden;
     }
-    .slide-indicators .dot.partial::after {
+    .slide-indicators .bar.partial::after {
       content: '';
       position: absolute;
       left: 0; top: 0; bottom: 0;
@@ -522,12 +524,15 @@
           Gallery
         </button>
         <div class="slide-indicators">
-          <div class="dot active"></div>
-          <div class="dot partial"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
+          <div class="bar active"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
       </div>
       <div class="rounded-top"></div>
