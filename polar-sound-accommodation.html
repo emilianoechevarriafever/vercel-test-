@@ -101,8 +101,8 @@
     .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; gap:8px; border:1.5px solid var(--color-border-light); border-right:none; border-radius:8px 0 0 8px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
     .ticket-row .ticket-more,
-    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; color:var(--color-primary); text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; background:none; border:none; font-family:var(--font); }
-    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:13px; line-height:20px; color:var(--color-text); }
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:18px; color:#0079ca; text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; background:none; border:none; font-family:var(--font); }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:var(--color-text); }
     .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
     .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
     .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
@@ -179,13 +179,13 @@
     .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
     .flow-stepper .step:last-child::after { display:none; }
     .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
-    .flow-stepper .step.done .dot { background:var(--color-primary); color:white; font-size:0; }
+    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
     .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
-    .flow-stepper .step.done.skipped .dot { background:var(--color-primary); color:white; }
+    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
     .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
     .flow-stepper .step.done .label { color:var(--color-text-secondary); }
-    .flow-stepper .step.current .dot { background:var(--color-primary); color:white; border:2px solid var(--color-primary); }
-    .flow-stepper .step.current .label { color:var(--color-primary); font-weight:600; }
+    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
+    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
     .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
     .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
 
