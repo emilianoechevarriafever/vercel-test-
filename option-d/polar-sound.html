@@ -139,7 +139,7 @@
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:20px; color:#031419; }
     .ticket-row .ticket-more { font-size:12px; font-weight:600; line-height:18px; color:#0079ca; text-decoration:underline; text-underline-offset:2px; padding:4px 0; cursor:pointer; text-align:left; align-self:flex-start; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:20px; color:#031419; }
-    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
+    .ticket-row .ticket-selector-right { width:120px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px 12px 12px 20px; border:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
     .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s, border-color 0.15s; background:#f2f3f3; border:1px solid #ccd2d8; color:#a7b2ba; }
     .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; line-height:20px; color:#031419; }
@@ -148,20 +148,19 @@
     /* Active (selected): Figma 1097-15545 — right bg #e6f4ff (primary-weak), buttons #F4F6F9 */
     .ticket-row.selected { border-color:#0079ca; }
     .ticket-row.selected .ticket-selector-right { background:#e6f4ff; border-radius:0 8px 8px 0; }
-    .ticket-row.selected .ticket-selector-right::before { content:''; position:absolute; left:-8px; top:0; bottom:0; width:8px; background:#e6f4ff; z-index:0; }
+    .ticket-row.selected .ticket-selector-right::before { content:''; position:absolute; left:-10px; top:0; bottom:0; width:10px; background:#e6f4ff; z-index:0; }
     .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
     .ticket-row.selected .amt-btn { background:#F4F6F9; color:#0079ca; }
     .ticket-row.selected .amt-btn.plus { background:#F4F6F9; color:#0079ca; }
 
-    /* Ticket perforation: semicircular cutouts with border + dashed line (Figma 778-26883) */
+    /* Ticket perforation — Figma 778-26883: dotted line + two semicircular cutouts on RIGHT (selector) side */
     .ticket-row { --ticket-border: #ccd2d8; --selector-bg: #fff; }
     .ticket-row.selected { --ticket-border: #0079ca; --selector-bg: #e6f4ff; }
     .ticket-row .ticket-notch { position:absolute; right:120px; top:0; bottom:0; width:1px; pointer-events:none; z-index:2; }
-    /* Semicircle = solo el arco del borde (sin relleno) para que no parezcan grips de redimensionar. */
-    .ticket-notch .notch-semicircle { position:absolute; right:100%; width:6px; height:12px; color:var(--ticket-border); overflow:visible; }
+    .ticket-notch .notch-semicircle { position:absolute; left:100%; width:5px; height:10px; fill:var(--selector-bg); color:var(--ticket-border); stroke:currentColor; stroke-width:1; }
     .ticket-notch .notch-semicircle--top { top:0; }
     .ticket-notch .notch-semicircle--bottom { bottom:0; }
-    .ticket-notch .notch-line { position:absolute; top:12px; bottom:12px; left:0; width:0; margin-left:-1px; border-left:1px dashed #ccd2d8; }
+    .ticket-notch .notch-line { position:absolute; top:10px; bottom:10px; left:0; width:0; margin-left:-1px; border-left:1px dashed #ccd2d8; }
     .ticket-row.selected .notch-line { border-color:#0079ca; }
 
     /* Selling fast banner */
@@ -363,8 +362,8 @@
           <div class="ticket-price">&euro;45.00</div>
         </div>
         <div class="ticket-notch">
-          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 1 6 0 A6 6 0 0 1 6 12"/></svg>
-          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 0 6 12 A6 6 0 0 0 6 0"/></svg>
+          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 0 A5 5 0 0 1 0 10 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 0 A5 5 0 0 1 0 10"/></svg>
+          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 10 A5 5 0 0 1 0 0 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 10 A5 5 0 0 1 0 0"/></svg>
           <span class="notch-line"></span></div>
         <div class="ticket-selector-right">
           <div class="stepper ticket-amount">
@@ -382,8 +381,8 @@
           <div class="ticket-price">&euro;50.00</div>
         </div>
         <div class="ticket-notch">
-          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 1 6 0 A6 6 0 0 1 6 12"/></svg>
-          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 0 6 12 A6 6 0 0 0 6 0"/></svg>
+          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 0 A5 5 0 0 1 0 10 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 0 A5 5 0 0 1 0 10"/></svg>
+          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 10 A5 5 0 0 1 0 0 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 10 A5 5 0 0 1 0 0"/></svg>
           <span class="notch-line"></span></div>
         <div class="ticket-selector-right">
           <div class="stepper ticket-amount">
@@ -401,8 +400,8 @@
           <div class="ticket-price">&euro;85.00</div>
         </div>
         <div class="ticket-notch">
-          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 1 6 0 A6 6 0 0 1 6 12"/></svg>
-          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 0 6 12 A6 6 0 0 0 6 0"/></svg>
+          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 0 A5 5 0 0 1 0 10 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 0 A5 5 0 0 1 0 10"/></svg>
+          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 10 A5 5 0 0 1 0 0 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 10 A5 5 0 0 1 0 0"/></svg>
           <span class="notch-line"></span></div>
         <div class="ticket-selector-right">
           <div class="stepper ticket-amount">
@@ -420,8 +419,8 @@
           <div class="ticket-price">&euro;90.00</div>
         </div>
         <div class="ticket-notch">
-          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 1 6 0 A6 6 0 0 1 6 12"/></svg>
-          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 6 12" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 6 A6 6 0 0 0 6 12 A6 6 0 0 0 6 0"/></svg>
+          <svg class="notch-semicircle notch-semicircle--top" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 0 A5 5 0 0 1 0 10 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 0 A5 5 0 0 1 0 10"/></svg>
+          <svg class="notch-semicircle notch-semicircle--bottom" viewBox="0 0 5 10" preserveAspectRatio="xMinYMin slice" aria-hidden="true"><path d="M0 10 A5 5 0 0 1 0 0 L0 5 Z"/><path fill="none" stroke="currentColor" stroke-width="1" d="M0 10 A5 5 0 0 1 0 0"/></svg>
           <span class="notch-line"></span></div>
         <div class="ticket-selector-right">
           <div class="stepper ticket-amount">
