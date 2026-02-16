@@ -20,6 +20,10 @@
       padding: 24px;
       color: #0A1E42;
     }
+    :root {
+      --color-action-primary: #0079ca;
+      --color-action-primary-weak: #e6f4ff;
+    }
     h1 {
       font-size: 22px;
       font-weight: 700;
@@ -49,8 +53,8 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .buttons a:hover {
-      border-color: #0057FF;
-      box-shadow: 0 2px 8px rgba(0,87,255,0.15);
+      border-color: var(--color-action-primary);
+      box-shadow: 0 2px 8px var(--color-action-primary-weak);
     }
   </style>
 </head>
