@@ -173,21 +173,19 @@
       position:absolute;
       left:0;
       width:16px;
-      height:8px;
-      background:var(--color-bg-neutral);
+      height:16px;
+      background:transparent;
+      border:1px solid var(--ticket-border);
+      border-radius:50%;
       box-sizing:border-box;
     }
     .ticket-row .ticket-notch::before {
-      top:0;
-      border:1px solid var(--ticket-border);
-      border-top:none;
-      border-radius:0 0 8px 8px;
+      top:-8px;
+      clip-path: inset(50% 0 0 0);
     }
     .ticket-row .ticket-notch::after {
-      bottom:0;
-      border:1px solid var(--ticket-border);
-      border-bottom:none;
-      border-radius:8px 8px 0 0;
+      bottom:-8px;
+      clip-path: inset(0 0 50% 0);
     }
 
     /* Selling fast banner */
