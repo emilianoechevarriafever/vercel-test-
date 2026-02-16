@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Montserrat', sans-serif;
+      --text: #031419;
+      --muted: #536b75;
+      --bg: #f3f4f7;
+      --line: #ccd2d8;
+      --link: #0079ca;
+      --sheet: #f5f5f5;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); }
+    .phone {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #0f2530;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(3, 20, 25, 0.72), rgba(3, 20, 25, 0.72)),
+        url("https://images.unsplash.com/photo-1506157786151-b8491531f063?w=900&q=80");
+      background-size: cover;
+      background-position: center;
+    }
+    .navbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+    }
+    .logo-link img { height: 38px; width: auto; display: block; }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 24px; height: 24px; color: #031419; stroke: currentColor; }
+    .avatar-wrap { position: relative; display: inline-flex; align-items: center; }
+    .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: block; }
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 8px;
+      height: 8px;
+      background: #22ad5c;
+      border: 1.5px solid #fff;
+      border-radius: 50%;
+    }
+    .sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      background: var(--sheet);
+      border-radius: 16px 16px 0 0;
+      border: 1px solid #d4d7dc;
+      overflow: hidden;
+    }
+    .sheet-top {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+      background: #fafafb;
+    }
+    .sheet-top h1 { margin: 0; font-size: 33px; font-size: 32px; font-size: 16px; line-height: 24px; font-weight: 700; }
+    .sheet-close {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: none;
+      color: #031419;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .sheet-content { padding: 16px; background: #f5f5f5; }
+    .section {
+      padding: 0 0 16px;
+      border-bottom: 1px solid #c7ccd3;
+      margin-bottom: 16px;
+    }
+    .section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 8px; }
+    .section h2 { margin: 0 0 8px; font-size: 36px; font-size: 32px; font-size: 34px; font-size: 32px; font-size: 16px; line-height: 24px; font-weight: 700; }
+    .mail-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 16px; font-size: 14px;
+      line-height: 20px;
+    }
+    .mail-row .left { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+    .mail-dot { width: 8px; height: 8px; background: #ff6b6b; border-radius: 50%; flex: 0 0 auto; }
+    .mail-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .links a {
+      display: block;
+      color: var(--link);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      margin-top: 4px;
+      text-decoration: underline;
+    }
+    .inline-link {
+      color: var(--link);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .club-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      background: #e7eaef;
+      color: #6a7684;
+      padding: 5px 10px;
+      font-size: 16px; font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 8px;
+    }
+    .club-pill .star {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #dd8400;
+      color: #fff;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .sheet-nav {
+      height: 78px;
+      border-top: 1px solid #cfd4da;
+      background: #efefef;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      color: #7f8790;
+      font-size: 24px;
+    }
+    .sheet-nav .active {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d7dbe1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #737d89;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="hero-bg"></div>
+
+    <nav class="navbar">
+      <a class="logo-link" href="home.html">
+        <img src="https://www.figma.com/api/mcp/asset/e5eb53f8-a1ce-49e0-8110-34cb87e7f660" alt="Fever">
+      </a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <a class="avatar-wrap" href="profile.html" aria-label="Open profile">
+          <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+        </a>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+
+    <section class="sheet">
+      <div class="sheet-top">
+        <h1>My profile</h1>
+        <a class="sheet-close" href="home.html" aria-label="Close profile sheet">&times;</a>
+      </div>
+      <div class="sheet-content">
+        <div class="section">
+          <h2>My account</h2>
+          <div class="mail-row">
+            <div class="left">
+              <span class="mail-dot"></span>
+              <span class="mail-text">leonardo@titanic.com</span>
+            </div>
+            <span>&#x2197;</span>
+          </div>
+          <div class="links">
+            <a href="#">Perfil</a>
+            <a href="#">Cambiar email</a>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>My Tickets</h2>
+          <a class="inline-link" href="#">See my tickets in the app <span>&#x2197;</span></a>
+        </div>
+
+        <div class="section">
+          <h2>Fever Club</h2>
+          <div class="club-pill"><span class="star">&#9733;</span>300 points</div>
+          <a class="inline-link" href="#">Get rewards in the app <span>&#x2197;</span></a>
+        </div>
+      </div>
+      <div class="sheet-nav">
+        <span>&larr;</span>
+        <span>&rarr;</span>
+        <span class="active">+</span>
+        <span style="font-size:22px;">&#9633;</span>
+        <span>&#8230;</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

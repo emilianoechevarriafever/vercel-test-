@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Montserrat', sans-serif;
+      --bg: #f3f4f7;
+      --text: #031419;
+      --muted: #536b75;
+      --card-bg: #fff;
+      --border: #ccd2d8;
+      --accent: #0079ca;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); }
+    .phone { width: 100%; max-width: 430px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-link img { height: 38px; width: auto; display: block; }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 24px; height: 24px; color: #031419; stroke: currentColor; }
+    .nav-icon-btn { margin: 0; padding: 0; border: none; background: none; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: inherit; text-decoration: none; }
+    .avatar-wrap { position: relative; display: inline-flex; align-items: center; }
+    .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: block; }
+    .avatar-wrap::after { content: ''; position: absolute; top: -1px; right: -1px; width: 8px; height: 8px; border: 1.5px solid #fff; border-radius: 50%; background: #22ad5c; }
+
+    .favorites-header {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn { display: inline-flex; align-items: center; justify-content: center; color: #6c7f88; text-decoration: none; }
+    .back-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .favorites-header h1 { margin: 0; font-size: 18px; font-weight: 600; line-height: 24px; }
+
+    .empty-banner {
+      min-height: 80px;
+      display: grid;
+      grid-template-columns: 124px 1fr;
+      align-items: end;
+      gap: 10px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .empty-illustration { position: relative; height: 80px; overflow: visible; }
+    .empty-character { position: absolute; left: 14px; bottom: 0; width: 83px; height: auto; }
+    .empty-heart { position: absolute; left: 77px; top: 16px; width: 28px; height: 24px; }
+    .empty-message {
+      margin: 0;
+      padding: 0 12px 10px 0;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #031419;
+    }
+    .empty-info { padding: 24px 16px 0; }
+    .empty-info h2 { margin: 0 0 4px; font-size: 14px; font-weight: 600; line-height: 20px; color: #031419; }
+    .empty-copy { margin: 0 0 12px; font-size: 14px; line-height: 20px; color: var(--muted); }
+    .continue-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .content { padding: 16px; }
+    .cards-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .plan-card {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 12px;
+      align-items: start;
+      color: inherit;
+      background: var(--card-bg);
+      border: 1px solid #d6dbe2;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .plan-card img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; background: #e8ebf0; }
+    .plan-main { min-width: 0; text-decoration: none; color: inherit; }
+    .plan-badge { display: inline-block; margin-bottom: 6px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; color: #fff; background: #ff5353; }
+    .plan-title { margin: 0 0 5px; font-size: 14px; font-weight: 700; line-height: 1.3; }
+    .plan-meta { margin: 0 0 6px; font-size: 12px; color: #4d5663; }
+    .plan-price { margin: 0; font-size: 13px; font-weight: 700; color: #111827; }
+    .remove-btn { border: none; background: none; padding: 4px; margin: 0; line-height: 0; cursor: pointer; color: #031419; }
+    .remove-btn svg { width: 22px; height: 22px; fill: currentColor; stroke: currentColor; }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <nav class="navbar">
+      <a class="logo-link" href="home.html">
+        <img src="https://www.figma.com/api/mcp/asset/e5eb53f8-a1ce-49e0-8110-34cb87e7f660" alt="Fever">
+      </a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"></circle><line x1="15.5" y1="15.5" x2="22" y2="22"></line></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+        <a class="avatar-wrap" href="/profile.html" aria-label="Open login page">
+          <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+        </a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </div>
+    </nav>
+
+    <div class="favorites-header">
+      <a class="back-btn" href="home.html" aria-label="Go back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg>
+      </a>
+      <h1>Favorites</h1>
+    </div>
+
+    <section id="favorites-empty-state" hidden>
+      <div class="empty-banner">
+        <div class="empty-illustration">
+          <img class="empty-character" src="https://www.figma.com/api/mcp/asset/2c6f3eca-1ffd-4849-86e3-de1b7758e45c" alt="">
+          <img class="empty-heart" src="https://www.figma.com/api/mcp/asset/ad9b7f93-f8c9-4010-a938-d152bd586a46" alt="">
+        </div>
+        <p class="empty-message">Products you add to favorites will be saved here.</p>
+      </div>
+      <div class="empty-info">
+        <h2>Discover your next favorites now</h2>
+        <p class="empty-copy">Browse unique experiences and save the ones you love for easy access later.</p>
+        <a class="continue-btn" href="home.html">Continue exploring</a>
+      </div>
+    </section>
+
+    <main class="content">
+      <section id="favorites-list" class="cards-grid"></section>
+    </main>
+  </div>
+
+  <script>
+    (function() {
+      var FAVORITES_KEY = 'polar_liked_plans';
+      var listNode = document.getElementById('favorites-list');
+      var emptyStateNode = document.getElementById('favorites-empty-state');
+      if (!listNode || !emptyStateNode) return;
+
+      function readFavorites() {
+        try {
+          var raw = localStorage.getItem(FAVORITES_KEY);
+          var parsed = raw ? JSON.parse(raw) : {};
+          if (!parsed || typeof parsed !== 'object') return {};
+          return parsed;
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function writeFavorites(nextFavorites) {
+        try {
+          localStorage.setItem(FAVORITES_KEY, JSON.stringify(nextFavorites));
+        } catch (e) {}
+      }
+
+      function escapeHtml(value) {
+        return (value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function render() {
+        var favoritesMap = readFavorites();
+        var favorites = Object.keys(favoritesMap).map(function(key) {
+          return favoritesMap[key];
+        });
+
+        if (!favorites.length) {
+          emptyStateNode.hidden = false;
+          listNode.hidden = true;
+          listNode.innerHTML = '';
+          return;
+        }
+
+        emptyStateNode.hidden = true;
+        listNode.hidden = false;
+        listNode.innerHTML = favorites.map(function(item) {
+          var safeTitle = escapeHtml(item.title || 'Plan');
+          var safeMeta = escapeHtml(item.meta || '');
+          var safePrice = escapeHtml(item.price || '');
+          var safeBadge = escapeHtml(item.badge || '');
+          var safeImage = escapeHtml(item.image || '');
+          var safeHref = escapeHtml(item.href || '#');
+          var safeId = escapeHtml(item.id || '');
+          return ''
+            + '<article class="plan-card" data-id="' + safeId + '">'
+            +   '<a href="' + safeHref + '" aria-label="' + safeTitle + '">'
+            +     '<img src="' + safeImage + '" alt="' + safeTitle + '">'
+            +   '</a>'
+            +   '<a class="plan-main" href="' + safeHref + '" aria-label="' + safeTitle + '">'
+            +     (safeBadge ? '<span class="plan-badge">' + safeBadge + '</span>' : '')
+            +     '<h2 class="plan-title">' + safeTitle + '</h2>'
+            +     (safeMeta ? '<p class="plan-meta">' + safeMeta + '</p>' : '')
+            +     (safePrice ? '<p class="plan-price">' + safePrice + '</p>' : '')
+            +   '</a>'
+            +   '<button class="remove-btn js-remove-like" type="button" data-id="' + safeId + '" aria-label="Remove from liked plans">'
+            +     '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>'
+            +   '</button>'
+            + '</article>';
+        }).join('');
+      }
+
+      listNode.addEventListener('click', function(event) {
+        var button = event.target.closest('.js-remove-like');
+        if (!button) return;
+        var id = button.getAttribute('data-id');
+        if (!id) return;
+        var favorites = readFavorites();
+        delete favorites[id];
+        writeFavorites(favorites);
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
