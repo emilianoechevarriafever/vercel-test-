@@ -1,29 +1,24 @@
 # Prototypes isolation and deploy
 
-This folder contains two fully separated static prototypes:
+This folder contains one isolated Candlelight prototype project:
 
-- `prototypes/queen/`
-- `prototypes/coldplay/`
+- `prototypes/candlelight/index.html` (Queen page)
+- `prototypes/candlelight/coldplay.html`
+- `prototypes/candlelight/img/`
 
-Each prototype has:
+Both pages are part of the same project and can link to each other without depending on `/home`.
 
-- its own `index.html`
-- its own `img/` folder copy
-- independent internal links (no dependency on `/home`)
+## Suggested Vercel split
 
-## Vercel setup (one-time)
+Create separate Vercel projects from the same repository:
 
-Create **2 Vercel projects** from the same repository:
-
-1. Project name example: `prototype-queen`
-   - Root Directory: `prototypes/queen`
-2. Project name example: `prototype-coldplay`
-   - Root Directory: `prototypes/coldplay`
+1. Candlelight prototype
+   - Root Directory: `prototypes/candlelight`
+2. Polar Sound flow
+   - Root Directory: repository root (`.`) for now, or a dedicated folder if moved later
 
 Recommended settings:
 
 - Framework Preset: `Other`
 - Build Command: empty
 - Output Directory: empty
-
-After this, each prototype deploys to a different URL and can evolve independently.
