@@ -322,29 +322,7 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-<<<<<<< HEAD
-    let flow = params.get('flow');
-    let storedFlow = null;
-    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
-    const isOptionE = flow === 'option-e';
-    const isOptionF = flow === 'option-f';
-    const isOptionalFlow = isOptionE || isOptionF;
-    if (isOptionalFlow) {
-      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-    }
-    if (isOptionalFlow) {
-      var accommodationLogoLink = document.getElementById('accommodation-logo-link');
-      if (accommodationLogoLink) accommodationLogoLink.href = '/' + flow + '/';
-      var accommodationStepper = document.querySelector('.flow-stepper');
-      if (accommodationStepper) accommodationStepper.style.display = 'none';
-      var step1 = document.getElementById('stepper-step1');
-      var step3 = document.getElementById('stepper-step3');
-      var step4 = document.getElementById('stepper-step4');
-      if (step1) step1.href = 'polar-sound.html?flow=' + flow + '#ticket-section';
-      if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
-      if (step4) step4.href = isOptionF ? 'cart.html?flow=option-f' : 'checkout.html?flow=option-e';
-=======
+=
     const isOptionF = params.get('flow') === 'option-f';
     const flowSuffix = isOptionF ? '?flow=option-f' : '';
 
@@ -356,9 +334,7 @@
       const step4 = document.getElementById('stepper-step4');
       if (step1) step1.href = 'polar-sound.html?flow=option-f#ticket-section';
       if (step3) step3.href = 'polar-sound-transportations.html?flow=option-f';
-      if (step4) step4.href = 'checkout.html?flow=option-f';
->>>>>>> 8661c2e (Option F: add single add-on decision hub flow.)
-    }
+      if (step4) step4.href = 'checkout.html?flow=option-f';    }
 
     document.getElementById('sticky-btn').textContent = 'Select accommodations';
 

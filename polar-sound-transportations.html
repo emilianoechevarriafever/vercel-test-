@@ -189,14 +189,7 @@
     if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
     const isOptionB = flow === 'option-b';
     const isOptionF = flow === 'option-f';
-<<<<<<< HEAD
-    const isOptionalFlow = isOptionE || isOptionF;
-    if (isOptionalFlow) {
-      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-    }
-=======
->>>>>>> 8661c2e (Option F: add single add-on decision hub flow.)
-
+=
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'option-b/index.html';
       document.getElementById('nav-logo-img').src = '../img/fever-logo.png';

@@ -632,45 +632,11 @@
   </div>
 
   <script>
-<<<<<<< HEAD
-    const params = new URLSearchParams(window.location.search);
-    let flow = params.get('flow');
-    let storedFlow = null;
-    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
-    const isOptionE = flow === 'option-e';
-    const isOptionF = flow === 'option-f';
-    const isOptionalFlow = isOptionE || isOptionF;
-    if (isOptionalFlow) {
-      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-    }
-    if (isOptionalFlow) {
-      var ticketsLogoLink = document.getElementById('tickets-logo-link');
-      if (ticketsLogoLink) ticketsLogoLink.href = '/' + flow + '/';
-      var ticketsStepper = document.getElementById('tickets-flow-stepper');
-      if (ticketsStepper) {
-        ticketsStepper.classList.add('stepper-hidden');
-        ticketsStepper.setAttribute('aria-hidden', 'true');
-      }
-      var step2 = document.getElementById('tickets-stepper-step2');
-      var step3 = document.getElementById('tickets-stepper-step3');
-      var step4 = document.getElementById('tickets-stepper-step4');
-      if (step2) step2.href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
-      if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
-      if (step4) step4.href = isOptionF ? 'cart.html?flow=option-f' : 'checkout.html?flow=option-e';
-    }
-
+=
     // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
     (function() {
       try {
-        if (!isOptionalFlow && sessionStorage.getItem('polar_flow_visited')) {
-=======
-    // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
-    (function() {
-      try {
-        if (sessionStorage.getItem('polar_flow_visited')) {
->>>>>>> 8661c2e (Option F: add single add-on decision hub flow.)
-          var el = document.getElementById('tickets-flow-stepper');
+        if (sessionStorage.getItem('polar_flow_visited')) {          var el = document.getElementById('tickets-flow-stepper');
           if (el) { el.classList.remove('stepper-hidden'); el.setAttribute('aria-hidden', 'false'); }
         }
       } catch (e) {}
