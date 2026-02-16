@@ -680,11 +680,18 @@
     updatePillsArrows();
     window.addEventListener('resize', updatePillsArrows);
 
-    // Always scroll to ticket selector on load (including first visit)
-    (function() {
+    // Always scroll to ticket selector on load (including first visit).
+    // Use two passes to make this robust on slower layout/image loads.
+    function scrollAccommodationToSelector() {
       var el = document.getElementById('ticket-section');
-      if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
-    })();
+      if (!el) return;
+      requestAnimationFrame(function() {
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 120);
+      });
+    }
+    scrollAccommodationToSelector();
+    window.addEventListener('pageshow', scrollAccommodationToSelector);
     (function() {
       var tickets = [];
       try { tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]'); } catch (e) {}
