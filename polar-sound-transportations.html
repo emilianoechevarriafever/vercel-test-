@@ -183,11 +183,17 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const flow = params.get('flow');
+    let flow = params.get('flow');
+    let storedFlow = null;
+    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
     const isOptionB = flow === 'option-b';
     const isOptionE = flow === 'option-e';
     const isOptionF = flow === 'option-f';
     const isOptionalFlow = isOptionE || isOptionF;
+    if (isOptionalFlow) {
+      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+    }
 
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'option-b/index.html';

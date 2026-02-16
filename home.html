@@ -725,10 +725,18 @@
   <script>
     (function() {
       var params = new URLSearchParams(window.location.search);
-      if (params.get('flow') === 'option-e') {
+      var flow = params.get('flow');
+      var storedFlow = null;
+      try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
+      if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) {
+        flow = storedFlow;
+      }
+      if (flow === 'option-e' || flow === 'option-f') {
         var polarLink = document.getElementById('polar-sound-link');
-        if (polarLink) polarLink.href = 'polar-sound.html?flow=option-e';
+        if (polarLink) polarLink.href = 'polar-sound.html?flow=' + flow;
+        try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
       } else {
+        try { sessionStorage.removeItem('polar_flow_mode'); } catch (e) {}
         try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
       }
     })();

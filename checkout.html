@@ -378,7 +378,14 @@
     (function() {
       var params = new URLSearchParams(window.location.search);
       var flow = params.get('flow');
+      if (!flow) {
+        try {
+          var storedFlow = sessionStorage.getItem('polar_flow_mode');
+          if (storedFlow === 'option-e' || storedFlow === 'option-f') flow = storedFlow;
+        } catch (e) {}
+      }
       if (flow === 'option-e' || flow === 'option-f') {
+        try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
         var logoLink = document.getElementById('checkout-logo-link');
         if (logoLink) logoLink.href = '/' + flow + '/';
         var checkoutStepper = document.querySelector('.flow-stepper');
