@@ -385,13 +385,14 @@
 
       <!-- Type pills -->
       <div class="ticket-pills" id="ticket-pills-row">
-        <div class="ticket-pill active">Day Ticket</div>
-        <div class="ticket-pill">2 Day Pass</div>
+        <div class="ticket-pill active" data-panel="day">Day Ticket</div>
+        <div class="ticket-pill" data-panel="2day">2 Day Pass</div>
         <div class="pill-arrow" id="pills-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
       </div>
 
+      <div class="ticket-panel" id="panel-day" data-panel="day">
       <!-- Ticket rows (coupon style) -->
       <div class="ticket-row selected">
         <div class="ticket-content">
@@ -459,6 +460,41 @@
 
       <!-- Selling Fast banner -->
       <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+      </div>
+
+      <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
+        <div class="ticket-row selected">
+          <div class="ticket-content">
+            <div class="ticket-name">General - Tier 5</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;87.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">1</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
+            <div class="ticket-more">More info</div>
+            <div class="ticket-price">&euro;147.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+      </div>
 
       <!-- CTA buttons -->
       <button class="cta-primary" id="cta-get-it" onclick="window.location.href='add-ons.html'">&euro;45.00 &mdash; Get it</button>
@@ -730,15 +766,26 @@
       }
     });
 
-    function saveTicketsToCart() {
-      const ticketNames = ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+    function getActivePanel() {
       const activePill = document.querySelector('.ticket-pill.active');
-      const passType = activePill ? activePill.textContent : 'Day Ticket';
+      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+      return document.getElementById('panel-' + panelId);
+    }
+
+    function saveTicketsToCart() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const panelRows = panel.querySelectorAll('.ticket-row');
+      const is2day = panel.id === 'panel-2day';
+      const ticketNames = is2day
+        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
+        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const prices = is2day ? prices2Day : pricesDay;
       const cartTickets = [];
-      rows.forEach((row, i) => {
+      panelRows.forEach((row, i) => {
         const qty = parseInt(row.querySelector('.amt-count').textContent);
         if (qty > 0) {
-          cartTickets.push({ name: ticketNames[i] + ' (' + passType + ')', price: prices[i], qty: qty });
+          cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
         }
       });
       localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
@@ -760,54 +807,74 @@
       }
     }
 
-    // === DYNAMIC TICKET PRICING ===
-    const prices = [45.00, 50.00, 85.00, 90.00];
-    const rows = document.querySelectorAll('.ticket-selector .ticket-row');
+    // === DYNAMIC TICKET PRICING (per panel) ===
+    const pricesDay = [45.00, 50.00, 85.00, 90.00];
+    const prices2Day = [87.50, 147.50];
 
     function getTotal() {
+      const panel = getActivePanel();
+      if (!panel) return 0;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let total = 0;
       rows.forEach((row, i) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
-        total += count * prices[i];
+        total += count * (prices[i] || 0);
       });
       return total;
     }
 
     function updateTotal() {
-      rows.forEach((row) => {
+      const panel = getActivePanel();
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
         const count = parseInt(row.querySelector('.amt-count').textContent);
         row.classList.toggle('selected', count > 0);
+        row.classList.toggle('qty-zero', count === 0);
       });
       updateStickyBtn();
     }
 
-    rows.forEach((row, i) => {
-      const minus = row.querySelector('.amt-btn.minus');
-      const plus = row.querySelector('.amt-btn.plus');
-      const countEl = row.querySelector('.amt-count');
-
-      plus.addEventListener('click', () => {
-        countEl.textContent = parseInt(countEl.textContent) + 1;
-        updateTotal();
+    function bindSteppers(panel) {
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', () => {
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          updateTotal();
+        });
+        minus.addEventListener('click', () => {
+          const val = parseInt(countEl.textContent);
+          if (val > 0) countEl.textContent = val - 1;
+          updateTotal();
+        });
       });
-      minus.addEventListener('click', () => {
-        const val = parseInt(countEl.textContent);
-        if (val > 0) countEl.textContent = val - 1;
-        updateTotal();
-      });
-    });
+    }
 
-    // Pill switching — reset counts & pre-select cheapest
+    bindSteppers(document.getElementById('panel-day'));
+    bindSteppers(document.getElementById('panel-2day'));
+
+    // Pill switching — show/hide panel and pre-select cheapest
     document.querySelectorAll('.ticket-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
+        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
+        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
         preselectCheapest();
       });
     });
 
     // Pre-select the cheapest ticket (qty 1), reset others to 0
     function preselectCheapest() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
       let minIdx = 0;
       let minPrice = Infinity;
       prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
