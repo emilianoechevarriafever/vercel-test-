@@ -61,9 +61,11 @@
       background: #fff;
       border-bottom: 1px solid var(--border);
     }
-    .empty-illustration { position: relative; height: 80px; overflow: visible; }
-    .empty-character { position: absolute; left: 14px; bottom: 0; width: 83px; height: auto; }
-    .empty-heart { position: absolute; left: 77px; top: 16px; width: 28px; height: 24px; }
+    .empty-illustration { position: relative; height: 96px; overflow: hidden; }
+    .empty-torso { position: absolute; left: 10px; bottom: 0; width: 84px; height: auto; }
+    .empty-head { position: absolute; left: 38px; top: 0; width: 40px; height: auto; }
+    .empty-face { position: absolute; left: 49px; top: 20px; width: 7px; height: auto; }
+    .empty-heart { position: absolute; left: 80px; top: 28px; width: 28px; height: 24px; }
     .empty-message {
       margin: 0;
       padding: 0 12px 10px 0;
@@ -113,6 +115,54 @@
     .plan-price { margin: 0; font-size: 13px; font-weight: 700; color: #111827; }
     .remove-btn { border: none; background: none; padding: 4px; margin: 0; line-height: 0; cursor: pointer; color: #031419; }
     .remove-btn svg { width: 22px; height: 22px; fill: currentColor; stroke: currentColor; }
+    .remove-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 76px;
+      transform: translateX(-50%) translateY(14px);
+      width: min(calc(100vw - 32px), 328px);
+      background: #fff;
+      border: 1px solid #bcc6d0;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(3, 20, 25, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .remove-toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .remove-toast-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #e8ebf0;
+      flex: 0 0 auto;
+    }
+    .remove-toast-text { font: 500 15px/20px "Montserrat", sans-serif; color: #536b75; }
+    .remove-toast-close {
+      margin-left: auto;
+      border: none;
+      background: none;
+      color: #6a7480;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0;
+    }
 
     [hidden] { display: none !important; }
   </style>
@@ -121,7 +171,7 @@
   <div class="phone">
     <nav class="navbar">
       <a class="logo-link" href="home.html">
-        <img src="https://www.figma.com/api/mcp/asset/e5eb53f8-a1ce-49e0-8110-34cb87e7f660" alt="Fever">
+        <img src="img/fever-logo.png" alt="Fever">
       </a>
       <div class="nav-icons">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"></circle><line x1="15.5" y1="15.5" x2="22" y2="22"></line></svg>
@@ -141,11 +191,30 @@
       <h1>Favorites</h1>
     </div>
 
+    <section id="favorites-guest-state" hidden>
+      <div class="empty-banner">
+        <div class="empty-illustration">
+          <img class="empty-torso" src="https://www.figma.com/api/mcp/asset/4b8f0e94-3aeb-41b1-ad0f-3643ca5997c2" alt="">
+          <img class="empty-head" src="https://www.figma.com/api/mcp/asset/0f000b83-23e6-4288-b08a-42cabf46ffc4" alt="">
+          <img class="empty-face" src="https://www.figma.com/api/mcp/asset/3bf73829-aacd-4584-9691-49f66da4ab7d" alt="">
+          <img class="empty-heart" src="https://www.figma.com/api/mcp/asset/a2041aa5-f6c4-4555-a399-f3766e232f57" alt="">
+        </div>
+        <p class="empty-message">Products you add to favorites will be saved here.</p>
+      </div>
+      <div class="empty-info">
+        <h2>Discover your next favorites now</h2>
+        <p class="empty-copy">Connect now and save the ones you love for easy access later.</p>
+        <a class="continue-btn" href="https://www.figma.com/design/9ykILr8gMmYmzODxLUS7DW/Feed--Web-?node-id=7766-78058&m=dev">Log in</a>
+      </div>
+    </section>
+
     <section id="favorites-empty-state" hidden>
       <div class="empty-banner">
         <div class="empty-illustration">
-          <img class="empty-character" src="https://www.figma.com/api/mcp/asset/2c6f3eca-1ffd-4849-86e3-de1b7758e45c" alt="">
-          <img class="empty-heart" src="https://www.figma.com/api/mcp/asset/ad9b7f93-f8c9-4010-a938-d152bd586a46" alt="">
+          <img class="empty-torso" src="https://www.figma.com/api/mcp/asset/4b8f0e94-3aeb-41b1-ad0f-3643ca5997c2" alt="">
+          <img class="empty-head" src="https://www.figma.com/api/mcp/asset/0f000b83-23e6-4288-b08a-42cabf46ffc4" alt="">
+          <img class="empty-face" src="https://www.figma.com/api/mcp/asset/3bf73829-aacd-4584-9691-49f66da4ab7d" alt="">
+          <img class="empty-heart" src="https://www.figma.com/api/mcp/asset/a2041aa5-f6c4-4555-a399-f3766e232f57" alt="">
         </div>
         <p class="empty-message">Products you add to favorites will be saved here.</p>
       </div>
@@ -165,8 +234,11 @@
     (function() {
       var FAVORITES_KEY = 'polar_liked_plans';
       var listNode = document.getElementById('favorites-list');
+      var guestStateNode = document.getElementById('favorites-guest-state');
       var emptyStateNode = document.getElementById('favorites-empty-state');
-      if (!listNode || !emptyStateNode) return;
+      if (!listNode || !emptyStateNode || !guestStateNode) return;
+      var removeToastNode = null;
+      var removeToastTimer = null;
 
       function readFavorites() {
         try {
@@ -185,6 +257,14 @@
         } catch (e) {}
       }
 
+      function isLoggedIn() {
+        try {
+          return localStorage.getItem('polar_is_logged_in') === '1';
+        } catch (e) {
+          return false;
+        }
+      }
+
       function escapeHtml(value) {
         return (value || '')
           .replace(/&/g, '&amp;')
@@ -194,19 +274,57 @@
           .replace(/'/g, '&#39;');
       }
 
+      function ensureRemoveToast() {
+        if (removeToastNode) return removeToastNode;
+        removeToastNode = document.createElement('div');
+        removeToastNode.className = 'remove-toast';
+        removeToastNode.setAttribute('role', 'status');
+        removeToastNode.setAttribute('aria-live', 'polite');
+        removeToastNode.innerHTML =
+          '<img class="remove-toast-thumb" alt="Removed plan thumbnail">' +
+          '<span class="remove-toast-text">Removed from favorites</span>' +
+          '<button type="button" class="remove-toast-close" aria-label="Close notification">&times;</button>';
+        document.body.appendChild(removeToastNode);
+        removeToastNode.querySelector('.remove-toast-close').addEventListener('click', function() {
+          removeToastNode.classList.remove('is-visible');
+        });
+        return removeToastNode;
+      }
+
+      function showRemoveToast(item) {
+        var toast = ensureRemoveToast();
+        var thumb = toast.querySelector('.remove-toast-thumb');
+        if (thumb && item && item.image) thumb.src = item.image;
+        toast.classList.add('is-visible');
+        if (removeToastTimer) clearTimeout(removeToastTimer);
+        removeToastTimer = setTimeout(function() {
+          toast.classList.remove('is-visible');
+        }, 5000);
+      }
+
       function render() {
         var favoritesMap = readFavorites();
         var favorites = Object.keys(favoritesMap).map(function(key) {
           return favoritesMap[key];
         });
 
+        if (!isLoggedIn()) {
+          guestStateNode.hidden = false;
+          emptyStateNode.hidden = true;
+          listNode.hidden = true;
+          listNode.innerHTML = '';
+          return;
+        }
+
         if (!favorites.length) {
+          guestStateNode.hidden = true;
           emptyStateNode.hidden = false;
           listNode.hidden = true;
           listNode.innerHTML = '';
           return;
         }
 
+        guestStateNode.hidden = true;
         emptyStateNode.hidden = true;
         listNode.hidden = false;
         listNode.innerHTML = favorites.map(function(item) {
@@ -241,9 +359,11 @@
         var id = button.getAttribute('data-id');
         if (!id) return;
         var favorites = readFavorites();
+        var removedItem = favorites[id] || null;
         delete favorites[id];
         writeFavorites(favorites);
         render();
+        showRemoveToast(removedItem);
       });
 
       render();

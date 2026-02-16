@@ -58,8 +58,16 @@
     .hero .gallery-btn svg { width:16px; height:16px; }
     .hero .slide-indicators { display:flex; gap:4px; width:100%; }
     /* Barras horizontales (Figma), no círculos */
-    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.5); }
-    .hero .slide-indicators .bar.active { background:white; }
+    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.35); position:relative; overflow:hidden; }
+    .hero .slide-indicators .bar::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:#fff;
+      transform-origin:left center;
+      transform:scaleX(var(--progress, 0));
+    }
+    .hero .slide-indicators .bar.active { background:rgba(255,255,255,0.35); }
     .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; z-index:2; }
 
     .title-section { padding:16px; }
@@ -339,16 +347,38 @@
 
       var currentIndex = 0;
       var autoplayTimer = null;
+      var autoplayDelay = 4000;
+      var progressRaf = null;
+      var slideStartedAt = Date.now();
 
       function renderHeroImage() {
         heroImage.src = galleryImages[currentIndex];
         indicatorBars.forEach(function (bar, index) {
           bar.classList.toggle('active', index === currentIndex);
+          if (index !== currentIndex) bar.style.setProperty('--progress', '0');
         });
+      }
+
+      function renderProgress() {
+        var elapsed = Date.now() - slideStartedAt;
+        var progress = Math.max(0, Math.min(1, elapsed / autoplayDelay));
+        indicatorBars.forEach(function (bar, index) {
+          bar.style.setProperty('--progress', index === currentIndex ? String(progress) : '0');
+        });
+      }
+
+      function startProgressLoop() {
+        function frame() {
+          renderProgress();
+          progressRaf = window.requestAnimationFrame(frame);
+        }
+        if (progressRaf) window.cancelAnimationFrame(progressRaf);
+        progressRaf = window.requestAnimationFrame(frame);
       }
 
       function goTo(index) {
         currentIndex = (index + galleryImages.length) % galleryImages.length;
+        slideStartedAt = Date.now();
         renderHeroImage();
       }
 
@@ -357,7 +387,8 @@
 
       function startAutoplay() {
         if (autoplayTimer) clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(nextImage, 4000);
+        slideStartedAt = Date.now();
+        autoplayTimer = setInterval(nextImage, autoplayDelay);
       }
 
       hero.addEventListener('click', function (event) {
@@ -371,6 +402,7 @@
 
       renderHeroImage();
       startAutoplay();
+      startProgressLoop();
     })();
 
     document.getElementById('sticky-btn').textContent = 'Select accommodation';

@@ -168,26 +168,6 @@
       font-size: 12px;
       line-height: 1;
     }
-    .sheet-nav {
-      height: 78px;
-      border-top: 1px solid #cfd4da;
-      background: #efefef;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      color: #7f8790;
-      font-size: 24px;
-    }
-    .sheet-nav .active {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #d7dbe1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #737d89;
-    }
   </style>
 </head>
 <body>
@@ -225,8 +205,8 @@
             <span>&#x2197;</span>
           </div>
           <div class="links">
-            <a href="#">Perfil</a>
-            <a href="#">Cambiar email</a>
+            <a href="#">Profile</a>
+            <a href="#">Change email</a>
           </div>
         </div>
 
@@ -241,14 +221,10 @@
           <a class="inline-link" href="#">Get rewards in the app <span>&#x2197;</span></a>
         </div>
       </div>
-      <div class="sheet-nav">
-        <span>&larr;</span>
-        <span>&rarr;</span>
-        <span class="active">+</span>
-        <span style="font-size:22px;">&#9633;</span>
-        <span>&#8230;</span>
-      </div>
     </section>
   </div>
+  <script>
+    try { localStorage.setItem('polar_is_logged_in', '1'); } catch (e) {}
+  </script>
 </body>
 </html>
