@@ -105,7 +105,6 @@
   <script>
     (function() {
       try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
-      try { localStorage.removeItem('polar_is_logged_in'); } catch (e) {}
 
       var flow = new URLSearchParams(window.location.search).get('flow');
       var config = {
