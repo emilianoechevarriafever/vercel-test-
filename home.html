@@ -9,13 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    /* Fever Design System */
+    /* Fever Design System — refined to match production feverup.com */
     :root {
       --color-primary: #0079ca;
       --color-primary-weak: #E6F4FF;
-      --color-text-main: #0A1E42;
-      --color-text-secondary: #37474F;
-      --color-text-subtle: #37474F;
+      --color-text-main: #031419;
+      --color-text-secondary: #536b75;
+      --color-text-subtle: #536b75;
       --color-border: #E6EAEE;
       --color-bg-neutral: #F5F7F9;
       --radius: 0.75rem;
@@ -23,6 +23,7 @@
       --font: 'Montserrat', sans-serif;
       --font-ui: 'Montserrat', sans-serif;
     }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: var(--font);
       background: var(--color-bg-neutral);
@@ -56,12 +57,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 10px 16px;
       background: #fff;
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #ccd2d8;
+      border-bottom: 1px solid #e6eaee;
     }
     .navbar .logo-link {
       text-decoration: none;
@@ -76,7 +77,7 @@
       object-fit: contain;
     }
     .nav-icons { display: flex; align-items: center; gap: 16px; }
-    .nav-icons svg { width: 24px; height: 24px; color: #031419; stroke: currentColor; cursor: pointer; }
+    .nav-icons svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; cursor: pointer; }
     .nav-icon-btn {
       margin: 0;
       padding: 0;
@@ -87,13 +88,13 @@
       justify-content: center;
       cursor: pointer;
     }
-    .nav-icon-btn svg { width: 24px; height: 24px; color: #031419; stroke: currentColor; }
+    .nav-icon-btn svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; }
     .burger-toggle .icon-close { display: none; }
     .phone.is-menu-open .burger-toggle .icon-menu { display: none; }
     .phone.is-menu-open .burger-toggle .icon-close { display: block; }
     .avatar-wrap { position: relative; display: flex; align-items: center; }
     .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
-    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
 
     .burger-menu-panel {
       display: none;
@@ -110,9 +111,9 @@
     .phone.is-menu-open .footer { display: none; }
 
     .burger-location-lang {
-      height: 40px;
-      border-top: 1px solid #ccd2d8;
-      border-bottom: 1px solid #ccd2d8;
+      height: 44px;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
       background: #fff;
       padding: 0 8px;
       display: flex;
@@ -122,15 +123,15 @@
     .burger-location {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      color: #031419;
+      gap: 6px;
+      color: var(--color-text-main);
       font-size: 16px;
     }
     .burger-location span {
       font-size: 16px;
       line-height: 24px;
-      font-weight: 400;
-      color: #031419;
+      font-weight: 500;
+      color: var(--color-text-main);
     }
     .burger-divider {
       width: 1px;
@@ -211,12 +212,13 @@
       padding: 0 16px 16px;
     }
     .hero-city {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
       color: white;
       display: flex;
       align-items: center;
       gap: 8px;
+      letter-spacing: -0.02em;
     }
     .hero-city svg { width: 16px; height: 16px; }
     .hero-city-trigger {
@@ -242,8 +244,9 @@
       gap: 10px;
       background: white;
       border-radius: 100px;
-      padding: 10px 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 12px 16px;
+      height: 48px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
     }
     .search-bar svg { width: 18px; height: 18px; color: #999; flex-shrink: 0; }
     .search-bar span { font-size: 14px; color: #999; font-family: var(--font); }
@@ -257,17 +260,18 @@
       padding: 0 16px;
       margin-bottom: 16px;
     }
-    .section-header h2 { font-size: 18px; font-weight: 700; color: var(--color-text-main); }
+    .section-header h2 { font-size: 20px; font-weight: 700; color: var(--color-text-main); line-height: 28px; }
     .section-header a { font-size: 14px; font-weight: 600; color: #0079ca; text-decoration: none; }
     .section-top10 .section-header a { color: #031419; text-decoration: underline; text-underline-offset: 2px; }
 
     /* Card Carousel — Top 10: portrait 2:3 aspect ratio (ref. correct layout) */
     .card-scroll {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       overflow-x: auto;
       padding: 0 16px;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
     .card-scroll::-webkit-scrollbar { display: none; }
     .card-scroll .card-img {
@@ -396,9 +400,9 @@
     .card-like.liked:hover { background: rgba(0,0,0,0.6); }
     .event-card .card-title {
       margin-top: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 18px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
       color: var(--color-text-main);
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -463,11 +467,11 @@
     /* Nearby Cities */
     .cities-section {
       margin: 24px 16px;
-      background: #f9f9f9;
+      background: var(--color-bg-neutral);
       border-radius: 12px;
-      padding: 16px;
+      padding: 20px 16px;
     }
-    .cities-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .cities-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--color-text-main); }
     .city-chips {
       display: flex;
       flex-wrap: wrap;
@@ -516,12 +520,13 @@
     .dots span.active { background: var(--color-text-main); }
 
     /* Footer */
-    .footer { background: black; color: white; padding: 32px 16px 120px; }
+    .footer { background: #031419; color: white; padding: 32px 16px 80px; }
     .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
-    .footer-col h5 { font-size: 14px; font-weight: 650; margin-bottom: 8px; }
+    .footer-col h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.01em; }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { font-size: 13px; line-height: 20px; margin-bottom: 6px; opacity: 0.8; cursor: pointer; }
-    .footer .legal { border-top: 1px solid #536b75; padding-top: 16px; font-size: 12px; opacity: 0.7; }
+    .footer-col ul li { font-size: 13px; line-height: 22px; margin-bottom: 4px; color: rgba(255,255,255,0.75); cursor: pointer; transition: color 0.15s; }
+    .footer-col ul li:hover { color: white; }
+    .footer .legal { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); }
     .footer .legal a { color: white; }
 
     /* SEO text */
@@ -1071,7 +1076,7 @@
       </div>
       <div class="legal">
         <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Policy</a>
-        <div style="margin-top:8px;text-align:right;">&copy;2025 &ndash; Fever</div>
+        <div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div>
       </div>
     </div>
 
