@@ -134,7 +134,7 @@
     .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
 
     /* Ticket rows — Figma 778-26883/778-26897 (ticket silhouette with center perforation) */
-    .ticket-row { --ticket-border:#ccd2d8; display:flex; align-items:stretch; min-height:96px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; background:transparent; }
+    .ticket-row { --ticket-border:#ccd2d8; display:flex; align-items:stretch; min-height:92px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; background:transparent; }
     .ticket-row::after {
       content:'';
       position:absolute;
@@ -149,10 +149,10 @@
       pointer-events:none;
       z-index:2;
     }
-    .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:flex-start; gap:4px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:96px; }
-    .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:20px; color:#031419; }
-    .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:20px; color:#031419; margin-top:auto; }
-    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:18px; color:#0079ca; text-decoration:none; padding:4px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
+    .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:flex-start; gap:4px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:92px; }
+    .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:#031419; }
+    .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:18px; color:#031419; margin-top:auto; }
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
     .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:#031419; }
     .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
     .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
