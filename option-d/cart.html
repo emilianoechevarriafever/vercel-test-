@@ -248,7 +248,7 @@
     }
 
     function renderEmptyState(message, ctaText, href) {
-      return '<div class="empty-state-row"><span class="empty-state-text">' + message + '</span><a class="empty-state-link" href="' + href + '">' + ctaText + '</a></div>';
+      return '<div class="empty-state-row"><a class="empty-state-link" href="' + href + '">' + ctaText + '</a></div>';
     }
 
     function render() {
@@ -261,9 +261,9 @@
       cartTickets.forEach((item, i) => ticketContainer.appendChild(renderItem(item, i, 'tickets')));
       cartAccommodation.forEach((item, i) => accomContainer.appendChild(renderItem(item, i, 'accommodation')));
       cartTransportation.forEach((item, i) => transportContainer.appendChild(renderItem(item, i, 'transportation')));
-      if (cartTickets.length === 0) ticketContainer.innerHTML = renderEmptyState('No passes in cart.', 'Add a pass', 'polar-sound.html#ticket-section');
-      if (cartAccommodation.length === 0) accomContainer.innerHTML = renderEmptyState('No accommodation in cart.', 'Add accommodation', '../polar-sound-accommodation.html?flow=option-d');
-      if (cartTransportation.length === 0) transportContainer.innerHTML = renderEmptyState('No transportation in cart.', 'Add transportation', '../polar-sound-transportations.html?flow=option-d');
+      if (cartTickets.length === 0) ticketContainer.innerHTML = renderEmptyState('', 'Add', 'polar-sound.html#ticket-section');
+      if (cartAccommodation.length === 0) accomContainer.innerHTML = renderEmptyState('', 'Add', '../polar-sound-accommodation.html?flow=option-d');
+      if (cartTransportation.length === 0) transportContainer.innerHTML = renderEmptyState('', 'Add', '../polar-sound-transportations.html?flow=option-d');
       document.getElementById('cart-grand-total').textContent = '€' + getTotal().toFixed(2);
     }
 
