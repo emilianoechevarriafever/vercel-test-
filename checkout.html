@@ -85,20 +85,26 @@
     .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
     .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
 
-    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    /* Flow stepper — Figma Progress Indicator */
+    .flow-stepper { display:flex; align-items:flex-start; justify-content:space-between; padding:12px 16px; background:#fff; border-bottom:1px solid var(--color-border); }
     .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
-    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step::after { content:''; position:absolute; top:9px; left:50%; width:100%; height:2px; background:#ccd2d8; z-index:0; }
     .flow-stepper .step:last-child::after { display:none; }
-    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-secondary); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
-    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
-    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
-    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
-    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
-    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
-    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
-    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
-    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper .step.done::after { background:#0089e3; }
+    .flow-stepper .step.current::after { background:#ccd2d8; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; border:2px solid #ccd2d8; background:#fff; display:flex; align-items:center; justify-content:center; z-index:1; position:relative; font-size:0; color:transparent; box-sizing:border-box; }
+    .flow-stepper .step.done .dot { border-color:#0089e3; background:#fff; }
+    .flow-stepper .step.done .dot::before { content:''; display:block; width:10px; height:7px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 8' fill='none'%3E%3Cpath d='M1 3.5L4 6.5L10 1' stroke='%230089e3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+    .flow-stepper .step.done.skipped .dot { border-color:#0089e3; }
+    .flow-stepper .step.done.skipped .dot::before { width:8px; height:2px; background:#0089e3; border-radius:1px; }
+    .flow-stepper .step.current .dot { border-color:#0089e3; background:#fff; }
+    .flow-stepper .step.current .dot::before { content:''; display:block; width:10px; height:10px; border-radius:50%; background:#0089e3; }
+    .flow-stepper .step .label { font-family:var(--font); font-size:12px; font-weight:600; line-height:16px; color:#a7b2ba; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper .step.done .label { color:#536b75; }
+    .flow-stepper .step.current .label { color:#536b75; }
     .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+    .flow-stepper a.step.disabled { pointer-events:none; cursor:default; opacity:0.45; }
+    .flow-stepper.stepper-hidden { display:none !important; }
 
     /* Payment Method */
     .payment-section { padding:16px; scroll-margin-top: 88px; }
