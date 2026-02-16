@@ -202,6 +202,13 @@
       return t;
     }
 
+    function hasAnyCartItems() {
+      function hasItems(arr) {
+        return arr.some(function(item) { return (item && (item.qty || 1) > 0); });
+      }
+      return hasItems(cartTickets) || hasItems(cartAccommodation) || hasItems(cartTransportation);
+    }
+
     function render() {
       const ticketContainer = document.getElementById('ticket-items');
       const accomContainer = document.getElementById('accommodation-items');
@@ -222,6 +229,10 @@
     render();
 
     document.getElementById('btn-checkout').addEventListener('click', function() {
+      if (!hasAnyCartItems()) {
+        window.location.href = 'polar-sound.html#ticket-section';
+        return;
+      }
       try { sessionStorage.setItem('checkout_scroll_target', 'payment'); } catch (e) {}
       window.location.href = 'checkout.html';
     });
