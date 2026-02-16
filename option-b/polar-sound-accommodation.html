@@ -705,6 +705,40 @@
       });
     }
 
+    // Restore accommodation selections from cart (if user navigates back)
+    (function restoreAccommodationFromCart() {
+      try {
+        var saved = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+        if (!Array.isArray(saved) || saved.length === 0) return;
+        var first = saved[0];
+        if (!first || !first.detail || !first.name) return;
+        var travMatch = first.detail.match(/Trip\s+(\d+)/);
+        if (travMatch) state.travelers = travMatch[1];
+        var nightMatch = first.detail.match(/(\d+)\s+night/);
+        if (nightMatch) state.nights = nightMatch[1];
+        var dashIdx = first.name.indexOf(' \u2014 ');
+        if (dashIdx === -1) dashIdx = first.name.indexOf(' — ');
+        if (dashIdx !== -1) state.name = first.name.substring(dashIdx + 3);
+        document.querySelectorAll('#level-travelers .ticket-pill').forEach(function(p) {
+          p.classList.toggle('active', p.dataset.value === state.travelers);
+        });
+        document.querySelectorAll('#level-nights .ticket-pill').forEach(function(p) {
+          p.classList.toggle('active', p.dataset.value === state.nights);
+        });
+        var rooms = (DATA[state.travelers] && DATA[state.travelers][state.nights] && DATA[state.travelers][state.nights][state.type] && DATA[state.travelers][state.nights][state.type][state.name]) || [];
+        roomCounts = {};
+        rooms.forEach(function(room, i) {
+          saved.forEach(function(item) {
+            if (item.price === room.price && item.name && item.name.indexOf(room.name) === 0) {
+              roomCounts[i] = item.qty || 0;
+            }
+          });
+        });
+        hasSeenTickets = true;
+        stickyMode = 'getit';
+      } catch (e) {}
+    })();
+
     // Initial render
     renderNamePills();
     updatePillsArrows();

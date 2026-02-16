@@ -444,6 +444,23 @@
       }
     });
 
+    // Restore transport selections from cart (if user navigates back)
+    (function restoreTransportFromCart() {
+      try {
+        var saved = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
+        if (!Array.isArray(saved) || saved.length === 0) return;
+        saved.forEach(function(item) {
+          TRANSPORT_OPTIONS.forEach(function(opt, i) {
+            if (opt.name === item.name && item.qty > 0) counts[i] = item.qty;
+          });
+        });
+        if (counts.some(function(c) { return c > 0; })) {
+          hasSeenTransport = true;
+          stickyMode = 'continue';
+        }
+      } catch (e) {}
+    })();
+
     render();
     // Always scroll to transport selector on load (including first visit)
     setTimeout(function() { transportSection.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
