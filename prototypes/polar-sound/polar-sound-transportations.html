@@ -9,11 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     :root {
       --color-primary: #0079ca;
       --color-primary-weak: #E6F4FF;
-      --color-text: #0A1E42;
-      --color-text-secondary: #37474F;
+      --color-text: #031419;
+      --color-text-secondary: #536b75;
       --color-text-disable: #b0b8bf;
       --color-border: #E6EAEE;
       --color-border-light: #E6EAEE;
@@ -25,7 +26,7 @@
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; }
 
     .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
-    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:#fff; border-top:none; border-bottom:1px solid #e6eaee; }
     .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
     .navbar .logo-link img { height:38px; width:auto; display:block; object-fit:contain; }
     .nav-icons { display:flex; align-items:center; gap:16px; }
@@ -41,7 +42,7 @@
     .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
     .hero .side-btn svg { width:20px; height:20px; color:#333; }
     .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:2; }
-    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:#0A1E42; }
+    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:#031419; }
     .hero .gallery-btn svg { width:16px; height:16px; }
     .hero .slide-indicators { display:flex; gap:4px; width:100%; }
     /* Barras horizontales (Figma), no círculos */
@@ -97,7 +98,7 @@
     .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
 
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:transparent; padding:12px 16px; }
-    .sticky-cta .cta-btn { width:100%; height:38px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
 
     /* Flow stepper — Figma Progress Indicator */
     .flow-stepper { display:flex; align-items:flex-start; justify-content:space-between; padding:12px 16px; background:#fff; border-bottom:1px solid var(--color-border); }
