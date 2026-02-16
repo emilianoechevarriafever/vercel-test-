@@ -55,7 +55,7 @@
     .event-summary .event-venue svg { width:12px; height:12px; flex-shrink:0; }
 
     /* Section */
-    .checkout-section { padding:16px; }
+    .checkout-section { padding:0 16px; }
     .checkout-section h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
 
     /* Date Row */
@@ -64,7 +64,7 @@
     .date-row .value { font-size:14px; color:var(--color-text); }
 
     /* Tickets summary */
-    .ticket-summary-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; }
+    .ticket-summary-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
     .ticket-summary-row .ticket-label { font-size:14px; color:var(--color-text); display:flex; align-items:center; gap:4px; }
     .ticket-summary-row .ticket-label svg { width:14px; height:14px; color:var(--color-text-secondary); cursor:pointer; }
     .ticket-summary-row .ticket-val { font-size:14px; font-weight:500; text-align:right; }
@@ -426,7 +426,7 @@
         // Show detail line if available
         if (a.detail) {
           const detail = document.createElement('div');
-          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 8px;';
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 6px;';
           detail.textContent = a.detail;
           accommodationItemsEl.appendChild(detail);
         }
@@ -452,7 +452,7 @@
         transportationItemsEl.appendChild(row);
         if (t.detail) {
           const detail = document.createElement('div');
-          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 8px;';
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 6px;';
           detail.textContent = t.detail;
           transportationItemsEl.appendChild(detail);
         }
