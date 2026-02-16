@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Festival Cross Selling Flows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F5F7F9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #0A1E42;
+    }
+    :root {
+      --color-action-primary: #0079ca;
+      --color-action-primary-weak: #e6f4ff;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.3;
+      max-width: 360px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 360px;
+    }
+    .flow-card {
+      background: #fff;
+      border: 2px solid #E6EAEE;
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .flow-link {
+      display: block;
+      padding: 16px 20px;
+      background: #fff;
+      border: 2px solid #E6EAEE;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0A1E42;
+      text-decoration: none;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .flow-link:hover {
+      border-color: var(--color-action-primary);
+      box-shadow: 0 2px 8px var(--color-action-primary-weak);
+    }
+  </style>
+</head>
+<body>
+  <h1>Music Festival Cross Selling Flows</h1>
+  <div class="container">
+    <div class="flow-card">
+      <a class="flow-link" href="choose-cart.html?flow=mandatory">A: Mandatory PV sequence</a>
+    </div>
+    <div class="flow-card">
+      <a class="flow-link" href="choose-cart.html?flow=addons">B: Add-ons via bottom sheets</a>
+    </div>
+    <div class="flow-card">
+      <a class="flow-link" href="choose-cart.html?flow=optional">C: Optional PV sequence</a>
+    </div>
+    <div class="flow-card">
+      <a class="flow-link" href="option-f/">D: One-step add-on hub</a>
+    </div>
+  </div>
+  <script>try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}</script>
+</body>
+</html>

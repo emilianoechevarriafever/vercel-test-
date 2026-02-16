@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Checkout - Polar Sound 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    /* Fever Design System + ignt.comp.fields (Figma 77-8972) */
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-text: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-border: #E6EAEE;
+      --color-border-light: #E6EAEE;
+      --color-bg: #ffffff;
+      --color-bg-neutral: #F5F7F9;
+      --font: 'Montserrat', sans-serif;
+      /* Input field tokens (Figma ignt.comp.fields) */
+      --color-input-bg: #FFFFFF;
+      --color-input-border: #CCD2D8;
+      --color-input-border-focus: var(--color-primary);
+      --color-input-border-error: #EB0052;
+      --color-input-border-disabled: #F2F3F3;
+      --color-input-bg-disabled: #F2F3F3;
+      --color-input-text-disabled: #A7B2BA;
+      --color-input-error-text: #EB0052;
+      --color-input-focus-ring: 0 0 0 4px var(--color-primary-weak);
+    }
+    body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
+    .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; padding-bottom:120px; }
+
+    /* Sticky header (navbar + stepper) */
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:16px; }
+    .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
+    .avatar-wrap { position:relative; }
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+
+    /* Event Summary Card */
+    .event-summary { display:flex; gap:12px; padding:16px; align-items:center; border-bottom:1px solid var(--color-border); }
+    .event-summary .event-thumb { width:56px; height:56px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+    .event-summary .event-thumb img { width:100%; height:100%; object-fit:cover; }
+    .event-summary .event-info { flex:1; }
+    .event-summary .event-name { font-size:14px; font-weight:600; line-height:20px; margin-bottom:2px; }
+    .event-summary .event-venue { font-size:12px; color:var(--color-text-secondary); display:flex; align-items:center; gap:4px; }
+    .event-summary .event-venue svg { width:12px; height:12px; flex-shrink:0; }
+
+    /* Section */
+    .checkout-section { padding:0 16px; }
+    .checkout-section h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
+
+    /* Date Row */
+    .date-row { padding:16px; border-bottom:1px solid var(--color-border); }
+    .date-row .label { font-size:14px; font-weight:700; color:#0079ca; margin-bottom:4px; }
+    .date-row .value { font-size:14px; color:var(--color-text); }
+
+    /* Tickets summary */
+    .ticket-summary-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
+    .ticket-summary-row .ticket-label { font-size:14px; color:var(--color-text); display:flex; align-items:center; gap:4px; }
+    .ticket-summary-row .ticket-label svg { width:14px; height:14px; color:var(--color-text-secondary); cursor:pointer; }
+    .ticket-summary-row .ticket-val { font-size:14px; font-weight:500; text-align:right; }
+
+    /* Price Details */
+    .price-details { padding:16px; border-bottom:1px solid var(--color-border); }
+    .price-details h3 { font-size:16px; font-weight:700; margin-bottom:12px; }
+    .price-row { display:flex; justify-content:space-between; padding:6px 0; font-size:14px; }
+    .price-row .price-label { color:var(--color-text); display:flex; align-items:center; gap:4px; }
+    .price-row .price-label svg { width:14px; height:14px; color:var(--color-text-secondary); cursor:pointer; }
+    .price-row .price-val { font-weight:500; }
+    .price-row.total { border-top:1px solid var(--color-border); margin-top:8px; padding-top:12px; font-weight:700; font-size:16px; }
+
+    /* Sticky Pay Footer */
+    .sticky-pay { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px 8px; }
+    .sticky-pay .pay-btn { display:block; width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:background 0.2s; }
+    .sticky-pay .pay-btn:hover { background:#0066b3; }
+    .sticky-pay .powered-by { text-align:center; padding:8px 0 4px; font-size:12px; color:var(--color-text-secondary); }
+    .sticky-pay .powered-by a { color:var(--color-text); font-weight:600; text-decoration:none; }
+
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-secondary); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
+    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
+    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+
+    /* Payment Method */
+    .payment-section { padding:16px; scroll-margin-top: 88px; }
+    .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
+
+    /* Card type row */
+    .card-type-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--color-border); margin-bottom:16px; cursor:pointer; }
+    .card-type-row .radio { width:18px; height:18px; border-radius:50%; border:2px solid #0079ca; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .card-type-row .radio.active { background:#0079ca; }
+    .card-type-row .radio.active::after { content:''; width:6px; height:6px; background:white; border-radius:50%; }
+    .card-type-row .radio-empty { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); flex-shrink:0; }
+    .card-type-row svg { width:18px; height:18px; color:var(--color-text); }
+    .card-type-row .label { font-size:14px; font-weight:500; flex:1; }
+    .card-type-row .sub-label { font-size:12px; color:var(--color-text-secondary); }
+    /* Card logos (Figma ignt.comp.fields 26-192) - iconos gráficos, no texto */
+    .card-brands { display:flex; align-items:center; gap:8px; flex-wrap:nowrap; }
+    .card-brands .brand-logo { display:inline-flex; align-items:center; justify-content:center; width:40px; height:28px; border:1px solid var(--color-border); border-radius:4px; padding:3px; box-sizing:border-box; flex-shrink:0; }
+    .card-brands .brand-logo svg { width:100%; height:100%; object-fit:contain; display:block; }
+
+    /* Form fields (Figma ignt.comp.fields 77-8972) */
+    .form-group { margin-bottom:16px; }
+    .form-group .field-label { display:block; font-size:12px; font-weight:600; line-height:16px; color:var(--color-text); margin-bottom:6px; }
+    .form-group .input-wrap { position:relative; display:flex; align-items:center; }
+    .form-group .input-wrap .form-field {
+      width:100%; height:48px; min-width:0;
+      border:1px solid var(--color-input-border);
+      border-radius:8px;
+      padding:0 16px;
+      font-family:var(--font); font-size:16px; line-height:24px;
+      color:var(--color-text);
+      background:var(--color-input-bg);
+      outline:none;
+      transition:border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-group .input-wrap .form-field::placeholder { color:var(--color-text-secondary); }
+    .form-group .input-wrap .form-field:focus {
+      border-color:var(--color-input-border-focus);
+      box-shadow:var(--color-input-focus-ring);
+    }
+    .form-group .input-wrap .form-field:disabled,
+    .form-group.is-disabled .input-wrap .form-field {
+      background:var(--color-input-bg-disabled);
+      border-color:var(--color-input-border-disabled);
+      color:var(--color-input-text-disabled);
+    }
+    .form-group.is-error .input-wrap .form-field {
+      border-color:var(--color-input-border-error);
+    }
+    .form-group.is-error .input-wrap .form-field:focus { box-shadow:none; }
+    .form-group .field-error { display:flex; align-items:center; gap:6px; margin-top:6px; font-size:12px; line-height:16px; color:var(--color-input-error-text); }
+    .form-group .field-error svg { width:16px; height:16px; flex-shrink:0; }
+    .form-group .input-wrap .field-clear { position:absolute; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-text); opacity:0.6; }
+    .form-group .input-wrap .field-clear:hover { opacity:1; }
+    .form-group .input-wrap .field-clear { visibility:hidden; }
+    .form-group .input-wrap .field-clear.visible { visibility:visible; }
+    .form-group.has-clear .input-wrap .form-field { padding-right:44px; }
+    .form-row { display:flex; gap:12px; }
+    .form-row .form-group { flex:1; }
+
+    /* Security note */
+    .security-note { display:flex; align-items:center; gap:8px; padding:8px 0; font-size:12px; color:var(--color-text-secondary); }
+    .security-note svg { width:14px; height:14px; flex-shrink:0; }
+
+    /* Alt payment */
+    .alt-payment { display:flex; align-items:center; gap:12px; padding:16px 0; border-bottom:1px solid var(--color-border); cursor:pointer; }
+    .alt-payment .radio-empty { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); flex-shrink:0; }
+    .alt-payment .radio-empty.active { border-color:#0079ca; background:#0079ca; position:relative; }
+    .alt-payment .radio-empty.active::after { content:''; width:6px; height:6px; background:#fff; border-radius:50%; position:absolute; top:4px; left:4px; }
+    .alt-payment .pay-logo { height:20px; }
+    .alt-payment .pay-info { flex:1; }
+    .alt-payment .pay-name { font-size:14px; font-weight:500; }
+    .alt-payment .pay-sub { font-size:12px; color:var(--color-text-secondary); }
+    .card-type-row.selected,
+    .alt-payment.selected { background:#f7fbff; border-radius:8px; margin-left:-8px; margin-right:-8px; padding-left:8px; padding-right:8px; }
+
+    /* Checkboxes */
+    .checkbox-area { padding:16px 0; }
+    .checkbox-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; }
+    .checkbox-row .cb { width:18px; height:18px; border-radius:4px; border:2px solid var(--color-border); flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .checkbox-row .cb.checked { background:#0079ca; border-color:#0079ca; }
+    .checkbox-row .cb.checked::after { content:'\2713'; color:white; font-size:11px; font-weight:700; }
+    .checkbox-row .cb-label { font-size:13px; line-height:18px; color:var(--color-text); }
+    .checkbox-row .cb-label a, .checkbox-row .cb-label a:visited { color:#0079ca; text-decoration-color:#0079ca; }
+
+    /* Legal links */
+    .legal-links { padding:8px 0 24px; }
+    .legal-links a, .legal-links a:visited { display:block; font-size:13px; color:#0079ca; margin-bottom:6px; text-decoration:none; }
+    .legal-links a svg { width:12px; height:12px; display:inline; margin-left:2px; vertical-align:middle; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="home.html" class="logo-link" id="checkout-logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="avatar-wrap"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+    <div class="flow-stepper">
+      <a href="polar-sound.html#ticket-section" id="stepper-step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
+      <a href="polar-sound-accommodation.html#ticket-section" id="stepper-step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
+      <a href="polar-sound-transportations.html" id="stepper-step3" class="step done"><span class="dot"></span><span class="label">Transport</span></a>
+      <div class="step current"><span class="dot">4</span><span class="label">Checkout</span></div>
+    </div>
+    </header>
+
+    <!-- Event Summary -->
+    <div class="event-summary">
+      <div class="event-thumb">
+        <img src="img/polar-sound-hero.png" alt="Polar Sound Festival">
+      </div>
+      <div class="event-info">
+        <div class="event-name">Occident - Polar Sound 2026</div>
+        <div class="event-venue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Baqueira Beret Ski Resort
+        </div>
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="date-row">
+      <div class="label">Date</div>
+      <div class="value">March 13 &amp; 14, 2026</div>
+    </div>
+
+    <!-- Tickets Section (from polar-sound.html) -->
+    <div class="checkout-section" id="section-tickets">
+      <div id="ticket-items"></div>
+    </div>
+
+    <!-- Accommodation Section (from polar-sound-accommodation.html) -->
+    <div class="checkout-section" id="section-accommodation">
+      <div id="accommodation-items"></div>
+    </div>
+
+    <!-- Transportation Section -->
+    <div class="checkout-section" id="section-transportation">
+      <div id="transportation-items"></div>
+    </div>
+
+    <!-- Price Details -->
+    <div class="price-details">
+      <h3>Price details</h3>
+      <div class="price-row">
+        <span class="price-label">Festival Passes</span>
+        <span class="price-val" id="subtotal-tickets">&euro;0.00</span>
+      </div>
+      <div class="price-row" id="row-accommodation">
+        <span class="price-label">Accommodation</span>
+        <span class="price-val" id="subtotal-accommodation">&euro;0.00</span>
+      </div>
+      <div class="price-row" id="row-transportation">
+        <span class="price-label">Transportation</span>
+        <span class="price-val" id="subtotal-transportation">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Fees</span>
+        <span class="price-val">&euro;0.00</span>
+      </div>
+      <div class="price-row">
+        <span class="price-label">Tax</span>
+        <span class="price-val">&euro;0.00</span>
+      </div>
+      <div class="price-row total">
+        <span class="price-label">Total</span>
+        <span class="price-val" id="grand-total">&euro;0.00</span>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="payment-section">
+      <h3>Payment method</h3>
+
+      <!-- New card (selected) -->
+      <div class="card-type-row">
+        <div class="radio active"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <span class="label">New card</span>
+        <div class="card-brands">
+          <span class="brand-logo" title="Visa"><svg viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="22" rx="3" fill="#1A1F71"/><text x="16" y="14.5" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="700" font-size="9">VISA</text></svg></span>
+          <span class="brand-logo" title="Mastercard"><svg viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="8" r="6" fill="#EB001B"/><circle cx="15" cy="8" r="6" fill="#F79E1B"/><path d="M12 4.3a6 6 0 0 1 0 7.4 6 6 0 0 1 0-7.4z" fill="#FF5F00"/></svg></span>
+          <span class="brand-logo" title="American Express"><svg viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="16" rx="2" fill="#006FCF"/><text x="20" y="11.2" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-weight="700" font-size="6.8">AMEX</text></svg></span>
+        </div>
+      </div>
+
+      <!-- Card form (Figma ignt.comp.fields) -->
+      <div class="form-group has-clear">
+        <label class="field-label" for="card-number">Card number</label>
+        <div class="input-wrap">
+          <input id="card-number" type="text" class="form-field" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
+          <button type="button" class="field-clear" aria-label="Clear" title="Clear">&#215;</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="field-label" for="card-expiry">Expiry</label>
+          <div class="input-wrap">
+            <input id="card-expiry" type="text" class="form-field" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="card-cvc">CVC</label>
+          <div class="input-wrap">
+            <input id="card-cvc" type="text" class="form-field" placeholder="123" maxlength="4" autocomplete="cc-csc">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="field-label" for="postal-code">Postal code</label>
+        <div class="input-wrap">
+          <input id="postal-code" type="text" class="form-field" placeholder="Postal code" autocomplete="postal-code">
+        </div>
+      </div>
+
+      <div class="security-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Your payment info is stored securely
+      </div>
+
+      <!-- Apple Pay -->
+      <div class="alt-payment">
+        <div class="radio-empty"></div>
+        <div class="pay-info">
+          <div class="pay-name" style="display:flex;align-items:center;gap:4px;">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            Apple Pay
+          </div>
+        </div>
+      </div>
+
+      <!-- PayPal -->
+      <div class="alt-payment">
+        <div class="radio-empty"></div>
+        <div class="pay-info">
+          <div class="pay-name" style="color:#003087;font-weight:700;">Pay<span style="color:#009cde">Pal</span></div>
+          <div class="pay-sub">Pay in 3 interest-free payments</div>
+        </div>
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="checkbox-area">
+        <div class="checkbox-row">
+          <div class="cb checked" onclick="this.classList.toggle('checked')"></div>
+          <span class="cb-label">Required <a href="#">terms & conditions</a> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+        </div>
+        <div class="checkbox-row">
+          <div class="cb" onclick="this.classList.toggle('checked')"></div>
+          <span class="cb-label">Keep me updated on the latest news</span>
+        </div>
+      </div>
+
+      <!-- Legal links -->
+      <div class="legal-links">
+        <a href="#">Terms and conditions of use <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+        <a href="#">Privacy policy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Sticky Pay Footer -->
+    <div class="sticky-pay">
+      <button class="pay-btn" onclick="alert('Purchase completed! (demo)')">Pay</button>
+      <div class="powered-by"><a href="home.html">feverup.com</a></div>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var flow = params.get('flow');
+      if (!flow) {
+        try {
+          var storedFlow = sessionStorage.getItem('polar_flow_mode');
+          if (storedFlow === 'option-e' || storedFlow === 'option-f') flow = storedFlow;
+        } catch (e) {}
+      }
+      if (flow === 'option-e' || flow === 'option-f') {
+        try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+        var logoLink = document.getElementById('checkout-logo-link');
+        if (logoLink) logoLink.href = '/' + flow + '/';
+        var checkoutStepper = document.querySelector('.flow-stepper');
+        if (checkoutStepper) checkoutStepper.style.display = 'none';
+        var step1 = document.getElementById('stepper-step1');
+        var step2 = document.getElementById('stepper-step2');
+        var step3 = document.getElementById('stepper-step3');
+        if (step1) step1.href = 'polar-sound.html?flow=' + flow + '#ticket-section';
+        if (step2) step2.href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
+        if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
+      }
+    })();
+
+    // ========== LOAD CART FROM LOCALSTORAGE ==========
+    const tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]');
+    const accommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+    const transportation = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
+
+    function formatEur(n) {
+      return '\u20AC' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // Render ticket line items
+    let ticketTotal = 0;
+    const ticketItemsEl = document.getElementById('ticket-items');
+    const sectionTickets = document.getElementById('section-tickets');
+
+    if (tickets.length === 0) {
+      sectionTickets.style.display = 'none';
+    } else {
+      tickets.forEach(t => {
+        const lineTotal = t.price * t.qty;
+        ticketTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${t.qty} x ${t.name}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        ticketItemsEl.appendChild(row);
+      });
+    }
+
+    // Render accommodation line items
+    let accommodationTotal = 0;
+    const accommodationItemsEl = document.getElementById('accommodation-items');
+    const sectionAccommodation = document.getElementById('section-accommodation');
+
+    if (accommodation.length === 0) {
+      sectionAccommodation.style.display = 'none';
+    } else {
+      accommodation.forEach(a => {
+        const lineTotal = a.price * a.qty;
+        accommodationTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${a.qty} x ${a.name}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        accommodationItemsEl.appendChild(row);
+        // Show detail line if available
+        if (a.detail) {
+          const detail = document.createElement('div');
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 6px;';
+          detail.textContent = a.detail;
+          accommodationItemsEl.appendChild(detail);
+        }
+      });
+    }
+
+    // Render transportation line items
+    let transportationTotal = 0;
+    const transportationItemsEl = document.getElementById('transportation-items');
+    const sectionTransportation = document.getElementById('section-transportation');
+    if (transportation.length === 0) {
+      sectionTransportation.style.display = 'none';
+    } else {
+      transportation.forEach(t => {
+        const lineTotal = t.price * (t.qty || 1);
+        transportationTotal += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'ticket-summary-row';
+        row.innerHTML = `
+          <span class="ticket-label">${(t.qty || 1)} x ${t.name}</span>
+          <span class="ticket-val">${formatEur(lineTotal)}</span>
+        `;
+        transportationItemsEl.appendChild(row);
+        if (t.detail) {
+          const detail = document.createElement('div');
+          detail.style.cssText = 'font-size:12px;color:#536b75;padding:0 0 6px;';
+          detail.textContent = t.detail;
+          transportationItemsEl.appendChild(detail);
+        }
+      });
+    }
+
+    // Update price breakdown
+    const grandTotal = ticketTotal + accommodationTotal + transportationTotal;
+    document.getElementById('subtotal-tickets').textContent = formatEur(ticketTotal);
+    document.getElementById('subtotal-accommodation').textContent = formatEur(accommodationTotal);
+    document.getElementById('subtotal-transportation').textContent = formatEur(transportationTotal);
+    document.getElementById('grand-total').textContent = formatEur(grandTotal);
+    document.getElementById('row-accommodation').style.display = accommodationTotal === 0 ? 'none' : 'flex';
+    document.getElementById('row-transportation').style.display = transportationTotal === 0 ? 'none' : 'flex';
+
+    var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
+    var hasAccommodation = accommodation.length > 0 && accommodation.some(function(a) { return (a.qty || 0) > 0; });
+    var hasTransport = transportation.length > 0 && transportation.some(function(t) { return ((t.qty || 1) > 0 && (t.price || 0) > 0); });
+    if (!hasTickets) { var s1 = document.getElementById('stepper-step1'); if (s1) s1.classList.add('skipped'); }
+    if (!hasAccommodation) { var s2 = document.getElementById('stepper-step2'); if (s2) s2.classList.add('skipped'); }
+    if (!hasTransport) { var s3 = document.getElementById('stepper-step3'); if (s3) s3.classList.add('skipped'); }
+
+    // Update Pay button
+    const payBtn = document.querySelector('.pay-btn');
+    payBtn.textContent = 'Pay ' + formatEur(grandTotal);
+
+    // Payment methods: clickable selection with realistic outcomes
+    const paymentSection = document.querySelector('.payment-section');
+    const cardRow = paymentSection && paymentSection.querySelector('.card-type-row');
+    const methodRows = paymentSection ? paymentSection.querySelectorAll('.alt-payment') : [];
+    const appleRow = methodRows[0];
+    const paypalRow = methodRows[1];
+    const cardFields = paymentSection ? paymentSection.querySelectorAll('.form-group, .form-row, .security-note') : [];
+    let selectedPaymentMethod = 'card';
+
+    function refreshPaymentMethodUI() {
+      if (!cardRow || !appleRow || !paypalRow) return;
+      const cardRadio = cardRow.querySelector('.radio');
+      const appleRadio = appleRow.querySelector('.radio-empty');
+      const paypalRadio = paypalRow.querySelector('.radio-empty');
+
+      cardRow.classList.toggle('selected', selectedPaymentMethod === 'card');
+      appleRow.classList.toggle('selected', selectedPaymentMethod === 'apple');
+      paypalRow.classList.toggle('selected', selectedPaymentMethod === 'paypal');
+      if (cardRadio) cardRadio.classList.toggle('active', selectedPaymentMethod === 'card');
+      if (appleRadio) appleRadio.classList.toggle('active', selectedPaymentMethod === 'apple');
+      if (paypalRadio) paypalRadio.classList.toggle('active', selectedPaymentMethod === 'paypal');
+
+      cardFields.forEach(function(el) {
+        el.style.display = selectedPaymentMethod === 'card' ? '' : 'none';
+      });
+
+      const methodLabel = selectedPaymentMethod === 'apple'
+        ? 'Apple Pay'
+        : selectedPaymentMethod === 'paypal'
+          ? 'PayPal'
+          : 'Pay';
+      payBtn.textContent = methodLabel + ' ' + formatEur(grandTotal);
+    }
+
+    if (cardRow) {
+      cardRow.addEventListener('click', function() {
+        selectedPaymentMethod = 'card';
+        refreshPaymentMethodUI();
+      });
+    }
+    if (appleRow) {
+      appleRow.addEventListener('click', function() {
+        selectedPaymentMethod = 'apple';
+        refreshPaymentMethodUI();
+      });
+    }
+    if (paypalRow) {
+      paypalRow.addEventListener('click', function() {
+        selectedPaymentMethod = 'paypal';
+        refreshPaymentMethodUI();
+      });
+    }
+
+    payBtn.onclick = function() {
+      if (selectedPaymentMethod === 'card') {
+        const expiry = document.getElementById('card-expiry');
+        const cvc = document.getElementById('card-cvc');
+        const postal = document.getElementById('postal-code');
+        if (!cardInput.value.trim() || !expiry.value.trim() || !cvc.value.trim() || !postal.value.trim()) {
+          alert('Please complete your card details before continuing.');
+          return;
+        }
+        alert('Payment approved. Your card has been charged ' + formatEur(grandTotal) + '.');
+        return;
+      }
+      if (selectedPaymentMethod === 'apple') {
+        alert('Opening Apple Pay to authorize ' + formatEur(grandTotal) + '.');
+        return;
+      }
+      alert('Redirecting to PayPal to complete ' + formatEur(grandTotal) + '.');
+    };
+
+    refreshPaymentMethodUI();
+
+    // If user comes from cart, open checkout already focused on payment method.
+    (function() {
+      try {
+        var scrollTarget = sessionStorage.getItem('checkout_scroll_target');
+        if (scrollTarget === 'payment' && paymentSection) {
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              paymentSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+            });
+          });
+          sessionStorage.removeItem('checkout_scroll_target');
+        }
+      } catch (e) {}
+    })();
+
+    // Card number clear button (Figma ignt.comp.fields)
+    const cardInput = document.getElementById('card-number');
+    const clearBtn = cardInput && cardInput.closest('.form-group').querySelector('.field-clear');
+    if (cardInput && clearBtn) {
+      function toggleClear() { clearBtn.classList.toggle('visible', cardInput.value.length > 0); }
+      cardInput.addEventListener('input', toggleClear);
+      cardInput.addEventListener('focus', toggleClear);
+      clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); });
+    }
+  </script>
+</body>
+</html>

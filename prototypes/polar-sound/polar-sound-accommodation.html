@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Polar Sound 2026: Accommodation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    /* Fever Design System */
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-primary-light: #f2fbfd;
+      --color-text: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-text-subtle: #37474F;
+      --color-text-disable: #b0b8bf;
+      --color-border: #E6EAEE;
+      --color-border-light: #E6EAEE;
+      --color-accent: #6f41d7;
+      --color-bg: #ffffff;
+      --color-bg-disable: #f6f6f6;
+      --color-bg-neutral: #F5F7F9;
+      --font: 'Montserrat', sans-serif;
+    }
+    body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
+    .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; }
+
+    .status-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 16px 4px; background:white; }
+    .status-bar .time { font-weight:600; font-size:17px; letter-spacing:-0.68px; }
+    .status-bar .icons { display:flex; gap:5px; align-items:center; }
+    .status-bar .icons svg { height:12px; }
+
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:16px; }
+    .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
+    .avatar-wrap { position:relative; }
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+
+    /* Hero with overlay */
+    .hero { position:relative; width:100%; height:390px; overflow:hidden; }
+    .hero img.hero-bg { width:100%; height:100%; object-fit:cover; }
+    .hero .overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,35,44,0.3) 0%, rgba(6,35,44,0.6) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; pointer-events:none; }
+    .hero .overlay .brand-text { font-family:var(--font); font-size:36px; font-weight:800; color:white; letter-spacing:4px; text-transform:uppercase; text-shadow:0 2px 20px rgba(0,0,0,0.5); }
+    .hero .overlay .brand-sub { font-family:var(--font); font-size:16px; font-weight:600; color:rgba(255,255,255,0.9); letter-spacing:2px; }
+    .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; z-index:2; }
+    .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
+    .hero .side-btn svg { width:20px; height:20px; color:#333; }
+    .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:2; }
+    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); }
+    .hero .gallery-btn svg { width:16px; height:16px; }
+    .hero .slide-indicators { display:flex; gap:4px; width:100%; }
+    /* Barras horizontales (Figma), no círculos */
+    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.5); }
+    .hero .slide-indicators .bar.active { background:white; }
+    .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; z-index:2; }
+
+    .title-section { padding:16px; }
+        /* Tickets Selling Fast — Figma 778-27021 (Channel Filter) */
+    .tag-selling { display:inline-flex; align-items:center; min-height:20px; padding:4px 12px; background:#df7b00; border-radius:4px; font-family:var(--font); font-size:12px; font-weight:400; line-height:16px; color:#031419; }
+    .tag-selling { margin-bottom:12px; }
+    .selling-fast-banner { display:flex; align-items:center; gap:10px; margin:4px 0 20px; padding:12px 16px; background:#f5e6dc; border-radius:8px; font-family:var(--font); font-size:14px; font-weight:500; line-height:20px; color:#37474f; }
+    .selling-fast-banner .selling-fast-icon { width:20px; height:20px; flex-shrink:0; color:#9F5800; }
+    .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
+    .divider { height:1px; background:var(--color-border); margin:0 16px; }
+
+    .description { padding:20px 16px; font-size:15px; line-height:22px; }
+    .description p { margin-bottom:12px; }
+    .description .subtitle { font-weight:600; font-size:16px; margin-bottom:8px; margin-top:16px; }
+    .description ul { padding-left:20px; margin-bottom:12px; }
+    .description ul li { margin-bottom:4px; }
+    .description a { color:var(--color-primary); text-decoration:underline; }
+
+    .section-header { display:flex; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--color-border); }
+    .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
+    .section-header h2 { font-size:20px; font-weight:600; line-height:24px; flex:1; }
+
+    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+
+    /* Pill levels */
+    .pill-level { display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:16px 0; border-bottom:1px solid var(--color-border); overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x; }
+    .pill-level.centered { justify-content:center; }
+    .pill-level::-webkit-scrollbar { display:none; }
+    .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid #ccd2d8; border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
+    .ticket-pill.active { border-color:#0079ca; color:#0079ca; background:var(--color-primary-weak); }
+    .ticket-pill.disabled { color:var(--color-text-disable); border-color:#eee; pointer-events:none; }
+    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:none; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow.visible { display:flex; }
+    .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
+
+    /* Ticket rows — coupon style */
+    #room-rows { margin-top:16px; }
+    .ticket-row { --ticket-border:#ccd2d8; display:flex; align-items:stretch; min-height:92px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; background:transparent; }
+    .ticket-row::after { content:''; position:absolute; right:136px; top:8px; bottom:8px; width:1px; background-image:repeating-linear-gradient(to bottom, var(--ticket-border) 0 2px, transparent 2px 4px); background-repeat:no-repeat; background-size:1px 100%; transform:translateX(50%); pointer-events:none; z-index:2; }
+    .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:flex-start; gap:8px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#fff; min-height:92px; }
+    .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
+    .ticket-row .ticket-more,
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:var(--color-text); }
+    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
+    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
+    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
+    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
+    .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); margin-top:auto; }
+    .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#fff; position:relative; }
+    .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s; background:#f2f3f3; color:#a7b2ba; }
+    .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
+
+    /* Selected state */
+    .ticket-row.selected { --ticket-border:#0079ca; }
+    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); }
+    .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:#0079ca; }
+
+    /* Ticket notch divider */
+    .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform: translateX(50%); }
+    .ticket-row .ticket-notch::before,
+    .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg); box-sizing:border-box; }
+    .ticket-row .ticket-notch::before { top:0; border:1px solid var(--ticket-border); border-top:none; border-radius:0 0 8px 8px; }
+    .ticket-row .ticket-notch::after { bottom:0; border:1px solid var(--ticket-border); border-bottom:none; border-radius:8px 8px 0 0; }
+
+    /* Sold out */
+    .ticket-row.soldout { opacity:0.6; pointer-events:none; }
+    .ticket-row.soldout::after { display:none; }
+    .ticket-row.soldout .ticket-selector-right { display:none; }
+    .ticket-row.soldout .ticket-notch { display:none; }
+    .ticket-row.soldout .ticket-content { border-radius:8px; border-right:1px solid var(--ticket-border); }
+    .ticket-row .soldout-tag { display:none; position:absolute; right:12px; top:50%; transform:translateY(-50%); background:var(--color-bg-disable); color:var(--color-text-disable); font-size:12px; font-weight:600; padding:6px 14px; border-radius:4px; }
+    .ticket-row.soldout .soldout-tag { display:block; }
+
+    .cta-primary { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; display:none; }
+    .cta-primary:hover { background:#0066b3; }
+    .cta-secondary { width:100%; height:48px; background:white; border:1.5px solid var(--color-border); border-radius:100px; color:var(--color-text); font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .cta-secondary svg { width:18px; height:18px; }
+
+    .reviews { padding:20px 16px; }
+    .reviews h3 { font-size:18px; font-weight:600; margin-bottom:16px; }
+    .rating-big { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .rating-big .score { font-size:28px; font-weight:700; }
+    .rating-big .stars { color:#f5a623; font-size:16px; letter-spacing:2px; }
+    .rating-big .count { font-size:13px; color:var(--color-text-secondary); }
+    .review-card { border-bottom:1px dashed var(--color-border-light); padding:12px 0; }
+    .review-card:last-child { border-bottom:none; }
+    .review-card .reviewer { font-size:14px; font-weight:600; }
+    .review-card .review-date { font-size:12px; color:var(--color-text-secondary); margin:2px 0 6px; }
+    .review-card .review-text { font-size:14px; line-height:20px; }
+
+    .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
+    .help-section span { font-size:15px; font-weight:500; }
+    .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+
+    .location { padding:20px 16px; }
+    .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
+    .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
+    .location .map-placeholder { width:100%; height:160px; background:#e8e8e8; border-radius:8px; overflow:hidden; }
+    .location .map-placeholder img { width:100%; height:100%; object-fit:cover; }
+
+    .footer { background:black; color:white; padding:32px 16px 140px; }
+    .footer-cols { display:flex; justify-content:space-between; margin-bottom:24px; }
+    .footer-col h5 { font-size:14px; font-weight:600; margin-bottom:8px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { font-size:13px; line-height:20px; margin-bottom:4px; opacity:0.8; }
+    .footer .legal { border-top:1px solid var(--color-text-subtle); padding-top:16px; font-size:12px; opacity:0.7; }
+    .footer .legal a { color:white; }
+
+    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
+
+    /* Flow stepper (accommodation → transport → checkout) */
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
+    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
+    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="home.html" class="logo-link" id="nav-logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="avatar-wrap"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+    <div class="flow-stepper">
+      <a href="polar-sound.html#ticket-section" id="stepper-step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
+      <div class="step current"><span class="dot">2</span><span class="label">Accommodation</span></div>
+      <a href="polar-sound-transportations.html" class="step" id="stepper-step3"><span class="dot">3</span><span class="label">Transport</span></a>
+      <a href="checkout.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Checkout</span></a>
+    </div>
+    </header>
+
+    <!-- Hero Gallery (Figma Channel Filter) -->
+    <div class="hero">
+      <img class="hero-bg" src="img/baqueira-hotel.png" alt="Hotel Baqueira Beret">
+      <div class="overlay">
+        <div class="brand-text">POLAR SOUND</div>
+        <div class="brand-sub">&#10070;</div>
+      </div>
+      <div class="side-buttons">
+        <button type="button" class="side-btn" aria-label="Like"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
+      </div>
+      <div class="shadow-overlay">
+        <button type="button" class="gallery-btn"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>Gallery</button>
+        <div class="slide-indicators">
+          <div class="bar active"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+      </div>
+      <div class="rounded-top"></div>
+    </div>
+
+    <div class="title-section">
+      <div class="tag-selling">Tickets Selling Fast</div>
+      <h1>Occident - Polar Sound 2026: Accommodation</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="description">
+      <p>&#10071; <strong>By booking your accommodation you are also purchasing your 2-day festival pass.</strong></p>
+      <p>&#127915; Accommodation + Pass with 2-day access. Choose from travel options for 1 to 6 people, 2 or 3-night stays, and a wide variety of hotels and apartments.</p>
+      <p class="subtitle">&#127908; Daily line-up</p>
+      <ul>
+        <li><strong>Friday 13th:</strong> Lori Meyers, Silo&eacute;, Fuzz by Dj Nano, Leire Mart&iacute;nez, Paula Mattheus</li>
+        <li><strong>Saturday 14th:</strong> Juan Mag&aacute;n, Taburete, Marlon, Sexy Zebras, Hey Kid, Besmaya</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Ticket Selector -->
+    <div class="section-header" id="ticket-section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <h2>Select date and session</h2>
+    </div>
+
+    <div class="ticket-selector">
+      <!-- Level 1: Travelers -->
+      <div class="pill-level" id="level-travelers">
+        <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
+        <div class="ticket-pill" data-value="3">Trip 3 people + Pass</div>
+        <div class="ticket-pill" data-value="4">Trip 4 people + Pass</div>
+        <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+
+      <!-- Level 2: Nights -->
+      <div class="pill-level" id="level-nights">
+        <div class="ticket-pill active" data-value="3">3 nights (Mar 12, 13 &amp; 14)</div>
+        <div class="ticket-pill" data-value="2">2 nights (Mar 13 &amp; 14)</div>
+      </div>
+
+      <!-- Level 4: Hotel/Apartment name -->
+      <div class="pill-level" id="level-name">
+        <div class="pill-arrow" style="transform:rotate(180deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Room rows (populated by JS) -->
+      <div id="room-rows"></div>
+
+      <!-- Selling fast -->
+      <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+
+      <!-- Inline CTA (hidden, sticky handles it) -->
+      <button class="cta-primary" id="cta-inline"></button>
+    </div>
+
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="#">Contact Support here</a>
+    </div>
+
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <h2>Getting there</h2>
+    </div>
+    <div class="location">
+      <div class="loc-name">Baqueira Beret Ski Resort</div>
+      <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
+      <div class="map-placeholder"><img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80" alt="Map"></div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-cols">
+        <div class="footer-col"><h5>About Fever</h5><ul><li>Press</li><li>We are hiring!</li><li>Gift Cards</li><li>Help Center</li></ul></div>
+        <div class="footer-col"><h5>Partner with us</h5><ul><li>Fever Zone</li><li>List your event</li><li>Affiliate Program</li></ul></div>
+      </div>
+      <div class="legal"><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
+    </div>
+
+    <!-- Sticky CTA: "Select accommodations" → scroll; then "Skip" or "€X — Add it" -->
+    <div class="sticky-cta">
+      <button class="cta-btn" id="sticky-btn">Select accommodation</button>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    let flow = params.get('flow');
+    let storedFlow = null;
+    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
+    const isOptionE = flow === 'option-e';
+    const isOptionF = flow === 'option-f';
+    const isOptionalFlow = isOptionE || isOptionF;
+    if (isOptionalFlow) {
+      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+    }
+    if (isOptionalFlow) {
+      var accommodationLogoLink = document.getElementById('nav-logo-link');
+      if (accommodationLogoLink) accommodationLogoLink.href = '/' + flow + '/';
+      var accommodationStepper = document.querySelector('.flow-stepper');
+      if (accommodationStepper) accommodationStepper.style.display = 'none';
+      var step1 = document.getElementById('stepper-step1');
+      var step3 = document.getElementById('stepper-step3');
+      var step4 = document.getElementById('stepper-step4');
+      if (step1) step1.href = 'polar-sound.html?flow=' + flow + '#ticket-section';
+      if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
+      if (step4) step4.href = 'checkout.html?flow=' + flow;
+    }
+
+    document.getElementById('sticky-btn').textContent = 'Select accommodations';
+
+    // ========== DATA ==========
+    const DATA = {
+      "2": {
+        "3": {
+          "hotel": {
+            "AC": [
+              { name: "Double Room", price: 559.70 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Double Room", price: 620.00 },
+              { name: "Junior Suite", price: 890.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Studio (2 pax)", price: 480.00 },
+            ],
+            "Garona": [
+              { name: "1-Bedroom Apartment", price: 520.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "AC": [
+              { name: "Double Room", price: 420.50 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Double Room", price: 480.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "Studio (2 pax)", price: 360.00 },
+            ]
+          }
+        }
+      },
+      "3": {
+        "3": {
+          "hotel": {
+            "Tuc Blanc": [
+              { name: "Double Room + 1 extra bed", price: 422.60 },
+              { name: "Double Room + 1 extra bed - Deal", price: 428.60, soldout: true },
+            ],
+            "Garona": [
+              { name: "Triple", price: 510.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "1-Bedroom Apartment + extra bed", price: 540.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "Tuc Blanc": [
+              { name: "Double Room + 1 extra bed", price: 340.00 },
+            ],
+            "Garona": [
+              { name: "Triple", price: 390.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "1-Bedroom Apartment + extra bed", price: 420.00 },
+            ]
+          }
+        }
+      },
+      "4": {
+        "3": {
+          "hotel": {
+            "AC": [
+              { name: "2x Double Room", price: 559.70 },
+            ],
+            "Meli\u00e1 De tredos": [
+              { name: "Family Suite", price: 980.00 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "2-Bedroom Apartment", price: 680.00 },
+            ],
+            "Garona": [
+              { name: "2-Bedroom Apartment", price: 720.00 },
+            ]
+          }
+        },
+        "2": {
+          "hotel": {
+            "AC": [
+              { name: "2x Double Room", price: 420.50 },
+            ]
+          },
+          "apartamento": {
+            "Apartamentos Naut Aran": [
+              { name: "2-Bedroom Apartment", price: 520.00 },
+            ]
+          }
+        }
+      }
+    };
+
+    // ========== STATE ==========
+    let state = { travelers: "2", nights: "3", type: "hotel", name: null };
+    let roomCounts = {};
+
+    // ========== ELEMENTS ==========
+    const stickyBtn = document.getElementById('sticky-btn');
+    const ticketSection = document.getElementById('ticket-section');
+    const levelName = document.getElementById('level-name');
+    const roomRowsEl = document.getElementById('room-rows');
+    let stickyMode = 'tickets';
+    let hasSeenTickets = false; // once true, CTA stays as "Add it" permanently
+
+    // ========== STICKY CTA ==========
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          hasSeenTickets = true;
+          stickyMode = 'getit';
+          updateSticky();
+        } else if (!hasSeenTickets) {
+          stickyMode = 'tickets';
+          stickyBtn.textContent = 'Select accommodation';
+          stickyBtn.style.opacity = '1';
+        } else {
+          stickyMode = 'getit';
+          updateSticky();
+        }
+      });
+    }, { threshold: 0.1 });
+    obs.observe(ticketSection);
+
+    stickyBtn.addEventListener('click', () => {
+      if (stickyMode === 'tickets') {
+        ticketSection.scrollIntoView({ behavior:'smooth', block:'start' });
+      } else {
+        const nextUrl = isOptionF ? 'checkout.html?flow=option-f' : ('polar-sound-transportations.html' + flowSuffix);
+        if (getTotal() > 0) {
+          saveAccommodationToCart();
+          if (isOptionF) {
+            try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          }
+          window.location.href = nextUrl;
+        } else {
+          localStorage.setItem('cart_accommodation', '[]');
+          if (isOptionF) {
+            try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          }
+          window.location.href = nextUrl;
+        }
+      }
+    });
+
+    function saveAccommodationToCart() {
+      const rooms = getCurrentRooms();
+      const cartAccommodation = [];
+      // Build context label
+      const travelLabel = document.querySelector('#level-travelers .ticket-pill.active')?.textContent || '';
+      const nightsLabel = document.querySelector('#level-nights .ticket-pill.active')?.textContent || '';
+      const hotelName = state.name || '';
+      rooms.forEach((room, i) => {
+        const qty = roomCounts[i] || 0;
+        if (qty > 0 && !room.soldout) {
+          cartAccommodation.push({
+            name: room.name + ' — ' + hotelName,
+            detail: travelLabel + ', ' + nightsLabel,
+            price: room.price,
+            qty: qty
+          });
+        }
+      });
+      localStorage.setItem('cart_accommodation', JSON.stringify(cartAccommodation));
+    }
+
+    function updateSticky() {
+      if (stickyMode !== 'getit') return;
+      const total = getTotal();
+      if (total > 0) {
+        stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Add it';
+        stickyBtn.style.opacity = '1';
+      } else {
+        stickyBtn.textContent = 'Skip accommodation';
+        stickyBtn.style.opacity = '1';
+      }
+    }
+
+    function formatPrice(n) {
+      return n.toFixed(2);
+    }
+
+    function getTotal() {
+      let total = 0;
+      const rooms = getCurrentRooms();
+      rooms.forEach((r, i) => {
+        if (!r.soldout) total += (roomCounts[i] || 0) * r.price;
+      });
+      return total;
+    }
+
+    // ========== DATA LOOKUP ==========
+    function getNames() {
+      const d = DATA[state.travelers]?.[state.nights]?.[state.type];
+      return d ? Object.keys(d) : [];
+    }
+
+    function getCurrentRooms() {
+      if (!state.name) return [];
+      return DATA[state.travelers]?.[state.nights]?.[state.type]?.[state.name] || [];
+    }
+
+    // ========== RENDER ==========
+    function renderNamePills() {
+      const names = getNames();
+      // Clear existing pills (keep arrows)
+      const arrows = levelName.querySelectorAll('.pill-arrow');
+      levelName.innerHTML = '';
+      if (arrows[0]) levelName.appendChild(arrows[0]);
+
+      if (names.length === 0) { state.name = null; renderRooms(); return; }
+      if (!names.includes(state.name)) state.name = names[0];
+
+      names.forEach(n => {
+        const pill = document.createElement('div');
+        pill.className = 'ticket-pill' + (n === state.name ? ' active' : '');
+        pill.textContent = n;
+        pill.addEventListener('click', () => {
+          state.name = n;
+          roomCounts = {};
+          renderNamePills();
+        });
+        levelName.appendChild(pill);
+      });
+
+      // Right arrow
+      const rightArrow = document.createElement('div');
+      rightArrow.className = 'pill-arrow';
+      rightArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+      levelName.appendChild(rightArrow);
+
+      renderRooms();
+      if (typeof updatePillsArrows === 'function') updatePillsArrows();
+    }
+
+    function renderRooms() {
+      roomRowsEl.innerHTML = '';
+      const rooms = getCurrentRooms();
+
+      rooms.forEach((room, i) => {
+        if (!(i in roomCounts)) roomCounts[i] = 0;
+
+        const row = document.createElement('div');
+        row.className = 'ticket-row' + (room.soldout ? ' soldout' : '') + (roomCounts[i] > 0 ? ' selected' : '');
+
+        row.innerHTML = `
+          <div class="ticket-content">
+            <div class="ticket-name">${room.name}</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Accommodation for your trip, includes:</div>
+              <ul>
+                <li>2-day festival pass (access to both days)</li>
+                <li>Check-in from 15:00, check-out before 12:00</li>
+                <li>Free cancellation until 48h before arrival</li>
+              </ul>
+            </div>
+            <div class="ticket-price">\u20AC${formatPrice(room.price)}</div>
+          </div>
+          <span class="soldout-tag">Sold out</span>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">\u2212</button>
+              <span class="amt-count">${roomCounts[i]}</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        `;
+
+        if (!room.soldout) {
+          row.querySelector('.amt-btn.plus').addEventListener('click', () => {
+            roomCounts[i]++;
+            renderRooms();
+          });
+          row.querySelector('.amt-btn.minus').addEventListener('click', () => {
+            if (roomCounts[i] > 0) roomCounts[i]--;
+            renderRooms();
+          });
+        }
+
+        roomRowsEl.appendChild(row);
+      });
+
+      // More info / Less info toggle (same as tickets PV)
+      roomRowsEl.querySelectorAll('.ticket-info-toggle').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const row = this.closest('.ticket-row');
+          const expanded = row.classList.toggle('ticket-info-expanded');
+          this.textContent = expanded ? 'Less info' : 'More info';
+          this.setAttribute('aria-expanded', expanded);
+        });
+      });
+
+      updateSticky();
+    }
+
+    // ========== PILL EVENTS ==========
+    function setupLevel(id, stateKey) {
+      const level = document.getElementById(id);
+      level.querySelectorAll('.ticket-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          level.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          state[stateKey] = pill.dataset.value;
+          roomCounts = {};
+          state.name = null;
+          renderNamePills();
+        });
+      });
+    }
+
+    setupLevel('level-travelers', 'travelers');
+    setupLevel('level-nights', 'nights');
+    // Center pills when they fit; show arrow when they overflow. Enable swipe when overflow.
+    function updatePillsArrows() {
+      document.querySelectorAll('.pill-level').forEach(level => {
+        const overflows = level.scrollWidth > level.clientWidth;
+        level.classList.toggle('centered', !overflows);
+        const arrow = level.querySelector('.pill-arrow');
+        if (arrow) arrow.classList.toggle('visible', overflows);
+      });
+    }
+
+    // Initial render
+    renderNamePills();
+    updatePillsArrows();
+    window.addEventListener('resize', updatePillsArrows);
+
+    // Always scroll to ticket selector on load (including first visit).
+    // Use two passes to make this robust on slower layout/image loads.
+    function scrollAccommodationToSelector() {
+      var el = document.getElementById('ticket-section');
+      if (!el) return;
+      requestAnimationFrame(function() {
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 120);
+      });
+    }
+    scrollAccommodationToSelector();
+    window.addEventListener('pageshow', scrollAccommodationToSelector);
+    (function() {
+      var tickets = [];
+      try { tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]'); } catch (e) {}
+      var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
+      if (!hasTickets) document.getElementById('stepper-step1') && document.getElementById('stepper-step1').classList.add('skipped');
+    })();
+  </script>
+</body>
+</html>

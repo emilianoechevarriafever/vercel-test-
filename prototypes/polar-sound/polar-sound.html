@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Polar Sound Festival 2026 - Passes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Fever Design System */
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-primary-light: #f2fbfd;
+      --color-text: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-text-subtle: #37474F;
+      --color-text-disable: #ccc;
+      --color-border: #E6EAEE;
+      --color-border-light: #E6EAEE;
+      --color-accent: #6f41d7;
+      --color-danger: #E3264C;
+      --color-danger-text: #f43d7a;
+      --color-success: #06C167;
+      --color-warning: #f9b132;
+      --color-bg: #ffffff;
+      --color-bg-disable: #f6f6f6;
+      --color-bg-dark: #0A1E42;
+      --color-bg-neutral: #F5F7F9;
+      --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
+      --font: 'Montserrat', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg-neutral);
+      display: flex;
+      justify-content: center;
+      color: var(--color-text);
+      overflow-x: hidden;
+    }
+    .phone {
+      width: 393px;
+      max-width: 100vw;
+      background: var(--color-bg);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* === STATUS BAR === */
+    .status-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 16px 4px; background:white; }
+    .status-bar .time { font-weight:600; font-size:17px; letter-spacing:-0.68px; }
+    .status-bar .icons { display:flex; gap:5px; align-items:center; }
+    .status-bar .icons svg { height:12px; }
+
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    /* === NAVBAR === */
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:16px; }
+    .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
+    .avatar-wrap { position:relative; }
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+
+    /* === HERO GALLERY (Figma Channel Filter 778-26710) === */
+    .hero { position:relative; width:100%; height:390px; overflow:hidden; }
+    .hero img.hero-bg { width:100%; height:100%; object-fit:cover; }
+    .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; }
+    .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
+    .hero .side-btn svg { width:20px; height:20px; color:#333; }
+    .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; }
+    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); }
+    .hero .gallery-btn svg { width:16px; height:16px; }
+    .hero .slide-indicators { display:flex; gap:4px; width:100%; }
+    /* Barras horizontales (Figma), no círculos */
+    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.5); }
+    .hero .slide-indicators .bar.active { background:white; }
+    .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; }
+
+    /* === TITLE SECTION === */
+    .title-section { padding:16px; }
+        /* Tickets Selling Fast — top tag: Figma 37-20538 (unchanged) */
+    .tag-selling {
+      display: inline-flex; align-items: center;
+      min-height: 20px; padding: 4px 12px;
+      background: #df7b00; border-radius: 4px;
+      font-family: var(--font); font-size: 12px; font-weight: 400; line-height: 16px;
+      color: #031419;
+    }
+    .tag-selling { margin-bottom: 12px; }
+    /* Below ticket selector: Figma 778-27021 (Channel Filter) — light peach bg, flame icon, dark gray text */
+    .selling-fast-banner {
+      display: flex; align-items: center; gap: 10px;
+      margin: 16px 0 20px; padding: 12px 16px;
+      background: #f5e6dc; border-radius: 8px;
+      font-family: var(--font); font-size: 14px; font-weight: 500; line-height: 20px;
+      color: #37474f;
+    }
+    .selling-fast-banner .selling-fast-icon { width: 20px; height: 20px; flex-shrink: 0; color: #9F5800; }
+    .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
+    .divider { height:1px; background:var(--color-border); margin:0 16px; }
+
+    /* === DESCRIPTION === */
+    .description { padding:20px 16px; font-size:15px; line-height:22px; }
+    .description p { margin-bottom:12px; }
+    .description .subtitle { font-weight:600; font-size:16px; margin-bottom:8px; margin-top:16px; }
+    .description ul { padding-left:20px; margin-bottom:12px; }
+    .description ul li { margin-bottom:4px; }
+    .description a { color:var(--color-primary); text-decoration:underline; }
+
+    /* === SECTION HEADER === */
+    .section-header { display:flex; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--color-border); }
+    .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
+    .section-header h2 { font-size:20px; font-weight:600; line-height:24px; flex:1; }
+
+    /* === TICKET SELECTOR === */
+    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+
+    /* No booking fees banner */
+    .no-fees-banner { display:flex; align-items:center; justify-content:center; gap:8px; background:#f0ebfd; border-radius:8px; padding:16px; margin:16px 0; }
+    .no-fees-banner .info-icon { width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .no-fees-banner .info-icon img { width:16px; height:16px; display:block; }
+    .no-fees-banner span { font-size:14px; font-weight:400; line-height:20px; color:var(--color-text); }
+
+    /* Ticket type pills */
+    .ticket-pills { display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
+    .ticket-pills::-webkit-scrollbar { display:none; }
+    .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid #ccd2d8; border-radius:8px; font-size:14px; font-weight:500; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
+    .ticket-pill.active { border-color:#0079ca; color:#0079ca; background:var(--color-primary-weak); }
+    .pill-arrow { flex-shrink:0; width:32px; height:32px; display:none; align-items:center; justify-content:center; cursor:pointer; }
+    .pill-arrow.visible { display:flex; }
+    .pill-arrow svg { width:16px; height:16px; color:var(--color-text-subtle); }
+
+    /* Ticket rows — Figma 778-26883/778-26897 (ticket silhouette with center perforation) */
+    .ticket-row { --ticket-border:#ccd2d8; display:flex; align-items:stretch; min-height:92px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; background:transparent; }
+    .ticket-row::after {
+      content:'';
+      position:absolute;
+      right:136px;
+      top:8px;
+      bottom:8px;
+      width:1px;
+      background-image:repeating-linear-gradient(to bottom, var(--ticket-border) 0 2px, transparent 2px 4px);
+      background-repeat:no-repeat;
+      background-size:1px 100%;
+      transform:translateX(50%);
+      pointer-events:none;
+      z-index:2;
+    }
+    .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:flex-start; gap:4px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:92px; }
+    .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:#031419; }
+    .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:18px; color:#031419; margin-top:auto; }
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:#031419; }
+    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
+    .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
+    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
+    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
+    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
+    .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
+    .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s, border-color 0.15s; background:#f2f3f3; border:none; color:#a7b2ba; }
+    .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; line-height:20px; color:#031419; }
+    .ticket-row .amt-btn.plus { background:#e6f4ff; border:none; color:#0079ca; }
+    .ticket-row.qty-zero .amt-btn.minus { background:#f2f3f3; color:#a7b2ba; cursor:default; }
+    .ticket-row.qty-zero .amt-count { color:#a7b2ba; }
+    .ticket-row.qty-zero .amt-btn.plus { background:#e6f4ff; color:#0079ca; }
+
+    /* Active (selected): right panel gets primary-weak fill */
+    .ticket-row.selected { --ticket-border:#0079ca; }
+    .ticket-row.selected .ticket-selector-right { background:#e6f4ff; border-radius:0 8px 8px 0; }
+    .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .ticket-row.selected .amt-btn { background:#e6f4ff; border:none; color:#0079ca; }
+    .ticket-row.selected .amt-btn.plus { background:#e6f4ff; border:none; color:#0079ca; }
+
+    /* Ticket perforation with top/bottom circular notches */
+    .ticket-row .ticket-notch {
+      position:absolute;
+      right:136px;
+      top:0;
+      bottom:0;
+      width:16px;
+      pointer-events:none;
+      z-index:3;
+      transform: translateX(50%);
+    }
+    .ticket-row .ticket-notch::before,
+    .ticket-row .ticket-notch::after {
+      content:'';
+      position:absolute;
+      left:0;
+      width:16px;
+      height:8px;
+      background:var(--color-bg);
+      box-sizing:border-box;
+    }
+    .ticket-row .ticket-notch::before {
+      top:0;
+      border:1px solid var(--ticket-border);
+      border-top:none;
+      border-radius:0 0 8px 8px;
+    }
+    .ticket-row .ticket-notch::after {
+      bottom:0;
+      border:1px solid var(--ticket-border);
+      border-bottom:none;
+      border-radius:8px 8px 0 0;
+    }
+
+    /* Selling fast banner */
+
+    /* CTA Buttons */
+    .cta-primary { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; margin-bottom:12px; transition:background 0.2s; }
+    .cta-primary:hover { background:#0066b3; }
+    .cta-secondary { width:100%; height:48px; background:white; border:1.5px solid var(--color-border); border-radius:100px; color:var(--color-text); font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .cta-secondary svg { width:18px; height:18px; }
+
+    /* === REVIEWS === */
+    .reviews { padding:20px 16px; }
+    .reviews h3 { font-size:18px; font-weight:600; margin-bottom:16px; }
+    .rating-big { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .rating-big .score { font-size:28px; font-weight:700; }
+    .rating-big .stars { color:#f5a623; font-size:16px; letter-spacing:2px; }
+    .rating-big .count { font-size:13px; color:var(--color-text-secondary); }
+    .review-card { border-bottom:1px dashed var(--color-border-light); padding:12px 0; }
+    .review-card:last-child { border-bottom:none; }
+    .review-card .reviewer { font-size:14px; font-weight:600; }
+    .review-card .review-date { font-size:12px; color:var(--color-text-secondary); margin:2px 0 6px; }
+    .review-card .review-text { font-size:14px; line-height:20px; }
+
+    /* === HELP === */
+    .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
+    .help-section span { font-size:15px; font-weight:500; }
+    .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+
+    /* === ABOUT VENUE === */
+    .venue-section { padding:20px 16px; }
+    .venue-section .venue-img { width:100%; height:200px; border-radius:8px; object-fit:cover; margin-bottom:12px; }
+    .venue-section .venue-name-lg { font-size:16px; font-weight:600; margin-bottom:6px; }
+    .venue-section .venue-desc { font-size:14px; line-height:20px; color:var(--color-text-secondary); }
+
+    /* === LOCATION === */
+    .location { padding:20px 16px; }
+    .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
+    .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
+    .location .map-placeholder { width:100%; height:160px; background:#e8e8e8; border-radius:8px; overflow:hidden; }
+    .location .map-placeholder img { width:100%; height:100%; object-fit:cover; }
+
+    /* === SIMILAR === */
+    .similar { padding:20px 0; }
+    .similar h3 { font-size:18px; font-weight:600; padding:0 16px; margin-bottom:16px; }
+    .sim-scroll { display:flex; gap:12px; overflow-x:auto; padding:0 16px; scrollbar-width:none; }
+    .sim-scroll::-webkit-scrollbar { display:none; }
+    .sim-card { flex-shrink:0; width:150px; text-decoration:none; color:inherit; }
+    .sim-card .sim-img { width:150px; height:100px; border-radius:8px; overflow:hidden; }
+    .sim-card .sim-img img { width:100%; height:100%; object-fit:cover; }
+    .sim-card .sim-title { margin-top:6px; font-size:12px; font-weight:500; line-height:16px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .sim-card .sim-meta { font-size:11px; color:var(--color-text-secondary); margin-top:2px; }
+    .sim-card .sim-badge { display:inline-block; font-size:9px; font-weight:600; color:white; background:var(--color-accent); padding:1px 4px; border-radius:2px; margin-top:4px; }
+
+    /* === FOOTER === */
+    .footer { background:black; color:white; padding:32px 16px 140px; }
+    .footer-cols { display:flex; justify-content:space-between; margin-bottom:24px; }
+    .footer-col h5 { font-size:14px; font-weight:600; margin-bottom:8px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { font-size:13px; line-height:20px; margin-bottom:4px; opacity:0.8; cursor:pointer; }
+    .footer .legal { border-top:1px solid var(--color-text-subtle); padding-top:16px; font-size:12px; opacity:0.7; }
+    .footer .legal a { color:white; }
+
+    /* === STICKY CTA === */
+    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; display:flex; flex-direction:column; gap:0; }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
+
+    /* Flow stepper (shown only when returning from a later step) */
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
+    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
+    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+    .flow-stepper.stepper-hidden { display:none !important; }
+
+    /* Option F: one-step add-on hub */
+    .decision-overlay { position:fixed; inset:0; background:rgba(3,20,25,0.35); opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:350; }
+    .decision-overlay.open { opacity:1; pointer-events:auto; }
+    .decision-sheet { position:fixed; left:50%; bottom:0; transform:translateX(-50%) translateY(100%); width:393px; max-width:100vw; background:#fff; border-radius:16px 16px 0 0; z-index:351; padding:16px; transition:transform 0.25s ease; box-shadow:0 -4px 20px rgba(0,0,0,0.12); }
+    .decision-sheet.open { transform:translateX(-50%) translateY(0); }
+    .decision-sheet .handle { width:36px; height:4px; border-radius:4px; background:#d7dde2; margin:0 auto 14px; }
+    .decision-sheet h3 { font-size:18px; font-weight:700; text-align:center; margin-bottom:8px; }
+    .decision-sheet p { font-size:14px; line-height:20px; color:var(--color-text-secondary); text-align:center; margin-bottom:14px; }
+    .decision-sheet .hub-actions { display:flex; flex-direction:column; gap:10px; }
+    .decision-sheet .hub-btn { width:100%; min-height:44px; border-radius:100px; border:1px solid #ccd2d8; background:#fff; color:var(--color-text); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; padding:10px 16px; }
+    .decision-sheet .hub-btn.primary { background:#0079ca; border-color:#0079ca; color:#fff; }
+    .decision-sheet .hub-btn.secondary { background:#e6f4ff; border-color:#0079ca; color:#0079ca; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="home.html" class="logo-link"><img src="img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="avatar-wrap"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+    <div id="tickets-flow-stepper" class="flow-stepper stepper-hidden" aria-hidden="true">
+      <div class="step current"><span class="dot">1</span><span class="label">Tickets</span></div>
+      <a href="polar-sound-accommodation.html#ticket-section" class="step" id="stepper-step2"><span class="dot">2</span><span class="label">Accommodation</span></a>
+      <a href="polar-sound-transportations.html" class="step" id="stepper-step3"><span class="dot">3</span><span class="label">Transport</span></a>
+      <a href="checkout.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Checkout</span></a>
+    </div>
+    </header>
+
+    <!-- Hero Gallery (Figma Channel Filter) -->
+    <div class="hero">
+      <img class="hero-bg" src="img/polar-sound-hero.png" alt="Polar Sound Festival">
+      <div class="side-buttons">
+        <button type="button" class="side-btn" aria-label="Like"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
+      </div>
+      <div class="shadow-overlay">
+        <button type="button" class="gallery-btn"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>Gallery</button>
+        <div class="slide-indicators">
+          <div class="bar active"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+      </div>
+      <div class="rounded-top"></div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="title-section">
+      <div class="tag-selling">Tickets Selling Fast</div>
+      <h1>Occident - Polar Sound Festival 2026 - Passes</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Description -->
+    <div class="description">
+      <p>&#11088; <strong>Polar Sound Festival</strong> After last year's sold-out edition, it's back on March 13&ndash;14, 2026, for a brand-new celebration! Enjoy live performances from <strong>Lori Meyers, Juan Mag&aacute;n, Leire Mart&iacute;nez, Besmaya</strong>, and many more to be confirmed.</p>
+
+      <p>&#128680; <strong>Passes now on sale!</strong> Lori Meyers, Juan Mag&aacute;n, Leire Mart&iacute;nez, Besmaya, and many more to be announced are waiting for you!</p>
+
+      <p>&#127976; Want a Pass + accommodation? <a href="polar-sound-accommodation.html" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){}">Click here</a></p>
+      <p>&#128656; Buy your bus and shuttle tickets to Polar Sound <a href="#">here</a></p>
+      <p>&#128176; Not ready to buy add-ons yet? Purchase them later separately <a href="#">here</a></p>
+
+      <p class="subtitle">Highlights</p>
+      <ul>
+        <li>&#9975;&#65039; Spectacular ski slopes in the morning</li>
+        <li>&#127925; The best apr&egrave;s-ski with live hits from top artists in the afternoon</li>
+        <li>&#127911; DJs after the concerts to end the night in style</li>
+        <li>&#9924; In one of the most amazing natural settings on the peninsula</li>
+      </ul>
+
+      <p class="subtitle">General Info</p>
+      <p>&#128197; Date: March 13th and 14th, 2026<br>
+      &#128336; Time: concerts start around 5:00 PM and end around 3:00 AM<br>
+      &#128205; Location: Baqueira Beret ski resort, Lleida<br>
+      &#128100; Age: 18+ (Minors aged 16+ may attend with <a href="#">signed authorization</a>)<br>
+      &#9855; Accessibility: suitable for people with reduced mobility<br>
+      &#10067; Check <a href="#">frequently asked questions</a> here</p>
+
+      <p class="subtitle">Description</p>
+      <p>Polar Sound Festival has been surprising audiences every year since 2019, bringing together the hottest current artists for live performances, and it will be back again in 2026 to get you moving like never before with the best artists on the national music scene! A unique location on the peninsula, with the coolest ski slopes during the day and the hottest music in the afternoon and evening, create the perfect formula for enjoying one of the best festivals of the season.</p>
+
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:16px;"><em>*All customers will receive communications from the sponsors</em><br><br>Official sponsors: Occident, Barcel&oacute; Imperial, Coca-Cola, Benefit, Mahou San Miguel, Frit Ravich, Eolux, Varta, Bus for Fun, Deleito.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Ticket Selector -->
+    <div class="section-header" id="ticket-section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <h2>Select date and session</h2>
+    </div>
+
+    <div class="ticket-selector">
+      <!-- No booking fees -->
+      <div class="no-fees-banner">
+        <span class="info-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/45f9ca19-1d8e-4183-9c26-57daf45780b8" alt=""></span>
+        <span>No booking fees</span>
+      </div>
+
+      <!-- Type pills -->
+      <div class="ticket-pills" id="ticket-pills-row">
+        <div class="ticket-pill active" data-panel="day">Day Ticket</div>
+        <div class="ticket-pill" data-panel="2day">2 Day Pass</div>
+        <div class="pill-arrow" id="pills-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
+
+      <!-- Panel: Day Ticket -->
+      <div class="ticket-panel" id="panel-day" data-panel="day">
+        <div class="ticket-row selected">
+          <div class="ticket-content">
+            <div class="ticket-name">Friday - Tier 1</div>
+            <div class="ticket-price">&euro;45.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">1</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Saturday - Tier 2</div>
+            <div class="ticket-price">&euro;50.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+            <div class="ticket-price">&euro;85.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+            <div class="ticket-price">&euro;90.00</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+      </div>
+
+      <!-- Panel: 2 Day Pass -->
+      <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
+        <div class="ticket-row selected">
+          <div class="ticket-content">
+            <div class="ticket-name">General - Tier 5</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+              <ul>
+                <li>Access to the 2 days of the festival</li>
+              </ul>
+            </div>
+            <div class="ticket-price">&euro;87.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">1</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ticket-row">
+          <div class="ticket-content">
+            <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
+            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+            <div class="ticket-info-detail">
+              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+              <ul>
+                <li>Access to the 2 days of the festival</li>
+                <li>60 Tokens to spend in the event</li>
+                <li>+10 bonus tokens</li>
+              </ul>
+            </div>
+            <div class="ticket-price">&euro;147.50</div>
+          </div>
+          <div class="ticket-notch"><span class="notch-line"></span></div>
+          <div class="ticket-selector-right">
+            <div class="stepper ticket-amount">
+              <button class="amt-btn minus">&minus;</button>
+              <span class="amt-count">0</span>
+              <button class="amt-btn plus">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+      </div>
+
+      <!-- CTA (sticky handles click; this is fallback) -->
+      <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
+    </div>
+
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="#">Contact Support here</a>
+    </div>
+
+    <!-- About the Venue -->
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+      <h2>About the venue</h2>
+    </div>
+    <div class="venue-section">
+      <img class="venue-img" src="https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=800&q=80" alt="Baqueira Beret">
+      <div class="venue-name-lg">Baqueira Beret Ski Resort</div>
+      <div class="venue-desc">The Baqueira Beret - Sector Bonaigua Ski Resort, located in the privileged environment of the Catalan Pyrenees, is an authentic reference among the winter destinations in Spain. With its multiple slopes and stunning scenery, it offers one of the best skiing experiences in the country. <a href="#" style="color:var(--color-primary);">Read more</a></div>
+    </div>
+
+    <!-- Getting There -->
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <h2>Getting there</h2>
+    </div>
+    <div class="location">
+      <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
+      <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
+      <div class="map-placeholder">
+        <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80" alt="Map area Baqueira">
+      </div>
+    </div>
+
+    <!-- Similar Experiences -->
+    <div class="similar">
+      <h3>Similar experiences</h3>
+      <div class="sim-scroll">
+        <a href="#" class="sim-card">
+          <div class="sim-img"><img src="https://www.figma.com/api/mcp/asset/ce91371a-0850-403b-a1ac-382ad4d6a985" alt="Candlelight Queen"></div>
+          <div class="sim-title">Candlelight: Tribute to Queen</div>
+          <div class="sim-meta">&#9733; 4.8 &middot; From &euro;20.00</div>
+        </a>
+        <a href="#" class="sim-card">
+          <div class="sim-img"><img src="https://www.figma.com/api/mcp/asset/f8865e45-78be-4e4e-bc6a-4bc42045032c" alt="Candlelight Coldplay"></div>
+          <div class="sim-title">Candlelight: Tribute to Coldplay</div>
+          <div class="sim-meta">&#9733; 4.7 &middot; From &euro;23.50</div>
+        </a>
+        <div class="sim-card">
+          <div class="sim-img"><img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&q=80" alt="Jazz Room"></div>
+          <div class="sim-title">The Jazz Room: Tribute to Soul</div>
+          <div class="sim-meta">&#9733; 4.4 (59) &middot; From &euro;19,00</div>
+        </div>
+        <div class="sim-card">
+          <div class="sim-img"><img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80" alt="Candlelight LOTR"></div>
+          <div class="sim-title">Candlelight: The Lord of the Rings</div>
+          <div class="sim-meta">&#9733; 4.8 (85) &middot; From &euro;19,00</div>
+        </div>
+        <div class="sim-card">
+          <div class="sim-img"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80" alt="Mecano"></div>
+          <div class="sim-title">Candlelight: Mecano Tribute</div>
+          <div class="sim-meta">&#9733; 4.5 (128) &middot; From &euro;26,50</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>About Fever</h5>
+          <ul><li>Press</li><li>We are hiring!</li><li>Fellowships</li><li>Gift Cards</li><li>Help Center</li></ul>
+        </div>
+        <div class="footer-col">
+          <h5>Partner with us</h5>
+          <ul><li>Fever Zone</li><li>List your event</li><li>Affiliate Program</li><li>Ambassadors</li></ul>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Follow us</h5>
+          <ul><li>Instagram</li><li>TikTok</li><li>Twitter</li><li>YouTube</li><li>LinkedIn</li></ul>
+        </div>
+        <div class="footer-col">
+          <h5>For Business</h5>
+          <ul><li>Private events</li><li>Corporate benefits</li><li>Gift vouchers</li></ul>
+        </div>
+      </div>
+      <div class="legal">
+        <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookies Management</a>
+        <div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div>
+      </div>
+    </div>
+
+    <!-- Sticky CTA (single button: Tickets → scrolls → becomes Get it) -->
+    <div class="sticky-cta">
+      <button class="cta-btn" id="sticky-btn">Tickets</button>
+    </div>
+
+    <div class="decision-overlay" id="addons-hub-overlay"></div>
+    <div class="decision-sheet" id="addons-hub-sheet">
+      <div class="handle"></div>
+      <h3>Anything else?</h3>
+      <div class="hub-actions">
+        <button type="button" class="hub-btn secondary" id="addons-hub-accommodation">Add accommodation</button>
+        <button type="button" class="hub-btn secondary" id="addons-hub-transport">Add transportation</button>
+        <button type="button" class="hub-btn primary" id="addons-hub-none">Skip</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    let flow = params.get('flow');
+    let storedFlow = null;
+    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
+    const isOptionE = flow === 'option-e';
+    const isOptionF = flow === 'option-f';
+    const isOptionalFlow = isOptionE || isOptionF;
+    const flowSuffix = isOptionF ? '?flow=option-f' : '';
+
+    if (isOptionalFlow) {
+      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+      const logoLink = document.querySelector('.navbar .logo-link');
+      if (logoLink) logoLink.href = '/' + flow + '/';
+      const step2 = document.getElementById('stepper-step2');
+      const step3 = document.getElementById('stepper-step3');
+      const step4 = document.getElementById('stepper-step4');
+      if (step2) step2.href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
+      if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
+      if (step4) step4.href = 'checkout.html?flow=' + flow;
+      const ticketsStepper = document.getElementById('tickets-flow-stepper');
+      if (ticketsStepper) {
+        ticketsStepper.classList.add('stepper-hidden');
+        ticketsStepper.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
+    (function() {
+      try {
+        if (!isOptionalFlow && sessionStorage.getItem('polar_flow_visited')) {
+          var el = document.getElementById('tickets-flow-stepper');
+          if (el) { el.classList.remove('stepper-hidden'); el.setAttribute('aria-hidden', 'false'); }
+        }
+      } catch (e) {}
+    })();
+
+    // === SINGLE CTA BEHAVIOR ===
+    const stickyBtn = document.getElementById('sticky-btn');
+    const inlineCta = document.getElementById('cta-get-it');
+    const ticketSection = document.getElementById('ticket-section');
+    let stickyMode = 'tickets'; // 'tickets' or 'getit'
+    let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
+
+    // Intersection Observer: detect when ticket section is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          hasSeenTickets = true;
+          stickyMode = 'getit';
+          updateStickyBtn();
+        } else if (!hasSeenTickets) {
+          // Only revert to "Tickets" if user has never seen the section
+          stickyMode = 'tickets';
+          stickyBtn.textContent = 'Tickets';
+        } else {
+          // Already seen → keep showing "Get it" with current total
+          stickyMode = 'getit';
+          updateStickyBtn();
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(ticketSection);
+
+    stickyBtn.addEventListener('click', () => {
+      const total = getTotal();
+      if (stickyMode === 'tickets') {
+        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (total > 0) {
+          stickyMode = 'getit';
+          updateStickyBtn();
+        }
+      } else {
+        // Save ticket selections to localStorage before navigating
+        saveTicketsToCart();
+        try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
+        if (isOptionF) {
+          openAddonsHub();
+        } else {
+          window.location.href = 'polar-sound-accommodation.html' + flowSuffix;
+        }
+      }
+    });
+
+    function getActivePanel() {
+      const activePill = document.querySelector('.ticket-pill.active');
+      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+      return document.getElementById('panel-' + panelId);
+    }
+
+    function saveTicketsToCart() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const is2day = panel.id === 'panel-2day';
+      const ticketNames = is2day
+        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
+        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const prices = is2day ? [87.50, 147.50] : [45.00, 50.00, 85.00, 90.00];
+      const cartTickets = [];
+      rows.forEach((row, i) => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
+      });
+      localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
+    }
+
+    // Hide inline CTA since sticky handles it
+    inlineCta.style.display = 'none';
+
+    function updateStickyBtn() {
+      if (stickyMode === 'getit') {
+        const total = getTotal();
+        if (total > 0) {
+          const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
+          const label = is2day ? 'Continue' : 'Get it';
+          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
+          stickyBtn.style.opacity = '1';
+        } else {
+          stickyBtn.textContent = 'Select a ticket';
+          stickyBtn.style.opacity = '0.5';
+        }
+      }
+    }
+
+    // === DYNAMIC TICKET PRICING (per panel) ===
+    const pricesDay = [45.00, 50.00, 85.00, 90.00];
+    const prices2Day = [87.50, 147.50];
+
+    function getTotal() {
+      const panel = getActivePanel();
+      if (!panel) return 0;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
+      let total = 0;
+      rows.forEach((row, i) => {
+        const count = parseInt(row.querySelector('.amt-count').textContent);
+        total += count * (prices[i] || 0);
+      });
+      return total;
+    }
+
+    function updateTotal() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
+        const count = parseInt(row.querySelector('.amt-count').textContent);
+        row.classList.toggle('selected', count > 0);
+        row.classList.toggle('qty-zero', count === 0);
+      });
+      updateStickyBtn();
+    }
+
+    function bindSteppers(panel) {
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
+      rows.forEach((row, i) => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', () => {
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          updateTotal();
+        });
+        minus.addEventListener('click', () => {
+          const val = parseInt(countEl.textContent);
+          if (val > 0) countEl.textContent = val - 1;
+          updateTotal();
+        });
+      });
+    }
+
+    bindSteppers(document.getElementById('panel-day'));
+    bindSteppers(document.getElementById('panel-2day'));
+
+    // 2 Day Pass: More info / Less info toggle (independent per ticket row)
+    document.getElementById('panel-2day').addEventListener('click', function(e) {
+      const btn = e.target.closest('.ticket-info-toggle');
+      if (!btn) return;
+      e.preventDefault();
+      const row = btn.closest('.ticket-row');
+      const expanded = row.classList.toggle('ticket-info-expanded');
+      btn.textContent = expanded ? 'Less info' : 'More info';
+      btn.setAttribute('aria-expanded', expanded);
+    });
+
+    // Pill switching — show/hide panel, pre-select cheapest
+    document.querySelectorAll('.ticket-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
+        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
+        preselectCheapest();
+      });
+    });
+
+    function preselectCheapest() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
+      let minIdx = 0;
+      let minPrice = Infinity;
+      prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
+      rows.forEach((row, i) => {
+        const el = row.querySelector('.amt-count');
+        if (el) el.textContent = (i === minIdx) ? '1' : '0';
+      });
+      updateTotal();
+    }
+
+    // Initial pre-selection
+    updateTotal();
+
+    // Show pills arrow only when there is overflow to the right
+    function updatePillsArrow() {
+      const row = document.getElementById('ticket-pills-row');
+      const arrow = document.getElementById('pills-arrow');
+      if (!row || !arrow) return;
+      arrow.classList.toggle('visible', row.scrollWidth > row.clientWidth);
+    }
+    updatePillsArrow();
+    window.addEventListener('resize', updatePillsArrow);
+
+    function openAddonsHub() {
+      const overlay = document.getElementById('addons-hub-overlay');
+      const sheet = document.getElementById('addons-hub-sheet');
+      if (overlay) overlay.classList.add('open');
+      if (sheet) sheet.classList.add('open');
+    }
+
+    function closeAddonsHub() {
+      const overlay = document.getElementById('addons-hub-overlay');
+      const sheet = document.getElementById('addons-hub-sheet');
+      if (overlay) overlay.classList.remove('open');
+      if (sheet) sheet.classList.remove('open');
+    }
+
+    (function bindAddonsHub() {
+      const overlay = document.getElementById('addons-hub-overlay');
+      const btnAccommodation = document.getElementById('addons-hub-accommodation');
+      const btnTransport = document.getElementById('addons-hub-transport');
+      const btnNone = document.getElementById('addons-hub-none');
+      if (overlay) overlay.addEventListener('click', closeAddonsHub);
+      if (btnAccommodation) {
+        btnAccommodation.addEventListener('click', function() {
+          try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          window.location.href = 'polar-sound-accommodation.html?flow=option-f';
+        });
+      }
+      if (btnTransport) {
+        btnTransport.addEventListener('click', function() {
+          try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+          window.location.href = 'polar-sound-transportations.html?flow=option-f';
+        });
+      }
+      if (btnNone) {
+        btnNone.addEventListener('click', function() {
+          try {
+            localStorage.setItem('cart_accommodation', '[]');
+            localStorage.setItem('cart_transportation', '[]');
+          } catch (e) {}
+          window.location.href = 'checkout.html?flow=option-f';
+        });
+      }
+    })();
+
+    if (window.location.hash === '#ticket-section') {
+      var el = document.getElementById('ticket-section');
+      if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
+    }
+  </script>
+</body>
+</html>

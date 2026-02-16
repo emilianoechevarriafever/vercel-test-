@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Polar Sound 2026: Transport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-text: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-text-disable: #b0b8bf;
+      --color-border: #E6EAEE;
+      --color-border-light: #E6EAEE;
+      --color-bg: #ffffff;
+      --color-bg-neutral: #F5F7F9;
+      --font: 'Montserrat', sans-serif;
+    }
+    body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
+    .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; }
+
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:48px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:16px; }
+    .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+
+    .hero { position:relative; width:100%; height:390px; overflow:hidden; }
+    .hero img.hero-bg { width:100%; height:100%; object-fit:cover; }
+    .hero .overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,35,44,0.3) 0%, rgba(6,35,44,0.6) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; pointer-events:none; }
+    .hero .overlay .brand-text { font-family:var(--font); font-size:32px; font-weight:800; color:white; letter-spacing:4px; text-transform:uppercase; text-shadow:0 2px 20px rgba(0,0,0,0.5); }
+    .hero .overlay .brand-sub { font-family:var(--font); font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); letter-spacing:2px; }
+    .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; z-index:2; }
+    .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
+    .hero .side-btn svg { width:20px; height:20px; color:#333; }
+    .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:2; }
+    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:#0A1E42; }
+    .hero .gallery-btn svg { width:16px; height:16px; }
+    .hero .slide-indicators { display:flex; gap:4px; width:100%; }
+    /* Barras horizontales (Figma), no círculos */
+    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.5); }
+    .hero .slide-indicators .bar.active { background:white; }
+    .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; z-index:2; }
+
+    .title-section { padding:16px; }
+    .tag-selling { display:inline-flex; align-items:center; min-height:20px; padding:4px 12px; background:#df7b00; border-radius:4px; font-size:12px; font-weight:400; margin-bottom:12px; }
+    .title-section h1 { font-size:20px; font-weight:600; line-height:28px; margin-bottom:4px; }
+    .divider { height:1px; background:var(--color-border); margin:0 16px; }
+
+    .description { padding:20px 16px; font-size:15px; line-height:22px; }
+    .description p { margin-bottom:12px; }
+
+    .section-header { display:flex; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--color-border); }
+    .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
+    .section-header h2 { font-size:20px; font-weight:600; line-height:24px; flex:1; }
+
+    .transport-options { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+    #transport-rows { margin-top:12px; }
+    .ticket-row { --ticket-border:#ccd2d8; display:flex; align-items:stretch; min-height:92px; margin-bottom:16px; position:relative; border-radius:8px; overflow:visible; background:transparent; }
+    .ticket-row::after { content:''; position:absolute; right:136px; top:8px; bottom:8px; width:1px; background-image:repeating-linear-gradient(to bottom, var(--ticket-border) 0 2px, transparent 2px 4px); background-repeat:no-repeat; background-size:1px 100%; transform:translateX(50%); pointer-events:none; z-index:2; }
+    .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; gap:6px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#fff; min-height:92px; }
+    .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
+    .ticket-row .ticket-detail { font-size:12px; color:var(--color-text-secondary); }
+    .ticket-row .ticket-price { font-size:14px; font-weight:600; color:var(--color-text); margin-top:auto; }
+    .ticket-row .ticket-more,
+    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
+    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:var(--color-text); }
+    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
+    .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
+    .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#fff; position:relative; }
+    .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; background:#f2f3f3; color:#a7b2ba; }
+    .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
+    .ticket-row.selected { --ticket-border:#0079ca; }
+    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); }
+    .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:#0079ca; }
+    .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform: translateX(50%); }
+    .ticket-row .ticket-notch::before,
+    .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg); box-sizing:border-box; }
+    .ticket-row .ticket-notch::before { top:0; border:1px solid var(--ticket-border); border-top:none; border-radius:0 0 8px 8px; }
+    .ticket-row .ticket-notch::after { bottom:0; border:1px solid var(--ticket-border); border-bottom:none; border-radius:8px 8px 0 0; }
+
+    .help-section { padding:16px; border-top:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
+    .help-section span { font-size:15px; font-weight:500; }
+    .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+
+    .location { padding:20px 16px; }
+    .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
+    .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
+
+    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:white; border-top:1px solid var(--color-border); padding:12px 16px; }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:none; border-radius:100px; color:white; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; transition:opacity 0.2s; }
+
+    .flow-stepper { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--color-bg-neutral); border-bottom:1px solid var(--color-border); font-size:11px; }
+    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
+    .flow-stepper .step::after { content:''; position:absolute; top:10px; left:50%; width:100%; height:2px; background:var(--color-border); z-index:0; }
+    .flow-stepper .step:last-child::after { display:none; }
+    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; background:var(--color-border); color:var(--color-text-disable); display:flex; align-items:center; justify-content:center; font-weight:600; z-index:1; position:relative; font-size:11px; }
+    .flow-stepper .step.done .dot { background:#0079ca; color:white; font-size:0; }
+    .flow-stepper .step.done .dot::before { content:'\2713'; font-size:11px; }
+    .flow-stepper .step.done.skipped .dot { background:#0079ca; color:white; }
+    .flow-stepper .step.done.skipped .dot::before { content:'\2013'; font-size:12px; }
+    .flow-stepper .step.done .label { color:var(--color-text-secondary); }
+    .flow-stepper .step.current .dot { background:#0079ca; color:white; border:2px solid #0079ca; }
+    .flow-stepper .step.current .label { color:#0079ca; font-weight:600; }
+    .flow-stepper .step .label { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="#" id="nav-logo" class="logo-link"><img id="nav-logo-img" src="img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <div class="avatar-wrap"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+    <div class="flow-stepper" id="flow-stepper">
+      <a href="#" id="step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
+      <a href="#" id="step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
+      <div class="step current"><span class="dot">3</span><span class="label">Transport</span></div>
+      <a href="#" id="step4" class="step"><span class="dot">4</span><span class="label" id="step4-label">Checkout</span></a>
+    </div>
+    </header>
+
+    <div class="hero">
+      <img class="hero-bg" id="hero-img" src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" alt="Transport to festival">
+      <div class="overlay">
+        <div class="brand-text">POLAR SOUND</div>
+        <div class="brand-sub">&#10070;</div>
+      </div>
+      <div class="side-buttons">
+        <button type="button" class="side-btn" aria-label="Like"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+        <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
+      </div>
+      <div class="shadow-overlay">
+        <button type="button" class="gallery-btn"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>Gallery</button>
+        <div class="slide-indicators">
+          <div class="bar active"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+      </div>
+      <div class="rounded-top"></div>
+    </div>
+
+    <div class="title-section">
+      <div class="tag-selling">Tickets Selling Fast</div>
+      <h1>Occident - Polar Sound 2026: Transport</h1>
+    </div>
+    <div class="divider"></div>
+    <div class="description">
+      <p>&#128652; Add round-trip transport to Baqueira Beret from main cities. Buses and shuttles drop you at the festival parking lot. You can also skip and arrange your own transport.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section-header" id="transport-section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17h14v-5H5v5zM5 8h3l2-3h4l2 3h3v9H5V8z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg>
+      <h2>Transport options</h2>
+    </div>
+    <div class="transport-options">
+      <div id="transport-rows"></div>
+    </div>
+
+    <div class="sticky-cta">
+      <button class="cta-btn" id="sticky-btn">Select transport</button>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    let flow = params.get('flow');
+    let storedFlow = null;
+    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f')) flow = storedFlow;
+    const isOptionB = flow === 'option-b';
+    const isOptionE = flow === 'option-e';
+    const isOptionF = flow === 'option-f';
+    const isOptionalFlow = isOptionE || isOptionF;
+    if (isOptionalFlow) {
+      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+    }
+    if (isOptionB) {
+      document.getElementById('nav-logo').href = 'option-b/index.html';
+      document.getElementById('nav-logo-img').src = '../img/fever-logo.png';
+      document.getElementById('hero-img').src = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80';
+    } else if (isOptionF) {
+      document.getElementById('nav-logo').href = 'option-f/';
+    } else {
+      document.getElementById('nav-logo').href = 'home.html';
+    }
+
+    const TRANSPORT_OPTIONS = [
+      { name: 'Bus Barcelona – Baqueira (round trip)', detail: 'Departure Fri 12 Mar, return Sun 14 Mar', price: 49.00 },
+      { name: 'Shuttle Madrid – Baqueira (round trip)', detail: 'Departure Fri 12 Mar, return Sun 14 Mar', price: 69.00 },
+      { name: 'Shuttle Vielha – Baqueira (round trip)', detail: 'Local shuttle, multiple times', price: 19.00 }
+    ];
+
+    const transportRowsEl = document.getElementById('transport-rows');
+    const stickyBtn = document.getElementById('sticky-btn');
+    const transportSection = document.getElementById('transport-section');
+    let counts = TRANSPORT_OPTIONS.map(() => 0);
+    let stickyMode = 'select';
+    let hasSeenTransport = false;
+
+    if (isOptionB) {
+      document.getElementById('step1').href = 'option-b/polar-sound.html#ticket-section';
+      document.getElementById('step2').href = 'option-b/polar-sound-accommodation.html#ticket-section';
+      document.getElementById('step4').href = 'option-b/cart.html';
+      document.getElementById('step4-label').textContent = 'Cart';
+    } else if (isOptionF) {
+      document.getElementById('step1').href = 'polar-sound.html?flow=option-f#ticket-section';
+      document.getElementById('step2').href = 'polar-sound-accommodation.html?flow=option-f#ticket-section';
+      document.getElementById('step4').href = 'checkout.html?flow=option-f';
+      document.getElementById('step4-label').textContent = 'Checkout';
+      try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+    } else {
+      document.getElementById('step1').href = 'polar-sound.html#ticket-section';
+      document.getElementById('step2').href = 'polar-sound-accommodation.html#ticket-section';
+      document.getElementById('step4').href = 'checkout.html';
+      document.getElementById('step4-label').textContent = 'Checkout';
+    }
+    (function() {
+      var tickets = [], accommodation = [];
+      try { tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]'); accommodation = JSON.parse(localStorage.getItem('cart_accommodation') || '[]'); } catch (e) {}
+      var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
+      var hasAccommodation = accommodation.length > 0 && accommodation.some(function(a) { return (a.qty || 0) > 0; });
+      if (!hasTickets) document.getElementById('step1').classList.add('skipped');
+      if (!hasAccommodation) document.getElementById('step2').classList.add('skipped');
+    })();
+
+    function render() {
+      transportRowsEl.innerHTML = '';
+      TRANSPORT_OPTIONS.forEach((opt, i) => {
+        const row = document.createElement('div');
+        row.className = 'ticket-row' + (counts[i] > 0 ? ' selected' : '');
+        row.innerHTML =
+          '<div class="ticket-content">' +
+            '<div class="ticket-name">' + opt.name + '</div>' +
+            (opt.detail ? '<button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button><div class="ticket-info-detail">' + opt.detail + '</div>' : '') +
+            '<div class="ticket-price">€' + opt.price.toFixed(2) + ' <span style="font-weight:400;color:#536b75;">per person</span></div>' +
+          '</div>' +
+          '<div class="ticket-notch"><span class="notch-line"></span></div>' +
+          '<div class="ticket-selector-right">' +
+            '<div class="ticket-amount stepper">' +
+              '<button type="button" class="amt-btn" data-i="' + i + '" data-delta="-1">−</button>' +
+              '<span class="amt-count">' + counts[i] + '</span>' +
+              '<button type="button" class="amt-btn" data-i="' + i + '" data-delta="1">+</button>' +
+            '</div>' +
+          '</div>';
+        transportRowsEl.appendChild(row);
+
+        row.querySelectorAll('.amt-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const i = parseInt(this.dataset.i, 10);
+            const delta = parseInt(this.dataset.delta, 10);
+            const max = opt.price === 0 ? 1 : 20;
+            counts[i] = Math.max(0, Math.min(max, counts[i] + delta));
+            if (opt.price === 0 && counts[i] > 0) {
+              counts = counts.map((_, j) => j === i ? 1 : 0);
+            }
+            render();
+            updateSticky();
+          });
+        });
+        row.querySelectorAll('.ticket-info-toggle').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const r = this.closest('.ticket-row');
+            const expanded = r.classList.toggle('ticket-info-expanded');
+            this.setAttribute('aria-expanded', expanded);
+            this.textContent = expanded ? 'Less info' : 'More info';
+          });
+        });
+      });
+      updateSticky();
+    }
+
+    function getTotal() {
+      let t = 0;
+      TRANSPORT_OPTIONS.forEach((opt, i) => { t += opt.price * (counts[i] || 0); });
+      return t;
+    }
+
+    function updateSticky() {
+      if (stickyMode === 'select') {
+        stickyBtn.textContent = 'Select transport';
+        return;
+      }
+      const total = getTotal();
+      if (total > 0) {
+        stickyBtn.textContent = '€' + total.toFixed(2) + ' — Add it';
+      } else {
+        stickyBtn.textContent = 'Skip transport';
+      }
+    }
+
+    const transportObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          hasSeenTransport = true;
+          stickyMode = 'continue';
+          updateSticky();
+        } else if (!hasSeenTransport) {
+          stickyMode = 'select';
+          stickyBtn.textContent = 'Select transport';
+        } else {
+          stickyMode = 'continue';
+          updateSticky();
+        }
+      });
+    }, { threshold: 0.1 });
+    transportObs.observe(transportSection);
+
+    function saveAndRedirect() {
+      const cart = [];
+      TRANSPORT_OPTIONS.forEach((opt, i) => {
+        const qty = counts[i] || 0;
+        if (qty > 0) cart.push({ name: opt.name, detail: opt.detail || '', price: opt.price, qty });
+      });
+      localStorage.setItem('cart_transportation', JSON.stringify(cart));
+      if (isOptionB) {
+        window.location.href = 'option-b/cart.html';
+      } else if (isOptionF) {
+        try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+        window.location.href = 'checkout.html?flow=option-f';
+      } else {
+        window.location.href = 'checkout.html';
+      }
+    }
+
+    stickyBtn.addEventListener('click', () => {
+      if (stickyMode === 'select') {
+        transportSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        saveAndRedirect();
+      }
+    });
+
+    render();
+    // Always scroll to transport selector on load (including first visit)
+    setTimeout(function() { transportSection.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
+  </script>
+</body>
+</html>

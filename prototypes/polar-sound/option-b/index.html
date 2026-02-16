@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fever - Madrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Fever Design System */
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-text-main: #0A1E42;
+      --color-text-secondary: #37474F;
+      --color-text-subtle: #37474F;
+      --color-border: #E6EAEE;
+      --color-bg-neutral: #F5F7F9;
+      --radius: 0.75rem;
+      --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
+      --font: 'Montserrat', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg-neutral);
+      display: flex;
+      justify-content: center;
+      color: var(--color-text-main);
+    }
+    .phone {
+      width: 393px;
+      max-width: 100vw;
+      background: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Status Bar (Figma 6648-11868: compacto) */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 16px 4px;
+      background: white;
+    }
+    .status-bar .time { font-family: -apple-system, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: -0.68px; }
+    .status-bar .icons { display: flex; gap: 5px; align-items: center; }
+    .status-bar .icons svg { height: 12px; }
+
+    /* Navbar (topbar web real: espaciado, bordes sutiles, orden de iconos) */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .navbar .logo-link {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    /* Logo Fever: imagen oficial; altura por tamaño de las letras, no del blanco del asset */
+    .navbar .logo-link img {
+      height: 48px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 24px; height: 24px; color: #031419; stroke: currentColor; cursor: pointer; }
+    .avatar-wrap { position: relative; display: flex; align-items: center; }
+    .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#ff3b30; border:1.5px solid white; border-radius:50%; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a0533 0%, #2d1b69 40%, #6b21a8 100%);
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 16px 16px;
+    }
+    .hero-city {
+      font-size: 36px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-city svg { width: 16px; height: 16px; }
+    .hero-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      margin: 4px 0 16px;
+      line-height: 20px;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border-radius: 100px;
+      padding: 10px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .search-bar svg { width: 18px; height: 18px; color: #999; flex-shrink: 0; }
+    .search-bar span { font-size: 14px; color: #999; font-family: var(--font); }
+
+    /* Section */
+    .section { padding: 24px 0 0; }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      margin-bottom: 16px;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 700; color: var(--color-text-main); }
+    .section-header a { font-size: 14px; font-weight: 600; color: #0079ca; text-decoration: none; }
+
+    /* Card Carousel — Top 10: portrait 2:3 aspect ratio (ref. correct layout) */
+    .card-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 0 16px;
+      scrollbar-width: none;
+    }
+    .card-scroll::-webkit-scrollbar { display: none; }
+    .card-scroll .card-img {
+      width: 150px;
+      aspect-ratio: 2/3;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-scroll .card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Event Card */
+    .event-card {
+      flex-shrink: 0;
+      width: 150px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s;
+    }
+    .event-card:hover { transform: translateY(-2px); }
+    .event-card .card-img {
+      width: 150px;
+      aspect-ratio: 2/3;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .event-card .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .event-card .rank {
+      position: absolute;
+      bottom: 4px;
+      left: 8px;
+      font-size: 64px;
+      font-weight: 900;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      line-height: 1;
+      font-family: var(--font);
+      -webkit-text-stroke: 1px rgba(0,0,0,0.2);
+    }
+    /* Top 10: solo título; número en dos capas (trazo atrás, relleno blanco encima) para cero artefactos */
+    .section-top10 .event-card .card-meta,
+    .section-top10 .event-card .card-price { display: none; }
+    .section-top10 .event-card .card-title { margin-top: 4px; }
+    .section-top10 .event-card .card-img .rank {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 80px;
+      font-weight: 900;
+      line-height: 1;
+      font-family: var(--font);
+      letter-spacing: -0.02em;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .section-top10 .event-card .card-img .rank .rank-stroke,
+    .section-top10 .event-card .card-img .rank .rank-fill {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: 1;
+      font-family: inherit;
+      letter-spacing: inherit;
+    }
+    .section-top10 .event-card .card-img .rank .rank-stroke {
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 3px #000;
+    }
+    .section-top10 .event-card .card-img .rank .rank-fill {
+      color: #fff;
+      -webkit-text-fill-color: #fff;
+      -webkit-text-stroke: 0 transparent;
+    }
+    .event-card .card-img .card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #6f41d7;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font);
+    }
+    /* Heart like button (ref: Top 10 Barcelona — circular, pequeño, outline blanco sobre fondo oscuro) */
+    .card-like {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+      border: none;
+      background: rgba(0,0,0,0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      padding: 0;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .card-like:hover { background: rgba(0,0,0,0.55); }
+    .card-like svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: white;
+      fill: none;
+      stroke: currentColor;
+      transition: fill 0.2s, color 0.2s;
+    }
+    .card-like.liked svg { fill: white; stroke: white; color: white; }
+    .card-like.liked { background: rgba(0,0,0,0.5); }
+    .card-like.liked:hover { background: rgba(0,0,0,0.6); }
+    .event-card .card-title {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 18px;
+      color: var(--color-text-main);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .event-card .card-meta {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--color-text-subtle);
+      line-height: 16px;
+    }
+    .event-card .card-meta .rating { color: #f5a623; }
+    .event-card .card-price {
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    /* Featured Card (same 2:3 aspect ratio as event-card for Top 10 carousel) */
+    .featured-card {
+      flex-shrink: 0;
+      width: 150px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s;
+    }
+    .featured-card:hover { transform: translateY(-2px); }
+    .featured-card .card-img {
+      width: 150px;
+      aspect-ratio: 2/3;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .featured-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-card .card-img .card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #6f41d7;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font);
+    }
+    .featured-card .card-img .card-like { top: 8px; right: 8px; }
+    .featured-card .card-title {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--color-text-main);
+    }
+    .featured-card .card-meta { margin-top: 4px; font-size: 12px; color: var(--color-text-subtle); }
+    .featured-card .card-meta .rating { color: #f5a623; }
+    .featured-card .card-price { margin-top: 2px; font-size: 13px; font-weight: 600; }
+
+    /* Nearby Cities */
+    .cities-section {
+      margin: 24px 16px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .cities-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .city-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .city-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--color-text-main);
+      background: white;
+      text-decoration: none;
+    }
+    .city-chip svg { width: 14px; height: 14px; color: var(--color-text-subtle); }
+
+    /* App Banner */
+    .app-banner {
+      margin: 8px 16px 24px;
+      background: linear-gradient(135deg, #1a0533, #3b1f7a);
+      border-radius: 16px;
+      padding: 24px;
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+    .app-banner h3 { font-size: 20px; font-weight: 700; line-height: 28px; margin-bottom: 12px; }
+    .app-banner p { font-size: 13px; line-height: 20px; opacity: 0.8; margin-bottom: 20px; }
+    .app-banner .store-btns { display: flex; gap: 12px; }
+    .app-banner .store-btns img { height: 36px; }
+
+    /* Selling Point */
+    .selling-point {
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .selling-point .icon-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+    .selling-point .icon-row span { font-size: 24px; }
+    .selling-point h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .selling-point p { font-size: 13px; line-height: 20px; color: var(--color-text-subtle); max-width: 320px; margin: 0 auto; }
+    .dots { display: flex; gap: 4px; justify-content: center; margin-top: 12px; }
+    .dots span { width: 32px; height: 3px; border-radius: 2px; background: var(--color-border); }
+    .dots span.active { background: var(--color-text-main); }
+
+    /* Footer */
+    .footer { background: black; color: white; padding: 32px 16px 120px; }
+    .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
+    .footer-col h5 { font-size: 14px; font-weight: 650; margin-bottom: 8px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { font-size: 13px; line-height: 20px; margin-bottom: 6px; opacity: 0.8; cursor: pointer; }
+    .footer .legal { border-top: 1px solid #536b75; padding-top: 16px; font-size: 12px; opacity: 0.7; }
+    .footer .legal a { color: white; }
+
+    /* SEO text */
+    .seo-text { padding: 16px; font-size: 13px; line-height: 20px; color: var(--color-text-subtle); }
+
+    @media (max-width: 393px) { .phone { width: 100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="index.html" class="logo-link" aria-label="Fever"><img src="../img/fever-logo.png" alt="Fever"></a>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <div class="avatar-wrap">
+          <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80" alt="Madrid events">
+      <div class="hero-content">
+        <div class="hero-city">
+          Madrid
+          <svg viewBox="0 0 16 16" fill="white"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="hero-subtitle">Things to do: events, experiences and more</div>
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+          <span>Search for Candlelight concerts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 10 in Madrid -->
+    <div class="section section-top10">
+      <div class="section-header">
+        <h2>Top 10 in Madrid</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="card-scroll">
+        <!-- Card 1: POLAR SOUND - links to polar-sound.html -->
+        <a href="polar-sound.html" class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="../img/polar-sound-hero.png" alt="Polar Sound 2026">
+            <span class="rank"><span class="rank-stroke">1</span><span class="rank-fill">1</span></span>
+          </div>
+          <div class="card-title">Occident - Polar Sound 2026: Tickets &amp; Accomodation</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.5</span> (462) &middot; 12 mar</div>
+          <div class="card-price">From &euro;182.30</div>
+        </a>
+
+        <!-- Card 2 -->
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Brunch">
+            <span class="rank"><span class="rank-stroke">2</span><span class="rank-fill">2</span></span>
+          </div>
+          <div class="card-title">Brunch with views of Gran V&iacute;a</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.6</span> (2199)</div>
+          <div class="card-price">&euro;38.50</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80" alt="Museo Banksy">
+            <span class="rank"><span class="rank-stroke">3</span><span class="rank-fill">3</span></span>
+          </div>
+          <div class="card-title">Museo Banksy Madrid</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.8</span> (5300)</div>
+          <div class="card-price">&euro;14.00</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Fever Originals -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Fever Originals</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="card-scroll">
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&q=80" alt="Candlelight Vivaldi">
+            <span class="card-badge">Fever Original</span>
+          </div>
+          <div class="card-title">Candlelight: Vivaldi's Four Seasons</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.7</span> (191)</div>
+          <div class="card-price">From &euro;16.00</div>
+        </div>
+
+        <!-- Featured larger card -->
+        <div class="featured-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&q=80" alt="Jazz Room">
+            <span class="card-badge">Fever Original</span>
+          </div>
+          <div class="card-title">The Jazz Room: A Journey to the Heart of New Orleans</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.7</span> (405)</div>
+          <div class="card-price">From &euro;25.00</div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400&q=80" alt="Jazz Room">
+            <span class="card-badge">Fever Original</span>
+          </div>
+          <div class="card-title">The Jazz Room: A Journey to the Heart of New Orleans</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.7</span> (405)</div>
+          <div class="card-price">From &euro;25.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Shows -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Live Shows</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="card-scroll">
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=400&q=80" alt="We Will Rock You">
+          </div>
+          <div class="card-title">We Will Rock You - Musical</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.6</span> (257)</div>
+          <div class="card-price">From &euro;25.00</div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80" alt="Flamenco">
+          </div>
+          <div class="card-title">Teatro Flamenco: Emociones Show</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.8</span> (671)</div>
+          <div class="card-price">From &euro;29.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music Events -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Music events</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="card-scroll">
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80" alt="F1 GP">
+          </div>
+          <div class="card-title">FORMULA 1&reg; Spanish Grand Prix 2026</div>
+          <div class="card-meta">11 Sept</div>
+          <div class="card-price">From &euro;345.00</div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80" alt="Candlelight Hans Zimmer">
+            <span class="card-badge">Fever Original</span>
+          </div>
+          <div class="card-title">Candlelight: Tribute to Hans Zimmer</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.7</span> (790)</div>
+          <div class="card-price">From &euro;20.00</div>
+        </div>
+
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80" alt="Whitney Houston">
+          </div>
+          <div class="card-title">Whitney Houston Hologram Tour</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.3</span> (69)</div>
+          <div class="card-price">From &euro;18.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- For You -->
+    <div class="section">
+      <div class="section-header">
+        <h2>For you</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="card-scroll">
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=400&q=80" alt="Escape Room">
+          </div>
+          <div class="card-title">Chaos Lab - Madrid</div>
+          <div class="card-price">From &euro;20.00</div>
+        </div>
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=400&q=80" alt="Machu Picchu">
+          </div>
+          <div class="card-title">Machu Picchu: Journey to the Lost City</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.3</span> (2830)</div>
+          <div class="card-price">From &euro;18.00</div>
+        </div>
+        <div class="event-card">
+          <div class="card-img">
+            <button type="button" class="card-like" aria-label="Añadir a favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&q=80" alt="Parque Warner">
+          </div>
+          <div class="card-title">Parque Warner Madrid</div>
+          <div class="card-meta"><span class="rating">&#9733; 4.7</span> (1263)</div>
+          <div class="card-price">From &euro;32.89</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nearby Cities -->
+    <div class="cities-section">
+      <h3>Nearby cities</h3>
+      <div class="city-chips">
+        <a href="#" class="city-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Toledo</a>
+        <a href="#" class="city-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Segovia</a>
+        <a href="#" class="city-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Alcal&aacute; de Henares</a>
+        <a href="#" class="city-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Aranjuez</a>
+      </div>
+    </div>
+
+    <!-- App Banner -->
+    <div class="app-banner">
+      <h3>Discover top experiences anywhere you are.</h3>
+      <p>Download the app now and enjoy exclusive promotions, plus take advantage of Fever Club benefits.</p>
+      <div class="store-btns">
+        <img src="https://www.figma.com/api/mcp/asset/d01c28f4-3eb2-441a-96e7-690bfc1e0e75" alt="App Store">
+        <img src="https://www.figma.com/api/mcp/asset/c0136253-2245-464b-b0fc-ea4d1f83b706" alt="Google Play">
+      </div>
+    </div>
+
+    <!-- Selling Point -->
+    <div class="selling-point">
+      <div class="icon-row"><span>&#10024;</span></div>
+      <h4>Unforgettable experiences</h4>
+      <p>At Fever, every experience is designed to leave a lasting impression. We curate the best experiences so you can simply enjoy.</p>
+      <div class="dots">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- SEO Text -->
+    <div class="seo-text">
+      Enjoy the most exciting events and experiences in Madrid, access the best tourist attractions, discover hidden gems and find the best plans.
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>About Fever</h5>
+          <ul>
+            <li>Press</li>
+            <li>Careers</li>
+            <li>Fellowships</li>
+            <li>Gift Card</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Work with us</h5>
+          <ul>
+            <li>Manage your event</li>
+            <li>List your event</li>
+            <li>Affiliate program</li>
+            <li>Become an influencer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Follow us</h5>
+          <ul>
+            <li>Instagram</li>
+            <li>TikTok</li>
+            <li>Twitter</li>
+            <li>YouTube</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Support 24/7</h5>
+          <ul>
+            <li>Contact us</li>
+            <li>FAQs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Policy</a>
+        <div style="margin-top:8px;text-align:right;">&copy;2025 &ndash; Fever</div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+    try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
+    document.querySelectorAll('.card-like').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.classList.toggle('liked');
+      });
+    });
+  </script>
+</body>
+</html>

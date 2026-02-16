@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Cart Mode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F5F7F9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #0A1E42;
+    }
+    :root {
+      --color-action-primary: #0079ca;
+      --color-action-primary-weak: #e6f4ff;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      max-width: 360px;
+    }
+    .container {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .flow-card {
+      background: #fff;
+      border: 2px solid #E6EAEE;
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .flow-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .buttons a {
+      display: block;
+      padding: 16px 20px;
+      background: #fff;
+      border: 2px solid #E6EAEE;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0A1E42;
+      text-decoration: none;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .buttons a:hover {
+      border-color: var(--color-action-primary);
+      box-shadow: 0 2px 8px var(--color-action-primary-weak);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      color: #536B75;
+      font-size: 14px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back-link:hover { color: #0A1E42; }
+    @media (max-width: 420px) {
+      .buttons { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Music Festival Cross Selling Flows</h1>
+  <div class="container">
+    <div class="flow-card">
+      <div class="flow-title" id="flow-title">Choose flow</div>
+      <div class="buttons">
+        <a id="without-cart-link" href="index.html">Without cart</a>
+        <a id="with-cart-link" href="index.html">With cart</a>
+      </div>
+    </div>
+    <a class="back-link" href="index.html"><span aria-hidden="true">&larr;</span><span>Back</span></a>
+  </div>
+
+  <script>
+    (function() {
+      try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
+
+      var flow = new URLSearchParams(window.location.search).get('flow');
+      var config = {
+        mandatory: {
+          title: 'Mandatory PV sequence',
+          without: 'home.html',
+          with: 'option-b/index.html'
+        },
+        addons: {
+          title: 'Add-ons via bottom sheets',
+          without: 'option-c/',
+          with: 'option-d/'
+        },
+        optional: {
+          title: 'Optional PV sequence',
+          without: 'option-e/',
+          with: 'option-f/'
+        }
+      };
+
+      if (!flow || !config[flow]) {
+        window.location.replace('index.html');
+        return;
+      }
+
+      document.getElementById('flow-title').textContent = config[flow].title;
+      document.getElementById('without-cart-link').href = config[flow].without;
+      document.getElementById('with-cart-link').href = config[flow].with;
+    })();
+  </script>
+</body>
+</html>
