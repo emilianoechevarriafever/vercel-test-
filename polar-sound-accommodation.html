@@ -322,7 +322,6 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-=
     const isOptionF = params.get('flow') === 'option-f';
     const flowSuffix = isOptionF ? '?flow=option-f' : '';
 
@@ -334,7 +333,8 @@
       const step4 = document.getElementById('stepper-step4');
       if (step1) step1.href = 'polar-sound.html?flow=option-f#ticket-section';
       if (step3) step3.href = 'polar-sound-transportations.html?flow=option-f';
-      if (step4) step4.href = 'checkout.html?flow=option-f';    }
+      if (step4) step4.href = 'checkout.html?flow=option-f';
+    }
 
     document.getElementById('sticky-btn').textContent = 'Select accommodations';
 
@@ -665,7 +665,6 @@
 
     setupLevel('level-travelers', 'travelers');
     setupLevel('level-nights', 'nights');
-
     // Center pills when they fit; show arrow when they overflow. Enable swipe when overflow.
     function updatePillsArrows() {
       document.querySelectorAll('.pill-level').forEach(level => {
