@@ -32,13 +32,33 @@
       line-height: 1.3;
       max-width: 360px;
     }
-    .buttons {
+    .container {
       display: flex;
       flex-direction: column;
       gap: 16px;
       width: 100%;
       max-width: 360px;
     }
+    .step-card {
+      background: #fff;
+      border: 2px solid #E6EAEE;
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .step-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #536B75;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .buttons button,
     .buttons a {
       display: block;
       padding: 16px 20px;
@@ -51,23 +71,95 @@
       text-decoration: none;
       text-align: center;
       transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
     }
+    .buttons button:hover,
     .buttons a:hover {
       border-color: var(--color-action-primary);
       box-shadow: 0 2px 8px var(--color-action-primary-weak);
+    }
+    .buttons button.active {
+      border-color: var(--color-action-primary);
+      background: #eef7ff;
+    }
+    .hidden { display: none; }
+    .selected-flow {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0A1E42;
+    }
+    .helper {
+      font-size: 13px;
+      color: #536B75;
+      margin-bottom: 12px;
     }
   </style>
 </head>
 <body>
   <h1>Music Festival Cross Selling Flows</h1>
-  <div class="buttons">
-    <a href="/home">A: Mandatory sequence of pv without cart page</a>
-    <a href="/option-b/home">B: Mandatory sequence of pv with cart page</a>
-    <a href="/option-c/">C: Add-ons via bottom sheets, no cart</a>
-    <a href="option-d/">D: Add-ons via bottom sheets, with cart before checkout</a>
-    <a href="/option-e/">E: Optional PV sequence</a>
-    <a href="/option-f/">F: Optional PV sequence, with cart</a>
+  <div class="container">
+    <div class="step-card">
+      <div class="step-label">Step 1</div>
+      <div class="buttons" id="general-options">
+        <button type="button" data-flow="mandatory">Mandatory PV sequence</button>
+        <button type="button" data-flow="addons">Add-ons via bottom sheets</button>
+        <button type="button" data-flow="optional">Optional PV sequence</button>
+      </div>
+    </div>
+
+    <div class="step-card hidden" id="cart-step">
+      <div class="step-label">Step 2</div>
+      <div class="selected-flow" id="selected-flow-label"></div>
+      <div class="helper">Choose if this flow goes with or without cart.</div>
+      <div class="buttons">
+        <a href="#" id="without-cart-link">Without cart</a>
+        <a href="#" id="with-cart-link">With cart</a>
+      </div>
+    </div>
   </div>
-  <script>try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}</script>
+  <script>
+    (function() {
+      try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
+
+      var ROUTES = {
+        mandatory: { without: '/home', with: '/option-b/home' },
+        addons: { without: '/option-c/', with: '/option-d/' },
+        optional: { without: '/option-e/', with: '/option-f/' }
+      };
+
+      var FLOW_LABELS = {
+        mandatory: 'Mandatory PV sequence',
+        addons: 'Add-ons via bottom sheets',
+        optional: 'Optional PV sequence'
+      };
+
+      var selectedFlow = null;
+      var cartStep = document.getElementById('cart-step');
+      var selectedFlowLabel = document.getElementById('selected-flow-label');
+      var withoutCartLink = document.getElementById('without-cart-link');
+      var withCartLink = document.getElementById('with-cart-link');
+      var flowButtons = document.querySelectorAll('#general-options button');
+
+      function updateStepTwo() {
+        if (!selectedFlow || !ROUTES[selectedFlow]) return;
+        selectedFlowLabel.textContent = FLOW_LABELS[selectedFlow];
+        withoutCartLink.href = ROUTES[selectedFlow].without;
+        withCartLink.href = ROUTES[selectedFlow].with;
+        cartStep.classList.remove('hidden');
+      }
+
+      flowButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          selectedFlow = button.getAttribute('data-flow');
+          flowButtons.forEach(function(other) { other.classList.remove('active'); });
+          button.classList.add('active');
+          updateStepTwo();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
