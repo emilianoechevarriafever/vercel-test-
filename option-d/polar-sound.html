@@ -773,10 +773,10 @@
         const total = getTotal();
         if (total > 0) {
           stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
-          stickyBtn.style.opacity = '1';
+          stickyBtn.disabled = false;
         } else {
           stickyBtn.textContent = 'Select a ticket';
-          stickyBtn.style.opacity = '0.5';
+          stickyBtn.disabled = false;
         }
       }
     }

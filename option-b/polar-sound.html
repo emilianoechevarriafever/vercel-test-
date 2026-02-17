@@ -748,10 +748,10 @@
           const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
           const label = is2day ? 'Continue' : 'Get it';
           stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
-          stickyBtn.style.opacity = '1';
+          stickyBtn.disabled = false;
         } else {
           stickyBtn.textContent = 'Select a ticket';
-          stickyBtn.style.opacity = '0.5';
+          stickyBtn.disabled = false;
         }
       }
     }
