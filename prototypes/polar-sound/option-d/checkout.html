@@ -39,7 +39,9 @@
     .navbar .logo-link img { height:38px; width:auto; display:block; object-fit:contain; }
     .nav-icons { display:flex; align-items:center; gap:16px; }
     .nav-icons svg { width:24px; height:24px; color:var(--color-text); cursor:pointer; }
-    .avatar-wrap { position:relative; }
+    .nav-icon-btn { margin:0; padding:0; border:none; background:none; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; color:inherit; }
+    .nav-icon-btn svg { width:24px; height:24px; color:var(--color-text); }
+    .avatar-wrap { position:relative; display:flex; align-items:center; }
     .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
     .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
 
@@ -95,8 +97,8 @@
     .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
 
     .card-type-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--color-border); margin-bottom:16px; cursor:pointer; }
-    .card-type-row .radio { width:18px; height:18px; border-radius:50%; border:2px solid #0079ca; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .card-type-row .radio.active { background:#0079ca; }
+    .card-type-row .radio { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .card-type-row .radio.active { border-color:#0079ca; background:#0079ca; }
     .card-type-row .radio.active::after { content:''; width:6px; height:6px; background:white; border-radius:50%; }
     .card-type-row .radio-empty { width:18px; height:18px; border-radius:50%; border:2px solid var(--color-border); flex-shrink:0; }
     .card-type-row svg { width:18px; height:18px; color:var(--color-text); }
