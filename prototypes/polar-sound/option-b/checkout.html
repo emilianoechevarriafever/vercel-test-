@@ -129,12 +129,23 @@
       border-color:var(--color-input-border-disabled);
       color:var(--color-input-text-disabled);
     }
+    /* Error state — Figma ignt.comp.fields Sentiment=Danger */
+    .form-group.is-error .field-label { color:var(--color-input-error-text); }
     .form-group.is-error .input-wrap .form-field {
       border-color:var(--color-input-border-error);
     }
-    .form-group.is-error .input-wrap .form-field:focus { box-shadow:none; }
-    .form-group .field-error { display:flex; align-items:center; gap:6px; margin-top:6px; font-size:12px; line-height:16px; color:var(--color-input-error-text); }
-    .form-group .field-error svg { width:16px; height:16px; flex-shrink:0; }
+    .form-group.is-error .input-wrap .form-field:focus {
+      border-color:#D10047;
+      border-width:2px;
+      padding:0 15px;
+      box-shadow:0 0 0 4px rgba(235,0,82,0.15);
+    }
+    .form-group.has-clear.is-error .input-wrap .form-field:focus { padding-right:43px; }
+    .form-group .field-error { display:none; align-items:flex-start; gap:4px; margin-top:8px; font-size:12px; line-height:16px; color:var(--color-input-error-text); font-weight:400; }
+    .form-group.is-error .field-error { display:flex; }
+    .form-group .field-error svg { width:16px; height:16px; flex-shrink:0; color:var(--color-input-error-text); }
+    @keyframes field-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-4px)} 40%{transform:translateX(4px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)} }
+    .form-group.is-error.shake .input-wrap { animation:field-shake 0.35s ease; }
     .form-group .input-wrap .field-clear { position:absolute; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-text); opacity:0.6; }
     .form-group .input-wrap .field-clear:hover { opacity:1; }
     .form-group .input-wrap .field-clear { visibility:hidden; }
@@ -273,32 +284,36 @@
       </div>
 
       <!-- Card form (Figma ignt.comp.fields) -->
-      <div class="form-group has-clear">
+      <div class="form-group has-clear" data-validate="card-number">
         <label class="field-label" for="card-number">Card number</label>
         <div class="input-wrap">
           <input id="card-number" type="text" class="form-field" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
           <button type="button" class="field-clear" aria-label="Clear" title="Clear">&#215;</button>
         </div>
+        <div class="field-error"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 3.75a.75.75 0 011.5 0v3.5a.75.75 0 01-1.5 0v-3.5zM8 11a1 1 0 110 2 1 1 0 010-2z"/></svg><span class="error-msg">Enter a valid card number</span></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
+        <div class="form-group" data-validate="card-expiry">
           <label class="field-label" for="card-expiry">Expiry</label>
           <div class="input-wrap">
             <input id="card-expiry" type="text" class="form-field" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
           </div>
+          <div class="field-error"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 3.75a.75.75 0 011.5 0v3.5a.75.75 0 01-1.5 0v-3.5zM8 11a1 1 0 110 2 1 1 0 010-2z"/></svg><span class="error-msg">Enter a valid date</span></div>
         </div>
-        <div class="form-group">
+        <div class="form-group" data-validate="card-cvc">
           <label class="field-label" for="card-cvc">CVC</label>
           <div class="input-wrap">
             <input id="card-cvc" type="text" class="form-field" placeholder="123" maxlength="4" autocomplete="cc-csc">
           </div>
+          <div class="field-error"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 3.75a.75.75 0 011.5 0v3.5a.75.75 0 01-1.5 0v-3.5zM8 11a1 1 0 110 2 1 1 0 010-2z"/></svg><span class="error-msg">Enter CVC</span></div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" data-validate="postal-code">
         <label class="field-label" for="postal-code">Postal code</label>
         <div class="input-wrap">
           <input id="postal-code" type="text" class="form-field" placeholder="Postal code" autocomplete="postal-code">
         </div>
+        <div class="field-error"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.75 3.75a.75.75 0 011.5 0v3.5a.75.75 0 01-1.5 0v-3.5zM8 11a1 1 0 110 2 1 1 0 010-2z"/></svg><span class="error-msg">Enter postal code</span></div>
       </div>
 
       <div class="security-note">
@@ -509,13 +524,89 @@
       });
     }
 
+    // ========== FIELD VALIDATION (Figma ignt.comp.fields — Sentiment=Danger) ==========
+    var validators = {
+      'card-number': function(v) {
+        var digits = v.replace(/\s/g, '');
+        if (!digits) return 'Enter a valid card number';
+        if (!/^\d+$/.test(digits)) return 'Card number must contain only digits';
+        if (digits.length < 13 || digits.length > 19) return 'Enter a valid card number';
+        return '';
+      },
+      'card-expiry': function(v) {
+        if (!v.trim()) return 'Enter a valid date';
+        if (!/^\d{2}\/\d{2}$/.test(v.trim())) return 'Use format MM/YY';
+        var parts = v.split('/');
+        var mm = parseInt(parts[0], 10);
+        if (mm < 1 || mm > 12) return 'Invalid month';
+        return '';
+      },
+      'card-cvc': function(v) {
+        if (!v.trim()) return 'Enter CVC';
+        if (!/^\d{3,4}$/.test(v.trim())) return 'CVC must be 3 or 4 digits';
+        return '';
+      },
+      'postal-code': function(v) {
+        if (!v.trim()) return 'Enter postal code';
+        return '';
+      }
+    };
+
+    function setError(input, msg) {
+      var group = input.closest('.form-group');
+      if (!group) return;
+      group.classList.add('is-error');
+      var errorEl = group.querySelector('.error-msg');
+      if (errorEl && msg) errorEl.textContent = msg;
+      group.classList.remove('shake');
+      void group.offsetWidth;
+      group.classList.add('shake');
+    }
+
+    function clearError(input) {
+      var group = input.closest('.form-group');
+      if (!group) return;
+      group.classList.remove('is-error', 'shake');
+    }
+
+    document.querySelectorAll('.form-group[data-validate] .form-field').forEach(function(input) {
+      input.addEventListener('blur', function() {
+        var key = this.closest('.form-group').getAttribute('data-validate');
+        var fn = validators[key];
+        if (!fn) return;
+        var err = fn(this.value);
+        if (err) { setError(this, err); } else { clearError(this); }
+      });
+      input.addEventListener('input', function() {
+        var group = this.closest('.form-group');
+        if (group && group.classList.contains('is-error')) {
+          var key = group.getAttribute('data-validate');
+          var fn = validators[key];
+          if (fn && !fn(this.value)) clearError(this);
+        }
+      });
+    });
+
     payBtn.onclick = function() {
       if (selectedPaymentMethod === 'card') {
-        const expiry = document.getElementById('card-expiry');
-        const cvc = document.getElementById('card-cvc');
-        const postal = document.getElementById('postal-code');
-        if (!cardInput.value.trim() || !expiry.value.trim() || !cvc.value.trim() || !postal.value.trim()) {
-          alert('Please complete your card details before continuing.');
+        var keys = ['card-number', 'card-expiry', 'card-cvc', 'postal-code'];
+        var firstInvalid = null;
+        for (var i = 0; i < keys.length; i++) {
+          var grp = document.querySelector('.form-group[data-validate="' + keys[i] + '"]');
+          if (!grp) continue;
+          var inp = grp.querySelector('.form-field');
+          if (!inp) continue;
+          var fn = validators[keys[i]];
+          var err = fn ? fn(inp.value) : '';
+          if (err) {
+            setError(inp, err);
+            if (!firstInvalid) firstInvalid = inp;
+          } else {
+            clearError(inp);
+          }
+        }
+        if (firstInvalid) {
+          firstInvalid.focus();
           return;
         }
         alert('Payment approved. Your card has been charged ' + formatEur(grandTotal) + '.');
@@ -537,7 +628,7 @@
       function toggleClear() { clearBtn.classList.toggle('visible', cardInput.value.length > 0); }
       cardInput.addEventListener('input', toggleClear);
       cardInput.addEventListener('focus', toggleClear);
-      clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); });
+      clearBtn.addEventListener('click', function() { cardInput.value = ''; cardInput.focus(); clearBtn.classList.remove('visible'); clearError(cardInput); });
     }
 
     // Option B: only autoscroll when coming from cart
