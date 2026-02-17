@@ -746,12 +746,17 @@
     updatePillsArrows();
     window.addEventListener('resize', updatePillsArrows);
 
-    // Always scroll to ticket selector on load (including first visit), accounting for sticky top UI.
+    // Scroll to ticket selector on load without animation (no visible autoscroll from hero).
+    // Temporarily override CSS scroll-behavior:smooth so the jump is instant.
     (function() {
       if (!ticketSection) return;
+      document.documentElement.style.scrollBehavior = 'auto';
       setTimeout(function() {
         scrollToTicketSection('auto');
-        setTimeout(function() { scrollToTicketSection('auto'); }, 120);
+        setTimeout(function() {
+          scrollToTicketSection('auto');
+          document.documentElement.style.scrollBehavior = '';
+        }, 120);
       }, 50);
     })();
     (function() {

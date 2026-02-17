@@ -467,8 +467,13 @@
     })();
 
     render();
-    // Always scroll to transport selector on load (including first visit)
-    setTimeout(function() { transportSection.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
+    // Scroll to transport selector on load without animation (no visible autoscroll from hero).
+    // Temporarily override CSS scroll-behavior:smooth so the jump is instant.
+    document.documentElement.style.scrollBehavior = 'auto';
+    setTimeout(function() {
+      transportSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+      document.documentElement.style.scrollBehavior = '';
+    }, 50);
   </script>
 </body>
 </html>
