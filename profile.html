@@ -58,20 +58,26 @@
       inset: 0;
       background: rgba(3,20,25,0.45);
       z-index: 20;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
     }
+    .sheet-backdrop.open { opacity: 1; }
 
     /* Profile sheet — fixed overlay at the bottom */
     .sheet {
       position: fixed;
       bottom: 0; left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(100%);
       width: 100%; max-width: 430px;
       display: flex; flex-direction: column;
       background: #fff;
       border-radius: 16px 16px 0 0;
       z-index: 21;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .sheet.open { transform: translateX(-50%) translateY(0); }
 
     /* Sheet header */
     .sheet-header {
@@ -190,9 +196,9 @@
     <section class="sheet">
       <div class="sheet-header">
         <h1>Profile</h1>
-        <a class="sheet-close" href="home.html" aria-label="Close">
+        <button type="button" class="sheet-close" id="sheetCloseBtn" aria-label="Close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </a>
+        </button>
       </div>
 
       <div class="sheet-body">
@@ -264,6 +270,9 @@
       var LOGGED_IN_KEY = 'fever_logged_in';
       var avatarBtn = document.getElementById('avatarBtn');
       var logoutBtn = document.getElementById('logoutBtn');
+      var sheet = document.querySelector('.sheet');
+      var backdrop = document.querySelector('.sheet-backdrop');
+      var closeBtn = document.getElementById('sheetCloseBtn');
 
       function isLoggedIn() {
         return localStorage.getItem(LOGGED_IN_KEY) !== 'false';
@@ -283,12 +292,61 @@
         }
       }
 
+      // Open animation on page load
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          sheet.classList.add('open');
+          backdrop.classList.add('open');
+        });
+      });
+
+      // Close with slide-down animation then navigate back
+      function closeSheet() {
+        sheet.classList.remove('open');
+        backdrop.classList.remove('open');
+        setTimeout(function() { history.back(); }, 360);
+      }
+
+      closeBtn.addEventListener('click', closeSheet);
+      backdrop.addEventListener('click', closeSheet);
+
+      // Swipe-to-dismiss
+      var startY = 0, currentY = 0, isDragging = false;
+      sheet.addEventListener('touchstart', function(e) {
+        startY = e.touches[0].clientY;
+        currentY = startY;
+        isDragging = true;
+        sheet.style.transition = 'none';
+      }, { passive: true });
+      sheet.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        currentY = e.touches[0].clientY;
+        var dy = currentY - startY;
+        if (dy < 0) dy = 0;
+        if (dy > 0) {
+          e.preventDefault();
+          sheet.style.transform = 'translateX(-50%) translateY(' + dy + 'px)';
+        }
+      }, { passive: false });
+      sheet.addEventListener('touchend', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        sheet.style.transition = '';
+        if (currentY - startY > 80) {
+          closeSheet();
+        } else {
+          sheet.style.transform = '';
+        }
+      });
+
       logoutBtn.addEventListener('click', function() {
         setLoggedIn(false);
         updateAvatar();
+        sheet.classList.remove('open');
+        backdrop.classList.remove('open');
         setTimeout(function() {
           window.location.href = 'home.html';
-        }, 300);
+        }, 360);
       });
 
       avatarBtn.addEventListener('click', function(e) {
