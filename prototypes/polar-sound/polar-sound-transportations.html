@@ -534,9 +534,16 @@
       }
     }
 
+    function scrollToTransport(behavior) {
+      var header = document.querySelector('.sticky-header');
+      var offset = header ? header.offsetHeight : 0;
+      var y = transportSection.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
+
     stickyBtn.addEventListener('click', () => {
       if (stickyMode === 'select') {
-        transportSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTransport('smooth');
       } else {
         saveAndRedirect();
       }
@@ -564,7 +571,7 @@
     // Temporarily override CSS scroll-behavior:smooth so the jump is instant.
     document.documentElement.style.scrollBehavior = 'auto';
     setTimeout(function() {
-      transportSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+      scrollToTransport('auto');
       document.documentElement.style.scrollBehavior = '';
     }, 50);
   </script>

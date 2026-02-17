@@ -1253,6 +1253,17 @@
         } catch (e) {}
       }
 
+      function planIdFromHref(href) {
+        try {
+          var url = new URL(href, window.location.href);
+          var p = url.searchParams.get('plan');
+          if (p) return 'plan-view::' + p;
+          var fname = url.pathname.split('/').pop().replace(/\.html$/, '');
+          if (fname && fname !== 'home' && fname !== 'index') return 'plan-view::' + fname;
+        } catch(e) {}
+        return '';
+      }
+
       function getCardData(card, index) {
         var titleNode = card.querySelector('.card-title');
         var metaNode = card.querySelector('.card-meta');
@@ -1261,7 +1272,7 @@
         var imageNode = card.querySelector('.card-img img');
         var hrefValue = card.tagName === 'A' ? card.getAttribute('href') : '';
         var title = titleNode ? titleNode.textContent.trim() : '';
-        var id = window.location.pathname + '::' + slugify(title || 'plan') + '::' + index;
+        var id = planIdFromHref(hrefValue) || ('plan-view::' + slugify(title || 'plan'));
 
         return {
           id: id,
