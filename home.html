@@ -1379,11 +1379,21 @@
       var burgerToggle = document.querySelector('.js-burger-toggle');
       var burgerPanel = document.getElementById('burger-menu-panel');
       if (phone && burgerToggle && burgerPanel) {
+        var savedScrollY = 0;
         burgerToggle.addEventListener('click', function() {
+          var wasOpen = phone.classList.contains('is-menu-open');
+          if (!wasOpen) {
+            savedScrollY = window.scrollY;
+          }
           var isOpen = phone.classList.toggle('is-menu-open');
           burgerToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
           burgerToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
           burgerPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+          if (!isOpen) {
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, savedScrollY);
+            document.documentElement.style.scrollBehavior = '';
+          }
         });
       }
     })();
