@@ -282,7 +282,7 @@
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
     .sticky-cta .cta-btn:hover { background:#0079ca; }
     .sticky-cta .cta-btn:focus-visible { border-color:#005795; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
-    .sticky-cta .cta-btn:active { background:#0079ca; }
+    .sticky-cta .cta-btn:active { background:#0079ca; opacity:0.85; }
     .sticky-cta .cta-btn:disabled, .sticky-cta .cta-btn.disabled { background:#f2f3f3; color:#a7b2ba; border-color:transparent; box-shadow:none; cursor:default; opacity:1; }
 
     /* Flow stepper — Figma Progress Indicator */
@@ -307,6 +307,9 @@
     .flow-stepper.stepper-hidden { display:none !important; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+    /* Tap feedback */
+    .nav-icon-btn:active { opacity:0.6; }
+    .ticket-pill:active { transform:scale(0.96); }
   </style>
 </head>
 <body>
