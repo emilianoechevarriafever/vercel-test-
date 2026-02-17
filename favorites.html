@@ -10,16 +10,16 @@
   <style>
     :root {
       --font: 'Montserrat', sans-serif;
-      --bg: #f3f4f7;
+      --bg: #ffffff;
       --text: #031419;
       --muted: #536b75;
       --card-bg: #fff;
-      --border: #ccd2d8;
+      --border: #e4e7eb;
       --accent: #0079ca;
     }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); }
+    body { margin: 0; font-family: var(--font); background: #f3f4f7; color: var(--text); }
     .phone { width: 100%; max-width: 430px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
     .navbar {
       position: sticky;
@@ -41,17 +41,16 @@
     .avatar-wrap::after { content: ''; position: absolute; top: -1px; right: -1px; width: 8px; height: 8px; border: 1.5px solid #fff; border-radius: 50%; background: #22ad5c; }
 
     .favorites-header {
-      height: 48px;
+      height: 56px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       padding: 0 16px;
       background: #fff;
-      border-bottom: 1px solid var(--border);
     }
-    .back-btn { display: inline-flex; align-items: center; justify-content: center; color: #6c7f88; text-decoration: none; }
-    .back-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
-    .favorites-header h1 { margin: 0; font-size: 18px; font-weight: 600; line-height: 24px; }
+    .back-btn { display: inline-flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; }
+    .back-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+    .favorites-header h1 { margin: 0; font-size: 20px; font-weight: 700; line-height: 28px; }
 
     .empty-banner {
       min-height: 80px;
@@ -96,28 +95,43 @@
     .continue-btn:hover { background: #0066b3; }
 
     .content { padding: 16px; }
-    .cards-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .plan-card {
-      display: grid;
-      grid-template-columns: 96px 1fr auto;
-      gap: 12px;
-      align-items: start;
-      color: inherit;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      transition: box-shadow 0.15s;
+      display: flex; flex-direction: column;
+      color: inherit; background: transparent;
+      border: none; border-radius: 0; padding: 0;
+      position: relative;
     }
-    .plan-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .plan-card img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; background: #e8ebf0; }
+    .plan-card .card-img-wrap {
+      position: relative; width: 100%; aspect-ratio: 1/1;
+      border-radius: 12px; overflow: hidden; margin-bottom: 8px;
+      background: #e8ebf0;
+    }
+    .plan-card .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .plan-card .remove-btn {
+      position: absolute; top: 8px; right: 8px; z-index: 2;
+      border: none; background: none; padding: 0; margin: 0;
+      line-height: 0; cursor: pointer;
+    }
+    .plan-card .remove-btn svg { width: 24px; height: 24px; fill: #e74c3c; stroke: none; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
+    .plan-badge {
+      position: absolute; bottom: 8px; left: 8px; z-index: 2;
+      display: inline-block; padding: 4px 10px;
+      border-radius: 6px; font-size: 11px; font-weight: 700;
+      color: #fff; background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+    }
     .plan-main { min-width: 0; text-decoration: none; color: inherit; }
-    .plan-badge { display: inline-block; margin-bottom: 6px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; color: #fff; background: #ff5353; }
-    .plan-title { margin: 0 0 5px; font-size: 14px; font-weight: 700; line-height: 1.3; }
-    .plan-meta { margin: 0 0 6px; font-size: 12px; color: var(--muted); }
-    .plan-price { margin: 0; font-size: 13px; font-weight: 700; color: var(--text); }
-    .remove-btn { border: none; background: none; padding: 4px; margin: 0; line-height: 0; cursor: pointer; color: #031419; }
-    .remove-btn svg { width: 22px; height: 22px; fill: currentColor; stroke: currentColor; }
+    .plan-venue {
+      display: flex; align-items: center; gap: 4px;
+      margin: 0 0 2px; font-size: 12px; color: var(--muted); line-height: 16px;
+    }
+    .plan-venue svg { width: 14px; height: 14px; flex-shrink: 0; stroke: currentColor; fill: none; }
+    .plan-title { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.35; }
+    .plan-meta { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+    .plan-price { margin: 4px 0 0; font-size: 13px; font-weight: 700; color: var(--text); }
 
     [hidden] { display: none !important; }
   </style>
@@ -222,20 +236,22 @@
           var safeImage = escapeHtml(item.image || '');
           var safeHref = escapeHtml(item.href || '#');
           var safeId = escapeHtml(item.id || '');
+          var safeVenue = escapeHtml(item.venue || '');
           return ''
             + '<article class="plan-card" data-id="' + safeId + '">'
-            +   '<a href="' + safeHref + '" aria-label="' + safeTitle + '">'
+            +   '<a href="' + safeHref + '" class="card-img-wrap" aria-label="' + safeTitle + '">'
             +     '<img src="' + safeImage + '" alt="' + safeTitle + '">'
-            +   '</a>'
-            +   '<a class="plan-main" href="' + safeHref + '" aria-label="' + safeTitle + '">'
             +     (safeBadge ? '<span class="plan-badge">' + safeBadge + '</span>' : '')
+            +     '<button class="remove-btn js-remove-like" type="button" data-id="' + safeId + '" aria-label="Remove">'
+            +       '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'
+            +     '</button>'
+            +   '</a>'
+            +   '<a class="plan-main" href="' + safeHref + '">'
+            +     (safeVenue ? '<p class="plan-venue"><svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M2 14h12M3.5 14V3.5A1.5 1.5 0 015 2h6a1.5 1.5 0 011.5 1.5V14M6 5h1M9 5h1M6 8h1M9 8h1M6 11h1M9 11h1"/></svg>' + safeVenue + '</p>' : '')
             +     '<h2 class="plan-title">' + safeTitle + '</h2>'
             +     (safeMeta ? '<p class="plan-meta">' + safeMeta + '</p>' : '')
             +     (safePrice ? '<p class="plan-price">' + safePrice + '</p>' : '')
             +   '</a>'
-            +   '<button class="remove-btn js-remove-like" type="button" data-id="' + safeId + '" aria-label="Remove from liked plans">'
-            +     '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>'
-            +   '</button>'
             + '</article>';
         }).join('');
       }
