@@ -386,16 +386,7 @@
       }
       if (flow === 'option-e' || flow === 'option-f') {
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-        var logoLink = document.getElementById('checkout-logo-link');
-        if (logoLink) logoLink.href = flow + '/';
-        var checkoutStepper = document.querySelector('.flow-stepper');
-        if (checkoutStepper) checkoutStepper.style.display = 'none';
-        var step1 = document.getElementById('stepper-step1');
-        var step2 = document.getElementById('stepper-step2');
-        var step3 = document.getElementById('stepper-step3');
-        if (step1) step1.href = 'polar-sound.html?flow=' + flow + '#ticket-section';
-        if (step2) step2.href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
-        if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
+        try { /* no-op: stepper removed */ } catch (e) {}
       }
     })();
 
