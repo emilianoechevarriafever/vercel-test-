@@ -44,6 +44,7 @@
     .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; z-index:2; }
     .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
     .hero .side-btn svg { width:20px; height:20px; color:var(--color-text); }
+    .hero .side-btn.liked svg { fill:#FF3B30; stroke:#FF3B30; color:#FF3B30; }
     .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:2; }
     .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:#031419; }
     .hero .gallery-btn svg { width:16px; height:16px; }
@@ -92,13 +93,33 @@
     .ticket-row .ticket-notch::before { top:0; border:1px solid var(--ticket-border); border-top:none; border-radius:0 0 8px 8px; }
     .ticket-row .ticket-notch::after { bottom:0; border:1px solid var(--ticket-border); border-bottom:none; border-radius:8px 8px 0 0; }
 
-    .help-section { padding:16px; border-top:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
+    .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
     .help-section span { font-size:15px; font-weight:500; }
     .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+
+    .description .subtitle { font-weight:600; font-size:16px; margin-bottom:8px; margin-top:16px; }
+    .description ul { padding-left:20px; margin-bottom:12px; }
+    .description ul li { margin-bottom:4px; }
+    .description a { color:var(--color-primary); text-decoration:underline; pointer-events:none; cursor:default; }
+
+    .venue-section { padding:20px 16px; }
+    .venue-section .venue-img { width:100%; height:200px; border-radius:8px; object-fit:cover; margin-bottom:12px; }
+    .venue-section .venue-name-lg { font-size:16px; font-weight:600; margin-bottom:6px; }
+    .venue-section .venue-desc { font-size:14px; line-height:20px; color:var(--color-text-secondary); }
 
     .location { padding:20px 16px; }
     .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
     .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
+    .location .map-placeholder { width:100%; height:160px; background:#e8e8e8; border-radius:8px; overflow:hidden; }
+    .location .map-placeholder img { width:100%; height:100%; object-fit:cover; }
+
+    .footer { background:#031419; color:white; padding:32px 16px 80px; }
+    .footer-cols { display:flex; justify-content:space-between; margin-bottom:24px; }
+    .footer-col h5 { font-size:14px; font-weight:600; margin-bottom:8px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { font-size:13px; line-height:20px; margin-bottom:4px; color:rgba(255,255,255,0.75); transition:color 0.15s; }
+    .footer .legal { border-top:1px solid rgba(255,255,255,0.15); padding-top:16px; font-size:12px; color:rgba(255,255,255,0.5); }
+    .footer .legal a { color:white; }
 
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:transparent; padding:12px 16px; }
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
@@ -188,6 +209,71 @@
     </div>
     <div class="transport-options">
       <div id="transport-rows"></div>
+    </div>
+
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="javascript:void(0)">Contact Support here</a>
+    </div>
+
+    <!-- General Info -->
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <h2>General info</h2>
+    </div>
+    <div class="description">
+      <p>&#128652; <strong>Transport to Polar Sound 2026</strong> &mdash; Get to Baqueira Beret hassle-free with our official festival transport options. All services include round-trip transfers with direct drop-off at the festival parking lot.</p>
+      <p class="subtitle">What's included</p>
+      <ul>
+        <li>Round-trip bus or shuttle transfer to Baqueira Beret</li>
+        <li>Assigned seating on board</li>
+        <li>Luggage compartment (1 large bag + 1 carry-on per passenger)</li>
+        <li>Drop-off and pick-up at the festival parking lot entrance</li>
+      </ul>
+      <p class="subtitle">Important information</p>
+      <ul>
+        <li>&#128197; Buses depart on Friday 12 Mar (evening) and return Sunday 14 Mar (afternoon)</li>
+        <li>&#9201; Please arrive at the meeting point at least 30 minutes before scheduled departure</li>
+        <li>&#128205; Exact meeting points will be communicated via email 48 hours before departure</li>
+        <li>&#10060; Cancellations accepted up to 7 days before departure for a full refund</li>
+        <li>&#128664; Vielha shuttle runs multiple daily departures during the festival</li>
+      </ul>
+      <p class="subtitle">Don't need transport?</p>
+      <p>No problem! You can skip this step and arrange your own transport to Baqueira Beret. The festival parking lot is located at the Baqueira Beret - Sector Bonaigua resort (coordinates: 42.6946&deg;N, 0.9541&deg;E). Free parking is available on a first-come, first-served basis.</p>
+    </div>
+    <div class="divider"></div>
+
+    <!-- About the Venue -->
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+      <h2>About the venue</h2>
+    </div>
+    <div class="venue-section">
+      <img class="venue-img" src="https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/faa6345e-8734-11f0-b74b-c6d9e9977cc8.jpg" alt="Baqueira Beret">
+      <div class="venue-name-lg">Baqueira Beret Ski Resort</div>
+      <div class="venue-desc">The Baqueira Beret - Sector Bonaigua Ski Resort, located in the privileged environment of the Catalan Pyrenees, is an authentic reference among the winter destinations in Spain. With its multiple slopes and stunning scenery, it offers one of the best skiing experiences in the country. <a href="javascript:void(0)" style="color:var(--color-primary);">Read more</a></div>
+    </div>
+
+    <!-- Getting There -->
+    <div class="section-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <h2>Getting there</h2>
+    </div>
+    <div class="location">
+      <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
+      <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
+      <div class="map-placeholder">
+        <img src="https://applications-media.feverup.com/image/upload/f_auto/fever2/place/maps/69078__40.403930093922796_-3.7062277865082227.png" alt="Map area Baqueira">
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-cols">
+        <div class="footer-col"><h5>About Fever</h5><ul><li>Press</li><li>We are hiring!</li><li>Gift Cards</li><li>Help Center</li></ul></div>
+        <div class="footer-col"><h5>Partner with us</h5><ul><li>Fever Zone</li><li>List your event</li><li>Affiliate Program</li></ul></div>
+      </div>
+      <div class="legal"><a href="javascript:void(0)">Terms of Use</a> | <a href="javascript:void(0)">Privacy Policy</a> | <a href="javascript:void(0)">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
     </div>
 
     <div class="sticky-cta">
@@ -426,6 +512,37 @@
       transportSection.scrollIntoView({ behavior: 'auto', block: 'start' });
       document.documentElement.style.scrollBehavior = '';
     }, 50);
+  </script>
+  <script>
+    (function(){
+      var FAVORITES_KEY='polar_liked_plans';
+      var likeBtn=document.querySelector('.side-btn[aria-label="Like"]');
+      if(!likeBtn)return;
+      function readFav(){try{var r=localStorage.getItem(FAVORITES_KEY);var p=r?JSON.parse(r):{};return p&&typeof p==='object'?p:{};}catch(e){return {};}}
+      function writeFav(f){try{localStorage.setItem(FAVORITES_KEY,JSON.stringify(f));}catch(e){}}
+      var titleNode=document.querySelector('.title-section h1');
+      var heroImg=document.querySelector('.carousel-slide img')||document.querySelector('.hero-bg')||document.querySelector('.hero img');
+      var planTitle=titleNode?titleNode.textContent.trim():document.title;
+      var planImage=heroImg?heroImg.src:'';
+      var planHref=window.location.href.split('?')[0].split('#')[0];
+      var slug=planTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'plan';
+      var planId='plan-view::'+slug;
+      var fav=readFav();
+      if(fav[planId]){likeBtn.classList.add('liked');likeBtn.setAttribute('aria-label','Remove from favorites');}
+      likeBtn.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        var isLiked=likeBtn.classList.toggle('liked');
+        fav=readFav();
+        if(isLiked){
+          fav[planId]={id:planId,title:planTitle,meta:'',price:'',badge:'',href:planHref,image:planImage};
+          likeBtn.setAttribute('aria-label','Remove from favorites');
+        }else{
+          delete fav[planId];
+          likeBtn.setAttribute('aria-label','Like');
+        }
+        writeFav(fav);
+      });
+    })();
   </script>
 </body>
 </html>

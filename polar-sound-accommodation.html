@@ -56,6 +56,7 @@
     .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; z-index:2; }
     .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
     .hero .side-btn svg { width:20px; height:20px; color:var(--color-text); }
+    .hero .side-btn.liked svg { fill:#FF3B30; stroke:#FF3B30; color:#FF3B30; }
     .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:2; }
     .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); }
     .hero .gallery-btn svg { width:16px; height:16px; }
@@ -771,6 +772,37 @@
       try { tickets = JSON.parse(localStorage.getItem('cart_tickets') || '[]'); } catch (e) {}
       var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
       if (!hasTickets) document.getElementById('stepper-step1') && document.getElementById('stepper-step1').classList.add('skipped');
+    })();
+  </script>
+  <script>
+    (function(){
+      var FAVORITES_KEY='polar_liked_plans';
+      var likeBtn=document.querySelector('.side-btn[aria-label="Like"]');
+      if(!likeBtn)return;
+      function readFav(){try{var r=localStorage.getItem(FAVORITES_KEY);var p=r?JSON.parse(r):{};return p&&typeof p==='object'?p:{};}catch(e){return {};}}
+      function writeFav(f){try{localStorage.setItem(FAVORITES_KEY,JSON.stringify(f));}catch(e){}}
+      var titleNode=document.querySelector('.title-section h1');
+      var heroImg=document.querySelector('.carousel-slide img')||document.querySelector('.hero-bg')||document.querySelector('.hero img');
+      var planTitle=titleNode?titleNode.textContent.trim():document.title;
+      var planImage=heroImg?heroImg.src:'';
+      var planHref=window.location.href.split('?')[0].split('#')[0];
+      var slug=planTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'plan';
+      var planId='plan-view::'+slug;
+      var fav=readFav();
+      if(fav[planId]){likeBtn.classList.add('liked');likeBtn.setAttribute('aria-label','Remove from favorites');}
+      likeBtn.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        var isLiked=likeBtn.classList.toggle('liked');
+        fav=readFav();
+        if(isLiked){
+          fav[planId]={id:planId,title:planTitle,meta:'',price:'',badge:'',href:planHref,image:planImage};
+          likeBtn.setAttribute('aria-label','Remove from favorites');
+        }else{
+          delete fav[planId];
+          likeBtn.setAttribute('aria-label','Like');
+        }
+        writeFav(fav);
+      });
     })();
   </script>
 </body>
