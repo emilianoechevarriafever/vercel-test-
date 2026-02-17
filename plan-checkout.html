@@ -121,7 +121,7 @@
     .legal-links { padding:8px 0 24px; }
     .legal-links a { display:block; font-size:13px; color:#0079ca; margin-bottom:6px; text-decoration:none; }
 
-    .back-link { display:inline-flex; align-items:center; gap:6px; padding:16px; font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
   </style>
@@ -136,8 +136,6 @@
         <span class="topbar-title">Confirm and pay</span>
       </div>
     </header>
-
-    <a class="back-link" id="back-link" href="home.html">&larr; Back to plan</a>
 
     <div class="event-summary">
       <div class="event-thumb"><img id="event-thumb" src="" alt=""></div>
@@ -261,7 +259,6 @@
 
     var slug = new URLSearchParams(window.location.search).get('plan') || data.slug;
     document.title = 'Checkout \u2013 ' + data.title + ' | Fever';
-    document.getElementById('back-link').href = 'plan.html?plan=' + slug;
     document.getElementById('event-thumb').src = data.hero;
     document.getElementById('event-name').textContent = data.title;
     document.getElementById('event-venue-name').textContent = data.venue;
