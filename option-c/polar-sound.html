@@ -66,20 +66,25 @@
     .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
     .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
 
-    /* === HERO GALLERY (Figma Channel Filter 778-26710) === */
+    /* === HERO GALLERY CAROUSEL === */
     .hero { position:relative; width:100%; height:390px; overflow:hidden; }
-    .hero img.hero-bg { width:100%; height:100%; object-fit:cover; }
-    .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; }
+    .hero .carousel-track { display:flex; height:100%; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); }
+    .hero .carousel-slide { min-width:100%; height:100%; }
+    .hero .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .hero .nav-prev, .hero .nav-next { position:absolute; top:0; bottom:60px; z-index:3; cursor:pointer; background:none; border:none; padding:0; }
+    .hero .nav-prev { left:0; width:40%; }
+    .hero .nav-next { right:0; width:60%; }
+    .hero .side-buttons { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:12px; z-index:4; }
     .hero .side-btn { width:40px; height:40px; background:white; border:1px solid rgba(0,0,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.12); cursor:pointer; }
     .hero .side-btn svg { width:20px; height:20px; color:var(--color-text); }
-    .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; }
-    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); }
+    .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:4; pointer-events:none; }
+    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); pointer-events:auto; }
     .hero .gallery-btn svg { width:16px; height:16px; }
-    .hero .slide-indicators { display:flex; gap:4px; width:100%; }
-    /* Barras horizontales (Figma), no círculos */
-    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.5); }
-    .hero .slide-indicators .bar.active { background:white; }
-    .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; }
+    .hero .slide-indicators { display:flex; gap:4px; width:100%; pointer-events:none; }
+    .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.35); overflow:hidden; position:relative; }
+    .hero .slide-indicators .bar .fill { position:absolute; inset:0; width:0; background:rgba(255,255,255,0.92); border-radius:100px; }
+    .hero .slide-indicators .bar.done .fill { width:100%; }
+    .hero .rounded-top { position:absolute; bottom:0; left:0; right:0; height:8px; background:white; border-radius:8px 8px 0 0; z-index:5; }
 
     /* === TITLE SECTION === */
     .title-section { padding:16px; }
@@ -317,17 +322,31 @@
     </nav>
     </header>
 
-    <!-- Hero Gallery (Figma Channel Filter) -->
-    <div class="hero">
-      <img class="hero-bg" src="../img/polar-sound-hero.png" alt="Polar Sound Festival">
+    <!-- Hero Gallery Carousel -->
+    <div class="hero" id="heroCarousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide"><img src="../img/polar-sound-hero.png" alt="Polar Sound Festival"></div>
+        <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg" alt="Polar Sound stage"></div>
+        <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg" alt="Baqueira Beret venue"></div>
+        <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/d41e2e90-570f-11f0-b2c5-f295a86a2f76.jpg" alt="Concert atmosphere"></div>
+        <div class="carousel-slide"><img src="../img/baqueira-hotel.png" alt="Baqueira accommodation"></div>
+        <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/7318fc16-008e-11ef-b977-124ef9dd9312.png" alt="Festival lineup"></div>
+      </div>
+      <button class="nav-prev" aria-label="Previous image"></button>
+      <button class="nav-next" aria-label="Next image"></button>
       <div class="side-buttons">
         <button type="button" class="side-btn" aria-label="Like"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
         <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
       </div>
       <div class="shadow-overlay">
         <button type="button" class="gallery-btn"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>Gallery</button>
-        <div class="slide-indicators">
-          <div class="bar active"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="slide-indicators" id="slideIndicators">
+          <div class="bar"><span class="fill"></span></div>
+          <div class="bar"><span class="fill"></span></div>
+          <div class="bar"><span class="fill"></span></div>
+          <div class="bar"><span class="fill"></span></div>
+          <div class="bar"><span class="fill"></span></div>
+          <div class="bar"><span class="fill"></span></div>
         </div>
       </div>
       <div class="rounded-top"></div>
@@ -973,6 +992,76 @@
       localStorage.setItem('cart_transportation', JSON.stringify(tr));
       window.location.href = 'checkout.html';
     });
+
+    /* ── Hero Gallery Carousel ── */
+    (function initCarousel() {
+      var track = document.getElementById('carouselTrack');
+      if (!track) return;
+      var slides = track.querySelectorAll('.carousel-slide');
+      var bars = document.querySelectorAll('#slideIndicators .bar');
+      var total = slides.length;
+      var current = 0;
+      var DURATION = 4000;
+      var TICK = 40;
+      var elapsed = 0;
+      var timer = null;
+
+      function updateBars() {
+        for (var i = 0; i < bars.length; i++) {
+          var fill = bars[i].querySelector('.fill');
+          bars[i].classList.remove('done');
+          if (i < current) {
+            bars[i].classList.add('done');
+            fill.style.width = '100%';
+            fill.style.transition = 'none';
+          } else if (i === current) {
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+          } else {
+            fill.style.width = '0%';
+            fill.style.transition = 'none';
+          }
+        }
+      }
+
+      function goTo(idx) {
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) idx = 0;
+        current = idx;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        elapsed = 0;
+        updateBars();
+      }
+
+      function tick() {
+        elapsed += TICK;
+        var pct = Math.min((elapsed / DURATION) * 100, 100);
+        var fill = bars[current].querySelector('.fill');
+        fill.style.transition = 'width ' + TICK + 'ms linear';
+        fill.style.width = pct + '%';
+        if (elapsed >= DURATION) {
+          goTo(current + 1);
+        }
+      }
+
+      function start() { if (!timer) timer = setInterval(tick, TICK); }
+      function stop() { clearInterval(timer); timer = null; }
+      function restart() { stop(); elapsed = 0; start(); }
+
+      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current - 1);
+        restart();
+      });
+      document.querySelector('.hero .nav-next').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current + 1);
+        restart();
+      });
+
+      goTo(0);
+      start();
+    })();
   </script>
 </body>
 </html>
