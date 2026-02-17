@@ -754,7 +754,12 @@
       if (hasSelection) return;
       var rooms = getCurrentRooms();
       for (var i = 0; i < rooms.length; i++) {
-        if (!rooms[i].soldout) { roomCounts[i] = 1; break; }
+        if (!rooms[i].soldout) {
+          roomCounts[i] = 1;
+          hasSeenTickets = true;
+          stickyMode = 'getit';
+          break;
+        }
       }
       renderRooms();
     })();
