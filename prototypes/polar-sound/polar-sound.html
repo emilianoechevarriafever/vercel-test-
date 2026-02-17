@@ -932,14 +932,47 @@
       const sheet = document.getElementById('addons-hub-sheet');
       if (overlay) overlay.classList.add('open');
       if (sheet) sheet.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeAddonsHub() {
       const overlay = document.getElementById('addons-hub-overlay');
       const sheet = document.getElementById('addons-hub-sheet');
+      if (sheet) sheet.style.transform = '';
       if (overlay) overlay.classList.remove('open');
       if (sheet) sheet.classList.remove('open');
+      document.body.style.overflow = '';
     }
+
+    // Swipe-to-dismiss for decision sheet
+    (function() {
+      var sheetEl = document.getElementById('addons-hub-sheet');
+      if (!sheetEl) return;
+      var startY = 0, currentY = 0, isDragging = false;
+      sheetEl.addEventListener('touchstart', function(e) {
+        startY = e.touches[0].clientY;
+        currentY = startY;
+        isDragging = true;
+        sheetEl.style.transition = 'none';
+      }, { passive: true });
+      sheetEl.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        currentY = e.touches[0].clientY;
+        var dy = currentY - startY;
+        if (dy < 0) dy = 0;
+        if (dy > 0) {
+          e.preventDefault();
+          sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)';
+        }
+      }, { passive: false });
+      sheetEl.addEventListener('touchend', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        sheetEl.style.transition = '';
+        sheetEl.style.transform = '';
+        if (currentY - startY > 80) closeAddonsHub();
+      });
+    })();
 
     (function bindAddonsHub() {
       const overlay = document.getElementById('addons-hub-overlay');
