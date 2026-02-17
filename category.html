@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fever - Category</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-text-main: #031419;
+      --color-text-secondary: #536b75;
+      --color-text-subtle: #536b75;
+      --color-border: #E6EAEE;
+      --color-bg-neutral: #F5F7F9;
+      --radius: 0.75rem;
+      --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
+      --font: 'Montserrat', sans-serif;
+      --font-ui: 'Montserrat', sans-serif;
+    }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg-neutral);
+      display: flex;
+      justify-content: center;
+      color: var(--color-text-main);
+    }
+    .phone {
+      width: 393px;
+      max-width: 100vw;
+      background: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e6eaee;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--color-text-main);
+      padding: 0;
+      text-decoration: none;
+    }
+    .back-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .navbar .logo-link {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    .navbar .logo-link img {
+      height: 38px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; cursor: pointer; }
+    .nav-icon-btn {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .nav-icon-btn svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; }
+    .avatar-wrap { position: relative; display: flex; align-items: center; }
+    .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    .burger-toggle .icon-close { display: none; }
+    .phone.is-menu-open .burger-toggle .icon-menu { display: none; }
+    .phone.is-menu-open .burger-toggle .icon-close { display: block; }
+
+    /* Category Header */
+    .cat-header {
+      padding: 20px 16px;
+      border-bottom: 1px solid #E6EAEE;
+    }
+    .cat-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+      margin-bottom: 4px;
+    }
+    .cat-header p {
+      font-size: 14px;
+      color: #536b75;
+      line-height: 20px;
+    }
+    .cat-count {
+      font-size: 14px;
+      color: #536b75;
+      padding: 12px 16px;
+    }
+
+    /* Card Grid (2 columns) */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 16px 24px;
+    }
+    .cat-card {
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s;
+    }
+    .cat-card:hover { transform: translateY(-2px); }
+    .cat-card .cat-card-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: #e8ecf0;
+    }
+    .cat-card .cat-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cat-card .cat-card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #6f41d7;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .cat-card .cat-card-like {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+      border: none;
+      background: rgba(0,0,0,0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      padding: 0;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .cat-card .cat-card-like:hover { background: rgba(0,0,0,0.55); }
+    .cat-card .cat-card-like svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: white;
+      fill: none;
+      stroke: currentColor;
+      transition: fill 0.2s, color 0.2s;
+    }
+    .cat-card .cat-card-like.liked svg { fill: white; stroke: white; color: white; }
+    .cat-card .cat-card-like.liked { background: rgba(0,0,0,0.5); }
+    .cat-card .cat-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px;
+      margin-top: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .cat-card .cat-card-meta {
+      font-size: 12px;
+      color: #536b75;
+      margin-top: 2px;
+    }
+    .cat-card .cat-card-meta .rating { color: #f5a623; }
+    .cat-card .cat-card-dates {
+      font-size: 11px;
+      color: #536b75;
+      margin-top: 2px;
+    }
+    .cat-card .cat-card-price {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Snackbar */
+    .snackbar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      z-index: 9999;
+      width: 361px;
+      max-width: calc(100vw - 32px);
+      background: #fff;
+      border: 1px solid #ccd2d8;
+      border-radius: 8px;
+      box-shadow: 0 12px 12px rgba(0,0,0,0.05);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .snackbar.is-visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .snackbar-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .snackbar-text {
+      flex: 1;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--color-text-main);
+    }
+    .snackbar-edit {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--color-text-main);
+      text-decoration: underline;
+      cursor: pointer;
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* Footer */
+    .footer { background: #031419; color: white; padding: 32px 16px 80px; }
+    .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
+    .footer-col h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.01em; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { font-size: 13px; line-height: 22px; margin-bottom: 4px; color: rgba(255,255,255,0.75); cursor: pointer; transition: color 0.15s; }
+    .footer-col ul li:hover { color: white; }
+    .footer .legal { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); }
+    .footer .legal a { color: white; }
+
+    /* Empty state */
+    .cat-empty {
+      padding: 48px 16px;
+      text-align: center;
+      color: #536b75;
+    }
+    .cat-empty svg {
+      width: 48px;
+      height: 48px;
+      color: #ccd2d8;
+      margin-bottom: 16px;
+    }
+    .cat-empty h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-bottom: 8px;
+    }
+    .cat-empty p {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    @media (max-width: 393px) { .phone { width: 100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone" id="phone">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="home.html" class="back-btn" aria-label="Go back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <a href="home.html" class="logo-link" aria-label="Fever"><img src="img/fever-logo.png" alt="Fever"></a>
+      </div>
+      <div class="nav-icons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <a class="nav-icon-btn" href="favorites.html" aria-label="Open liked plans">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </a>
+        <a class="avatar-wrap" href="profile.html" aria-label="Open login page">
+          <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+        </a>
+        <button type="button" class="nav-icon-btn burger-toggle js-burger-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Dynamic content rendered by JS -->
+    <div id="cat-content"></div>
+
+    <!-- Footer -->
+    <div class="footer" id="footer">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>About Fever</h5>
+          <ul>
+            <li>Press</li>
+            <li>Careers</li>
+            <li>Fellowships</li>
+            <li>Gift Card</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Work with us</h5>
+          <ul>
+            <li>Manage your event</li>
+            <li>List your event</li>
+            <li>Affiliate program</li>
+            <li>Become an influencer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Policy</a>
+        <div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="snackbar" id="fav-snackbar">
+    <img class="snackbar-thumb" id="snackbar-thumb" src="" alt="">
+    <span class="snackbar-text">Added to favorites</span>
+    <a class="snackbar-edit" href="favorites.html">Edit</a>
+  </div>
+
+  <script>
+    (function() {
+      var PLANS = {
+        'museo-banksy': { title: 'Banksy Museum Madrid', img: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&q=80', rating: 4.8, reviews: 5342, price: '\u20ac14.00', dates: '17 Feb \u2013 30 Jun' },
+        'candlelight-vivaldi': { title: 'Candlelight: The Four Seasons by Vivaldi', img: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&q=80', rating: 4.8, reviews: 148, price: 'From \u20ac16.00', dates: 'Multiple dates', badge: 'Fever Original' },
+        'jazz-room': { title: 'The Jazz Room: A Journey to New Orleans', img: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400&q=80', rating: 4.7, reviews: 435, price: 'From \u20ac25.00', dates: 'Fri & Sat', badge: 'Fever Original' },
+        'we-will-rock-you': { title: 'We Will Rock You \u2013 The Musical', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80', rating: 4.6, reviews: 257, price: 'From \u20ac25.00', dates: '20 Feb \u2013 25 Apr' },
+        'f1-grand-prix': { title: 'FORMULA 1\u00ae Spanish Grand Prix 2026', img: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80', rating: 4.5, reviews: 1840, price: 'From \u20ac345.00', dates: '11 \u2013 13 Sept' },
+        'machu-picchu': { title: 'Machu Picchu: Journey to the Lost City', img: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400&q=80', rating: 4.3, reviews: 2940, price: 'From \u20ac18.00', dates: '18 Feb \u2013 30 Apr', badge: 'Fever Original' },
+        'avatar-experience': { title: 'Avatar: The Experience', img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&q=80', rating: 4.5, reviews: 890, price: 'From \u20ac14.50', dates: '18 Feb \u2013 29 Mar' },
+        'royal-palace': { title: 'Royal Palace of Madrid', img: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=80', rating: 4.5, reviews: 17302, price: 'From \u20ac12.00', dates: 'Open daily' },
+        'ikono-madrid': { title: 'IKONO Madrid', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', rating: 4.2, reviews: 446, price: 'Free', dates: '17 Feb \u2013 30 Apr' },
+        'teatro-flamenco': { title: 'Afternoons of Tablao Flamenco', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80', rating: 4.8, reviews: 97, price: 'From \u20ac22.00', dates: 'Multiple dates' },
+        'brunch-gran-via': { title: 'Brunch with views of Gran V\u00eda', img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80', rating: 4.6, reviews: 101, price: '\u20ac45.00', dates: '21 Feb \u2013 30 Aug' },
+        'candlelight-zimmer': { title: 'Candlelight: The Best of Hans Zimmer', img: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&q=80', rating: 4.5, reviews: 1885, price: 'From \u20ac24.50', dates: '1 Mar \u2013 5 Apr', badge: 'Fever Original' },
+        'parque-warner': { title: 'Parque Warner Madrid', img: 'https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=400&q=80', rating: 4.7, reviews: 1263, price: 'From \u20ac32.89', dates: '28 Feb \u2013 10 May' },
+        'candlelight-taylor-swift': { title: 'Candlelight: Tribute to Taylor Swift', img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80', rating: 4.9, reviews: 246, price: 'From \u20ac20.50', dates: '22 Feb \u2013 10 May', badge: 'Fever Original' },
+        'sweet-space-museum': { title: 'Sweet Space Museum', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80', rating: 4.2, reviews: 6648, price: 'From \u20ac15.00', dates: '17 Feb \u2013 31 Jul' },
+        'parque-atracciones': { title: 'Parque de Atracciones de Madrid', img: 'https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400&q=80', rating: 4.6, reviews: 879, price: 'From \u20ac23.91', dates: '21 Feb \u2013 10 May' }
+      };
+
+      var CATEGORIES = {
+        'fever-originals': {
+          name: 'Fever Originals',
+          description: 'Unique experiences created exclusively by Fever',
+          plans: ['candlelight-vivaldi', 'jazz-room', 'candlelight-zimmer', 'candlelight-taylor-swift', 'machu-picchu']
+        },
+        'food-drinks': {
+          name: 'Food & Drinks',
+          description: 'Gastronomic experiences and tastings in Madrid',
+          plans: ['brunch-gran-via', 'teatro-flamenco', 'jazz-room']
+        },
+        'activities-games': {
+          name: 'Activities & Games',
+          description: 'Fun activities and interactive experiences',
+          plans: ['ikono-madrid', 'sweet-space-museum', 'parque-atracciones', 'parque-warner']
+        },
+        'candlelight': {
+          name: 'Candlelight Concerts',
+          description: 'Live music illuminated by thousands of candles',
+          plans: ['candlelight-vivaldi', 'candlelight-zimmer', 'candlelight-taylor-swift']
+        },
+        'culture-arts': {
+          name: 'Culture, Arts & Fashion',
+          description: 'Museums, exhibitions and cultural experiences',
+          plans: ['museo-banksy', 'royal-palace', 'avatar-experience', 'machu-picchu']
+        },
+        'shows': {
+          name: 'Live Shows & Performances',
+          description: 'Musicals, theatre and live performances',
+          plans: ['we-will-rock-you', 'teatro-flamenco', 'jazz-room']
+        },
+        'brunches': {
+          name: 'Brunches',
+          description: 'The best brunch experiences in Madrid',
+          plans: ['brunch-gran-via']
+        },
+        'family': {
+          name: 'Family',
+          description: 'Fun for the whole family',
+          plans: ['parque-warner', 'parque-atracciones', 'avatar-experience', 'ikono-madrid', 'sweet-space-museum']
+        },
+        'sports': {
+          name: 'Sports & Outdoors',
+          description: 'Sporting events and outdoor adventures',
+          plans: ['f1-grand-prix', 'parque-warner', 'parque-atracciones']
+        }
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var catSlug = params.get('cat');
+
+      if (!catSlug || !CATEGORIES[catSlug]) {
+        window.location.href = 'home.html';
+        return;
+      }
+
+      var category = CATEGORIES[catSlug];
+      var planSlugs = category.plans;
+
+      document.title = 'Fever - ' + category.name;
+
+      function formatReviews(n) {
+        if (n >= 1000) return (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'K';
+        return n.toString();
+      }
+
+      var heartSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+
+      var html = '';
+
+      html += '<div class="cat-header">';
+      html += '<h1>' + category.name + '</h1>';
+      if (category.description) {
+        html += '<p>' + category.description + '</p>';
+      }
+      html += '</div>';
+
+      html += '<div class="cat-count">' + planSlugs.length + ' experience' + (planSlugs.length !== 1 ? 's' : '') + ' available</div>';
+
+      html += '<div class="cat-grid">';
+
+      planSlugs.forEach(function(slug) {
+        var plan = PLANS[slug];
+        if (!plan) return;
+
+        html += '<a href="plan.html?plan=' + slug + '" class="cat-card" data-slug="' + slug + '">';
+        html += '<div class="cat-card-img">';
+        html += '<img src="' + plan.img + '" alt="' + plan.title + '" loading="lazy">';
+        if (plan.badge) {
+          html += '<span class="cat-card-badge">' + plan.badge + '</span>';
+        }
+        html += '<button type="button" class="cat-card-like" aria-label="Add to favorites" data-slug="' + slug + '">' + heartSvg + '</button>';
+        html += '</div>';
+        html += '<div class="cat-card-title">' + plan.title + '</div>';
+        html += '<div class="cat-card-meta"><span class="rating">\u2605 ' + plan.rating + '</span> (' + formatReviews(plan.reviews) + ')</div>';
+        html += '<div class="cat-card-dates">' + plan.dates + '</div>';
+        html += '<div class="cat-card-price">' + plan.price + '</div>';
+        html += '</a>';
+      });
+
+      html += '</div>';
+
+      document.getElementById('cat-content').innerHTML = html;
+
+      // Favorites logic
+      var FAVORITES_KEY = 'polar_liked_plans';
+
+      function readFavorites() {
+        try {
+          var raw = localStorage.getItem(FAVORITES_KEY);
+          var parsed = raw ? JSON.parse(raw) : {};
+          return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (e) { return {}; }
+      }
+
+      function writeFavorites(f) {
+        try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(f)); } catch (e) {}
+      }
+
+      var favorites = readFavorites();
+      var snackbar = document.getElementById('fav-snackbar');
+      var snackbarThumb = document.getElementById('snackbar-thumb');
+      var snackbarTimer = null;
+
+      function showSnackbar(imageSrc) {
+        clearTimeout(snackbarTimer);
+        snackbar.classList.remove('is-visible');
+        snackbarThumb.src = imageSrc || '';
+        snackbarThumb.style.display = imageSrc ? '' : 'none';
+        void snackbar.offsetWidth;
+        snackbar.classList.add('is-visible');
+        snackbarTimer = setTimeout(function() {
+          snackbar.classList.remove('is-visible');
+        }, 5000);
+      }
+
+      var likeButtons = document.querySelectorAll('.cat-card-like');
+      likeButtons.forEach(function(btn) {
+        var slug = btn.getAttribute('data-slug');
+        var plan = PLANS[slug];
+        if (!plan) return;
+
+        var favId = 'category::' + slug;
+        if (favorites[favId]) {
+          btn.classList.add('liked');
+          btn.setAttribute('aria-label', 'Remove from favorites');
+        }
+
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var isLiked = btn.classList.toggle('liked');
+          if (isLiked) {
+            favorites[favId] = {
+              id: favId,
+              title: plan.title,
+              meta: '\u2605 ' + plan.rating + ' (' + plan.reviews + ')',
+              price: plan.price,
+              badge: plan.badge || '',
+              href: 'plan.html?plan=' + slug,
+              image: plan.img
+            };
+            btn.setAttribute('aria-label', 'Remove from favorites');
+            showSnackbar(plan.img);
+          } else {
+            delete favorites[favId];
+            btn.setAttribute('aria-label', 'Add to favorites');
+          }
+          writeFavorites(favorites);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
