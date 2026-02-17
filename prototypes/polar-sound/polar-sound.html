@@ -1029,7 +1029,11 @@
 
     if (window.location.hash === '#ticket-section') {
       var el = document.getElementById('ticket-section');
-      if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 50);
+      if (el) {
+        document.documentElement.style.scrollBehavior = 'auto';
+        el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        requestAnimationFrame(function() { document.documentElement.style.scrollBehavior = ''; });
+      }
     }
   </script>
   <script>
