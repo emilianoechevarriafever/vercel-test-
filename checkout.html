@@ -491,9 +491,7 @@
     var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
     var hasAccommodation = accommodation.length > 0 && accommodation.some(function(a) { return (a.qty || 0) > 0; });
     var hasTransport = transportation.length > 0 && transportation.some(function(t) { return ((t.qty || 1) > 0 && (t.price || 0) > 0); });
-    if (!hasTickets) { var s1 = document.getElementById('stepper-step1'); if (s1) s1.classList.add('skipped'); }
-    if (!hasAccommodation) { var s2 = document.getElementById('stepper-step2'); if (s2) s2.classList.add('skipped'); }
-    if (!hasTransport) { var s3 = document.getElementById('stepper-step3'); if (s3) s3.classList.add('skipped'); }
+    
 
     // Update Pay button
     const payBtn = document.querySelector('.pay-btn');
