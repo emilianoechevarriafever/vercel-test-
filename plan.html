@@ -714,7 +714,23 @@
       pillsRow.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.remove('active'); });
       pill.classList.add('active');
       panelsEl.querySelectorAll('.ticket-panel').forEach(function(p) { p.style.display = p.getAttribute('data-panel') === pill.getAttribute('data-panel') ? '' : 'none'; });
+      preselectFirst();
+      updateStickyBtn();
     });
+
+    // Pre-select the first ticket in every panel (qty=1)
+    function preselectFirst() {
+      panelsEl.querySelectorAll('.ticket-panel').forEach(function(panel) {
+        var rows = panel.querySelectorAll('.ticket-row');
+        if (!rows.length) return;
+        rows.forEach(function(r, i) {
+          r.querySelector('.amt-count').textContent = (i === 0) ? '1' : '0';
+          r.classList.toggle('qty-zero', i !== 0);
+          r.classList.toggle('selected', i === 0);
+        });
+      });
+    }
+    preselectFirst();
 
     var buyBtn = document.getElementById('buy-btn');
     var stickyBtn = document.getElementById('sticky-btn');

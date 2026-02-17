@@ -874,12 +874,9 @@
       const panel = getActivePanel();
       if (!panel) return;
       const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
-      let minIdx = 0;
-      let minPrice = Infinity;
-      prices.forEach((p, i) => { if (p < minPrice) { minPrice = p; minIdx = i; } });
       rows.forEach((row, i) => {
-        row.querySelector('.amt-count').textContent = (i === minIdx) ? '1' : '0';
+        row.querySelector('.amt-count').textContent = (i === 0) ? '1' : '0';
+        row.classList.toggle('qty-zero', i !== 0);
       });
       updateTotal();
     }
