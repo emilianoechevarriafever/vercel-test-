@@ -94,7 +94,10 @@
     .phone.is-menu-open .burger-toggle .icon-close { display: block; }
     .avatar-wrap { position: relative; display: flex; align-items: center; }
     .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
-    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    .avatar-wrap .avatar-placeholder { display: none; }
+    .avatar-wrap.logged-in::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    .avatar-wrap.logged-out img { display: none; }
+    .avatar-wrap.logged-out .avatar-placeholder { display: flex; }
 
     .burger-menu-panel {
       display: none;
@@ -750,8 +753,9 @@
         <button type="button" class="nav-icon-btn js-location-btn" aria-label="Select your city">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
         </button>
-        <a class="avatar-wrap" href="profile.html" aria-label="Open login page">
+        <a class="avatar-wrap logged-in" id="avatarBtn" href="profile.html" aria-label="Profile">
           <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+          <svg class="avatar-placeholder" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#536b75" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
         </a>
         <button type="button" class="nav-icon-btn burger-toggle js-burger-toggle" aria-label="Open menu" aria-expanded="false">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -1517,6 +1521,26 @@
           writeFavorites(favorites);
         });
       });
+    })();
+  </script>
+  <script>
+    (function() {
+      var LOGGED_IN_KEY = 'fever_logged_in';
+      var avatarBtn = document.getElementById('avatarBtn');
+      if (!avatarBtn) return;
+      function isLoggedIn() { return localStorage.getItem(LOGGED_IN_KEY) !== 'false'; }
+      function updateAvatar() {
+        if (isLoggedIn()) {
+          avatarBtn.classList.add('logged-in');
+          avatarBtn.classList.remove('logged-out');
+          avatarBtn.href = 'profile.html';
+        } else {
+          avatarBtn.classList.remove('logged-in');
+          avatarBtn.classList.add('logged-out');
+          avatarBtn.href = 'login.html?returnTo=' + encodeURIComponent(window.location.pathname);
+        }
+      }
+      updateAvatar();
     })();
   </script>
 </body>
