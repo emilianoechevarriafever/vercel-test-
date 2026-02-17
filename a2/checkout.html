@@ -192,6 +192,13 @@
     .legal-links a svg { width:12px; height:12px; display:inline; margin-left:2px; vertical-align:middle; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
+    /* Focus-visible & active polish */
+    button:focus-visible, a:focus-visible { outline: 2px solid #0079ca; outline-offset: 2px; }
+    .form-group .input-wrap .form-field:focus-visible { border-color:var(--color-input-border-focus); box-shadow:var(--color-input-focus-ring); }
+    .card-type-row:active { opacity: 0.85; }
+    .alt-payment:active { opacity: 0.85; }
+    .checkbox-row .cb:active { transform: scale(0.9); }
+    .nav-icon-btn:active { opacity: 0.6; }
   </style>
 </head>
 <body>
