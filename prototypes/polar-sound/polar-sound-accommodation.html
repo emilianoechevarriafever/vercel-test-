@@ -534,7 +534,6 @@
         } else if (!hasSeenTickets) {
           stickyMode = 'tickets';
           stickyBtn.textContent = 'Select accommodation';
-          stickyBtn.style.opacity = '1';
         } else {
           stickyMode = 'getit';
           updateSticky();
@@ -602,10 +601,8 @@
       const total = getTotal();
       if (total > 0) {
         stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Add it';
-        stickyBtn.style.opacity = '1';
       } else {
         stickyBtn.textContent = 'Skip accommodation';
-        stickyBtn.style.opacity = '1';
       }
     }
 
