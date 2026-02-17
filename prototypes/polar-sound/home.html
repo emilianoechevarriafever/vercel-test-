@@ -761,7 +761,6 @@
         <a class="avatar-wrap" href="profile.html" aria-label="Open login page">
           <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
         </a>
-        <a class="nav-icon-btn" id="nav-cart-link" href="cart.html" aria-label="Cart" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
         <button type="button" class="nav-icon-btn burger-toggle js-burger-toggle" aria-label="Open menu" aria-expanded="false">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1241,10 +1240,6 @@
         var polarLink = document.getElementById('polar-sound-link');
         if (polarLink) polarLink.href = 'polar-sound.html?flow=' + flow;
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-        if (flow === 'option-g' || flow === 'option-i') {
-          var navCartLink = document.getElementById('nav-cart-link');
-          if (navCartLink) { navCartLink.style.display = ''; navCartLink.href = 'cart.html?flow=' + flow; }
-        }
       } else {
         try { sessionStorage.removeItem('polar_flow_mode'); } catch (e) {}
         try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}

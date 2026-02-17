@@ -769,7 +769,6 @@
           <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
           <svg class="avatar-placeholder" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3.25C7.008 3.25 3 7.293 3 12.25S7.008 21.25 12 21.25c4.957 0 9-4.008 9-9 0-4.957-4.043-9-9-9zm0 16.875c-1.688 0-3.234-.492-4.5-1.371.14-1.758 1.582-3.129 3.375-3.129h2.25c1.758 0 3.2 1.371 3.34 3.129-1.266.879-2.813 1.371-4.465 1.371zm5.449-2.215c-.492-1.933-2.25-3.41-4.324-3.41h-2.25c-2.11 0-3.867 1.477-4.36 3.41C5.04 16.47 4.126 14.465 4.126 12.25c0-4.324 3.515-7.875 7.875-7.875s7.875 3.551 7.875 7.875c0 2.215-.95 4.219-2.426 5.66zM12 7.75c-1.582 0-2.813 1.266-2.813 2.813 0 1.582 1.231 2.812 2.813 2.812 1.547 0 2.813-1.23 2.813-2.813 0-1.546-1.266-2.812-2.813-2.812zm0 4.5c-.95 0-1.688-.738-1.688-1.688 0-.914.739-1.687 1.688-1.687.914 0 1.688.773 1.688 1.688 0 .949-.774 1.687-1.688 1.687z" fill="#536B75"/></svg>
         </a>
-        <a class="nav-icon-btn" id="nav-cart-link" href="cart.html" aria-label="Cart" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
         <button type="button" class="nav-icon-btn burger-toggle js-burger-toggle" aria-label="Open menu" aria-expanded="false">
           <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1480,10 +1479,6 @@
         var polarLink = document.getElementById('polar-sound-link');
         if (polarLink) polarLink.href = 'polar-sound.html?flow=' + flow;
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-        if (flow === 'option-g' || flow === 'option-i') {
-          var navCartLink = document.getElementById('nav-cart-link');
-          if (navCartLink) { navCartLink.style.display = ''; navCartLink.href = 'cart.html?flow=' + flow; }
-        }
       } else {
         try { sessionStorage.removeItem('polar_flow_mode'); } catch (e) {}
         try { sessionStorage.removeItem('polar_flow_visited'); } catch (e) {}
