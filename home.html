@@ -100,11 +100,21 @@
     .avatar-wrap.logged-out .avatar-placeholder { display: flex; }
 
     .burger-menu-panel {
-      display: none;
       background: #fafbfb;
-      min-height: calc(100vh - 63px);
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.3s ease,
+                  transform 0.35s cubic-bezier(0.4,0,0.2,1);
     }
-    .phone.is-menu-open .burger-menu-panel { display: block; }
+    .phone.is-menu-open .burger-menu-panel {
+      max-height: calc(100vh - 63px);
+      overflow-y: auto;
+      opacity: 1;
+      transform: translateY(0);
+    }
     .phone.is-menu-open .hero,
     .phone.is-menu-open .section,
     .phone.is-menu-open .cities-section,
