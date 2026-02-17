@@ -313,24 +313,28 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionB = flow === 'a2';
     const isOptionE = flow === 'c1';
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF1 = flow === 'f1';
+    const isF2 = flow === 'f2';
+    const isProductListFlow = isF1 || isF2;
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isOptionE || isHubFlow || isProductListFlow;
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
-    if (isHubFlow) {
-      // Hide stepper for hub flows EXCEPT cross-sell flows (e1/i show dynamic stepper)
-      if (!isCrossSellFlow) {
+    if (isHubFlow || isProductListFlow) {
+      // Hide stepper for hub/product-list flows EXCEPT cross-sell and product-list (which show dynamic steppers)
+      if (!isCrossSellFlow && !isProductListFlow) {
         document.getElementById('flow-stepper').classList.add('stepper-hidden');
       }
+      // Hide general info for hub/product-list (user already saw it on hub/product list page)
       var generalInfoBlock = document.getElementById('general-info-block');
       if (generalInfoBlock) generalInfoBlock.style.display = 'none';
     }
@@ -360,9 +364,23 @@
         stepperEl.classList.remove('stepper-hidden');
       }
     }
+    // Product list flow (F1/F2): rebuild stepper dynamically
+    if (isProductListFlow) {
+      var stepperEl = document.getElementById('flow-stepper');
+      if (stepperEl) {
+        var html = '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
+        html += '<a href="polar-sound-addons.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Add-ons</span></a>';
+        html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
+        html += '<div class="step"><span class="dot"></span><span class="label">' + (isF2 ? 'Cart' : 'Checkout') + '</span></div>';
+        stepperEl.innerHTML = html;
+        stepperEl.classList.remove('stepper-hidden');
+      }
+    }
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'a2/index.html';
       document.getElementById('nav-logo-img').src = '../img/fever-logo.png';
+    } else if (isProductListFlow) {
+      document.getElementById('nav-logo').href = 'polar-sound-addons.html?flow=' + flow;
     } else if (isHubFlow) {
       document.getElementById('nav-logo').href = flow + '/';
     } else {
@@ -545,6 +563,16 @@
       });
       localStorage.setItem('cart_transportation', JSON.stringify(cart));
 
+      // Product list flow (F1/F2): show "Keep buying?" or return to product list
+      if (isProductListFlow) {
+        if (getTotal() > 0) {
+          openCrossSellSheet();
+        } else {
+          window.location.href = 'polar-sound-addons.html?flow=' + flow;
+        }
+        return;
+      }
+
       // Option H/I: show cross-sell bottom sheet if user came from hub (not from accommodation)
       if (isCrossSellFlow) {
         var cameFrom = '';
@@ -557,6 +585,8 @@
 
       if (isOptionB) {
         window.location.href = 'a2/cart.html';
+      } else if (isProductListFlow) {
+        window.location.href = isF2 ? 'cart.html?flow=f2' : 'checkout.html?flow=f1';
       } else if (isCrossSellFlow) {
         var cameFromForClear = '';
         try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
@@ -644,15 +674,32 @@
       var overlay = document.getElementById('crosssell-overlay');
       var btnYes = document.getElementById('crosssell-yes');
       var btnNo = document.getElementById('crosssell-no');
+      var sheetTitle = document.querySelector('.crosssell-sheet h3');
+
+      // Adapt bottom sheet for product list flow
+      if (isProductListFlow && sheetTitle && btnYes && btnNo) {
+        sheetTitle.textContent = 'Added to cart!';
+        btnYes.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Browse more add-ons';
+        btnNo.textContent = isF2 ? 'Continue to cart' : 'Continue to checkout';
+      }
+
       if (overlay) overlay.addEventListener('click', closeCrossSellSheet);
       if (btnYes) {
         btnYes.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = 'polar-sound-addons.html?flow=' + flow;
+            return;
+          }
           try { sessionStorage.setItem('option_h_came_from', 'transportation'); } catch(e) {}
           window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
         });
       }
       if (btnNo) {
         btnNo.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = isF2 ? 'cart.html?flow=f2' : 'checkout.html?flow=f1';
+            return;
+          }
           try { localStorage.setItem('cart_accommodation', '[]'); } catch(e) {}
           var noDest = isOptionI ? 'cart.html?flow=e2' : 'checkout.html?flow=e1';
           window.location.href = noDest;

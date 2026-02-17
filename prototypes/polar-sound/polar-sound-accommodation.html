@@ -317,6 +317,11 @@
       <button class="cta-primary" id="cta-inline"></button>
     </div>
 
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="javascript:void(0)">Contact Support here</a>
+    </div>
+
     <div class="section-header">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
       <h2>Getting there</h2>
@@ -324,7 +329,7 @@
     <div class="location">
       <div class="loc-name">Baqueira Beret Ski Resort</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
-      <div class="map-placeholder"><img src="../../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
+      <div class="map-placeholder"><img src="img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
     </div>
 
     <div class="footer">
@@ -352,108 +357,32 @@
     </div>
   </div>
 
-  <script src="../../js/burger-menu.js"></script>
+  <script src="js/burger-menu.js"></script>
   <script>
-    (function initHeroGallery() {
-      var hero = document.querySelector('.hero');
-      if (!hero) return;
-
-      var heroImage = hero.querySelector('.hero-bg');
-      var indicatorBars = hero.querySelectorAll('.slide-indicators .bar');
-      if (!heroImage || !indicatorBars.length) return;
-
-      var titleNode = document.querySelector('h1');
-      var seedBase = (titleNode && titleNode.textContent ? titleNode.textContent : 'polar-sound')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '') || 'polar-sound';
-
-      var galleryImages = [heroImage.getAttribute('src')];
-      for (var i = 1; i < indicatorBars.length; i += 1) {
-        galleryImages.push('https://applications-media.feverup.com/image/upload/f_auto,w_900,h_700,c_fill/fever2/plan/photo/cabc0d3c-8346-11f0-8816-4a47ae28a019.jpg?sig=' + seedBase + '-' + (i + 1));
-      }
-
-      var currentIndex = 0;
-      var autoplayTimer = null;
-
-      function renderHeroImage() {
-        heroImage.src = galleryImages[currentIndex];
-        indicatorBars.forEach(function (bar, index) {
-          bar.classList.toggle('active', index === currentIndex);
-        });
-      }
-
-      function goTo(index) {
-        currentIndex = (index + galleryImages.length) % galleryImages.length;
-        renderHeroImage();
-      }
-
-      function nextImage() { goTo(currentIndex + 1); }
-      function prevImage() { goTo(currentIndex - 1); }
-
-      function startAutoplay() {
-        if (autoplayTimer) clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(nextImage, 4000);
-      }
-
-      hero.addEventListener('click', function (event) {
-        if (event.target.closest('.side-buttons') || event.target.closest('.gallery-btn')) return;
-        var rect = hero.getBoundingClientRect();
-        var clickedRight = (event.clientX - rect.left) >= rect.width / 2;
-        if (clickedRight) nextImage();
-        else prevImage();
-        startAutoplay();
-      });
-
-      // Touch swipe support
-      var touchStartX = 0, touchStartY = 0, isSwiping = false;
-      hero.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isSwiping = true;
-        if (autoplayTimer) clearInterval(autoplayTimer);
-      }, { passive: true });
-      hero.addEventListener('touchmove', function(e) {
-        if (!isSwiping) return;
-        var dx = e.touches[0].clientX - touchStartX;
-        var dy = e.touches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      }, { passive: false });
-      hero.addEventListener('touchend', function(e) {
-        if (!isSwiping) return;
-        isSwiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) {
-          if (dx < 0) nextImage();
-          else prevImage();
-        }
-        startAutoplay();
-      });
-
-      renderHeroImage();
-      startAutoplay();
-    })();
-
     const params = new URLSearchParams(window.location.search);
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionE = flow === 'c1';
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF1 = flow === 'f1';
+    const isF2 = flow === 'f2';
+    const isProductListFlow = isF1 || isF2;
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isOptionE || isHubFlow || isProductListFlow;
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
     if (isOptionalFlow) {
       var accommodationLogoLink = document.getElementById('nav-logo-link');
-      if (accommodationLogoLink) accommodationLogoLink.href = flow + '/';
-      if (!isCrossSellFlow) {
+      if (accommodationLogoLink) accommodationLogoLink.href = isProductListFlow ? 'polar-sound-addons.html?flow=' + flow : flow + '/';
+      // Hide stepper for all optional flows EXCEPT cross-sell and product-list (which show dynamic steppers)
+      if (!isCrossSellFlow && !isProductListFlow) {
         var accommodationStepper = document.querySelector('.flow-stepper');
         if (accommodationStepper) accommodationStepper.style.display = 'none';
       }
@@ -486,6 +415,19 @@
           html += '<div class="step"><span class="dot"></span><span class="label">Transport</span></div>';
           html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
         }
+        stepperEl.innerHTML = html;
+        stepperEl.style.display = '';
+      }
+    }
+
+    // Product list flow (F1/F2): rebuild stepper dynamically
+    if (isProductListFlow) {
+      var stepperEl = document.querySelector('.flow-stepper');
+      if (stepperEl) {
+        var html = '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
+        html += '<a href="polar-sound-addons.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Add-ons</span></a>';
+        html += '<div class="step current"><span class="dot"></span><span class="label">Accommodation</span></div>';
+        html += '<div class="step"><span class="dot"></span><span class="label">' + (isF2 ? 'Cart' : 'Checkout') + '</span></div>';
         stepperEl.innerHTML = html;
         stepperEl.style.display = '';
       }
@@ -650,6 +592,16 @@
           localStorage.setItem('cart_accommodation', '[]');
         }
 
+        // Product list flow (F1/F2): show "Keep buying?" bottom sheet or return to product list
+        if (isProductListFlow) {
+          if (getTotal() > 0) {
+            openCrossSellSheet();
+          } else {
+            window.location.href = 'polar-sound-addons.html?flow=' + flow;
+          }
+          return;
+        }
+
         // Option H/I: show cross-sell bottom sheet if user came from hub (not from transportation)
         if (isCrossSellFlow) {
           var cameFrom = '';
@@ -661,7 +613,11 @@
         }
 
         var nextUrl;
-        if (isOptionI) {
+        if (isF2) {
+          nextUrl = 'cart.html?flow=f2';
+        } else if (isF1) {
+          nextUrl = 'checkout.html?flow=f1';
+        } else if (isOptionI) {
           nextUrl = 'cart.html?flow=e2';
         } else if (isOptionG) {
           nextUrl = 'cart.html?flow=d2';
@@ -673,7 +629,7 @@
           nextUrl = 'polar-sound-transportations.html' + (flow ? '?flow=' + flow : '');
         }
         if (isHubFlow) {
-          // For e1/i, only clear transportation if user came from hub (not from transportation cross-sell)
+          // For cross-sell flows, only clear transportation if user came from hub (not from transportation cross-sell)
           if (isCrossSellFlow) {
             var cameFromForClear = '';
             try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
@@ -873,19 +829,25 @@
         if (!Array.isArray(saved) || saved.length === 0) return;
         var first = saved[0];
         if (!first || !first.detail || !first.name) return;
+        // Parse travelers from detail: "Trip 2 people + Pass, 3 nights ..."
         var travMatch = first.detail.match(/Trip\s+(\d+)/);
         if (travMatch) state.travelers = travMatch[1];
+        // Parse nights from detail: "..., 3 nights ..."
         var nightMatch = first.detail.match(/(\d+)\s+night/);
         if (nightMatch) state.nights = nightMatch[1];
+        // Parse hotel name from item name: "Room Name — Hotel Name"
         var dashIdx = first.name.indexOf(' \u2014 ');
         if (dashIdx === -1) dashIdx = first.name.indexOf(' — ');
         if (dashIdx !== -1) state.name = first.name.substring(dashIdx + 3);
+        // Activate the correct travelers pill
         document.querySelectorAll('#level-travelers .ticket-pill').forEach(function(p) {
           p.classList.toggle('active', p.dataset.value === state.travelers);
         });
+        // Activate the correct nights pill
         document.querySelectorAll('#level-nights .ticket-pill').forEach(function(p) {
           p.classList.toggle('active', p.dataset.value === state.nights);
         });
+        // Pre-populate roomCounts by matching room name and price
         var rooms = (DATA[state.travelers] && DATA[state.travelers][state.nights] && DATA[state.travelers][state.nights][state.type] && DATA[state.travelers][state.nights][state.type][state.name]) || [];
         roomCounts = {};
         rooms.forEach(function(room, i) {
@@ -964,15 +926,32 @@
       var overlay = document.getElementById('crosssell-overlay');
       var btnYes = document.getElementById('crosssell-yes');
       var btnNo = document.getElementById('crosssell-no');
+      var sheetTitle = document.querySelector('.crosssell-sheet h3');
+
+      // Adapt bottom sheet for product list flow
+      if (isProductListFlow && sheetTitle && btnYes && btnNo) {
+        sheetTitle.textContent = 'Added to cart!';
+        btnYes.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Browse more add-ons';
+        btnNo.textContent = isF2 ? 'Continue to cart' : 'Continue to checkout';
+      }
+
       if (overlay) overlay.addEventListener('click', closeCrossSellSheet);
       if (btnYes) {
         btnYes.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = 'polar-sound-addons.html?flow=' + flow;
+            return;
+          }
           try { sessionStorage.setItem('option_h_came_from', 'accommodation'); } catch(e) {}
           window.location.href = 'polar-sound-transportations.html?flow=' + flow;
         });
       }
       if (btnNo) {
         btnNo.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = isF2 ? 'cart.html?flow=f2' : 'checkout.html?flow=f1';
+            return;
+          }
           try { localStorage.setItem('cart_transportation', '[]'); } catch(e) {}
           var noDest = isOptionI ? 'cart.html?flow=e2' : 'checkout.html?flow=e1';
           window.location.href = noDest;

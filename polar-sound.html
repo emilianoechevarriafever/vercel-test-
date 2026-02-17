@@ -668,16 +668,19 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionE = flow === 'c1';
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF1 = flow === 'f1';
+    const isF2 = flow === 'f2';
+    const isProductListFlow = isF1 || isF2;
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
-    const flowSuffix = isHubFlow ? '?flow=' + flow : '';
+    const isOptionalFlow = isOptionE || isHubFlow || isProductListFlow;
+    const flowSuffix = (isHubFlow || isProductListFlow) ? '?flow=' + flow : '';
 
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
@@ -745,7 +748,9 @@
         // Save ticket selections to localStorage before navigating
         saveTicketsToCart();
         try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
-        if (isHubFlow) {
+        if (isProductListFlow) {
+          window.location.href = 'polar-sound-addons.html?flow=' + flow;
+        } else if (isHubFlow) {
           openAddonsHub();
         } else {
           window.location.href = 'polar-sound-accommodation.html' + flowSuffix;

@@ -381,10 +381,10 @@
       if (!flow) {
         try {
           var storedFlow = sessionStorage.getItem('polar_flow_mode');
-          if (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2') flow = storedFlow;
+          if (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2') flow = storedFlow;
         } catch (e) {}
       }
-      if (flow === 'c1' || flow === 'c2' || flow === 'd1' || flow === 'd2' || flow === 'e1' || flow === 'e2') {
+      if (flow === 'c1' || flow === 'c2' || flow === 'd1' || flow === 'd2' || flow === 'e1' || flow === 'e2' || flow === 'f1' || flow === 'f2') {
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
         try { /* no-op: stepper removed */ } catch (e) {}
       }

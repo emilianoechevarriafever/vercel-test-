@@ -555,6 +555,11 @@
       <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
     </div>
 
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="javascript:void(0)">Contact Support here</a>
+    </div>
+
     <!-- About the Venue -->
     <div class="section-header">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
@@ -575,7 +580,7 @@
       <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
       <div class="map-placeholder">
-        <img src="../../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
+        <img src="img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
       </div>
     </div>
 
@@ -657,95 +662,25 @@
 
   </div>
 
-  <script src="../../js/burger-menu.js"></script>
+  <script src="js/burger-menu.js"></script>
   <script>
-    /* ── Hero Gallery Carousel ── */
-    (function initCarousel() {
-      var track = document.getElementById('carouselTrack');
-      if (!track) return;
-      var slides = track.querySelectorAll('.carousel-slide');
-      var bars = document.querySelectorAll('#slideIndicators .bar');
-      var total = slides.length;
-      var current = 0;
-      var DURATION = 4000;
-      var TICK = 40;
-      var elapsed = 0;
-      var timer = null;
-      function updateBars() {
-        for (var i = 0; i < bars.length; i++) {
-          var fill = bars[i].querySelector('.fill');
-          bars[i].classList.remove('done');
-          if (i < current) { bars[i].classList.add('done'); fill.style.width = '100%'; fill.style.transition = 'none'; }
-          else if (i === current) { fill.style.transition = 'none'; fill.style.width = '0%'; }
-          else { fill.style.width = '0%'; fill.style.transition = 'none'; }
-        }
-      }
-      function goTo(idx) {
-        if (idx < 0) idx = total - 1;
-        if (idx >= total) idx = 0;
-        current = idx;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
-        elapsed = 0;
-        updateBars();
-      }
-      function tick() {
-        elapsed += TICK;
-        var pct = Math.min((elapsed / DURATION) * 100, 100);
-        var fill = bars[current].querySelector('.fill');
-        fill.style.transition = 'width ' + TICK + 'ms linear';
-        fill.style.width = pct + '%';
-        if (elapsed >= DURATION) goTo(current + 1);
-      }
-      function start() { if (!timer) timer = setInterval(tick, TICK); }
-      function stop() { clearInterval(timer); timer = null; }
-      function restart() { stop(); elapsed = 0; start(); }
-      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) { e.stopPropagation(); goTo(current - 1); restart(); });
-      document.querySelector('.hero .nav-next').addEventListener('click', function(e) { e.stopPropagation(); goTo(current + 1); restart(); });
-
-      // Touch swipe support
-      var heroEl = document.getElementById('heroCarousel');
-      var touchStartX = 0, touchStartY = 0, isSwiping = false;
-      heroEl.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isSwiping = true;
-        stop();
-      }, { passive: true });
-      heroEl.addEventListener('touchmove', function(e) {
-        if (!isSwiping) return;
-        var dx = e.touches[0].clientX - touchStartX;
-        var dy = e.touches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      }, { passive: false });
-      heroEl.addEventListener('touchend', function(e) {
-        if (!isSwiping) return;
-        isSwiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) {
-          if (dx < 0) goTo(current + 1);
-          else goTo(current - 1);
-        }
-        restart();
-      });
-
-      goTo(0);
-      start();
-    })();
-
     const params = new URLSearchParams(window.location.search);
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionE = flow === 'c1';
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF1 = flow === 'f1';
+    const isF2 = flow === 'f2';
+    const isProductListFlow = isF1 || isF2;
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
-    const flowSuffix = isHubFlow ? '?flow=' + flow : '';
+    const isOptionalFlow = isOptionE || isHubFlow || isProductListFlow;
+    const flowSuffix = (isHubFlow || isProductListFlow) ? '?flow=' + flow : '';
 
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
@@ -813,7 +748,9 @@
         // Save ticket selections to localStorage before navigating
         saveTicketsToCart();
         try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
-        if (isHubFlow) {
+        if (isProductListFlow) {
+          window.location.href = 'polar-sound-addons.html?flow=' + flow;
+        } else if (isHubFlow) {
           openAddonsHub();
         } else {
           window.location.href = 'polar-sound-accommodation.html' + flowSuffix;
@@ -1035,6 +972,102 @@
         requestAnimationFrame(function() { document.documentElement.style.scrollBehavior = ''; });
       }
     }
+
+    /* ── Hero Gallery Carousel ── */
+    (function initCarousel() {
+      var track = document.getElementById('carouselTrack');
+      if (!track) return;
+      var slides = track.querySelectorAll('.carousel-slide');
+      var bars = document.querySelectorAll('#slideIndicators .bar');
+      var total = slides.length;
+      var current = 0;
+      var DURATION = 4000;
+      var TICK = 40;
+      var elapsed = 0;
+      var timer = null;
+
+      function updateBars() {
+        for (var i = 0; i < bars.length; i++) {
+          var fill = bars[i].querySelector('.fill');
+          bars[i].classList.remove('done');
+          if (i < current) {
+            bars[i].classList.add('done');
+            fill.style.width = '100%';
+            fill.style.transition = 'none';
+          } else if (i === current) {
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+          } else {
+            fill.style.width = '0%';
+            fill.style.transition = 'none';
+          }
+        }
+      }
+
+      function goTo(idx) {
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) idx = 0;
+        current = idx;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        elapsed = 0;
+        updateBars();
+      }
+
+      function tick() {
+        elapsed += TICK;
+        var pct = Math.min((elapsed / DURATION) * 100, 100);
+        var fill = bars[current].querySelector('.fill');
+        fill.style.transition = 'width ' + TICK + 'ms linear';
+        fill.style.width = pct + '%';
+        if (elapsed >= DURATION) {
+          goTo(current + 1);
+        }
+      }
+
+      function start() { if (!timer) timer = setInterval(tick, TICK); }
+      function stop() { clearInterval(timer); timer = null; }
+      function restart() { stop(); elapsed = 0; start(); }
+
+      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current - 1);
+        restart();
+      });
+      document.querySelector('.hero .nav-next').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current + 1);
+        restart();
+      });
+
+      // Touch swipe support
+      var heroEl = document.getElementById('heroCarousel');
+      var touchStartX = 0, touchStartY = 0, isSwiping = false;
+      heroEl.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isSwiping = true;
+        stop();
+      }, { passive: true });
+      heroEl.addEventListener('touchmove', function(e) {
+        if (!isSwiping) return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+      }, { passive: false });
+      heroEl.addEventListener('touchend', function(e) {
+        if (!isSwiping) return;
+        isSwiping = false;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+        restart();
+      });
+
+      goTo(0);
+      start();
+    })();
   </script>
   <script>
     (function(){

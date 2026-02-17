@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Redirect</title>
+</head>
+<body>
+  <script src="../js/burger-menu.js"></script>
+  <script>
+    try { sessionStorage.setItem('polar_flow_mode', 'f1'); } catch (e) {}
+    window.location.replace('../home.html?flow=f1');
+  </script>
+</body>
+</html>

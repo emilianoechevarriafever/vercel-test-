@@ -147,18 +147,23 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF2 = flow === 'f2';
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
+    const isProductListFlow = isF2;
 
-    if (isHubFlow) {
+    if (isHubFlow || isProductListFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
 
-    if (isHubFlow) {
+    if (isProductListFlow) {
+      var cartLogoLink = document.getElementById('cart-logo-link');
+      if (cartLogoLink) cartLogoLink.href = 'polar-sound-addons.html?flow=f2';
+    } else if (isHubFlow) {
       var cartLogoLink = document.getElementById('cart-logo-link');
       if (cartLogoLink) cartLogoLink.href = flow + '/';
     }

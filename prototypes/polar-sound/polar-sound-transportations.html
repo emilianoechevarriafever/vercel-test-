@@ -188,7 +188,7 @@
     </header>
 
     <div class="hero">
-      <img class="hero-bg" id="hero-img" src="../../img/polar-sound-hero.png" alt="Transport to festival">
+      <img class="hero-bg" id="hero-img" src="img/polar-sound-hero.png" alt="Transport to festival">
       <div class="overlay">
         <div class="brand-text">POLAR SOUND</div>
         <div class="brand-sub">&#10070;</div>
@@ -278,7 +278,7 @@
       <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
       <div class="map-placeholder">
-        <img src="../../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
+        <img src="img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
       </div>
     </div>
 
@@ -307,109 +307,34 @@
     </div>
   </div>
 
-  <script src="../../js/burger-menu.js"></script>
+  <script src="js/burger-menu.js"></script>
   <script>
-    (function initHeroGallery() {
-      var hero = document.querySelector('.hero');
-      if (!hero) return;
-
-      var heroImage = hero.querySelector('.hero-bg');
-      var indicatorBars = hero.querySelectorAll('.slide-indicators .bar');
-      if (!heroImage || !indicatorBars.length) return;
-
-      var titleNode = document.querySelector('h1');
-      var seedBase = (titleNode && titleNode.textContent ? titleNode.textContent : 'polar-sound')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '') || 'polar-sound';
-
-      var galleryImages = [heroImage.getAttribute('src')];
-      for (var i = 1; i < indicatorBars.length; i += 1) {
-        galleryImages.push('https://applications-media.feverup.com/image/upload/f_auto,w_900,h_700,c_fill/fever2/plan/photo/cabc0d3c-8346-11f0-8816-4a47ae28a019.jpg?sig=' + seedBase + '-' + (i + 1));
-      }
-
-      var currentIndex = 0;
-      var autoplayTimer = null;
-
-      function renderHeroImage() {
-        heroImage.src = galleryImages[currentIndex];
-        indicatorBars.forEach(function (bar, index) {
-          bar.classList.toggle('active', index === currentIndex);
-        });
-      }
-
-      function goTo(index) {
-        currentIndex = (index + galleryImages.length) % galleryImages.length;
-        renderHeroImage();
-      }
-
-      function nextImage() { goTo(currentIndex + 1); }
-      function prevImage() { goTo(currentIndex - 1); }
-
-      function startAutoplay() {
-        if (autoplayTimer) clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(nextImage, 4000);
-      }
-
-      hero.addEventListener('click', function (event) {
-        if (event.target.closest('.side-buttons') || event.target.closest('.gallery-btn')) return;
-        var rect = hero.getBoundingClientRect();
-        var clickedRight = (event.clientX - rect.left) >= rect.width / 2;
-        if (clickedRight) nextImage();
-        else prevImage();
-        startAutoplay();
-      });
-
-      // Touch swipe support
-      var touchStartX = 0, touchStartY = 0, isSwiping = false;
-      hero.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isSwiping = true;
-        if (autoplayTimer) clearInterval(autoplayTimer);
-      }, { passive: true });
-      hero.addEventListener('touchmove', function(e) {
-        if (!isSwiping) return;
-        var dx = e.touches[0].clientX - touchStartX;
-        var dy = e.touches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      }, { passive: false });
-      hero.addEventListener('touchend', function(e) {
-        if (!isSwiping) return;
-        isSwiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) {
-          if (dx < 0) nextImage();
-          else prevImage();
-        }
-        startAutoplay();
-      });
-
-      renderHeroImage();
-      startAutoplay();
-    })();
-
     const params = new URLSearchParams(window.location.search);
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
+    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2')) flow = storedFlow;
     const isOptionB = flow === 'a2';
     const isOptionE = flow === 'c1';
     const isOptionF = flow === 'c2' || flow === 'd1';
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
+    const isF1 = flow === 'f1';
+    const isF2 = flow === 'f2';
+    const isProductListFlow = isF1 || isF2;
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isOptionE || isHubFlow || isProductListFlow;
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
-    if (isHubFlow) {
-      if (!isCrossSellFlow) {
+    if (isHubFlow || isProductListFlow) {
+      // Hide stepper for hub/product-list flows EXCEPT cross-sell and product-list (which show dynamic steppers)
+      if (!isCrossSellFlow && !isProductListFlow) {
         document.getElementById('flow-stepper').classList.add('stepper-hidden');
       }
+      // Hide general info for hub/product-list (user already saw it on hub/product list page)
       var generalInfoBlock = document.getElementById('general-info-block');
       if (generalInfoBlock) generalInfoBlock.style.display = 'none';
     }
@@ -439,10 +364,23 @@
         stepperEl.classList.remove('stepper-hidden');
       }
     }
-
+    // Product list flow (F1/F2): rebuild stepper dynamically
+    if (isProductListFlow) {
+      var stepperEl = document.getElementById('flow-stepper');
+      if (stepperEl) {
+        var html = '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
+        html += '<a href="polar-sound-addons.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Add-ons</span></a>';
+        html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
+        html += '<div class="step"><span class="dot"></span><span class="label">' + (isF2 ? 'Cart' : 'Checkout') + '</span></div>';
+        stepperEl.innerHTML = html;
+        stepperEl.classList.remove('stepper-hidden');
+      }
+    }
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'a2/index.html';
       document.getElementById('nav-logo-img').src = '../img/fever-logo.png';
+    } else if (isProductListFlow) {
+      document.getElementById('nav-logo').href = 'polar-sound-addons.html?flow=' + flow;
     } else if (isHubFlow) {
       document.getElementById('nav-logo').href = flow + '/';
     } else {
@@ -477,6 +415,7 @@
         document.getElementById('step4').href = 'checkout.html?flow=' + flow;
         document.getElementById('step4-label').textContent = 'Checkout';
       }
+      // For cross-sell flows, don't clear accommodation if user came from accommodation cross-sell
       if (isCrossSellFlow) {
         var initCameFrom = '';
         try { initCameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
@@ -624,6 +563,16 @@
       });
       localStorage.setItem('cart_transportation', JSON.stringify(cart));
 
+      // Product list flow (F1/F2): show "Keep buying?" or return to product list
+      if (isProductListFlow) {
+        if (getTotal() > 0) {
+          openCrossSellSheet();
+        } else {
+          window.location.href = 'polar-sound-addons.html?flow=' + flow;
+        }
+        return;
+      }
+
       // Option H/I: show cross-sell bottom sheet if user came from hub (not from accommodation)
       if (isCrossSellFlow) {
         var cameFrom = '';
@@ -636,6 +585,8 @@
 
       if (isOptionB) {
         window.location.href = 'a2/cart.html';
+      } else if (isProductListFlow) {
+        window.location.href = isF2 ? 'cart.html?flow=f2' : 'checkout.html?flow=f1';
       } else if (isCrossSellFlow) {
         var cameFromForClear = '';
         try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
@@ -723,15 +674,32 @@
       var overlay = document.getElementById('crosssell-overlay');
       var btnYes = document.getElementById('crosssell-yes');
       var btnNo = document.getElementById('crosssell-no');
+      var sheetTitle = document.querySelector('.crosssell-sheet h3');
+
+      // Adapt bottom sheet for product list flow
+      if (isProductListFlow && sheetTitle && btnYes && btnNo) {
+        sheetTitle.textContent = 'Added to cart!';
+        btnYes.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Browse more add-ons';
+        btnNo.textContent = isF2 ? 'Continue to cart' : 'Continue to checkout';
+      }
+
       if (overlay) overlay.addEventListener('click', closeCrossSellSheet);
       if (btnYes) {
         btnYes.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = 'polar-sound-addons.html?flow=' + flow;
+            return;
+          }
           try { sessionStorage.setItem('option_h_came_from', 'transportation'); } catch(e) {}
           window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
         });
       }
       if (btnNo) {
         btnNo.addEventListener('click', function() {
+          if (isProductListFlow) {
+            window.location.href = isF2 ? 'cart.html?flow=f2' : 'checkout.html?flow=f1';
+            return;
+          }
           try { localStorage.setItem('cart_accommodation', '[]'); } catch(e) {}
           var noDest = isOptionI ? 'cart.html?flow=e2' : 'checkout.html?flow=e1';
           window.location.href = noDest;

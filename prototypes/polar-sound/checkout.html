@@ -35,6 +35,7 @@
     body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; padding-bottom:120px; }
 
+    /* Sticky header */
     .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
     .checkout-topbar { display:flex; align-items:center; padding:14px 16px; background:#fff; border-bottom:1px solid var(--color-border); }
     .checkout-topbar .back-chevron { display:inline-flex; align-items:center; justify-content:center; color:var(--color-text); text-decoration:none; flex-shrink:0; }
@@ -91,6 +92,8 @@
     .sticky-pay .pay-btn.method-paypal:hover { background:#006ab1; }
     .sticky-pay .pay-btn.method-paypal:focus-visible { border-color:#0000a6; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
     .sticky-pay .pay-btn.method-paypal:active { background:#005a96; }
+    
+
     /* Payment Method */
     .payment-section { padding:16px; scroll-margin-top: 88px; }
     .payment-section h3 { font-size:16px; font-weight:700; margin-bottom:16px; }
@@ -150,6 +153,7 @@
     .form-group .field-error { display:none; align-items:flex-start; gap:4px; margin-top:8px; font-size:12px; line-height:16px; color:var(--color-input-error-text); font-weight:400; }
     .form-group.is-error .field-error { display:flex; }
     .form-group .field-error svg { width:16px; height:16px; flex-shrink:0; color:var(--color-input-error-text); }
+    /* Shake animation for invalid submit */
     @keyframes field-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-4px)} 40%{transform:translateX(4px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)} }
     .form-group.is-error.shake .input-wrap { animation:field-shake 0.35s ease; }
     .form-group .input-wrap .field-clear { position:absolute; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--color-text); opacity:0.6; }
@@ -369,7 +373,7 @@
 
   </div>
 
-  <script src="../../js/burger-menu.js"></script>
+  <script src="js/burger-menu.js"></script>
   <script>
     (function() {
       var params = new URLSearchParams(window.location.search);
@@ -377,11 +381,12 @@
       if (!flow) {
         try {
           var storedFlow = sessionStorage.getItem('polar_flow_mode');
-          if (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2') flow = storedFlow;
+          if (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2' || storedFlow === 'f1' || storedFlow === 'f2') flow = storedFlow;
         } catch (e) {}
       }
-      if (flow === 'c1' || flow === 'c2' || flow === 'd1' || flow === 'd2' || flow === 'e1' || flow === 'e2') {
+      if (flow === 'c1' || flow === 'c2' || flow === 'd1' || flow === 'd2' || flow === 'e1' || flow === 'e2' || flow === 'f1' || flow === 'f2') {
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
+        try { /* no-op: stepper removed */ } catch (e) {}
       }
     })();
 
@@ -486,9 +491,7 @@
     var hasTickets = tickets.length > 0 && tickets.some(function(t) { return (t.qty || 0) > 0; });
     var hasAccommodation = accommodation.length > 0 && accommodation.some(function(a) { return (a.qty || 0) > 0; });
     var hasTransport = transportation.length > 0 && transportation.some(function(t) { return ((t.qty || 1) > 0 && (t.price || 0) > 0); });
-    if (!hasTickets) { var s1 = document.getElementById('stepper-step1'); if (s1) s1.classList.add('skipped'); }
-    if (!hasAccommodation) { var s2 = document.getElementById('stepper-step2'); if (s2) s2.classList.add('skipped'); }
-    if (!hasTransport) { var s3 = document.getElementById('stepper-step3'); if (s3) s3.classList.add('skipped'); }
+    
 
     // Update Pay button
     const payBtn = document.querySelector('.pay-btn');
@@ -624,6 +627,7 @@
       group.classList.remove('is-error', 'shake');
     }
 
+    // Validate on blur
     document.querySelectorAll('.form-group[data-validate] .form-field').forEach(function(input) {
       input.addEventListener('blur', function() {
         var key = this.closest('.form-group').getAttribute('data-validate');
@@ -632,6 +636,7 @@
         var err = fn(this.value);
         if (err) { setError(this, err); } else { clearError(this); }
       });
+      // Clear error on input (user is fixing)
       input.addEventListener('input', function() {
         var group = this.closest('.form-group');
         if (group && group.classList.contains('is-error')) {
@@ -642,6 +647,8 @@
       });
     });
 
+    // Validate all on Pay button click
+    var origPayClick = payBtn.onclick;
     payBtn.onclick = function() {
       if (selectedPaymentMethod !== 'card') {
         if (selectedPaymentMethod === 'apple') {
