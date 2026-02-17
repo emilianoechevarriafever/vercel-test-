@@ -177,6 +177,7 @@
         <a class="nav-icon-btn" href="favorites.html" aria-label="Favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></a>
         <a class="nav-icon-btn" href="home.html" aria-label="Location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></a>
         <a class="avatar-wrap" href="profile.html" aria-label="Profile"><img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile"></a>
+        <a class="nav-icon-btn" id="nav-cart-link" href="cart.html" aria-label="Cart" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
         <a class="nav-icon-btn" href="home.html" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></a>
       </div>
     </nav>
@@ -315,21 +316,52 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h')) flow = storedFlow;
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h' || storedFlow === 'option-i')) flow = storedFlow;
     const isOptionB = flow === 'option-b';
     const isOptionE = flow === 'option-e';
     const isOptionF = flow === 'option-f';
     const isOptionG = flow === 'option-g';
     const isOptionH = flow === 'option-h';
-    const isHubFlow = isOptionF || isOptionG || isOptionH;
+    const isOptionI = flow === 'option-i';
+    const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
+    const isCrossSellFlow = isOptionH || isOptionI;
     const isOptionalFlow = isOptionE || isHubFlow;
+    if (isOptionG || isOptionB) {
+      var cartLink = document.getElementById('nav-cart-link');
+      if (cartLink) {
+        cartLink.style.display = '';
+        cartLink.href = isOptionG ? 'cart.html?flow=option-g' : 'option-b/cart.html';
+      }
+    }
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
     if (isHubFlow) {
-      document.getElementById('flow-stepper').classList.add('stepper-hidden');
+      // Hide stepper for hub flows EXCEPT cross-sell flows (option-h/i show dynamic stepper)
+      if (!isCrossSellFlow) {
+        document.getElementById('flow-stepper').classList.add('stepper-hidden');
+      }
       var generalInfoBlock = document.getElementById('general-info-block');
       if (generalInfoBlock) generalInfoBlock.style.display = 'none';
+    }
+
+    // Option H/I: rebuild stepper dynamically based on user's path
+    if (isCrossSellFlow) {
+      var hCameFrom = '';
+      try { hCameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+      var stepperEl = document.getElementById('flow-stepper');
+      if (stepperEl) {
+        var lastLabel = isOptionI ? 'Cart' : 'Checkout';
+        var lastHref = isOptionI ? 'cart.html?flow=option-i' : 'checkout.html?flow=option-h';
+        var html = '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
+        if (hCameFrom === 'accommodation') {
+          html += '<a href="polar-sound-accommodation.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>';
+        }
+        html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
+        html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
+        stepperEl.innerHTML = html;
+        stepperEl.classList.remove('stepper-hidden');
+      }
     }
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'option-b/index.html';
@@ -361,14 +393,23 @@
     } else if (isHubFlow) {
       document.getElementById('step1').href = 'polar-sound.html?flow=' + flow + '#ticket-section';
       document.getElementById('step2').href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
-      if (isOptionG) {
-        document.getElementById('step4').href = 'cart.html?flow=option-g';
+      if (isOptionG || isOptionI) {
+        document.getElementById('step4').href = 'cart.html?flow=' + flow;
         document.getElementById('step4-label').textContent = 'Cart';
       } else {
-        document.getElementById('step4').href = 'checkout.html?flow=option-f';
+        document.getElementById('step4').href = (isOptionH ? 'checkout.html?flow=option-h' : 'checkout.html?flow=option-f');
         document.getElementById('step4-label').textContent = 'Checkout';
       }
-      try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+      // For cross-sell flows, don't clear accommodation if user came from accommodation cross-sell
+      if (isCrossSellFlow) {
+        var initCameFrom = '';
+        try { initCameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+        if (initCameFrom !== 'accommodation') {
+          try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+        }
+      } else {
+        try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+      }
     } else {
       document.getElementById('step1').href = 'polar-sound.html#ticket-section';
       document.getElementById('step2').href = 'polar-sound-accommodation.html#ticket-section';
@@ -507,8 +548,8 @@
       });
       localStorage.setItem('cart_transportation', JSON.stringify(cart));
 
-      // Option H: show cross-sell bottom sheet if user came from hub (not from accommodation)
-      if (isOptionH) {
+      // Option H/I: show cross-sell bottom sheet if user came from hub (not from accommodation)
+      if (isCrossSellFlow) {
         var cameFrom = '';
         try { cameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
         if (cameFrom !== 'accommodation') {
@@ -519,14 +560,14 @@
 
       if (isOptionB) {
         window.location.href = 'option-b/cart.html';
-      } else if (isOptionH) {
-        // For option-h, only clear accommodation if user came from hub (not from accommodation cross-sell)
+      } else if (isCrossSellFlow) {
         var cameFromForClear = '';
         try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
         if (cameFromForClear !== 'accommodation') {
           try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
         }
-        window.location.href = 'cart.html?flow=option-h';
+        var dest = isOptionI ? 'cart.html?flow=option-i' : 'checkout.html?flow=option-h';
+        window.location.href = dest;
       } else if (isOptionG) {
         try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
         window.location.href = 'cart.html?flow=option-g';
@@ -610,13 +651,14 @@
       if (btnYes) {
         btnYes.addEventListener('click', function() {
           try { sessionStorage.setItem('option_h_came_from', 'transportation'); } catch(e) {}
-          window.location.href = 'polar-sound-accommodation.html?flow=option-h';
+          window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
         });
       }
       if (btnNo) {
         btnNo.addEventListener('click', function() {
           try { localStorage.setItem('cart_accommodation', '[]'); } catch(e) {}
-          window.location.href = 'cart.html?flow=option-h';
+          var noDest = isOptionI ? 'cart.html?flow=option-i' : 'checkout.html?flow=option-h';
+          window.location.href = noDest;
         });
       }
     })();
