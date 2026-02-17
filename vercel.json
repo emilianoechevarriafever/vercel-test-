@@ -6,6 +6,7 @@
     { "source": "/option-e", "destination": "/option-e/index.html" },
     { "source": "/option-f", "destination": "/option-f/index.html" },
     { "source": "/option-g", "destination": "/option-g/index.html" },
-    { "source": "/polar-sound-transportations", "destination": "/polar-sound-transportations.html" }
+    { "source": "/polar-sound-transportations", "destination": "/polar-sound-transportations.html" },
+    { "source": "/search", "destination": "/search.html" }
   ]
 }

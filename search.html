@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search | Fever</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    :root {
+      --color-primary: #0079ca;
+      --color-primary-weak: #E6F4FF;
+      --color-text-main: #031419;
+      --color-text-secondary: #536b75;
+      --color-text-subtle: #536b75;
+      --color-border: #E6EAEE;
+      --color-bg-neutral: #F5F7F9;
+      --radius: 0.75rem;
+      --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
+      --font: 'Montserrat', sans-serif;
+      --font-ui: 'Montserrat', sans-serif;
+    }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg-neutral);
+      display: flex;
+      justify-content: center;
+      color: var(--color-text-main);
+    }
+    .phone {
+      width: 393px;
+      max-width: 100vw;
+      background: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e6eaee;
+    }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .back-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border: none; background: none;
+      cursor: pointer; color: var(--color-text-main); padding: 0; text-decoration: none;
+    }
+    .back-btn svg { width: 24px; height: 24px; }
+    .navbar .logo-link { text-decoration: none; display: flex; align-items: center; }
+    .navbar .logo-link img { height: 38px; width: auto; display: block; object-fit: contain; }
+    .nav-icons { display: flex; align-items: center; gap: 16px; }
+    .nav-icons svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; cursor: pointer; }
+    .nav-icon-btn {
+      margin: 0; padding: 0; border: none; background: none;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .nav-icon-btn svg { width: 24px; height: 24px; color: var(--color-text-main); stroke: currentColor; }
+    .avatar-wrap { position: relative; display: flex; align-items: center; }
+    .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    .burger-toggle .icon-close { display: none; }
+    .phone.is-menu-open .burger-toggle .icon-menu { display: none; }
+    .phone.is-menu-open .burger-toggle .icon-close { display: block; }
+
+    /* ─── Search Section (sticky below navbar) ─── */
+    .search-section {
+      position: sticky;
+      top: 59px;
+      z-index: 99;
+      background: #fff;
+      padding: 12px 16px 14px;
+      border-bottom: 1px solid #E6EAEE;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #F5F7F9;
+      border-radius: 100px;
+      padding: 0 14px;
+      height: 44px;
+      gap: 10px;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-bar.focused {
+      border-color: var(--color-primary);
+      background: #fff;
+    }
+    .search-bar .search-icon {
+      width: 18px; height: 18px; flex-shrink: 0;
+      color: #a7b2ba; stroke: currentColor; fill: none;
+    }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--color-text-main);
+      outline: none;
+      line-height: 20px;
+    }
+    .search-bar input::placeholder { color: #a7b2ba; }
+    .search-clear {
+      display: none;
+      width: 20px; height: 20px;
+      border: none; background: #ccd2d8;
+      border-radius: 50%; cursor: pointer;
+      align-items: center; justify-content: center; padding: 0;
+      flex-shrink: 0;
+    }
+    .search-clear svg { width: 10px; height: 10px; stroke: #fff; stroke-width: 2.5; }
+    .search-clear.visible { display: flex; }
+
+    /* ─── Initial State ─── */
+    .search-initial { padding: 0 0 32px; }
+    .search-group { padding: 20px 16px 0; }
+    .search-group-title {
+      font-size: 16px; font-weight: 700;
+      line-height: 24px; margin-bottom: 12px;
+    }
+
+    /* Recent Searches */
+    .recent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .recent-header h3 { font-size: 16px; font-weight: 700; line-height: 24px; }
+    .recent-clear-btn {
+      font-family: var(--font); font-size: 13px; font-weight: 600;
+      color: var(--color-primary); background: none; border: none;
+      cursor: pointer; padding: 0;
+    }
+    .search-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .search-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      background: #F5F7F9; border-radius: 100px;
+      font-size: 13px; font-weight: 500;
+      color: var(--color-text-main); cursor: pointer;
+      border: none; font-family: var(--font);
+      transition: background 0.15s;
+    }
+    .search-chip:hover { background: #E6EAEE; }
+    .search-chip svg { width: 14px; height: 14px; flex-shrink: 0; color: #a7b2ba; }
+    .search-chip .chip-remove {
+      width: 16px; height: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: #ccd2d8;
+      cursor: pointer; margin-left: 2px; flex-shrink: 0;
+    }
+    .search-chip .chip-remove svg { width: 8px; height: 8px; color: #fff; stroke: #fff; stroke-width: 2.5; }
+
+    /* Trending */
+    .trending-list { display: flex; flex-direction: column; }
+    .trending-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #F5F7F9;
+      cursor: pointer; text-decoration: none; color: inherit;
+      transition: background 0.15s;
+    }
+    .trending-item:last-child { border-bottom: none; }
+    .trending-item:active { background: #F5F7F9; }
+    .trending-num {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      color: var(--color-primary);
+      background: var(--color-primary-weak);
+      border-radius: 8px; flex-shrink: 0;
+    }
+    .trending-text { font-size: 14px; font-weight: 500; line-height: 20px; }
+    .trending-arrow { margin-left: auto; width: 16px; height: 16px; color: #ccd2d8; flex-shrink: 0; }
+
+    /* Popular Categories */
+    .cat-chips-scroll {
+      display: flex; gap: 8px; overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; padding-bottom: 4px;
+    }
+    .cat-chips-scroll::-webkit-scrollbar { display: none; }
+    .cat-chip-btn {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; padding: 12px 16px;
+      background: #F5F7F9; border-radius: 16px;
+      cursor: pointer; border: none; font-family: var(--font);
+      min-width: 80px; flex-shrink: 0;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .cat-chip-btn:hover { background: #E6EAEE; }
+    .cat-chip-btn:active { transform: scale(0.95); }
+    .cat-chip-btn .cat-chip-icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .cat-chip-btn .cat-chip-icon svg { width: 22px; height: 22px; }
+    .cat-chip-btn span { font-size: 11px; font-weight: 600; color: var(--color-text-main); white-space: nowrap; }
+
+    /* ─── Filter Pills (Results state) ─── */
+    .filter-section {
+      padding: 12px 16px;
+      display: flex; gap: 8px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; border-bottom: 1px solid #E6EAEE;
+    }
+    .filter-section::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 8px 14px;
+      border: 1.5px solid #E6EAEE; border-radius: 100px;
+      background: #fff; font-family: var(--font);
+      font-size: 13px; font-weight: 500;
+      color: var(--color-text-main); cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .filter-pill:hover { border-color: #ccd2d8; }
+    .filter-pill.active {
+      background: var(--color-text-main);
+      border-color: var(--color-text-main);
+      color: #fff;
+    }
+    .filter-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ─── Results Header ─── */
+    .results-header {
+      padding: 20px 16px 0;
+    }
+    .results-header h2 {
+      font-size: 20px; font-weight: 700; line-height: 28px;
+    }
+    .results-count {
+      font-size: 14px; color: #536b75;
+      padding: 8px 16px 4px;
+    }
+
+    /* ─── Card Grid (2 columns — identical to category.html) ─── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 12px 16px 24px;
+    }
+    .cat-card {
+      text-decoration: none; color: inherit;
+      transition: transform 0.15s;
+    }
+    .cat-card:hover { transform: translateY(-2px); }
+    .cat-card .cat-card-img {
+      width: 100%; aspect-ratio: 3/4;
+      border-radius: 12px; overflow: hidden;
+      position: relative; background: #e8ecf0;
+    }
+    .cat-card .cat-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .cat-card .cat-card-img img.loaded { opacity: 1; }
+    .cat-card .cat-card-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: #6f41d7; color: white;
+      font-size: 10px; font-weight: 600;
+      padding: 2px 6px; border-radius: 4px;
+    }
+    .cat-card .cat-card-like {
+      position: absolute; top: 8px; right: 8px;
+      width: 28px; height: 28px; min-width: 28px; min-height: 28px;
+      border: none; background: rgba(0,0,0,0.4);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; z-index: 2; padding: 0;
+      border-radius: 50%; transition: background 0.2s;
+    }
+    .cat-card .cat-card-like:hover { background: rgba(0,0,0,0.55); }
+    .cat-card .cat-card-like svg {
+      width: 14px; height: 14px; flex-shrink: 0;
+      color: white; fill: none; stroke: currentColor;
+      transition: fill 0.2s, color 0.2s;
+    }
+    .cat-card .cat-card-like.liked svg { fill: white; stroke: white; color: white; }
+    .cat-card .cat-card-like.liked { background: rgba(0,0,0,0.5); }
+    .cat-card .cat-card-title {
+      font-size: 13px; font-weight: 600;
+      line-height: 18px; margin-top: 8px;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .cat-card .cat-card-meta {
+      font-size: 12px; color: #536b75; margin-top: 2px; line-height: 16px;
+    }
+    .cat-card .cat-card-meta .rating { color: #f5a623; }
+    .cat-card .cat-card-dates {
+      font-size: 11px; color: #536b75; margin-top: 2px;
+    }
+    .cat-card .cat-card-price {
+      font-size: 13px; font-weight: 600; margin-top: 4px;
+    }
+    .cat-card .cat-card-price .old-price {
+      text-decoration: line-through; color: #a7b2ba; font-weight: 400; margin-right: 4px;
+    }
+    .cat-card .cat-card-price .free-tag { color: #22ad5c; }
+
+    /* ─── Empty State ─── */
+    .search-empty {
+      padding: 64px 32px; text-align: center;
+    }
+    .search-empty svg {
+      width: 64px; height: 64px; color: #ccd2d8; margin-bottom: 20px;
+    }
+    .search-empty h3 {
+      font-size: 18px; font-weight: 600; margin-bottom: 8px;
+    }
+    .search-empty p {
+      font-size: 14px; color: #536b75; line-height: 20px;
+    }
+
+    /* ─── Suggestions dropdown ─── */
+    .suggestions-dropdown {
+      position: absolute; top: calc(100%); left: 0; right: 0;
+      background: #fff; z-index: 98;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      max-height: 280px; overflow-y: auto;
+      display: none;
+    }
+    .suggestions-dropdown.visible { display: block; }
+    .suggestion-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer; transition: background 0.1s;
+      text-decoration: none; color: inherit;
+    }
+    .suggestion-item:hover, .suggestion-item:active { background: #F5F7F9; }
+    .suggestion-item svg { width: 18px; height: 18px; flex-shrink: 0; color: #a7b2ba; }
+    .suggestion-item .suggestion-text {
+      font-size: 14px; line-height: 20px;
+    }
+    .suggestion-item .suggestion-text strong { font-weight: 600; }
+    .suggestion-item .suggestion-cat {
+      font-size: 12px; color: #a7b2ba; margin-left: auto; flex-shrink: 0;
+    }
+
+    /* ─── Footer ─── */
+    .footer { background: #031419; color: white; padding: 32px 16px 80px; }
+    .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
+    .footer-col h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.01em; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { font-size: 13px; line-height: 22px; margin-bottom: 4px; color: rgba(255,255,255,0.75); cursor: pointer; transition: color 0.15s; }
+    .footer-col ul li:hover { color: white; }
+    .footer .legal { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); }
+    .footer .legal a { color: white; }
+
+    /* ─── Tap feedback ─── */
+    .nav-icon-btn:active { opacity: 0.6; }
+    .cat-card:active { transform: scale(0.97); }
+    .cat-card-like:active { transform: scale(0.85); }
+
+    /* ─── Utility ─── */
+    .hidden { display: none !important; }
+
+    /* ─── Transitions ─── */
+    .fade-in { animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 393px) { .phone { width: 100vw; } }
+  </style>
+</head>
+<body>
+  <div class="phone" id="phone">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="home.html" class="back-btn" aria-label="Go back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <a href="home.html" class="logo-link" aria-label="Fever"><img src="img/fever-logo.png" alt="Fever"></a>
+      </div>
+      <div class="nav-icons">
+        <a class="nav-icon-btn" href="favorites.html" aria-label="Favorites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </a>
+        <a class="nav-icon-btn" href="home.html" aria-label="Location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </a>
+        <a class="avatar-wrap" href="profile.html" aria-label="Profile">
+          <img src="https://www.figma.com/api/mcp/asset/541291f3-2b10-4d67-b843-70a0add86fab" alt="Profile">
+        </a>
+        <button type="button" class="nav-icon-btn burger-toggle js-burger-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="search-section" id="searchSection">
+      <div class="search-bar" id="searchBar">
+        <svg class="search-icon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+        <input type="text" id="searchInput" placeholder="Search experiences in Madrid..." autocomplete="off" autofocus>
+        <button class="search-clear" id="searchClear" aria-label="Clear search">
+          <svg viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg>
+        </button>
+      </div>
+      <div class="suggestions-dropdown" id="suggestionsDropdown"></div>
+    </div>
+
+    <!-- Initial State -->
+    <div id="searchInitial" class="search-initial">
+
+      <!-- Recent Searches -->
+      <div class="search-group" id="recentGroup">
+        <div class="recent-header">
+          <h3>Recent searches</h3>
+          <button class="recent-clear-btn" id="clearRecent">Clear all</button>
+        </div>
+        <div class="search-chips" id="recentChips"></div>
+      </div>
+
+      <!-- Trending -->
+      <div class="search-group">
+        <h3 class="search-group-title">Trending in Madrid</h3>
+        <div class="trending-list" id="trendingList"></div>
+      </div>
+
+      <!-- Popular Categories -->
+      <div class="search-group">
+        <h3 class="search-group-title">Popular categories</h3>
+        <div class="cat-chips-scroll" id="catChips"></div>
+      </div>
+    </div>
+
+    <!-- Results State -->
+    <div id="searchResults" class="hidden">
+      <!-- Filter pills -->
+      <div class="filter-section" id="filterSection"></div>
+      <div class="results-header">
+        <h2 id="resultsTitle">Experiences in Madrid</h2>
+      </div>
+      <p class="results-count" id="resultsCount"></p>
+      <div class="cat-grid" id="resultsGrid"></div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="searchEmpty" class="search-empty hidden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/>
+        <line x1="8" y1="8" x2="13" y2="13"/><line x1="13" y1="8" x2="8" y2="13"/>
+      </svg>
+      <h3>No results found</h3>
+      <p id="emptyText">Try searching for something else or browse our popular categories.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Fever</h5>
+          <ul>
+            <li>About us</li>
+            <li>Blog</li>
+            <li>Careers</li>
+            <li>Press</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Help</h5>
+          <ul>
+            <li>FAQ</li>
+            <li>Contact</li>
+            <li>Accessibility</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li>Terms</li>
+            <li>Privacy</li>
+            <li>Cookies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        &copy; 2026 <a href="#">Fever Labs, Inc.</a> All rights reserved.
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/burger-menu.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    /* ═══════════════════════════════════════════════
+       EVENT DATABASE
+       ═══════════════════════════════════════════════ */
+    var EVENTS = [
+      { id:1, title:'Banksy Museum Madrid', venue:'Museo Banksy Madrid', rating:4.8, reviews:5349, price:14, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/ce0edbfc-52a1-11f0-87c2-fe0e7cbe00f7.jpg', cat:'Culture', dates:'17 Feb - 30 Jun', badge:'' },
+      { id:2, title:'Candlelight: Coldplay vs. Imagine Dragons', venue:'Círculo de Bellas Artes', rating:4.7, reviews:820, price:11, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg', cat:'Candlelight', dates:'28 Feb - 08 May', badge:'' },
+      { id:3, title:'Candlelight: The Lord of the Rings', venue:'Hotel Wellington', rating:4.7, reviews:401, price:20, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg', cat:'Candlelight', dates:'22 Mar - 26 Apr', badge:'Limited Edition' },
+      { id:4, title:'IKONO Madrid', venue:'IKONO Madrid', rating:4.2, reviews:453, price:0, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/3bd77184-9533-11f0-9570-f251230785be.jpg', cat:'Activities', dates:'17 Feb - 30 Apr', badge:'' },
+      { id:5, title:'Machu Picchu: Journey to the Lost City', venue:'Fever Hub Madrid', rating:4.3, reviews:2948, price:18, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/3a3c9a4a-8311-11f0-8e93-fa85177ab576.jpg', cat:'Exhibitions', dates:'', badge:'' },
+      { id:6, title:'Candlelight: The Best of Joe Hisaishi', venue:'Four Seasons Hotel Madrid', rating:4.7, reviews:219, price:23.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/d41e2e90-570f-11f0-b2c5-f295a86a2f76.jpg', cat:'Candlelight', dates:'01 Mar', badge:'' },
+      { id:7, title:'Candlelight: Tribute to Coldplay', venue:'Four Seasons Hotel Madrid', rating:4.7, reviews:2490, price:23.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/d41e2e90-570f-11f0-b2c5-f295a86a2f76.jpg', cat:'Candlelight', dates:'22 Feb - 05 Apr', badge:'' },
+      { id:8, title:'Candlelight: Tribute to Ludovico Einaudi', venue:'Círculo de Bellas Artes', rating:4.7, reviews:439, price:11, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg', cat:'Candlelight', dates:'22 Feb - 17 May', badge:'' },
+      { id:9, title:'FORMULA 1\u00ae TAG HEUER SPANISH GRAND PRIX 2026', venue:'MADRING', rating:0, reviews:0, price:345, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/aa6979be-8fdc-11f0-86ac-628e8f210c54.jpg', cat:'Sports', dates:'11 Sept', badge:'New!' },
+      { id:10, title:'Avatar: The Experience', venue:'Espacio Delicias', rating:0, reviews:0, price:14.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/771d6e2c-efc6-11f0-97d2-1e3ee3bc4382.jpeg', cat:'Exhibitions', dates:'18 Feb - 29 Mar', badge:'New!' },
+      { id:11, title:'Royal Palace of Madrid', venue:'Palacio Real de Madrid', rating:4.5, reviews:17310, price:12, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/269173b8-7433-11f0-a746-16871478c800.jpg', cat:'Tourism', dates:'23 Feb - 17 May', badge:'' },
+      { id:12, title:'The Jazz Room', venue:'The Music Station', rating:0, reviews:0, price:30, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/d41e2e90-570f-11f0-b2c5-f295a86a2f76.jpg', cat:'Music', dates:'19 Feb', badge:'' },
+      { id:13, title:'Quiz Room Madrid', venue:'Quiz Room Ventas', rating:4.8, reviews:136, price:15, oldPrice:23, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/7342ce00-8bae-11ef-9248-e6d116a45f62.png', cat:'Activities', dates:'', badge:'' },
+      { id:14, title:'Candlelight: Tribute to ABBA', venue:'Ateneo de Madrid', rating:4.8, reviews:277, price:20, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/ee89a0dc-1aa8-11f0-87b3-ba3a3d0c034e.jpg', cat:'Candlelight', dates:'22 Feb - 10 May', badge:'' },
+      { id:15, title:'Museo de la Felicidad', venue:'Museo de la Felicidad M\u00fcF', rating:4.1, reviews:6170, price:16, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/7342ce00-8bae-11ef-9248-e6d116a45f62.png', cat:'Culture', dates:'', badge:'' },
+      { id:16, title:'Candlelight: Tribute to Taylor Swift', venue:'Ateneo de Madrid', rating:4.9, reviews:246, price:20.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/ee89a0dc-1aa8-11f0-87b3-ba3a3d0c034e.jpg', cat:'Candlelight', dates:'22 Feb - 10 May', badge:'' },
+      { id:17, title:'Candlelight: With Mozart, Bach and other timeless composers', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.7, reviews:228, price:21.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg', cat:'Candlelight', dates:'06 Mar - 10 Apr', badge:'' },
+      { id:18, title:'Brunch at Ella Sky Bar', venue:'Ella Sky Bar Madrid', rating:4.6, reviews:101, price:45, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66fdd5ea-53dd-11ee-a3d8-bef8ce2e6ee8.jpg', cat:'Food & Drink', dates:'21 Feb - 30 Aug', badge:'' },
+      { id:19, title:'Tablao Flamenco Caf\u00e9 Ziryab', venue:'Tablao Flamenco Caf\u00e9 Ziryab', rating:5.0, reviews:4, price:32, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/7318fc16-008e-11ef-b977-124ef9dd9312.png', cat:'Tourism', dates:'18 Feb - 31 Mar', badge:'' },
+      { id:20, title:'Parque de Atracciones de Madrid', venue:'Parque de Atracciones', rating:4.6, reviews:879, price:23.91, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/f805d6b6-79e9-11ec-9353-de64b1790db8', cat:'Family', dates:'21 Feb - 10 May', badge:'' },
+      { id:21, title:'Bilbao BBK Live 2026', venue:'Bilbao', rating:0, reviews:0, price:160, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/e652f392-407b-11ec-9b6b-9a748ce8397a', cat:'Music', dates:'', badge:'' },
+      { id:22, title:'Candlelight: Best of Bridgerton on Strings', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.8, reviews:180, price:32, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg', cat:'Candlelight', dates:'', badge:'' },
+      { id:23, title:'Candlelight: Tribute to Hans Zimmer', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.7, reviews:155, price:24.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg', cat:'Candlelight', dates:'26 Feb - 23 May', badge:'' },
+      { id:24, title:'Candlelight: Vivaldi\u2019s Four Seasons', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.8, reviews:59, price:21, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg', cat:'Candlelight', dates:'24 Apr', badge:'' },
+      { id:25, title:'Candlelight: Ed Sheeran Tribute', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.8, reviews:309, price:20, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/ee89a0dc-1aa8-11f0-87b3-ba3a3d0c034e.jpg', cat:'Candlelight', dates:'06 Mar - 09 May', badge:'' },
+      { id:26, title:'RIU Plaza Espa\u00f1a: Brunch with the best views', venue:'Riu Plaza Espa\u00f1a', rating:4.7, reviews:2110, price:33.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66fdd5ea-53dd-11ee-a3d8-bef8ce2e6ee8.jpg', cat:'Food & Drink', dates:'18 Feb - 13 May', badge:'' },
+      { id:27, title:'Candlelight: Rock Favorites', venue:'Four Seasons Hotel Madrid', rating:4.6, reviews:57, price:24.50, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/d41e2e90-570f-11f0-b2c5-f295a86a2f76.jpg', cat:'Candlelight', dates:'', badge:'' },
+      { id:28, title:'Candlelight: The Best of Ennio Morricone', venue:'Ilustre Colegio de M\u00e9dicos', rating:4.8, reviews:56, price:20, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg', cat:'Candlelight', dates:'', badge:'' },
+      { id:29, title:'We Will Rock You: The Musical', venue:'Gran Teatro CaixaBank', rating:0, reviews:0, price:18, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/e652f392-407b-11ec-9b6b-9a748ce8397a', cat:'Music', dates:'', badge:'' },
+      { id:30, title:'Eonarium Flow', venue:'Comunidad Evang\u00e9lica', rating:4.0, reviews:777, price:7.90, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/3bd77184-9533-11f0-9570-f251230785be.jpg', cat:'Exhibitions', dates:'18 Feb - 29 Mar', badge:'' },
+      { id:31, title:'Chaos Lab - Madrid', venue:'Fever Hub Madrid', rating:0, reviews:0, price:16, img:'https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/3a3c9a4a-8311-11f0-8e93-fa85177ab576.jpg', cat:'Activities', dates:'', badge:'New!' },
+      { id:32, title:'Polar Sound Festival 2026', venue:'Baqueira-Beret', rating:0, reviews:0, price:89, img:'img/polar-sound-hero.png', cat:'Music', dates:'14 - 16 Mar', badge:'Fever Original' }
+    ];
+
+    /* ═══════════════════════════════════════════════
+       TRENDING & CATEGORIES
+       ═══════════════════════════════════════════════ */
+    var TRENDING = [
+      'Candlelight concerts',
+      'Banksy Museum',
+      'Brunch Madrid',
+      'Formula 1',
+      'Flamenco show',
+      'IKONO Madrid',
+      'Avatar: The Experience',
+      'Escape room'
+    ];
+
+    var CATEGORIES = [
+      { label: 'Candlelight', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="1.8"><path d="M12 2c-1 4-4 6-4 10a4 4 0 008 0c0-4-3-6-4-10z"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>' },
+      { label: 'Music', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#6f41d7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
+      { label: 'Culture', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#0079ca" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg>' },
+      { label: 'Tourism', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#22ad5c" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>' },
+      { label: 'Activities', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#e84393" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+      { label: 'Food', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#fd7e14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>' },
+      { label: 'Exhibitions', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#9b59b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' },
+      { label: 'Family', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>' },
+      { label: 'Sports', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#2c3e50" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><path d="M2 12h20"/></svg>' }
+    ];
+
+    /* ═══════════════════════════════════════════════
+       DOM REFS
+       ═══════════════════════════════════════════════ */
+    var searchInput = document.getElementById('searchInput');
+    var searchBar = document.getElementById('searchBar');
+    var searchClear = document.getElementById('searchClear');
+    var searchInitial = document.getElementById('searchInitial');
+    var searchResults = document.getElementById('searchResults');
+    var searchEmpty = document.getElementById('searchEmpty');
+    var resultsGrid = document.getElementById('resultsGrid');
+    var resultsCount = document.getElementById('resultsCount');
+    var resultsTitle = document.getElementById('resultsTitle');
+    var recentGroup = document.getElementById('recentGroup');
+    var recentChips = document.getElementById('recentChips');
+    var trendingList = document.getElementById('trendingList');
+    var catChips = document.getElementById('catChips');
+    var filterSection = document.getElementById('filterSection');
+    var suggestionsDropdown = document.getElementById('suggestionsDropdown');
+    var emptyText = document.getElementById('emptyText');
+
+    var activeFilter = 'All';
+    var RECENT_KEY = 'fever_recent_searches';
+    var LIKES_KEY = 'fever_search_likes';
+
+    /* ═══════════════════════════════════════════════
+       RECENT SEARCHES
+       ═══════════════════════════════════════════════ */
+    function getRecent() {
+      try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; }
+    }
+    function saveRecent(arr) {
+      try { localStorage.setItem(RECENT_KEY, JSON.stringify(arr.slice(0, 8))); } catch (e) {}
+    }
+    function addRecent(q) {
+      if (!q || !q.trim()) return;
+      var arr = getRecent().filter(function(s) { return s.toLowerCase() !== q.trim().toLowerCase(); });
+      arr.unshift(q.trim());
+      saveRecent(arr);
+    }
+    function removeRecent(q) {
+      saveRecent(getRecent().filter(function(s) { return s !== q; }));
+    }
+
+    function renderRecent() {
+      var recent = getRecent();
+      if (!recent.length) { recentGroup.classList.add('hidden'); return; }
+      recentGroup.classList.remove('hidden');
+      recentChips.innerHTML = recent.map(function(s) {
+        return '<button class="search-chip" data-query="' + s.replace(/"/g,'&quot;') + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+          s +
+          '<span class="chip-remove" data-remove="' + s.replace(/"/g,'&quot;') + '"><svg viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></span>' +
+        '</button>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════════════
+       TRENDING
+       ═══════════════════════════════════════════════ */
+    function renderTrending() {
+      trendingList.innerHTML = TRENDING.map(function(t, i) {
+        return '<div class="trending-item" data-query="' + t.replace(/"/g,'&quot;') + '">' +
+          '<span class="trending-num">' + (i + 1) + '</span>' +
+          '<span class="trending-text">' + t + '</span>' +
+          '<svg class="trending-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════════════
+       CATEGORIES
+       ═══════════════════════════════════════════════ */
+    function renderCategories() {
+      catChips.innerHTML = CATEGORIES.map(function(c) {
+        return '<button class="cat-chip-btn" data-cat="' + c.label + '">' +
+          '<div class="cat-chip-icon">' + c.icon + '</div>' +
+          '<span>' + c.label + '</span>' +
+        '</button>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════════════
+       FILTER PILLS
+       ═══════════════════════════════════════════════ */
+    function renderFilters() {
+      var cats = ['All'];
+      EVENTS.forEach(function(e) {
+        if (cats.indexOf(e.cat) === -1) cats.push(e.cat);
+      });
+      filterSection.innerHTML = cats.map(function(c) {
+        return '<button class="filter-pill' + (activeFilter === c ? ' active' : '') + '" data-filter="' + c + '">' + c + '</button>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════════════
+       LIKES
+       ═══════════════════════════════════════════════ */
+    function getLikes() {
+      try { return JSON.parse(localStorage.getItem(LIKES_KEY)) || []; } catch (e) { return []; }
+    }
+    function toggleLike(id) {
+      var likes = getLikes();
+      var idx = likes.indexOf(id);
+      if (idx >= 0) likes.splice(idx, 1); else likes.push(id);
+      try { localStorage.setItem(LIKES_KEY, JSON.stringify(likes)); } catch (e) {}
+      return likes.indexOf(id) >= 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RENDER RESULTS
+       ═══════════════════════════════════════════════ */
+    function renderResults(events) {
+      var likes = getLikes();
+      resultsGrid.innerHTML = events.map(function(ev) {
+        var isLiked = likes.indexOf(ev.id) >= 0;
+        var priceHtml = '';
+        if (ev.price === 0) {
+          priceHtml = '<span class="free-tag">Free</span>';
+        } else if (ev.oldPrice) {
+          priceHtml = '<span class="old-price">\u20ac' + ev.oldPrice.toFixed(2) + '</span>\u20ac' + ev.price.toFixed(2);
+        } else {
+          priceHtml = 'From \u20ac' + ev.price.toFixed(2);
+        }
+        var ratingHtml = '';
+        if (ev.rating > 0) {
+          ratingHtml = '<span class="rating">\u2605</span> ' + ev.rating.toFixed(1) + ' (' + ev.reviews.toLocaleString() + ')';
+        }
+        return '<a href="#" class="cat-card fade-in">' +
+          '<div class="cat-card-img">' +
+            (ev.badge ? '<span class="cat-card-badge">' + ev.badge + '</span>' : '') +
+            '<button type="button" class="cat-card-like' + (isLiked ? ' liked' : '') + '" data-like="' + ev.id + '" aria-label="Favorite">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+            '</button>' +
+            '<img src="' + ev.img + '" alt="' + ev.title.replace(/"/g,'&quot;') + '" onload="this.classList.add(\'loaded\')">' +
+          '</div>' +
+          '<div class="cat-card-title">' + ev.title + '</div>' +
+          '<div class="cat-card-meta">' + (ratingHtml ? ratingHtml + '<br>' : '') + ev.venue + '</div>' +
+          (ev.dates ? '<div class="cat-card-dates">' + ev.dates + '</div>' : '') +
+          '<div class="cat-card-price">' + priceHtml + '</div>' +
+        '</a>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════════════
+       SEARCH LOGIC
+       ═══════════════════════════════════════════════ */
+    function doSearch(query, catFilter) {
+      var q = (query || '').trim().toLowerCase();
+      if (!q) {
+        searchInitial.classList.remove('hidden');
+        searchResults.classList.add('hidden');
+        searchEmpty.classList.add('hidden');
+        suggestionsDropdown.classList.remove('visible');
+        return;
+      }
+
+      var results = EVENTS.filter(function(ev) {
+        var matchText = (ev.title + ' ' + ev.venue + ' ' + ev.cat).toLowerCase().indexOf(q) >= 0;
+        var matchCat = !catFilter || catFilter === 'All' || ev.cat === catFilter;
+        return matchText && matchCat;
+      });
+
+      searchInitial.classList.add('hidden');
+      suggestionsDropdown.classList.remove('visible');
+
+      if (results.length) {
+        searchResults.classList.remove('hidden');
+        searchEmpty.classList.add('hidden');
+        resultsTitle.textContent = 'Results for \u201c' + query.trim() + '\u201d';
+        resultsCount.textContent = results.length + ' experience' + (results.length !== 1 ? 's' : '') + ' found';
+        renderFilters();
+        renderResults(results);
+      } else {
+        searchResults.classList.add('hidden');
+        searchEmpty.classList.remove('hidden');
+        emptyText.textContent = 'We couldn\u2019t find any experiences for \u201c' + query.trim() + '\u201d. Try a different search.';
+      }
+    }
+
+    /* ═══════════════════════════════════════════════
+       SUGGESTIONS
+       ═══════════════════════════════════════════════ */
+    function showSuggestions(query) {
+      var q = (query || '').trim().toLowerCase();
+      if (q.length < 2) { suggestionsDropdown.classList.remove('visible'); return; }
+
+      var matches = EVENTS.filter(function(ev) {
+        return (ev.title + ' ' + ev.venue + ' ' + ev.cat).toLowerCase().indexOf(q) >= 0;
+      }).slice(0, 6);
+
+      if (!matches.length) { suggestionsDropdown.classList.remove('visible'); return; }
+
+      suggestionsDropdown.innerHTML = matches.map(function(ev) {
+        return '<div class="suggestion-item" data-query="' + ev.title.replace(/"/g,'&quot;') + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>' +
+          '<span class="suggestion-text">' + ev.title + '</span>' +
+          '<span class="suggestion-cat">' + ev.cat + '</span>' +
+        '</div>';
+      }).join('');
+      suggestionsDropdown.classList.add('visible');
+    }
+
+    /* ═══════════════════════════════════════════════
+       INIT
+       ═══════════════════════════════════════════════ */
+    renderRecent();
+    renderTrending();
+    renderCategories();
+
+    /* ─── Input events ─── */
+    var debounceTimer;
+    searchInput.addEventListener('input', function() {
+      var val = searchInput.value;
+      searchClear.classList.toggle('visible', val.length > 0);
+      searchBar.classList.toggle('focused', true);
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function() {
+        if (val.trim().length >= 2) {
+          showSuggestions(val);
+        } else {
+          suggestionsDropdown.classList.remove('visible');
+          if (!val.trim()) {
+            searchInitial.classList.remove('hidden');
+            searchResults.classList.add('hidden');
+            searchEmpty.classList.add('hidden');
+          }
+        }
+      }, 200);
+    });
+
+    searchInput.addEventListener('focus', function() {
+      searchBar.classList.add('focused');
+    });
+    searchInput.addEventListener('blur', function() {
+      if (!searchInput.value) searchBar.classList.remove('focused');
+      setTimeout(function() { suggestionsDropdown.classList.remove('visible'); }, 200);
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && searchInput.value.trim()) {
+        addRecent(searchInput.value.trim());
+        activeFilter = 'All';
+        doSearch(searchInput.value, activeFilter);
+        searchInput.blur();
+      }
+    });
+
+    /* ─── Clear button ─── */
+    searchClear.addEventListener('click', function() {
+      searchInput.value = '';
+      searchClear.classList.remove('visible');
+      searchBar.classList.remove('focused');
+      searchInitial.classList.remove('hidden');
+      searchResults.classList.add('hidden');
+      searchEmpty.classList.add('hidden');
+      suggestionsDropdown.classList.remove('visible');
+      renderRecent();
+      searchInput.focus();
+    });
+
+    /* ─── Delegated clicks ─── */
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+
+      /* Recent chip remove */
+      var removeBtn = target.closest('.chip-remove');
+      if (removeBtn) {
+        e.stopPropagation();
+        removeRecent(removeBtn.dataset.remove);
+        renderRecent();
+        return;
+      }
+
+      /* Recent chip click */
+      var chip = target.closest('.search-chip');
+      if (chip && chip.dataset.query) {
+        searchInput.value = chip.dataset.query;
+        searchClear.classList.add('visible');
+        addRecent(chip.dataset.query);
+        activeFilter = 'All';
+        doSearch(chip.dataset.query, activeFilter);
+        return;
+      }
+
+      /* Trending click */
+      var trending = target.closest('.trending-item');
+      if (trending && trending.dataset.query) {
+        searchInput.value = trending.dataset.query;
+        searchClear.classList.add('visible');
+        addRecent(trending.dataset.query);
+        activeFilter = 'All';
+        doSearch(trending.dataset.query, activeFilter);
+        return;
+      }
+
+      /* Category chip click */
+      var catBtn = target.closest('.cat-chip-btn');
+      if (catBtn && catBtn.dataset.cat) {
+        searchInput.value = catBtn.dataset.cat;
+        searchClear.classList.add('visible');
+        addRecent(catBtn.dataset.cat);
+        activeFilter = catBtn.dataset.cat;
+        doSearch(catBtn.dataset.cat, activeFilter);
+        return;
+      }
+
+      /* Suggestion click */
+      var suggestion = target.closest('.suggestion-item');
+      if (suggestion && suggestion.dataset.query) {
+        searchInput.value = suggestion.dataset.query;
+        searchClear.classList.add('visible');
+        addRecent(suggestion.dataset.query);
+        activeFilter = 'All';
+        doSearch(suggestion.dataset.query, activeFilter);
+        return;
+      }
+
+      /* Filter pill click */
+      var filterPill = target.closest('.filter-pill');
+      if (filterPill && filterPill.dataset.filter) {
+        activeFilter = filterPill.dataset.filter;
+        renderFilters();
+        doSearch(searchInput.value, activeFilter);
+        return;
+      }
+
+      /* Like button click */
+      var likeBtn = target.closest('.cat-card-like');
+      if (likeBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        var liked = toggleLike(parseInt(likeBtn.dataset.like));
+        likeBtn.classList.toggle('liked', liked);
+        return;
+      }
+
+      /* Clear recent */
+      if (target.id === 'clearRecent') {
+        saveRecent([]);
+        renderRecent();
+        return;
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>
