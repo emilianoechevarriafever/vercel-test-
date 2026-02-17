@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     /* Fever Design System — refined to match production feverup.com */
     :root {
       --color-primary: #0079ca;
@@ -293,6 +294,7 @@
       scroll-padding-left: 16px;
     }
     .card-scroll::-webkit-scrollbar { display: none; }
+    .card-scroll.can-scroll-right { -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent); mask-image: linear-gradient(to right, black calc(100% - 24px), transparent); }
     .card-scroll > * { scroll-snap-align: start; }
     .card-scroll .card-img {
       width: 150px;
@@ -300,9 +302,12 @@
       border-radius: 12px;
       overflow: hidden;
       position: relative;
-      background: #e8ecf0;
+      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite ease-in-out;
     }
-    .card-scroll .card-img img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+    .card-scroll .card-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease; }
+    .card-scroll .card-img img.loaded { opacity: 1; }
 
     /* Event Card */
     .event-card {
@@ -319,12 +324,18 @@
       border-radius: 12px;
       overflow: hidden;
       position: relative;
+      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite ease-in-out;
     }
     .event-card .card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+    .event-card .card-img img.loaded { opacity: 1; }
     .event-card .rank {
       position: absolute;
       bottom: 4px;
@@ -459,8 +470,12 @@
       border-radius: 12px;
       overflow: hidden;
       position: relative;
+      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite ease-in-out;
     }
-    .featured-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-card .card-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease; }
+    .featured-card .card-img img.loaded { opacity: 1; }
     .featured-card .card-img .card-badge {
       position: absolute;
       top: 8px;
@@ -748,6 +763,8 @@
       padding: 0;
     }
 
+    /* Focus-visible */
+    button:focus-visible, a:focus-visible { outline: 2px solid #0079ca; outline-offset: 2px; }
     /* Tap feedback */
     .event-card:active { transform: scale(0.97); }
     .card-like:active { transform: scale(0.85); }
@@ -1613,6 +1630,27 @@
         }
       }
       updateAvatar();
+    })();
+  </script>
+  <script>
+    (function() {
+      document.querySelectorAll('.card-scroll').forEach(function(el) {
+        function update() {
+          var canScroll = el.scrollWidth - el.scrollLeft - el.clientWidth > 2;
+          el.classList.toggle('can-scroll-right', canScroll);
+        }
+        el.addEventListener('scroll', update, { passive: true });
+        update();
+      });
+    })();
+  </script>
+  <script>
+    (function() {
+      document.querySelectorAll('.card-img img').forEach(function(img) {
+        if (img.complete && img.naturalWidth) { img.classList.add('loaded'); return; }
+        img.addEventListener('load', function() { img.classList.add('loaded'); });
+        img.addEventListener('error', function() { img.classList.add('loaded'); });
+      });
     })();
   </script>
 </body>
