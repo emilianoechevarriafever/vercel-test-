@@ -1233,10 +1233,10 @@
       var flow = params.get('flow');
       var storedFlow = null;
       try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-      if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g')) {
+      if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h')) {
         flow = storedFlow;
       }
-      if (flow === 'option-e' || flow === 'option-f' || flow === 'option-g') {
+      if (flow === 'option-e' || flow === 'option-f' || flow === 'option-g' || flow === 'option-h') {
         var polarLink = document.getElementById('polar-sound-link');
         if (polarLink) polarLink.href = 'polar-sound.html?flow=' + flow;
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}

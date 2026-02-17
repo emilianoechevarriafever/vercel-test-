@@ -377,10 +377,10 @@
       if (!flow) {
         try {
           var storedFlow = sessionStorage.getItem('polar_flow_mode');
-          if (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g') flow = storedFlow;
+          if (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h') flow = storedFlow;
         } catch (e) {}
       }
-      if (flow === 'option-e' || flow === 'option-f' || flow === 'option-g') {
+      if (flow === 'option-e' || flow === 'option-f' || flow === 'option-g' || flow === 'option-h') {
         try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
       }
     })();

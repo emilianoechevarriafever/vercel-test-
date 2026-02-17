@@ -149,7 +149,21 @@
     .flow-stepper a.step.disabled { pointer-events:none; cursor:default; opacity:0.45; }
     .flow-stepper.stepper-hidden { display:none !important; }
 
-    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+    /* Cross-sell bottom sheet (Option H) */
+    .crosssell-overlay { position:fixed; inset:0; background:rgba(3,20,25,0.35); opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:350; }
+    .crosssell-overlay.open { opacity:1; pointer-events:auto; }
+    .crosssell-sheet { position:fixed; left:50%; bottom:0; transform:translateX(-50%) translateY(100%); width:393px; max-width:100vw; background:#fff; border-radius:16px 16px 0 0; z-index:351; padding:16px; transition:transform 0.25s ease; box-shadow:0 -4px 20px rgba(0,0,0,0.12); }
+    .crosssell-sheet.open { transform:translateX(-50%) translateY(0); }
+    .crosssell-sheet .handle { width:36px; height:4px; border-radius:4px; background:#d7dde2; margin:0 auto 14px; }
+    .crosssell-sheet h3 { font-size:18px; font-weight:700; text-align:center; margin-bottom:8px; }
+    .crosssell-sheet p { font-size:14px; line-height:20px; color:var(--color-text-secondary); text-align:center; margin-bottom:14px; }
+    .crosssell-sheet .hub-actions { display:flex; flex-direction:column; gap:10px; }
+    .crosssell-sheet .hub-btn { width:100%; min-height:44px; border-radius:100px; border:1px solid #ccd2d8; background:#fff; color:var(--color-text); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; padding:10px 16px; }
+    .crosssell-sheet .hub-btn.primary { background:#0079ca; border-color:#0079ca; color:#fff; }
+    .crosssell-sheet .hub-btn.secondary { background:#fff; border-color:#ccd2d8; color:var(--color-text); display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .crosssell-sheet .hub-btn.secondary svg { width:20px; height:20px; flex-shrink:0; stroke:currentColor; fill:none; stroke-width:2; }
+
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } .crosssell-sheet { width:100vw; } }
   </style>
 </head>
 <body>
@@ -280,6 +294,18 @@
 
     <div class="sticky-cta">
       <button class="cta-btn" id="sticky-btn">Select transport</button>
+    </div>
+
+    <!-- Cross-sell bottom sheet (Option H): offer accommodation after transportation -->
+    <div class="crosssell-overlay" id="crosssell-overlay"></div>
+    <div class="crosssell-sheet" id="crosssell-sheet">
+      <div class="handle"></div>
+      <h3>Anything else?</h3>
+      <p>Book accommodation near the festival with your 2-day pass included.</p>
+      <div class="hub-actions">
+        <button type="button" class="hub-btn secondary" id="crosssell-yes"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg> Add accommodation</button>
+        <button type="button" class="hub-btn primary" id="crosssell-no">No thanks, continue</button>
+      </div>
     </div>
   </div>
 
@@ -480,8 +506,27 @@
         if (qty > 0) cart.push({ name: opt.name, detail: opt.detail || '', price: opt.price, qty });
       });
       localStorage.setItem('cart_transportation', JSON.stringify(cart));
+
+      // Option H: show cross-sell bottom sheet if user came from hub (not from accommodation)
+      if (isOptionH) {
+        var cameFrom = '';
+        try { cameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+        if (cameFrom !== 'accommodation') {
+          openCrossSellSheet();
+          return;
+        }
+      }
+
       if (isOptionB) {
         window.location.href = 'option-b/cart.html';
+      } else if (isOptionH) {
+        // For option-h, only clear accommodation if user came from hub (not from accommodation cross-sell)
+        var cameFromForClear = '';
+        try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+        if (cameFromForClear !== 'accommodation') {
+          try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+        }
+        window.location.href = 'cart.html?flow=option-h';
       } else if (isOptionG) {
         try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
         window.location.href = 'cart.html?flow=option-g';
@@ -540,6 +585,56 @@
       scrollToTransport('auto');
       document.documentElement.style.scrollBehavior = '';
     }, 50);
+
+    // === Cross-sell bottom sheet (Option H) ===
+    function openCrossSellSheet() {
+      var overlay = document.getElementById('crosssell-overlay');
+      var sheet = document.getElementById('crosssell-sheet');
+      if (overlay) overlay.classList.add('open');
+      if (sheet) sheet.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCrossSellSheet() {
+      var overlay = document.getElementById('crosssell-overlay');
+      var sheet = document.getElementById('crosssell-sheet');
+      if (sheet) sheet.style.transform = '';
+      if (overlay) overlay.classList.remove('open');
+      if (sheet) sheet.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    (function bindCrossSell() {
+      var overlay = document.getElementById('crosssell-overlay');
+      var btnYes = document.getElementById('crosssell-yes');
+      var btnNo = document.getElementById('crosssell-no');
+      if (overlay) overlay.addEventListener('click', closeCrossSellSheet);
+      if (btnYes) {
+        btnYes.addEventListener('click', function() {
+          try { sessionStorage.setItem('option_h_came_from', 'transportation'); } catch(e) {}
+          window.location.href = 'polar-sound-accommodation.html?flow=option-h';
+        });
+      }
+      if (btnNo) {
+        btnNo.addEventListener('click', function() {
+          try { localStorage.setItem('cart_accommodation', '[]'); } catch(e) {}
+          window.location.href = 'cart.html?flow=option-h';
+        });
+      }
+    })();
+    // Swipe-to-dismiss for cross-sell sheet
+    (function() {
+      var sheetEl = document.getElementById('crosssell-sheet');
+      if (!sheetEl) return;
+      var startY = 0, currentY = 0, isDragging = false;
+      function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
+      function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)'; } }
+      function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeCrossSellSheet(); }
+      sheetEl.addEventListener('touchstart', function(e) { dragStart(e.touches[0].clientY); }, { passive: true });
+      sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
+      sheetEl.addEventListener('touchend', dragEnd);
+      sheetEl.addEventListener('mousedown', function(e) { e.preventDefault(); dragStart(e.clientY); });
+      document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
+      document.addEventListener('mouseup', dragEnd);
+    })();
   </script>
   <script>
     (function(){

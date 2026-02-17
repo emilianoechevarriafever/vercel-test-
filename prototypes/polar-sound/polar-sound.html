@@ -709,11 +709,12 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g')) flow = storedFlow;
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h')) flow = storedFlow;
     const isOptionE = flow === 'option-e';
     const isOptionF = flow === 'option-f';
     const isOptionG = flow === 'option-g';
-    const isHubFlow = isOptionF || isOptionG;
+    const isOptionH = flow === 'option-h';
+    const isHubFlow = isOptionF || isOptionG || isOptionH;
     const isOptionalFlow = isOptionE || isHubFlow;
     const flowSuffix = isHubFlow ? '?flow=' + flow : '';
 
@@ -974,12 +975,14 @@
       if (btnAccommodation) {
         btnAccommodation.addEventListener('click', function() {
           try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          if (isOptionH) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
           window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
         });
       }
       if (btnTransport) {
         btnTransport.addEventListener('click', function() {
           try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
+          if (isOptionH) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
           window.location.href = 'polar-sound-transportations.html?flow=' + flow;
         });
       }
@@ -989,7 +992,7 @@
             localStorage.setItem('cart_accommodation', '[]');
             localStorage.setItem('cart_transportation', '[]');
           } catch (e) {}
-          window.location.href = isOptionG ? 'cart.html?flow=option-g' : 'checkout.html?flow=option-f';
+          window.location.href = (isOptionG || isOptionH) ? 'cart.html?flow=' + flow : 'checkout.html?flow=option-f';
         });
       }
     })();

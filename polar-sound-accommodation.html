@@ -566,7 +566,16 @@
           nextUrl = 'polar-sound-transportations.html' + (flow ? '?flow=' + flow : '');
         }
         if (isHubFlow) {
-          try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          // For option-h, only clear transportation if user came from hub (not from transportation cross-sell)
+          if (isOptionH) {
+            var cameFromForClear = '';
+            try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+            if (cameFromForClear !== 'transportation') {
+              try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+            }
+          } else {
+            try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          }
         }
         window.location.href = nextUrl;
       }
