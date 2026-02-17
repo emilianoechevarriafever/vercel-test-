@@ -513,7 +513,7 @@
 
     <!-- Hero Gallery -->
     <div class="hero">
-      <img class="hero-bg" src="https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg" alt="Candlelight Coldplay Concert">
+      <img class="hero-bg" src="https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/2226d752-139c-11f0-a13b-a290fe7a90ab.jpg" alt="Candlelight Coldplay Concert">
       <div class="side-buttons">
         <button class="side-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -529,10 +529,6 @@
         </button>
         <div class="slide-indicators">
           <div class="bar active"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
@@ -808,6 +804,47 @@
       </div>
     </div>
 
-  </div>
+    </div>
+  <script>
+    (function () {
+      var hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      var heroImage = hero.querySelector('.hero-bg');
+      var indicatorBars = hero.querySelectorAll('.slide-indicators .bar');
+      if (!heroImage || !indicatorBars.length) return;
+
+      var galleryImages = [
+        'https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/2226d752-139c-11f0-a13b-a290fe7a90ab.jpg',
+        'https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/22127d52-139c-11f0-a13b-a290fe7a90ab.jpg',
+        'https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/223169e2-139c-11f0-a13b-a290fe7a90ab.jpg',
+        'https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/223cedbc-139c-11f0-a13b-a290fe7a90ab.jpg',
+        'https://applications-media.feverup.com/image/upload/f_auto,w_800,h_600,c_fill/fever2/plan/photo/2241fa96-139c-11f0-a13b-a290fe7a90ab.jpg'
+      ];
+      var currentIndex = 0;
+
+      function renderGallery() {
+        heroImage.src = galleryImages[currentIndex];
+        heroImage.alt = 'Candlelight Coldplay Concert image ' + (currentIndex + 1);
+        indicatorBars.forEach(function (bar, index) {
+          bar.classList.toggle('active', index === currentIndex);
+        });
+      }
+
+      hero.addEventListener('click', function (event) {
+        if (event.target.closest('.side-buttons') || event.target.closest('.gallery-btn')) return;
+        var heroRect = hero.getBoundingClientRect();
+        var clickedOnRightHalf = (event.clientX - heroRect.left) > heroRect.width / 2;
+        if (clickedOnRightHalf) {
+          currentIndex = (currentIndex + 1) % galleryImages.length;
+        } else {
+          currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        }
+        renderGallery();
+      });
+
+      renderGallery();
+    })();
+  </script>
 </body>
 </html>
