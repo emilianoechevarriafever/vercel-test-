@@ -31,10 +31,12 @@
     '.burger-toggle .icon-close{display:none}' +
     '.phone.is-menu-open .burger-toggle .icon-menu{display:none}' +
     '.phone.is-menu-open .burger-toggle .icon-close{display:block}' +
-    '.burger-menu-panel{background:#fafbfb;max-height:0;overflow:hidden;opacity:0;' +
-      'transform:translateY(-12px);' +
+    '.burger-menu-backdrop{position:fixed;inset:0;background:rgba(3,20,25,0.35);opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:99}' +
+    '.burger-menu-backdrop.open{opacity:1;pointer-events:auto}' +
+    '.burger-menu-panel{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-12px);width:393px;max-width:100vw;' +
+      'background:#fafbfb;max-height:0;overflow:hidden;opacity:0;z-index:100;' +
       'transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .3s ease,transform .35s cubic-bezier(.4,0,.2,1)}' +
-    '.phone.is-menu-open .burger-menu-panel{max-height:calc(100vh - 63px);overflow-y:auto;opacity:1;transform:translateY(0)}' +
+    '.burger-menu-panel.open{max-height:calc(100vh - 63px);overflow-y:auto;opacity:1;transform:translateX(-50%) translateY(0)}' +
     '.burger-location-lang{height:44px;border-top:1px solid #E6EAEE;border-bottom:1px solid #E6EAEE;background:#fff;padding:0 8px;display:flex;align-items:center;justify-content:space-between}' +
     '.burger-location{display:inline-flex;align-items:center;gap:6px;font-size:16px}' +
     '.burger-location span{font-size:16px;line-height:24px;font-weight:500;color:#031419}' +
@@ -149,28 +151,53 @@
     }
   }
 
-  /* ── Inject panel after <nav> (inside .phone / sticky-header) ── */
-  var stickyHeader = navbar.closest('.sticky-header');
-  var insertAfter = stickyHeader || navbar;
-  insertAfter.insertAdjacentHTML('afterend', panelHTML);
+  /* ── Inject backdrop + panel into <body> (fixed overlay) ── */
+  var backdrop = document.createElement('div');
+  backdrop.className = 'burger-menu-backdrop';
+  backdrop.id = 'burger-menu-backdrop';
+  document.body.appendChild(backdrop);
+
+  document.body.insertAdjacentHTML('beforeend', panelHTML);
+
+  /* ── Position panel below the sticky header ── */
+  var panel = document.getElementById('burger-menu-panel');
+  if (!panel) return;
+
+  function positionPanel() {
+    var stickyHeader = document.querySelector('.sticky-header');
+    var ref = stickyHeader || navbar;
+    var rect = ref.getBoundingClientRect();
+    panel.style.top = rect.bottom + 'px';
+  }
 
   /* ── Toggle logic ── */
   var phone = document.querySelector('.phone');
-  var panel = document.getElementById('burger-menu-panel');
-  if (!phone || !panel) return;
+  var isOpen = false;
 
-  var savedScrollY = 0;
+  function openMenu() {
+    isOpen = true;
+    positionPanel();
+    phone && phone.classList.add('is-menu-open');
+    panel.classList.add('open');
+    backdrop.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'Close menu');
+    panel.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    phone && phone.classList.remove('is-menu-open');
+    panel.classList.remove('open');
+    backdrop.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
   btn.addEventListener('click', function () {
-    var wasOpen = phone.classList.contains('is-menu-open');
-    if (!wasOpen) savedScrollY = window.scrollY;
-    var isOpen = phone.classList.toggle('is-menu-open');
-    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-    if (!isOpen) {
-      document.documentElement.style.scrollBehavior = 'auto';
-      window.scrollTo(0, savedScrollY);
-      document.documentElement.style.scrollBehavior = '';
-    }
+    if (isOpen) closeMenu(); else openMenu();
   });
+
+  backdrop.addEventListener('click', closeMenu);
 })();

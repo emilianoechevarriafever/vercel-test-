@@ -96,29 +96,32 @@
     .avatar-wrap img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
     .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
 
-    .burger-menu-panel {
-      background: #fafbfb;
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(-12px);
-      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
-                  opacity 0.3s ease,
-                  transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    .burger-menu-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(3,20,25,0.35);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 99;
     }
-    .phone.is-menu-open .burger-menu-panel {
+    .burger-menu-backdrop.open { opacity: 1; pointer-events: auto; }
+    .burger-menu-panel {
+      position: fixed;
+      top: 0; left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      width: 393px; max-width: 100vw;
+      background: #fafbfb;
+      max-height: 0; overflow: hidden;
+      opacity: 0; z-index: 100;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1),
+                  opacity .3s ease,
+                  transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .burger-menu-panel.open {
       max-height: calc(100vh - 63px);
       overflow-y: auto;
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
     }
-    .phone.is-menu-open .hero,
-    .phone.is-menu-open .section,
-    .phone.is-menu-open .cities-section,
-    .phone.is-menu-open .app-banner,
-    .phone.is-menu-open .selling-point,
-    .phone.is-menu-open .seo-text,
-    .phone.is-menu-open .footer { display: none; }
 
     .burger-location-lang {
       height: 40px;
@@ -1128,6 +1131,8 @@
 
   </div>
 
+  <div class="burger-menu-backdrop" id="burger-menu-backdrop"></div>
+
   <div class="snackbar" id="fav-snackbar">
     <img class="snackbar-thumb" id="snackbar-thumb" src="" alt="">
     <span class="snackbar-text">Added to favorites</span>
@@ -1139,24 +1144,40 @@
       var phone = document.querySelector('.phone');
       var burgerToggle = document.querySelector('.js-burger-toggle');
       var burgerPanel = document.getElementById('burger-menu-panel');
-      if (phone && burgerToggle && burgerPanel) {
-        var savedScrollY = 0;
-        burgerToggle.addEventListener('click', function() {
-          var wasOpen = phone.classList.contains('is-menu-open');
-          if (!wasOpen) {
-            savedScrollY = window.scrollY;
-          }
-          var isOpen = phone.classList.toggle('is-menu-open');
-          burgerToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-          burgerToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-          burgerPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-          if (!isOpen) {
-            document.documentElement.style.scrollBehavior = 'auto';
-            window.scrollTo(0, savedScrollY);
-            document.documentElement.style.scrollBehavior = '';
-          }
-        });
+      var backdrop = document.getElementById('burger-menu-backdrop');
+      if (!burgerToggle || !burgerPanel) return;
+      var menuOpen = false;
+
+      function positionPanel() {
+        var stickyHeader = document.querySelector('.sticky-header');
+        var ref = stickyHeader || document.querySelector('.navbar');
+        if (ref) {
+          burgerPanel.style.top = ref.getBoundingClientRect().bottom + 'px';
+        }
       }
+      function openMenu() {
+        menuOpen = true;
+        positionPanel();
+        if (phone) phone.classList.add('is-menu-open');
+        burgerPanel.classList.add('open');
+        if (backdrop) backdrop.classList.add('open');
+        burgerToggle.setAttribute('aria-expanded', 'true');
+        burgerToggle.setAttribute('aria-label', 'Close menu');
+        burgerPanel.setAttribute('aria-hidden', 'false');
+      }
+      function closeMenu() {
+        menuOpen = false;
+        if (phone) phone.classList.remove('is-menu-open');
+        burgerPanel.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('open');
+        burgerToggle.setAttribute('aria-expanded', 'false');
+        burgerToggle.setAttribute('aria-label', 'Open menu');
+        burgerPanel.setAttribute('aria-hidden', 'true');
+      }
+      burgerToggle.addEventListener('click', function() {
+        if (menuOpen) closeMenu(); else openMenu();
+      });
+      if (backdrop) backdrop.addEventListener('click', closeMenu);
     })();
 
     (function() {
