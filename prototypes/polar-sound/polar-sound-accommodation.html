@@ -416,12 +416,14 @@
     let flow = params.get('flow');
     let storedFlow = null;
     try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h')) flow = storedFlow;
+    if (!flow && (storedFlow === 'option-e' || storedFlow === 'option-f' || storedFlow === 'option-g' || storedFlow === 'option-h' || storedFlow === 'option-i')) flow = storedFlow;
     const isOptionE = flow === 'option-e';
     const isOptionF = flow === 'option-f';
     const isOptionG = flow === 'option-g';
     const isOptionH = flow === 'option-h';
-    const isHubFlow = isOptionF || isOptionG || isOptionH;
+    const isOptionI = flow === 'option-i';
+    const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
+    const isCrossSellFlow = isOptionH || isOptionI;
     if (isOptionG) {
       var cartLink = document.getElementById('nav-cart-link');
       if (cartLink) { cartLink.style.display = ''; cartLink.href = 'cart.html?flow=option-g'; }
@@ -433,14 +435,35 @@
     if (isOptionalFlow) {
       var accommodationLogoLink = document.getElementById('nav-logo-link');
       if (accommodationLogoLink) accommodationLogoLink.href = flow + '/';
-      var accommodationStepper = document.querySelector('.flow-stepper');
-      if (accommodationStepper) accommodationStepper.style.display = 'none';
+      if (!isCrossSellFlow) {
+        var accommodationStepper = document.querySelector('.flow-stepper');
+        if (accommodationStepper) accommodationStepper.style.display = 'none';
+      }
       var step1 = document.getElementById('stepper-step1');
       var step3 = document.getElementById('stepper-step3');
       var step4 = document.getElementById('stepper-step4');
       if (step1) step1.href = 'polar-sound.html?flow=' + flow + '#ticket-section';
       if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
       if (step4) step4.href = 'checkout.html?flow=' + flow;
+    }
+
+    // Option H/I: rebuild stepper dynamically based on user's path
+    if (isCrossSellFlow) {
+      var hCameFrom = '';
+      try { hCameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
+      var stepperEl = document.querySelector('.flow-stepper');
+      if (stepperEl) {
+        var lastLabel = isOptionI ? 'Cart' : 'Checkout';
+        var lastHref = isOptionI ? 'cart.html?flow=option-i' : 'checkout.html?flow=option-h';
+        var html = '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
+        if (hCameFrom === 'transportation') {
+          html += '<a href="polar-sound-transportations.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Transport</span></a>';
+        }
+        html += '<div class="step current"><span class="dot"></span><span class="label">Accommodation</span></div>';
+        html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
+        stepperEl.innerHTML = html;
+        stepperEl.style.display = '';
+      }
     }
 
     document.getElementById('sticky-btn').textContent = 'Select accommodations';
@@ -602,8 +625,8 @@
           localStorage.setItem('cart_accommodation', '[]');
         }
 
-        // Option H: show cross-sell bottom sheet if user came from hub (not from transportation)
-        if (isOptionH) {
+        // Option H/I: show cross-sell bottom sheet if user came from hub (not from transportation)
+        if (isCrossSellFlow) {
           var cameFrom = '';
           try { cameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
           if (cameFrom !== 'transportation') {
@@ -613,16 +636,20 @@
         }
 
         var nextUrl;
-        if (isOptionG || isOptionH) {
-          nextUrl = 'cart.html?flow=' + flow;
+        if (isOptionI) {
+          nextUrl = 'cart.html?flow=option-i';
+        } else if (isOptionG) {
+          nextUrl = 'cart.html?flow=option-g';
+        } else if (isOptionH) {
+          nextUrl = 'checkout.html?flow=option-h';
         } else if (isOptionF) {
           nextUrl = 'checkout.html?flow=option-f';
         } else {
           nextUrl = 'polar-sound-transportations.html' + (flow ? '?flow=' + flow : '');
         }
         if (isHubFlow) {
-          // For option-h, only clear transportation if user came from hub (not from transportation cross-sell)
-          if (isOptionH) {
+          // For option-h/i, only clear transportation if user came from hub (not from transportation cross-sell)
+          if (isCrossSellFlow) {
             var cameFromForClear = '';
             try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
             if (cameFromForClear !== 'transportation') {
