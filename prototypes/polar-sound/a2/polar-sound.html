@@ -479,7 +479,7 @@
 
       <!-- Panel: Day Ticket -->
       <div class="ticket-panel" id="panel-day" data-panel="day">
-        <div class="ticket-row selected">
+        <div class="ticket-row qty-zero">
           <div class="ticket-content">
             <div class="ticket-name">Friday - Tier 1</div>
             <div class="ticket-price">&euro;45.00</div>
@@ -488,7 +488,7 @@
           <div class="ticket-selector-right">
             <div class="stepper ticket-amount">
               <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">1</span>
+              <span class="amt-count">0</span>
               <button class="amt-btn plus">+</button>
             </div>
           </div>
@@ -540,7 +540,7 @@
 
       <!-- Panel: 2 Day Pass -->
       <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
-        <div class="ticket-row selected">
+        <div class="ticket-row qty-zero">
           <div class="ticket-content">
             <div class="ticket-name">General - Tier 5</div>
             <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
@@ -556,7 +556,7 @@
           <div class="ticket-selector-right">
             <div class="stepper ticket-amount">
               <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">1</span>
+              <span class="amt-count">0</span>
               <button class="amt-btn plus">+</button>
             </div>
           </div>
@@ -1035,6 +1035,7 @@
 
     bindSteppers(document.getElementById('panel-day'));
     bindSteppers(document.getElementById('panel-2day'));
+    updateTotal();
 
     // 2 Day Pass: More info / Less info toggle (independent per ticket row)
     document.getElementById('panel-2day').addEventListener('click', function(e) {
@@ -1055,7 +1056,7 @@
         const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
         document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
         document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
-        preselectCheapest();
+        updateTotal();
       });
     });
 
@@ -1070,9 +1071,6 @@
       });
       updateTotal();
     }
-
-    // Always pre-select the first ticket in the active panel on page load
-    preselectCheapest();
 
     // Show pills arrow only when there is overflow to the right
     function updatePillsArrow() {

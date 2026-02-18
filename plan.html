@@ -949,7 +949,6 @@
       pillsRow.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.remove('active'); });
       pill.classList.add('active');
       panelsEl.querySelectorAll('.ticket-panel').forEach(function(p) { p.style.display = p.getAttribute('data-panel') === pill.getAttribute('data-panel') ? '' : 'none'; });
-      preselectFirst();
       updateStickyBtn();
     });
 
@@ -965,7 +964,6 @@
         });
       });
     }
-    preselectFirst();
 
     var buyBtn = document.getElementById('buy-btn');
     var stickyBtn = document.getElementById('sticky-btn');

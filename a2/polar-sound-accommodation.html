@@ -756,21 +756,7 @@
     // Initial render
     renderNamePills();
 
-    // Pre-select first available room if nothing is selected
-    (function preselectFirstRoom() {
-      var hasSelection = Object.keys(roomCounts).some(function(k) { return roomCounts[k] > 0; });
-      if (hasSelection) return;
-      var rooms = getCurrentRooms();
-      for (var i = 0; i < rooms.length; i++) {
-        if (!rooms[i].soldout) {
-          roomCounts[i] = 1;
-          hasSeenTickets = true;
-          stickyMode = 'getit';
-          break;
-        }
-      }
-      renderRooms();
-    })();
+    renderRooms();
 
     updatePillsArrows();
     window.addEventListener('resize', updatePillsArrows);

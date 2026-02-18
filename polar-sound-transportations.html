@@ -619,12 +619,6 @@
       } catch (e) {}
     })();
 
-    // Pre-select first transport option if nothing is selected (only for non-root flows)
-    if (flow && !counts.some(function(c) { return c > 0; })) {
-      counts[0] = 1;
-      hasSeenTransport = true;
-      stickyMode = 'continue';
-    }
 
     render();
     // Scroll to transport selector on load without animation (no visible autoscroll from hero).
