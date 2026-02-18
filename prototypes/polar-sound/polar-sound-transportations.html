@@ -372,7 +372,6 @@
     }
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'a2/index.html';
-      document.getElementById('nav-logo-img').src = '../img/fever-logo.svg';
     } else if (isHubFlow) {
       document.getElementById('nav-logo').href = flow + '/';
     } else {
@@ -608,7 +607,7 @@
       }
     });
 
-    var isDefaultFlow = !flow || flow === 'a1';
+    var isDefaultFlow = !flow || flow === 'a1' || flow === 'a2';
 
     // Restore transport selections from cart (persisted across step navigation)
     (function restoreTransportFromCart() {

@@ -665,10 +665,12 @@
         if (!room.soldout) {
           row.querySelector('.amt-btn.plus').addEventListener('click', () => {
             roomCounts[i]++;
+            saveAccommodationToCart();
             renderRooms();
           });
           row.querySelector('.amt-btn.minus').addEventListener('click', () => {
             if (roomCounts[i] > 0) roomCounts[i]--;
+            saveAccommodationToCart();
             renderRooms();
           });
         }
@@ -751,6 +753,11 @@
         stickyMode = 'getit';
       } catch (e) {}
     })();
+
+    // Show "Skip hotel" / "Add it" CTA immediately (same logic as a1)
+    hasSeenTickets = true;
+    stickyMode = 'getit';
+    updateSticky();
 
     // Initial render
     renderNamePills();
