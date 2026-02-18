@@ -747,10 +747,12 @@
         if (!room.soldout) {
           row.querySelector('.amt-btn.plus').addEventListener('click', () => {
             roomCounts[i]++;
+            saveAccommodationToCart();
             renderRooms();
           });
           row.querySelector('.amt-btn.minus').addEventListener('click', () => {
             if (roomCounts[i] > 0) roomCounts[i]--;
+            saveAccommodationToCart();
             renderRooms();
           });
         }
@@ -844,15 +846,8 @@
 
     renderRooms();
 
-    // Clicking stepper Transport should NOT save accommodation to cart
-    (function() {
-      var step3Link = document.getElementById('stepper-step3');
-      if (step3Link) {
-        step3Link.addEventListener('click', function() {
-          try { localStorage.setItem('cart_accommodation', '[]'); } catch(e) {}
-        });
-      }
-    })();
+    // Selections are auto-saved on every count change, so navigating
+    // to Transport via stepper preserves the user's hotel choices.
 
     updatePillsArrows();
     window.addEventListener('resize', updatePillsArrows);

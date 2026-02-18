@@ -495,6 +495,7 @@
             if (opt.price === 0 && counts[i] > 0) {
               counts = counts.map((_, j) => j === i ? 1 : 0);
             }
+            saveTransportToCart();
             render();
             updateSticky();
           });
@@ -547,13 +548,17 @@
     }, { threshold: 0.1 });
     transportObs.observe(transportSection);
 
-    function saveAndRedirect() {
+    function saveTransportToCart() {
       const cart = [];
       TRANSPORT_OPTIONS.forEach((opt, i) => {
         const qty = counts[i] || 0;
         if (qty > 0) cart.push({ name: opt.name, detail: opt.detail || '', price: opt.price, qty });
       });
       localStorage.setItem('cart_transportation', JSON.stringify(cart));
+    }
+
+    function saveAndRedirect() {
+      saveTransportToCart();
 
       // Option H/I: show cross-sell bottom sheet if user came from hub (not from accommodation)
       if (isCrossSellFlow) {
@@ -603,15 +608,10 @@
       }
     });
 
-    // Flow a1 (default "without cart"): start clean — no preselected transport
     var isDefaultFlow = !flow || flow === 'a1';
-    if (isDefaultFlow) {
-      try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
-    }
 
-    // Restore transport selections from cart (if user navigates back in other flows)
+    // Restore transport selections from cart (persisted across step navigation)
     (function restoreTransportFromCart() {
-      if (isDefaultFlow) return;
       try {
         var saved = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
         if (!Array.isArray(saved) || saved.length === 0) return;
@@ -627,7 +627,7 @@
       } catch (e) {}
     })();
 
-    // For a1/default flow, show "Skip transport" immediately
+    // For a1/default flow, always enable the "Skip transport" / "Add it" CTA
     if (isDefaultFlow) {
       hasSeenTransport = true;
       stickyMode = 'continue';
