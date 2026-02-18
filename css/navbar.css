@@ -31,7 +31,7 @@
 .nav-icons svg {
   height: 22px;
   width: auto;
-  color: var(--color-text, #031419);
+  color: var(--color-text-main, #031419);
 }
 
 /* Nuclear reset: strips every browser-default from <a> AND <button> */
