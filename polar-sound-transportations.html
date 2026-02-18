@@ -630,6 +630,13 @@
       document.documentElement.style.scrollBehavior = '';
     }, 50);
 
+    // Flow a1 (default): show "Skip transport" CTA immediately (no transport preselected)
+    if (!flow) {
+      hasSeenTransport = true;
+      stickyMode = 'continue';
+      updateSticky();
+    }
+
     // === Cross-sell bottom sheet (Option H) ===
     function openCrossSellSheet() {
       var overlay = document.getElementById('crosssell-overlay');
