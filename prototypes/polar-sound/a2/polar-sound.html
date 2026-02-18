@@ -901,6 +901,15 @@
     const stickyBtn = document.getElementById('sticky-btn');
     const inlineCta = document.getElementById('cta-get-it');
     const ticketSection = document.getElementById('ticket-section');
+
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
     let stickyMode = 'tickets'; // 'tickets' or 'getit'
     let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
@@ -926,7 +935,7 @@
 
     stickyBtn.addEventListener('click', () => {
       if (stickyMode === 'tickets') {
-        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTicketSection('smooth');
       } else {
         // Save ticket selections to localStorage before navigating
         saveTicketsToCart();
@@ -1076,12 +1085,14 @@
     window.addEventListener('resize', updatePillsArrow);
 
     if (window.location.hash === '#ticket-section') {
-      var el = document.getElementById('ticket-section');
-      if (el) {
-        document.documentElement.style.scrollBehavior = 'auto';
-        el.scrollIntoView({ behavior: 'instant', block: 'start' });
-        requestAnimationFrame(function() { document.documentElement.style.scrollBehavior = ''; });
-      }
+      document.documentElement.style.scrollBehavior = 'auto';
+      requestAnimationFrame(function() {
+        scrollToTicketSection('auto');
+        setTimeout(function() {
+          scrollToTicketSection('auto');
+          document.documentElement.style.scrollBehavior = '';
+        }, 120);
+      });
     }
   </script>
   <script>

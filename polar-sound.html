@@ -825,6 +825,15 @@
     let stickyMode = 'tickets'; // 'tickets' or 'getit'
     let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
+
     // Intersection Observer: detect when ticket section is visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -848,7 +857,7 @@
     stickyBtn.addEventListener('click', () => {
       const total = getTotal();
       if (stickyMode === 'tickets') {
-        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTicketSection('smooth');
         if (total > 0) {
           stickyMode = 'getit';
           updateStickyBtn();
@@ -1072,12 +1081,14 @@
     })();
 
     if (window.location.hash === '#ticket-section') {
-      var el = document.getElementById('ticket-section');
-      if (el) {
-        document.documentElement.style.scrollBehavior = 'auto';
-        el.scrollIntoView({ behavior: 'instant', block: 'start' });
-        requestAnimationFrame(function() { document.documentElement.style.scrollBehavior = ''; });
-      }
+      document.documentElement.style.scrollBehavior = 'auto';
+      requestAnimationFrame(function() {
+        scrollToTicketSection('auto');
+        setTimeout(function() {
+          scrollToTicketSection('auto');
+          document.documentElement.style.scrollBehavior = '';
+        }, 120);
+      });
     }
 
     /* ── Hero Gallery Carousel ── */

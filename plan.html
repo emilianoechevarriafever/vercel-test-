@@ -973,6 +973,15 @@
     var stickyMode = 'tickets';
     var hasSeenTickets = false;
 
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
+
     // Hide inline CTA since sticky handles it
     buyBtn.style.display = 'none';
 
@@ -1034,7 +1043,7 @@
     stickyBtn.addEventListener('click', function() {
       var total = getTotal();
       if (stickyMode === 'tickets') {
-        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTicketSection('smooth');
         if (total > 0) {
           stickyMode = 'getit';
           updateStickyBtn();

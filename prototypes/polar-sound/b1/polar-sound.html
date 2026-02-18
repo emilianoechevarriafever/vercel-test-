@@ -925,6 +925,15 @@
     const stickyBtn = document.getElementById('sticky-btn');
     const inlineCta = document.getElementById('cta-get-it');
     const ticketSection = document.getElementById('ticket-section');
+
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
     let stickyMode = 'tickets'; // 'tickets' or 'getit'
     let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
@@ -950,7 +959,7 @@
 
     stickyBtn.addEventListener('click', () => {
       if (stickyMode === 'tickets') {
-        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTicketSection('smooth');
       } else {
         saveTicketsToCart();
         openSheet('sheet-acc');

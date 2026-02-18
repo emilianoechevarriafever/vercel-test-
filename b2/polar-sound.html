@@ -830,6 +830,15 @@
     let stickyMode = 'tickets'; // 'tickets' or 'getit'
     let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
+
     // Intersection Observer: detect when ticket section is visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -852,7 +861,7 @@
 
     stickyBtn.addEventListener('click', () => {
       if (stickyMode === 'tickets') {
-        ticketSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTicketSection('smooth');
       } else {
         saveTicketsToCart();
         openSheet('sheet-acc');
