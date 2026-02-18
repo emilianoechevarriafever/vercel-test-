@@ -288,12 +288,13 @@
 
     document.getElementById('btn-checkout').addEventListener('click', function() {
       if (!hasAnyCartItems()) {
-        window.location.href = 'polar-sound.html#ticket-section';
+        window.location.href = (window.flowHref||function(u){return u})('polar-sound.html#ticket-section');
         return;
       }
       try { sessionStorage.setItem('checkout_scroll_target', 'payment'); } catch (e) {}
-      window.location.href = 'checkout.html';
+      window.location.href = (window.flowHref||function(u){return u})('checkout.html');
     });
   </script>
+  <script src="../../../js/flow-param.js"></script>
 </body>
 </html>

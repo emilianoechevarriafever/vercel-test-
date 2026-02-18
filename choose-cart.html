@@ -113,28 +113,28 @@
       var config = {
         mandatory: {
           title: 'Mandatory PV sequence',
-          without: 'home.html',
-          with: 'a2/'
+          without: 'home.html?flow=a1',
+          with: 'a2/?flow=a2'
         },
         addons: {
           title: 'Add-ons via bottom sheets',
-          without: 'b1/',
-          with: 'b2/'
+          without: 'b1/?flow=b1',
+          with: 'b2/?flow=b2'
         },
         optional: {
           title: 'Optional PV sequence',
-          without: 'c1/',
-          with: 'c2/'
+          without: 'c1/?flow=c1',
+          with: 'c2/?flow=c2'
         },
         hub: {
           title: 'One-step add-on hub',
-          without: 'd1/',
-          with: 'd2/'
+          without: 'd1/?flow=d1',
+          with: 'd2/?flow=d2'
         },
         crosssell: {
           title: 'Cross-sell bottom sheets after each add-on',
-          without: 'e1/',
-          with: 'e2/'
+          without: 'e1/?flow=e1',
+          with: 'e2/?flow=e2'
         }
       };
 
@@ -148,5 +148,6 @@
       document.getElementById('with-cart-link').href = config[flow].with;
     })();
   </script>
+  <script src="js/flow-param.js"></script>
 </body>
 </html>

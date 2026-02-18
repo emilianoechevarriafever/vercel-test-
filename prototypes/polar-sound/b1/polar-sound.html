@@ -572,7 +572,7 @@
       </div>
 
       <!-- CTA buttons -->
-      <button class="cta-primary" id="cta-get-it" onclick="window.location.href='add-ons.html'">&euro;45.00 &mdash; Get it</button>
+      <button class="cta-primary" id="cta-get-it" onclick="window.location.href=(window.flowHref||function(u){return u})('add-ons.html')">&euro;45.00 &mdash; Get it</button>
     </div>
 
     <!-- User Reviews -->
@@ -1202,7 +1202,7 @@
         }
       });
       localStorage.setItem('cart_transportation', JSON.stringify(tr));
-      window.location.href = 'checkout.html';
+      window.location.href = (window.flowHref||function(u){return u})('checkout.html');
     });
   </script>
   <script>
@@ -1368,5 +1368,6 @@
     })();
   </script>
   <script>if(localStorage.getItem('fever_logged_in')==='true'){var a=document.querySelector('.avatar-wrap');if(a){a.classList.add('logged-in');a.classList.remove('logged-out');a.href='../profile.html';}}</script>
+  <script src="../../../js/flow-param.js"></script>
 </body>
 </html>

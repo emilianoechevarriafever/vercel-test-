@@ -347,7 +347,7 @@
         sheet.classList.remove('open');
         backdrop.classList.remove('open');
         setTimeout(function() {
-          window.location.href = 'home.html';
+          window.location.href = (window.flowHref||function(u){return u})('home.html');
         }, 360);
       });
 
@@ -361,5 +361,6 @@
       updateAvatar();
     })();
   </script>
+  <script src="js/flow-param.js"></script>
 </body>
 </html>

@@ -599,7 +599,7 @@
       </div>
 
       <!-- CTA (sticky handles click; this is fallback) -->
-      <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href='polar-sound-accommodation.html'">&euro;45.00 &mdash; Get it</button>
+      <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href=(window.flowHref||function(u){return u})('polar-sound-accommodation.html')">&euro;45.00 &mdash; Get it</button>
     </div>
 
     <!-- User Reviews -->
@@ -889,7 +889,7 @@
     const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
     const isCrossSellFlow = isOptionH || isOptionI;
     const isOptionalFlow = isOptionE || isHubFlow;
-    const flowSuffix = isHubFlow ? '?flow=' + flow : '';
+    const flowSuffix = flow ? '?flow=' + flow : '';
 
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
@@ -1343,5 +1343,6 @@
     })();
   </script>
   <script>if(localStorage.getItem('fever_logged_in')==='true'){var a=document.querySelector('.avatar-wrap');if(a){a.classList.add('logged-in');a.classList.remove('logged-out');a.href='profile.html';}}</script>
+  <script src="../../js/flow-param.js"></script>
 </body>
 </html>
