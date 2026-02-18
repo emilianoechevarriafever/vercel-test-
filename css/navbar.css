@@ -1,0 +1,112 @@
+/*  Shared navbar stabilisation
+    Every icon container is a fixed 24×24 box so icons never shift
+    between pages regardless of SVG aspect-ratio or dynamic injection. */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e6eaee;
+}
+.navbar .logo-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navbar .logo-link img {
+  height: 38px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-icon-btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+.nav-icon-btn svg {
+  height: 24px;
+  width: auto;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.avatar-wrap img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.avatar-wrap .avatar-placeholder {
+  display: none;
+}
+.avatar-wrap.logged-in::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  background: #22ad5c;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+}
+.avatar-wrap.logged-out img {
+  display: none;
+}
+.avatar-wrap.logged-out .avatar-placeholder {
+  display: flex;
+}
+
+/* Burger toggle — fixed 24×24 so swap doesn't shift neighbours */
+.burger-toggle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+.burger-toggle svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.burger-toggle .icon-close {
+  display: none;
+}
+.phone.is-menu-open .burger-toggle .icon-menu {
+  display: none;
+}
+.phone.is-menu-open .burger-toggle .icon-close {
+  display: block;
+}
