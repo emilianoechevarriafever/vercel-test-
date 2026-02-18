@@ -754,6 +754,8 @@
     // Entering the tickets page resets hotel/transport selections (fresh flow start)
     try { localStorage.removeItem('cart_accommodation'); } catch(e) {}
     try { localStorage.removeItem('cart_transportation'); } catch(e) {}
+    try { localStorage.removeItem('polar_sel_accommodation'); } catch(e) {}
+    try { localStorage.removeItem('polar_sel_transportation'); } catch(e) {}
 
     // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
     (function() {

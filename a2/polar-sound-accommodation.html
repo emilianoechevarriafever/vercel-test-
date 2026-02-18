@@ -539,15 +539,14 @@
       }
     });
 
-    function saveAccommodationToCart() {
-      const rooms = getCurrentRooms();
-      const cartAccommodation = [];
-      // Build context label
-      const travelLabel = document.querySelector('#level-travelers .ticket-pill.active')?.textContent || '';
-      const nightsLabel = document.querySelector('#level-nights .ticket-pill.active')?.textContent || '';
-      const hotelName = state.name || '';
-      rooms.forEach((room, i) => {
-        const qty = roomCounts[i] || 0;
+    function buildAccommodationCart() {
+      var rooms = getCurrentRooms();
+      var cartAccommodation = [];
+      var travelLabel = document.querySelector('#level-travelers .ticket-pill.active')?.textContent || '';
+      var nightsLabel = document.querySelector('#level-nights .ticket-pill.active')?.textContent || '';
+      var hotelName = state.name || '';
+      rooms.forEach(function(room, i) {
+        var qty = roomCounts[i] || 0;
         if (qty > 0 && !room.soldout) {
           cartAccommodation.push({
             name: room.name + ' — ' + hotelName,
@@ -557,7 +556,15 @@
           });
         }
       });
-      localStorage.setItem('cart_accommodation', JSON.stringify(cartAccommodation));
+      return cartAccommodation;
+    }
+
+    function saveAccommodationToCart() {
+      localStorage.setItem('cart_accommodation', JSON.stringify(buildAccommodationCart()));
+    }
+
+    function saveAccommodationSelection() {
+      localStorage.setItem('polar_sel_accommodation', JSON.stringify(buildAccommodationCart()));
     }
 
     function updateSticky() {
@@ -665,12 +672,12 @@
         if (!room.soldout) {
           row.querySelector('.amt-btn.plus').addEventListener('click', () => {
             roomCounts[i]++;
-            saveAccommodationToCart();
+            saveAccommodationSelection();
             renderRooms();
           });
           row.querySelector('.amt-btn.minus').addEventListener('click', () => {
             if (roomCounts[i] > 0) roomCounts[i]--;
-            saveAccommodationToCart();
+            saveAccommodationSelection();
             renderRooms();
           });
         }
@@ -729,6 +736,8 @@
       } else {
         try { localStorage.removeItem('cart_accommodation'); } catch(e) {}
         try { localStorage.removeItem('cart_transportation'); } catch(e) {}
+        try { localStorage.removeItem('polar_sel_accommodation'); } catch(e) {}
+        try { localStorage.removeItem('polar_sel_transportation'); } catch(e) {}
       }
     })();
 
@@ -739,10 +748,13 @@
       });
     });
 
-    // Restore accommodation selections from cart (if user navigates back)
-    (function restoreAccommodationFromCart() {
+    // Restore accommodation selections (visual persistence across step navigation)
+    (function restoreAccommodationSelection() {
       try {
-        var saved = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+        var saved = JSON.parse(localStorage.getItem('polar_sel_accommodation') || '[]');
+        if (!Array.isArray(saved) || saved.length === 0) {
+          saved = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+        }
         if (!Array.isArray(saved) || saved.length === 0) return;
         var first = saved[0];
         if (!first || !first.detail || !first.name) return;

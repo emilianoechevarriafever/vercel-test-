@@ -796,6 +796,8 @@
     if (!flow || flow === 'a1') {
       try { localStorage.removeItem('cart_accommodation'); } catch(e) {}
       try { localStorage.removeItem('cart_transportation'); } catch(e) {}
+      try { localStorage.removeItem('polar_sel_accommodation'); } catch(e) {}
+      try { localStorage.removeItem('polar_sel_transportation'); } catch(e) {}
     }
 
     if (isOptionalFlow) {
