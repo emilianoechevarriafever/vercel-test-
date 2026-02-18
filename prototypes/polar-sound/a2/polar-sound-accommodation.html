@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Occident - Polar Sound 2026: Accommodation</title>
+  <title>Occident - Polar Sound 2026: Hotel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -233,7 +233,7 @@
 
     <div class="flow-stepper">
       <a href="polar-sound.html#ticket-section" id="stepper-step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
-      <div class="step current"><span class="dot">2</span><span class="label">Accommodation</span></div>
+      <div class="step current"><span class="dot">2</span><span class="label">Hotel</span></div>
       <a href="../polar-sound-transportations.html?flow=a2" class="step"><span class="dot">3</span><span class="label">Transport</span></a>
       <a href="cart.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Cart</span></a>
     </div>
@@ -261,14 +261,14 @@
 
     <div class="title-section">
       <div class="tag-selling">Tickets Selling Fast</div>
-      <h1>Occident - Polar Sound 2026: Accommodation</h1>
+      <h1>Occident - Polar Sound 2026: Hotel</h1>
     </div>
 
     <div class="divider"></div>
 
     <div class="description">
-      <p>&#10071; <strong>By booking your accommodation you are also purchasing your 2-day festival pass.</strong></p>
-      <p>&#127915; Accommodation + Pass with 2-day access. Choose from travel options for 1 to 6 people, 2 or 3-night stays, and a wide variety of hotels and apartments.</p>
+      <p>&#10071; <strong>By booking your hotel you are also purchasing your 2-day festival pass.</strong></p>
+      <p>&#127915; Hotel + Pass with 2-day access. Choose from travel options for 1 to 6 people, 2 or 3-night stays, and a wide variety of hotels and apartments.</p>
       <p class="subtitle">&#127908; Daily line-up</p>
       <ul>
         <li><strong>Friday 13th:</strong> Lori Meyers, Silo&eacute;, Fuzz by Dj Nano, Leire Mart&iacute;nez, Paula Mattheus</li>
@@ -334,9 +334,9 @@
       <div class="legal"><a href="javascript:void(0)">Terms of Use</a> | <a href="javascript:void(0)">Privacy Policy</a> | <a href="javascript:void(0)">Cookies</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
     </div>
 
-    <!-- Sticky CTA: "Select accommodation" → scroll; then "Skip accommodation" or "€X — Add it" -->
+    <!-- Sticky CTA: "Select hotel" → scroll; then "Skip hotel" or "€X — Add it" -->
     <div class="sticky-cta">
-      <button class="cta-btn" id="sticky-btn">Select accommodation</button>
+      <button class="cta-btn" id="sticky-btn">Select hotel</button>
     </div>
   </div>
 
@@ -422,7 +422,7 @@
       startAutoplay();
     })();
 
-    document.getElementById('sticky-btn').textContent = 'Select accommodation';
+    document.getElementById('sticky-btn').textContent = 'Select hotel';
 
     function hasAnyCartItems() {
       var tickets = [], accommodation = [], transportation = [];
@@ -582,7 +582,7 @@
           updateSticky();
         } else if (!hasSeenTickets) {
           stickyMode = 'tickets';
-          stickyBtn.textContent = 'Select accommodation';
+          stickyBtn.textContent = 'Select hotel';
         } else {
           stickyMode = 'getit';
           updateSticky();
@@ -644,7 +644,7 @@
       if (total > 0) {
         stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Add it';
       } else {
-        stickyBtn.textContent = 'Skip accommodation';
+        stickyBtn.textContent = 'Skip hotel';
       }
     }
 
@@ -720,7 +720,7 @@
             <div class="ticket-name">${room.name}</div>
             <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
             <div class="ticket-info-detail">
-              <div class="ticket-info-intro">Accommodation for your trip, includes:</div>
+              <div class="ticket-info-intro">Hotel accommodation for your trip, includes:</div>
               <ul>
                 <li>2-day festival pass (access to both days)</li>
                 <li>Check-in from 15:00, check-out before 12:00</li>

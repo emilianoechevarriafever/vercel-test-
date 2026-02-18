@@ -190,7 +190,7 @@
     </nav>
     <div class="flow-stepper" id="flow-stepper">
       <a href="javascript:void(0)" id="step1" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>
-      <a href="javascript:void(0)" id="step2" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>
+      <a href="javascript:void(0)" id="step2" class="step done"><span class="dot"></span><span class="label">Hotel</span></a>
       <div class="step current"><span class="dot">3</span><span class="label">Transport</span></div>
       <a href="javascript:void(0)" id="step4" class="step"><span class="dot">4</span><span class="label" id="step4-label">Checkout</span></a>
     </div>
@@ -308,7 +308,7 @@
     <div class="crosssell-overlay" id="crosssell-overlay"></div>
     <div class="crosssell-sheet" id="crosssell-sheet">
       <div class="handle"></div>
-      <h3>Add accommodation?</h3>
+      <h3>Add hotel?</h3>
       <div class="hub-actions">
         <button type="button" class="hub-btn secondary" id="crosssell-yes"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg> See options</button>
         <button type="button" class="hub-btn primary" id="crosssell-no">Skip</button>
@@ -434,14 +434,14 @@
         if (hCameFrom === 'accommodation') {
           // Came from Accommodation cross-sell: Tickets ✓ → Accommodation ✓ → Transport ● → Checkout/Cart
           html += '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
-          html += '<a href="polar-sound-accommodation.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Accommodation</span></a>';
+          html += '<a href="polar-sound-accommodation.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Hotel</span></a>';
           html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
           html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
         } else {
           // Came from hub: Tickets ✓ → Transport ● → Accommodation (future) → Checkout/Cart
           html += '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
           html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
-          html += '<div class="step"><span class="dot"></span><span class="label">Accommodation</span></div>';
+          html += '<div class="step"><span class="dot"></span><span class="label">Hotel</span></div>';
           html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
         }
         stepperEl.innerHTML = html;
@@ -696,8 +696,8 @@
       } catch (e) {}
     })();
 
-    // Pre-select first transport option if nothing is selected
-    if (!counts.some(function(c) { return c > 0; })) {
+    // Pre-select first transport option if nothing is selected (only for non-root flows)
+    if (flow && !counts.some(function(c) { return c > 0; })) {
       counts[0] = 1;
       hasSeenTransport = true;
       stickyMode = 'continue';

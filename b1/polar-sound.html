@@ -413,7 +413,7 @@
 
       <p>&#128680; <strong>Passes now on sale!</strong> Lori Meyers, Juan Mag&aacute;n, Leire Mart&iacute;nez, Besmaya, and many more to be announced are waiting for you!</p>
 
-      <p>&#127976; Want a Pass + accommodation? <a href="add-ons.html">Click here</a></p>
+      <p>&#127976; Want a Pass + hotel? <a href="add-ons.html">Click here</a></p>
       <p>&#128656; Buy your bus and shuttle tickets to Polar Sound <a href="javascript:void(0)">here</a></p>
       <p>&#128176; Not ready to buy add-ons yet? Purchase them later separately <a href="javascript:void(0)">here</a></p>
 
@@ -612,7 +612,7 @@
           <div class="review-card-info"><div class="reviewer">Andrea K.</div><div class="review-date">Jan 2026</div></div>
         </div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-        <div class="review-text">Great atmosphere and beautiful setting. The accommodation packages made everything so easy. Only wish it was longer!</div>
+        <div class="review-text">Great atmosphere and beautiful setting. The hotel packages made everything so easy. Only wish it was longer!</div>
       </div>
       <div class="review-card">
         <div class="review-card-header">
@@ -734,12 +734,12 @@
     <div class="fs-gallery-thumbs" id="fsGalleryThumbs"></div>
   </div>
 
-  <!-- Bottom sheet 1: Accommodation (ticket selector only) -->
+  <!-- Bottom sheet 1: Hotel (ticket selector only) -->
   <div class="sheet-overlay" id="overlay-sheet-acc"></div>
   <div class="sheet" id="sheet-acc">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h2 class="sheet-title">Accommodation</h2>
+      <h2 class="sheet-title">Hotel</h2>
       <button type="button" class="sheet-close" id="sheet-acc-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     <div class="sheet-content">
@@ -982,7 +982,7 @@
     updatePillsArrow();
     window.addEventListener('resize', updatePillsArrow);
 
-    // === BOTTOM SHEETS: Accommodation → Transport → Checkout ===
+    // === BOTTOM SHEETS: Hotel → Transport → Checkout ===
     function openSheet(id) {
       document.getElementById('overlay-' + id).classList.add('open');
       document.getElementById(id).classList.add('open');
