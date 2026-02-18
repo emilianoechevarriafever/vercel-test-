@@ -70,8 +70,9 @@
     html.u-in .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
     html.u-in .avatar-wrap img{display:block}
     html.u-in .avatar-wrap .avatar-placeholder{display:none}
-    /* === HERO GALLERY CAROUSEL === */
+    /* === HERO GALLERY (Figma Channel Filter 778-26710) === */
     .hero { position:relative; width:100%; height:390px; overflow:hidden; }
+    /* === HERO GALLERY CAROUSEL === */
     .hero .carousel-track { display:flex; height:100%; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); }
     .hero .carousel-slide { min-width:100%; height:100%; }
     .hero .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
@@ -102,7 +103,7 @@
       color: #031419;
     }
     .tag-selling { margin-bottom: 12px; }
-    /* Below ticket selector: Figma 778-27021 (Channel Filter) — light peach bg, flame icon, dark gray text */
+    /* Below ticket selector: Figma 498-6430 — light peach bg, flame icon, dark gray text */
     .selling-fast-banner {
       display: flex; align-items: center; gap: 10px;
       margin: 16px 0 20px; padding: 12px 16px;
@@ -128,7 +129,7 @@
     .section-header h2 { font-size:20px; font-weight:700; line-height:24px; flex:1; }
 
     /* === TICKET SELECTOR === */
-    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); overflow:visible; }
 
     /* No booking fees banner */
     .no-fees-banner { display:flex; align-items:center; justify-content:center; gap:8px; background:#f0ebfd; border-radius:8px; padding:16px; margin:16px 0; }
@@ -163,22 +164,13 @@
     }
     .ticket-row .ticket-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:flex-start; gap:4px; border:1px solid var(--ticket-border); border-right:none; border-radius:8px 0 0 8px; background:#ffffff; min-height:92px; }
     .ticket-row .ticket-name { font-size:14px; font-weight:600; line-height:18px; color:#031419; }
+    .ticket-row .ticket-more { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; text-align:left; align-self:flex-start; }
     .ticket-row .ticket-price { font-size:14px; font-weight:600; line-height:18px; color:#031419; margin-top:auto; }
-    .ticket-row .ticket-info-toggle { font-size:12px; font-weight:600; line-height:16px; color:#0079ca; text-decoration:none; padding:2px 0; cursor:pointer; background:none; border:none; font-family:var(--font); text-align:left; align-self:flex-start; }
-    .ticket-row .ticket-info-detail { display:none; margin-top:8px; padding-top:6px; border-top:1px solid #ccd2d8; font-size:13px; line-height:20px; color:#031419; }
-    .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
-    .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
-    .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:6px; }
-    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
-    .ticket-row .ticket-info-detail li { margin-bottom:2px; }
     .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
     .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s, border-color 0.15s; background:#f2f3f3; border:none; color:#a7b2ba; }
     .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; line-height:20px; color:#031419; }
     .ticket-row .amt-btn.plus { background:#e6f4ff; border:none; color:#0079ca; }
-    .ticket-row.qty-zero .amt-btn.minus { background:#f2f3f3; color:#a7b2ba; cursor:default; }
-    .ticket-row.qty-zero .amt-count { color:#a7b2ba; }
-    .ticket-row.qty-zero .amt-btn.plus { background:#e6f4ff; color:#0079ca; }
 
     /* Active (selected): right panel gets primary-weak fill */
     .ticket-row.selected { --ticket-border:#0079ca; }
@@ -303,45 +295,40 @@
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
     .sticky-cta .cta-btn:hover { background:#0079ca; }
     .sticky-cta .cta-btn:focus-visible { border-color:#005795; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
-    .sticky-cta .cta-btn:active { background:#0079ca; }
+    .sticky-cta .cta-btn:active { background:#0079ca; opacity:0.85; }
     .sticky-cta .cta-btn:disabled, .sticky-cta .cta-btn.disabled { background:#f2f3f3; color:#a7b2ba; border-color:transparent; box-shadow:none; cursor:default; opacity:1; }
 
-    /* Flow stepper — Figma Progress Indicator */
-    .flow-stepper { display:flex; align-items:flex-start; justify-content:space-between; padding:12px 16px; background:#fff; border-bottom:1px solid var(--color-border); }
-    .flow-stepper .step { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; position:relative; }
-    .flow-stepper .step::after { content:''; position:absolute; top:9px; left:50%; width:100%; height:2px; background:#ccd2d8; z-index:0; }
-    .flow-stepper .step:last-child::after { display:none; }
-    .flow-stepper .step.done::after { background:#0089e3; }
-    .flow-stepper .step.current::after { background:#ccd2d8; }
-    .flow-stepper .step .dot { width:20px; height:20px; border-radius:50%; border:2px solid #ccd2d8; background:#fff; display:flex; align-items:center; justify-content:center; z-index:1; position:relative; font-size:0; color:transparent; box-sizing:border-box; }
-    .flow-stepper .step.done .dot { border-color:#0089e3; background:#fff; }
-    .flow-stepper .step.done .dot::before { content:''; display:block; width:10px; height:7px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 8' fill='none'%3E%3Cpath d='M1 3.5L4 6.5L10 1' stroke='%230089e3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
-    .flow-stepper .step.done.skipped .dot { border-color:#0089e3; }
-    .flow-stepper .step.done.skipped .dot::before { width:8px; height:2px; background:#0089e3; border-radius:1px; }
-    .flow-stepper .step.current .dot { border-color:#0089e3; background:#fff; }
-    .flow-stepper .step.current .dot::before { content:''; display:block; width:10px; height:10px; border-radius:50%; background:#0089e3; }
-    .flow-stepper .step .label { font-family:var(--font); font-size:12px; font-weight:600; line-height:16px; color:#a7b2ba; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-    .flow-stepper .step.done .label { color:#536b75; }
-    .flow-stepper .step.current .label { color:#536b75; }
-    .flow-stepper a.step { text-decoration:none; color:inherit; cursor:pointer; }
-    .flow-stepper a.step.disabled { pointer-events:none; cursor:default; opacity:0.45; }
-    .flow-stepper.stepper-hidden { display:none !important; }
+    /* === BOTTOM SHEETS (Figma: Select your add-ons style) === */
+    .sheet-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:400; opacity:0; visibility:hidden; transition:opacity 0.25s, visibility 0.25s; }
+    .sheet-overlay.open { opacity:1; visibility:visible; }
+    .sheet { position:fixed; left:50%; transform:translateX(-50%) translateY(100%); bottom:0; width:393px; max-width:100vw; max-height:75vh; background:white; border-radius:16px 16px 0 0; z-index:401; transition:transform 0.3s ease; box-shadow:0 -4px 20px rgba(0,0,0,0.15); display:flex; flex-direction:column; }
+    .sheet.open { transform:translateX(-50%) translateY(0); }
+    .sheet .sheet-handle { width:36px; height:4px; background:#ddd; border-radius:2px; margin:12px auto 0; flex-shrink:0; }
+    .sheet .sheet-header { display:flex; align-items:center; justify-content:center; position:relative; padding:8px 48px 16px; }
+    .sheet .sheet-title { font-size:18px; font-weight:700; color:var(--color-text); text-align:center; }
+    .sheet .sheet-close { position:absolute; right:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; color:var(--color-text-secondary); }
+    .sheet .sheet-close svg { width:20px; height:20px; }
+    .sheet .sheet-content { padding:0 16px; overflow-y:auto; flex:1; min-height:0; }
+    .sheet .sheet-footer { padding:16px; border-top:1px solid var(--color-border); flex-shrink:0; }
+    .sheet .sheet-footer .sheet-btn { width:100%; height:48px; border-radius:100px; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; border:none; }
+    .sheet .sheet-footer .sheet-btn-primary { background:#0079ca; color:white; }
+    .sheet .sheet-footer .sheet-btn-skip { background:#f0f0f0; color:var(--color-text); }
+    .sheet .sheet-row { display:flex; align-items:stretch; min-height:72px; margin-bottom:12px; position:relative; border-radius:12px; border:1.5px solid var(--color-border-light); }
+    .sheet .sheet-row .sheet-row-content { flex:1; padding:12px; display:flex; flex-direction:column; justify-content:center; gap:2px; border-right:none; border-radius:12px 0 0 12px; }
+    .sheet .sheet-row .sheet-row-name { font-size:14px; font-weight:600; line-height:18px; color:var(--color-text); }
+    .sheet .sheet-row .sheet-row-price { font-size:14px; font-weight:600; color:var(--color-text); }
+    .sheet .sheet-row .sheet-row-price.free { font-weight:500; color:var(--color-text-secondary); }
+    .sheet .sheet-row .sheet-row-right { width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:8px; }
+    .sheet .sheet-row .sheet-stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
+    .sheet .sheet-row .sheet-stepper .amt-btn { width:28px; height:28px; border-radius:50%; border:1px solid var(--color-border-light); background:white; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; font-weight:400; color:var(--color-text); }
+    .sheet .sheet-row .sheet-stepper .amt-count { width:28px; text-align:center; font-size:14px; font-weight:600; }
+    .sheet .sheet-row.selected { border-color:#0079ca; }
+    .sheet .sheet-row.selected .sheet-row-content { background:#e6f4ff; }
+    .sheet .sheet-row.selected .sheet-row-right { background:#e6f4ff; border-radius:0 12px 12px 0; padding:8px 12px 8px 4px; }
+    .sheet .sheet-row.selected .sheet-stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:#e6f4ff; color:#0079ca; border:none; }
 
-    /* Option F: one-step add-on hub */
-    .decision-overlay { position:fixed; inset:0; background:rgba(3,20,25,0.35); opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:350; }
-    .decision-overlay.open { opacity:1; pointer-events:auto; }
-    .decision-sheet { position:fixed; left:50%; bottom:0; transform:translateX(-50%) translateY(100%); width:393px; max-width:100vw; background:#fff; border-radius:16px 16px 0 0; z-index:351; padding:16px; transition:transform 0.3s ease; box-shadow:0 -4px 20px rgba(0,0,0,0.12); }
-    .decision-sheet.open { transform:translateX(-50%) translateY(0); }
-    .decision-sheet .handle { width:36px; height:4px; border-radius:4px; background:#d7dde2; margin:0 auto 14px; }
-    .decision-sheet h3 { font-size:18px; font-weight:700; text-align:center; margin-bottom:8px; }
-    .decision-sheet p { font-size:14px; line-height:20px; color:var(--color-text-secondary); text-align:center; margin-bottom:14px; }
-    .decision-sheet .hub-actions { display:flex; flex-direction:column; gap:10px; }
-    .decision-sheet .hub-btn { width:100%; min-height:44px; border-radius:100px; border:1px solid #ccd2d8; background:#fff; color:var(--color-text); font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; padding:10px 16px; }
-    .decision-sheet .hub-btn.primary { background:#0079ca; border-color:#0079ca; color:#fff; }
-    .decision-sheet .hub-btn.secondary { background:#fff; border-color:#ccd2d8; color:var(--color-text); display:inline-flex; align-items:center; justify-content:center; gap:8px; }
-    .decision-sheet .hub-btn.secondary svg { width:20px; height:20px; flex-shrink:0; stroke:currentColor; fill:none; stroke-width:2; }
-
-    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } }
+    @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } .sheet { width:100vw; } }
     /* Focus-visible */
     button:focus-visible, a:focus-visible { outline: 2px solid #0079ca; outline-offset: 2px; }
     /* Tap feedback */
@@ -370,7 +357,7 @@
     .fs-gallery-thumb.active { border-color:#0079ca; }
     .fs-gallery-thumb img { width:100%; height:100%; object-fit:cover; }
   </style>
-  <link rel="stylesheet" href="../../../css/navbar.css">
+  <link rel="stylesheet" href="../css/navbar.css">
 <script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
 </head>
 <body>
@@ -378,27 +365,21 @@
 
     <header class="sticky-header">
     <nav class="navbar">
-      <a href="home.html" class="logo-link"><img src="img/fever-logo.svg" alt="Fever"></a>
+      <a href="index.html" class="logo-link"><img src="../img/fever-logo.svg" alt="Fever"></a>
       <div class="nav-icons">
-        <a class="nav-icon-btn" href="../../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
-        <a class="nav-icon-btn" href="home.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
-        <a class="nav-icon-btn" href="favorites.html" aria-label="Favorites"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M244 130.6l-12-13.5-4.2-4.7c-26-29.2-65.3-42.8-103.8-35.8c-53.3 9.7-92 56.1-92 110.3v3.5c0 32.3 13.4 63.1 37.1 85.1L253 446.8c.8 .7 1.9 1.2 3 1.2s2.2-.4 3-1.2L443 275.5c23.6-22 37-52.8 37-85.1v-3.5c0-54.2-38.7-100.6-92-110.3c-38.5-7-77.8 6.6-103.8 35.8l-4.2 4.7-12 13.5c-3 3.4-7.4 5.4-12 5.4s-8.9-2-12-5.4zm34.9-57.1C311 48.4 352.7 37.7 393.7 45.1C462.2 57.6 512 117.3 512 186.9v3.5c0 36-13.1 70.6-36.6 97.5c-3.4 3.8-6.9 7.5-10.7 11l-184 171.3c-.8 .8-1.7 1.5-2.6 2.2c-6.3 4.9-14.1 7.5-22.1 7.5c-9.2 0-18-3.5-24.8-9.7L47.2 299c-3.8-3.5-7.3-7.2-10.7-11C13.1 261 0 226.4 0 190.4v-3.5C0 117.3 49.8 57.6 118.3 45.1c40.9-7.4 82.6 3.2 114.7 28.4c6.7 5.3 13 11.1 18.7 17.6l4.2 4.7 4.2-4.7c4.2-4.7 8.6-9.1 13.3-13.1c1.8-1.5 3.6-3 5.4-4.5z"/></svg></a>
-        <a class="avatar-wrap" href="../../login.html" aria-label="Profile"><img src="../../../img/profile-avatar.png" alt="Profile"><svg class="avatar-placeholder" viewBox="0 0 512 512" fill="#536B75"><path d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-64-40a64 64 0 1 0 128 0 64 64 0 1 0-128 0z"/></svg></a>
-<a class="nav-icon-btn" href="../../../category.html" aria-label="Menu"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z"/></svg></a>
+        <a class="nav-icon-btn" href="../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
+        <a class="nav-icon-btn" href="index.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
+        <a class="nav-icon-btn" href="../favorites.html" aria-label="Favorites"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M244 130.6l-12-13.5-4.2-4.7c-26-29.2-65.3-42.8-103.8-35.8c-53.3 9.7-92 56.1-92 110.3v3.5c0 32.3 13.4 63.1 37.1 85.1L253 446.8c.8 .7 1.9 1.2 3 1.2s2.2-.4 3-1.2L443 275.5c23.6-22 37-52.8 37-85.1v-3.5c0-54.2-38.7-100.6-92-110.3c-38.5-7-77.8 6.6-103.8 35.8l-4.2 4.7-12 13.5c-3 3.4-7.4 5.4-12 5.4s-8.9-2-12-5.4zm34.9-57.1C311 48.4 352.7 37.7 393.7 45.1C462.2 57.6 512 117.3 512 186.9v3.5c0 36-13.1 70.6-36.6 97.5c-3.4 3.8-6.9 7.5-10.7 11l-184 171.3c-.8 .8-1.7 1.5-2.6 2.2c-6.3 4.9-14.1 7.5-22.1 7.5c-9.2 0-18-3.5-24.8-9.7L47.2 299c-3.8-3.5-7.3-7.2-10.7-11C13.1 261 0 226.4 0 190.4v-3.5C0 117.3 49.8 57.6 118.3 45.1c40.9-7.4 82.6 3.2 114.7 28.4c6.7 5.3 13 11.1 18.7 17.6l4.2 4.7 4.2-4.7c4.2-4.7 8.6-9.1 13.3-13.1c1.8-1.5 3.6-3 5.4-4.5z"/></svg></a>
+        <a class="avatar-wrap" href="../login.html" aria-label="Profile"><img src="../img/profile-avatar.png" alt="Profile"><svg class="avatar-placeholder" viewBox="0 0 512 512" fill="#536B75"><path d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-64-40a64 64 0 1 0 128 0 64 64 0 1 0-128 0z"/></svg></a>
+<a class="nav-icon-btn" href="../category.html" aria-label="Menu"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z"/></svg></a>
       </div>
     </nav>
-    <div id="tickets-flow-stepper" class="flow-stepper stepper-hidden" aria-hidden="true">
-      <div class="step current"><span class="dot">1</span><span class="label">Tickets</span></div>
-      <a href="polar-sound-accommodation.html#ticket-section" class="step" id="stepper-step2"><span class="dot">2</span><span class="label">Hotel</span></a>
-      <a href="polar-sound-transportations.html" class="step" id="stepper-step3"><span class="dot">3</span><span class="label">Transport</span></a>
-      <a href="checkout.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Checkout</span></a>
-    </div>
     </header>
 
     <!-- Hero Gallery Carousel -->
     <div class="hero" id="heroCarousel">
       <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide"><img src="img/polar-sound-hero.png" alt="Polar Sound Festival"></div>
+        <div class="carousel-slide"><img src="../img/polar-sound-hero.png" alt="Polar Sound Festival"></div>
         <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/cabc0d3c-8346-11f0-8816-4a47ae28a019.jpg" alt="Polar Sound stage"></div>
         <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/cac66c14-8346-11f0-8816-4a47ae28a019.jpg" alt="Baqueira Beret venue"></div>
         <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/cad1ab4c-8346-11f0-8816-4a47ae28a019.jpg" alt="Concert atmosphere"></div>
@@ -439,7 +420,7 @@
 
       <p>&#128680; <strong>Passes now on sale!</strong> Lori Meyers, Juan Mag&aacute;n, Leire Mart&iacute;nez, Besmaya, and many more to be announced are waiting for you!</p>
 
-      <p>&#127976; Want a Pass + hotel? <a href="polar-sound-accommodation.html" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){}">Click here</a></p>
+      <p>&#127976; Want a Pass + hotel? <a href="add-ons.html">Click here</a></p>
       <p>&#128656; Buy your bus and shuttle tickets to Polar Sound <a href="javascript:void(0)">here</a></p>
       <p>&#128176; Not ready to buy add-ons yet? Purchase them later separately <a href="javascript:void(0)">here</a></p>
 
@@ -489,79 +470,81 @@
         </div>
       </div>
 
-      <!-- Panel: Day Ticket -->
       <div class="ticket-panel" id="panel-day" data-panel="day">
-        <div class="ticket-row qty-zero">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1</div>
-            <div class="ticket-price">&euro;45.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
+      <!-- Ticket rows (coupon style) -->
+      <div class="ticket-row qty-zero">
+        <div class="ticket-content">
+          <div class="ticket-name">Friday - Tier 1</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;45.00</div>
+        </div>
+        <div class="ticket-notch"></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
           </div>
         </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2</div>
-            <div class="ticket-price">&euro;50.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-price">&euro;85.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-price">&euro;90.00</div>
-          </div>
-          <div class="ticket-notch"><span class="notch-line"></span></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
-      <!-- Panel: 2 Day Pass -->
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Saturday - Tier 2</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;50.00</div>
+        </div>
+        <div class="ticket-notch"></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;85.00</div>
+        </div>
+        <div class="ticket-notch"></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-content">
+          <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+          <div class="ticket-more">More info</div>
+          <div class="ticket-price">&euro;90.00</div>
+        </div>
+        <div class="ticket-notch"></div>
+        <div class="ticket-selector-right">
+          <div class="stepper ticket-amount">
+            <button class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selling Fast banner -->
+      <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+      </div>
+
       <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
         <div class="ticket-row qty-zero">
           <div class="ticket-content">
             <div class="ticket-name">General - Tier 5</div>
-            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
-            <div class="ticket-info-detail">
-              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
-              <ul>
-                <li>Access to the 2 days of the festival</li>
-              </ul>
-            </div>
+            <div class="ticket-more">More info</div>
             <div class="ticket-price">&euro;87.50</div>
           </div>
           <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -576,15 +559,7 @@
         <div class="ticket-row">
           <div class="ticket-content">
             <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
-            <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
-            <div class="ticket-info-detail">
-              <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
-              <ul>
-                <li>Access to the 2 days of the festival</li>
-                <li>60 Tokens to spend in the event</li>
-                <li>+10 bonus tokens</li>
-              </ul>
-            </div>
+            <div class="ticket-more">More info</div>
             <div class="ticket-price">&euro;147.50</div>
           </div>
           <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -599,8 +574,8 @@
         <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
       </div>
 
-      <!-- CTA (sticky handles click; this is fallback) -->
-      <button class="cta-primary" id="cta-get-it" onclick="try{ sessionStorage.setItem('polar_flow_visited','1'); }catch(e){} window.location.href=(window.flowHref||function(u){return u})('polar-sound-accommodation.html')">&euro;45.00 &mdash; Get it</button>
+      <!-- CTA buttons -->
+      <button class="cta-primary" id="cta-get-it" onclick="window.location.href=(window.flowHref||function(u){return u})('add-ons.html')">&euro;45.00 &mdash; Get it</button>
     </div>
 
     <!-- User Reviews -->
@@ -657,6 +632,11 @@
       <a class="reviews-see-all" href="javascript:void(0)">See all 462 reviews</a>
     </div>
 
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="javascript:void(0)">Contact Support here</a>
+    </div>
+
     <!-- About the Venue -->
     <div class="section-header">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
@@ -677,7 +657,7 @@
       <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
       <div class="map-placeholder">
-        <img src="../../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
+        <img src="../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
       </div>
     </div>
 
@@ -746,17 +726,6 @@
       <button class="cta-btn" id="sticky-btn">Tickets</button>
     </div>
 
-    <div class="decision-overlay" id="addons-hub-overlay"></div>
-    <div class="decision-sheet" id="addons-hub-sheet">
-      <div class="handle"></div>
-      <h3>Anything else?</h3>
-      <div class="hub-actions">
-        <button type="button" class="hub-btn secondary" id="addons-hub-accommodation"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg> Add hotel</button>
-        <button type="button" class="hub-btn secondary" id="addons-hub-transport"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15.5" r="1.5"/><circle cx="16.5" cy="15.5" r="1.5"/></svg> Add transportation</button>
-        <button type="button" class="hub-btn primary" id="addons-hub-none">Skip</button>
-      </div>
-    </div>
-
   </div>
 
   <!-- Fullscreen Gallery Overlay -->
@@ -772,8 +741,389 @@
     <div class="fs-gallery-thumbs" id="fsGalleryThumbs"></div>
   </div>
 
-  <script src="../../js/burger-menu.js"></script>
+  <!-- Bottom sheet 1: Hotel (ticket selector only) -->
+  <div class="sheet-overlay" id="overlay-sheet-acc"></div>
+  <div class="sheet" id="sheet-acc">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">Hotel</h2>
+      <button type="button" class="sheet-close" id="sheet-acc-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="sheet-content">
+      <div class="sheet-row" data-name="Hotel 2 nights" data-price="120">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Hotel 2 nights</div>
+          <div class="sheet-row-price">&euro;120.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-row" data-name="Apartment 2 nights" data-price="90">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Apartment 2 nights</div>
+          <div class="sheet-row-price">&euro;90.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer">
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-continue">No hotel</button>
+    </div>
+  </div>
+
+  <!-- Bottom sheet 2: Transport (ticket selector only) -->
+  <div class="sheet-overlay" id="overlay-sheet-transport"></div>
+  <div class="sheet" id="sheet-transport">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2 class="sheet-title">Transport</h2>
+      <button type="button" class="sheet-close" id="sheet-transport-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="sheet-content">
+      <div class="sheet-row" data-name="Bus Barcelona – Baqueira" data-price="49">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Bus Barcelona – Baqueira</div>
+          <div class="sheet-row-price">&euro;49.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-row" data-name="Shuttle Madrid – Baqueira" data-price="69">
+        <div class="sheet-row-content">
+          <div class="sheet-row-name">Shuttle Madrid – Baqueira</div>
+          <div class="sheet-row-price">&euro;69.00</div>
+        </div>
+        <div class="sheet-row-right">
+          <div class="sheet-stepper">
+            <button type="button" class="amt-btn minus">&minus;</button>
+            <span class="amt-count">0</span>
+            <button type="button" class="amt-btn plus">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer">
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-continue">Continue</button>
+    </div>
+  </div>
+
+  <script src="../js/burger-menu.js"></script>
   <script>
+    // === SINGLE CTA BEHAVIOR ===
+    const stickyBtn = document.getElementById('sticky-btn');
+    const inlineCta = document.getElementById('cta-get-it');
+    const ticketSection = document.getElementById('ticket-section');
+    let stickyMode = 'tickets'; // 'tickets' or 'getit'
+    let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
+
+    function getStickyTopOffset() {
+      var sh = document.querySelector('.sticky-header');
+      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
+    }
+    function scrollToTicketSection(behavior) {
+      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
+    }
+
+    // Intersection Observer: detect when ticket section is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          hasSeenTickets = true;
+          stickyMode = 'getit';
+          updateStickyBtn();
+        } else if (!hasSeenTickets) {
+          // Only revert to "Tickets" if user has never seen the section
+          stickyMode = 'tickets';
+          stickyBtn.textContent = 'Tickets';
+        } else {
+          // Already seen → keep showing "Get it" with current total
+          stickyMode = 'getit';
+          updateStickyBtn();
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(ticketSection);
+
+    stickyBtn.addEventListener('click', () => {
+      if (stickyMode === 'tickets') {
+        scrollToTicketSection('smooth');
+      } else {
+        saveTicketsToCart();
+        openSheet('sheet-acc');
+      }
+    });
+
+    function getActivePanel() {
+      const activePill = document.querySelector('.ticket-pill.active');
+      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+      return document.getElementById('panel-' + panelId);
+    }
+
+    function saveTicketsToCart() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const panelRows = panel.querySelectorAll('.ticket-row');
+      const is2day = panel.id === 'panel-2day';
+      const ticketNames = is2day
+        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
+        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
+      const prices = is2day ? prices2Day : pricesDay;
+      const cartTickets = [];
+      panelRows.forEach((row, i) => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
+        }
+      });
+      localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
+    }
+
+    // Hide inline CTA since sticky handles it
+    inlineCta.style.display = 'none';
+
+    function updateStickyBtn() {
+      if (stickyMode === 'getit') {
+        const total = getTotal();
+        if (total > 0) {
+          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 Get it';
+          stickyBtn.disabled = false;
+        } else {
+          stickyBtn.textContent = 'Select a ticket';
+          stickyBtn.disabled = false;
+        }
+      }
+    }
+
+    // === DYNAMIC TICKET PRICING (per panel) ===
+    const pricesDay = [45.00, 50.00, 85.00, 90.00];
+    const prices2Day = [87.50, 147.50];
+
+    function getTotal() {
+      const panel = getActivePanel();
+      if (!panel) return 0;
+      const rows = panel.querySelectorAll('.ticket-row');
+      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
+      let total = 0;
+      rows.forEach((row, i) => {
+        const count = parseInt(row.querySelector('.amt-count').textContent);
+        total += count * (prices[i] || 0);
+      });
+      return total;
+    }
+
+    function updateTotal() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
+        const count = parseInt(row.querySelector('.amt-count').textContent);
+        row.classList.toggle('selected', count > 0);
+        row.classList.toggle('qty-zero', count === 0);
+      });
+      updateStickyBtn();
+    }
+
+    function bindSteppers(panel) {
+      if (!panel) return;
+      panel.querySelectorAll('.ticket-row').forEach((row) => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', () => {
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          updateTotal();
+        });
+        minus.addEventListener('click', () => {
+          const val = parseInt(countEl.textContent);
+          if (val > 0) countEl.textContent = val - 1;
+          updateTotal();
+        });
+      });
+    }
+
+    bindSteppers(document.getElementById('panel-day'));
+    bindSteppers(document.getElementById('panel-2day'));
+    updateTotal();
+
+    // Pill switching — show/hide panel and pre-select cheapest
+    document.querySelectorAll('.ticket-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
+        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
+        updateTotal();
+      });
+    });
+
+    // Pre-select the cheapest ticket (qty 1), reset others to 0
+    function preselectCheapest() {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const rows = panel.querySelectorAll('.ticket-row');
+      rows.forEach((row, i) => {
+        row.querySelector('.amt-count').textContent = (i === 0) ? '1' : '0';
+        row.classList.toggle('qty-zero', i !== 0);
+      });
+      updateTotal();
+    }
+
+    // Auto-preselect first ticket when arriving from outside Polar Sound flow
+    (function() {
+      var ref = document.referrer || '';
+      if (ref.indexOf('polar-sound') === -1) {
+        preselectCheapest();
+      }
+    })();
+
+    // Show pills arrow only when there is overflow to the right
+    function updatePillsArrow() {
+      const row = document.getElementById('ticket-pills-row');
+      const arrow = document.getElementById('pills-arrow');
+      if (!row || !arrow) return;
+      arrow.classList.toggle('visible', row.scrollWidth > row.clientWidth);
+    }
+    updatePillsArrow();
+    window.addEventListener('resize', updatePillsArrow);
+
+    // === BOTTOM SHEETS: Hotel → Transport → Checkout ===
+    function openSheet(id) {
+      document.getElementById('overlay-' + id).classList.add('open');
+      document.getElementById(id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (id === 'sheet-acc') updateSheetAccBtn();
+      if (id === 'sheet-transport') updateSheetTransportBtn();
+    }
+    function closeSheet(id) {
+      var s = document.getElementById(id);
+      if (s) s.style.transform = '';
+      document.getElementById('overlay-' + id).classList.remove('open');
+      if (s) s.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('overlay-sheet-acc').addEventListener('click', function() { closeSheet('sheet-acc'); });
+    document.getElementById('overlay-sheet-transport').addEventListener('click', function() { closeSheet('sheet-transport'); });
+    document.getElementById('sheet-acc-close').addEventListener('click', function() { closeSheet('sheet-acc'); });
+    document.getElementById('sheet-transport-close').addEventListener('click', function() { closeSheet('sheet-transport'); });
+
+    // Swipe-to-dismiss for bottom sheets (touch + mouse)
+    (function() {
+      function enableSwipeDismiss(sheetEl, closeFn, baseTransform) {
+        if (!sheetEl) return;
+        var startY = 0, currentY = 0, isDragging = false;
+        var base = baseTransform || '';
+        function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
+        function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = base + 'translateY(' + dy + 'px)'; } }
+        function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeFn(); }
+        sheetEl.addEventListener('touchstart', function(e) { var sc = sheetEl.querySelector('.sheet-content'); if (sc && sc.scrollTop > 0) return; dragStart(e.touches[0].clientY); }, { passive: true });
+        sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
+        sheetEl.addEventListener('touchend', dragEnd);
+        sheetEl.addEventListener('mousedown', function(e) { var sc = sheetEl.querySelector('.sheet-content'); if (sc && sc.scrollTop > 0) return; e.preventDefault(); dragStart(e.clientY); });
+        document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
+        document.addEventListener('mouseup', dragEnd);
+      }
+      enableSwipeDismiss(document.getElementById('sheet-acc'), function() { closeSheet('sheet-acc'); }, 'translateX(-50%) ');
+      enableSwipeDismiss(document.getElementById('sheet-transport'), function() { closeSheet('sheet-transport'); }, 'translateX(-50%) ');
+    })();
+
+    function updateSheetAccBtn() {
+      let totalQty = 0;
+      let totalPrice = 0;
+      document.querySelectorAll('#sheet-acc .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent) || 0;
+        const price = parseFloat(row.dataset.price) || 0;
+        totalQty += qty;
+        totalPrice += qty * price;
+      });
+      const btn = document.getElementById('sheet-acc-continue');
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No hotel';
+    }
+    function updateSheetTransportBtn() {
+      let totalQty = 0;
+      let totalPrice = 0;
+      document.querySelectorAll('#sheet-transport .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent) || 0;
+        const price = parseFloat(row.dataset.price) || 0;
+        totalQty += qty;
+        totalPrice += qty * price;
+      });
+      const btn = document.getElementById('sheet-transport-continue');
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Continue';
+    }
+    function bindSheetSteppers(sheetId, updateBtn) {
+      const sheet = document.getElementById(sheetId);
+      if (!sheet) return;
+      sheet.querySelectorAll('.sheet-row').forEach(row => {
+        const minus = row.querySelector('.amt-btn.minus');
+        const plus = row.querySelector('.amt-btn.plus');
+        const countEl = row.querySelector('.amt-count');
+        if (!countEl) return;
+        plus.addEventListener('click', function(e) {
+          e.stopPropagation();
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+          row.classList.add('selected');
+          if (typeof updateBtn === 'function') updateBtn();
+        });
+        minus.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const val = parseInt(countEl.textContent);
+          if (val > 0) {
+            countEl.textContent = val - 1;
+            row.classList.toggle('selected', parseInt(countEl.textContent) > 0);
+            if (typeof updateBtn === 'function') updateBtn();
+          }
+        });
+      });
+    }
+    bindSheetSteppers('sheet-acc', updateSheetAccBtn);
+    bindSheetSteppers('sheet-transport', updateSheetTransportBtn);
+    updateSheetAccBtn();
+    updateSheetTransportBtn();
+
+    document.getElementById('sheet-acc-continue').addEventListener('click', function() {
+      const acc = [];
+      document.querySelectorAll('#sheet-acc .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          acc.push({ name: row.dataset.name, price: parseFloat(row.dataset.price), qty: qty });
+        }
+      });
+      localStorage.setItem('cart_accommodation', JSON.stringify(acc));
+      closeSheet('sheet-acc');
+      openSheet('sheet-transport');
+    });
+
+    document.getElementById('sheet-transport-continue').addEventListener('click', function() {
+      const tr = [];
+      document.querySelectorAll('#sheet-transport .sheet-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.amt-count').textContent);
+        if (qty > 0) {
+          tr.push({ name: row.dataset.name, price: parseFloat(row.dataset.price), qty: qty });
+        }
+      });
+      localStorage.setItem('cart_transportation', JSON.stringify(tr));
+      window.location.href = (window.flowHref||function(u){return u})('cart.html');
+    });
+
     /* ── Hero Gallery Carousel ── */
     (function initCarousel() {
       var track = document.getElementById('carouselTrack');
@@ -833,19 +1183,32 @@
         elapsed = 0;
         updateBars();
       }
+
       function tick() {
         elapsed += TICK;
         var pct = Math.min((elapsed / DURATION) * 100, 100);
         var fill = bars[current].querySelector('.fill');
         fill.style.transition = 'width ' + TICK + 'ms linear';
         fill.style.width = pct + '%';
-        if (elapsed >= DURATION) goTo(current + 1);
+        if (elapsed >= DURATION) {
+          goTo(current + 1);
+        }
       }
+
       function start() { if (!timer) timer = setInterval(tick, TICK); }
       function stop() { clearInterval(timer); timer = null; }
       function restart() { stop(); elapsed = 0; start(); }
-      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) { e.stopPropagation(); goTo(current - 1); restart(); });
-      document.querySelector('.hero .nav-next').addEventListener('click', function(e) { e.stopPropagation(); goTo(current + 1); restart(); });
+
+      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current - 1);
+        restart();
+      });
+      document.querySelector('.hero .nav-next').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current + 1);
+        restart();
+      });
 
       // Touch swipe support
       var heroEl = document.getElementById('heroCarousel');
@@ -876,337 +1239,15 @@
       goTo(0);
       start();
     })();
-
-    const params = new URLSearchParams(window.location.search);
-    let flow = params.get('flow');
-    let storedFlow = null;
-    try { storedFlow = sessionStorage.getItem('polar_flow_mode'); } catch (e) {}
-    if (!flow && (storedFlow === 'c1' || storedFlow === 'c2' || storedFlow === 'd1' || storedFlow === 'd2' || storedFlow === 'e1' || storedFlow === 'e2')) flow = storedFlow;
-    const isOptionE = flow === 'c1';
-    const isOptionF = flow === 'c2' || flow === 'd1';
-    const isOptionG = flow === 'd2';
-    const isOptionH = flow === 'e1';
-    const isOptionI = flow === 'e2';
-    const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
-    const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
-    const flowSuffix = flow ? '?flow=' + flow : '';
-
-    if (isOptionalFlow) {
-      try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
-      const logoLink = document.querySelector('.navbar .logo-link');
-      if (logoLink) logoLink.href = flow + '/';
-      const step2 = document.getElementById('stepper-step2');
-      const step3 = document.getElementById('stepper-step3');
-      const step4 = document.getElementById('stepper-step4');
-      if (step2) step2.href = 'polar-sound-accommodation.html?flow=' + flow + '#ticket-section';
-      if (step3) step3.href = 'polar-sound-transportations.html?flow=' + flow;
-      if (step4) step4.href = 'checkout.html?flow=' + flow;
-      const ticketsStepper = document.getElementById('tickets-flow-stepper');
-      if (ticketsStepper) {
-        ticketsStepper.classList.add('stepper-hidden');
-        ticketsStepper.setAttribute('aria-hidden', 'true');
-      }
-    }
-
-    // Stepper: hidden on first visit to tickets; show only when user has advanced and then comes back
-    (function() {
-      try {
-        if (!isOptionalFlow && sessionStorage.getItem('polar_flow_visited')) {
-          var el = document.getElementById('tickets-flow-stepper');
-          if (el) { el.classList.remove('stepper-hidden'); el.setAttribute('aria-hidden', 'false'); }
-        }
-      } catch (e) {}
-    })();
-
-    // === SINGLE CTA BEHAVIOR ===
-    const stickyBtn = document.getElementById('sticky-btn');
-    const inlineCta = document.getElementById('cta-get-it');
-    const ticketSection = document.getElementById('ticket-section');
-
-    function getStickyTopOffset() {
-      var sh = document.querySelector('.sticky-header');
-      return (sh && getComputedStyle(sh).display !== 'none') ? sh.offsetHeight : 0;
-    }
-    function scrollToTicketSection(behavior) {
-      var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
-      window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
-    }
-    let stickyMode = 'tickets'; // 'tickets' or 'getit'
-    let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
-
-    // Intersection Observer: detect when ticket section is visible
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          hasSeenTickets = true;
-          stickyMode = 'getit';
-          updateStickyBtn();
-        } else if (!hasSeenTickets) {
-          // Only revert to "Tickets" if user has never seen the section
-          stickyMode = 'tickets';
-          stickyBtn.textContent = 'Tickets';
-        } else {
-          // Already seen → keep showing "Get it" with current total
-          stickyMode = 'getit';
-          updateStickyBtn();
-        }
-      });
-    }, { threshold: 0.1 });
-    observer.observe(ticketSection);
-
-    stickyBtn.addEventListener('click', () => {
-      const total = getTotal();
-      if (stickyMode === 'tickets') {
-        scrollToTicketSection('smooth');
-        if (total > 0) {
-          stickyMode = 'getit';
-          updateStickyBtn();
-        }
-      } else {
-        // Save ticket selections to localStorage before navigating
-        saveTicketsToCart();
-        try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
-        if (isHubFlow) {
-          openAddonsHub();
-        } else {
-          window.location.href = 'polar-sound-accommodation.html' + flowSuffix;
-        }
-      }
-    });
-
-    function getActivePanel() {
-      const activePill = document.querySelector('.ticket-pill.active');
-      const panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
-      return document.getElementById('panel-' + panelId);
-    }
-
-    function saveTicketsToCart() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const is2day = panel.id === 'panel-2day';
-      const ticketNames = is2day
-        ? ['General - Tier 5 (2 Day Pass)', 'Polar Pack: General + 60 tokens - Tier 5 (2 Day Pass)']
-        : ['Friday - Tier 1', 'Saturday - Tier 2', 'Friday - Polar Pack (Day + 40 tokens)', 'Saturday - Polar Pack (Day + 40 tokens)'];
-      const prices = is2day ? [87.50, 147.50] : [45.00, 50.00, 85.00, 90.00];
-      const cartTickets = [];
-      rows.forEach((row, i) => {
-        const qty = parseInt(row.querySelector('.amt-count').textContent);
-        if (qty > 0) cartTickets.push({ name: ticketNames[i], price: prices[i], qty: qty });
-      });
-      localStorage.setItem('cart_tickets', JSON.stringify(cartTickets));
-    }
-
-    // Hide inline CTA since sticky handles it
-    inlineCta.style.display = 'none';
-
-    function updateStickyBtn() {
-      if (stickyMode === 'getit') {
-        const total = getTotal();
-        if (total > 0) {
-          const is2day = getActivePanel() && getActivePanel().id === 'panel-2day';
-          const label = is2day ? 'Continue' : 'Get it';
-          stickyBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + label;
-          stickyBtn.disabled = false;
-        } else {
-          stickyBtn.textContent = 'Select a ticket';
-          stickyBtn.disabled = false;
-        }
-      }
-    }
-
-    // === DYNAMIC TICKET PRICING (per panel) ===
-    const pricesDay = [45.00, 50.00, 85.00, 90.00];
-    const prices2Day = [87.50, 147.50];
-
-    function getTotal() {
-      const panel = getActivePanel();
-      if (!panel) return 0;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
-      let total = 0;
-      rows.forEach((row, i) => {
-        const count = parseInt(row.querySelector('.amt-count').textContent);
-        total += count * (prices[i] || 0);
-      });
-      return total;
-    }
-
-    function updateTotal() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      panel.querySelectorAll('.ticket-row').forEach((row) => {
-        const count = parseInt(row.querySelector('.amt-count').textContent);
-        row.classList.toggle('selected', count > 0);
-        row.classList.toggle('qty-zero', count === 0);
-      });
-      updateStickyBtn();
-    }
-
-    function bindSteppers(panel) {
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      const prices = panel.id === 'panel-2day' ? prices2Day : pricesDay;
-      rows.forEach((row, i) => {
-        const minus = row.querySelector('.amt-btn.minus');
-        const plus = row.querySelector('.amt-btn.plus');
-        const countEl = row.querySelector('.amt-count');
-        if (!countEl) return;
-        plus.addEventListener('click', () => {
-          countEl.textContent = parseInt(countEl.textContent) + 1;
-          updateTotal();
-        });
-        minus.addEventListener('click', () => {
-          const val = parseInt(countEl.textContent);
-          if (val > 0) countEl.textContent = val - 1;
-          updateTotal();
-        });
-      });
-    }
-
-    bindSteppers(document.getElementById('panel-day'));
-    bindSteppers(document.getElementById('panel-2day'));
-    updateTotal();
-
-    // 2 Day Pass: More info / Less info toggle (independent per ticket row)
-    document.getElementById('panel-2day').addEventListener('click', function(e) {
-      const btn = e.target.closest('.ticket-info-toggle');
-      if (!btn) return;
-      e.preventDefault();
-      const row = btn.closest('.ticket-row');
-      const expanded = row.classList.toggle('ticket-info-expanded');
-      btn.textContent = expanded ? 'Less info' : 'More info';
-      btn.setAttribute('aria-expanded', expanded);
-    });
-
-    // Pill switching — show/hide panel, pre-select cheapest
-    document.querySelectorAll('.ticket-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.ticket-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
-        document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
-        document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
-        updateTotal();
-      });
-    });
-
-    function preselectCheapest() {
-      const panel = getActivePanel();
-      if (!panel) return;
-      const rows = panel.querySelectorAll('.ticket-row');
-      rows.forEach((row, i) => {
-        const el = row.querySelector('.amt-count');
-        if (el) el.textContent = (i === 0) ? '1' : '0';
-        row.classList.toggle('qty-zero', i !== 0);
-      });
-      updateTotal();
-    }
-
-    // Auto-preselect first ticket when arriving from outside Polar Sound flow
-    (function() {
-      var ref = document.referrer || '';
-      if (ref.indexOf('polar-sound') === -1) {
-        preselectCheapest();
-      }
-    })();
-
-    // Show pills arrow only when there is overflow to the right
-    function updatePillsArrow() {
-      const row = document.getElementById('ticket-pills-row');
-      const arrow = document.getElementById('pills-arrow');
-      if (!row || !arrow) return;
-      arrow.classList.toggle('visible', row.scrollWidth > row.clientWidth);
-    }
-    updatePillsArrow();
-    window.addEventListener('resize', updatePillsArrow);
-
-    function openAddonsHub() {
-      const overlay = document.getElementById('addons-hub-overlay');
-      const sheet = document.getElementById('addons-hub-sheet');
-      if (overlay) overlay.classList.add('open');
-      if (sheet) sheet.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAddonsHub() {
-      const overlay = document.getElementById('addons-hub-overlay');
-      const sheet = document.getElementById('addons-hub-sheet');
-      if (sheet) sheet.style.transform = '';
-      if (overlay) overlay.classList.remove('open');
-      if (sheet) sheet.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    // Swipe-to-dismiss for decision sheet (touch + mouse)
-    (function() {
-      var sheetEl = document.getElementById('addons-hub-sheet');
-      if (!sheetEl) return;
-      var startY = 0, currentY = 0, isDragging = false;
-      function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
-      function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)'; } }
-      function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeAddonsHub(); }
-      sheetEl.addEventListener('touchstart', function(e) { dragStart(e.touches[0].clientY); }, { passive: true });
-      sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
-      sheetEl.addEventListener('touchend', dragEnd);
-      sheetEl.addEventListener('mousedown', function(e) { e.preventDefault(); dragStart(e.clientY); });
-      document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
-      document.addEventListener('mouseup', dragEnd);
-    })();
-
-    (function bindAddonsHub() {
-      const overlay = document.getElementById('addons-hub-overlay');
-      const btnAccommodation = document.getElementById('addons-hub-accommodation');
-      const btnTransport = document.getElementById('addons-hub-transport');
-      const btnNone = document.getElementById('addons-hub-none');
-      if (overlay) overlay.addEventListener('click', closeAddonsHub);
-      if (btnAccommodation) {
-        btnAccommodation.addEventListener('click', function() {
-          try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
-          if (isCrossSellFlow) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
-          window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
-        });
-      }
-      if (btnTransport) {
-        btnTransport.addEventListener('click', function() {
-          try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
-          if (isCrossSellFlow) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
-          window.location.href = 'polar-sound-transportations.html?flow=' + flow;
-        });
-      }
-      if (btnNone) {
-        btnNone.addEventListener('click', function() {
-          try {
-            localStorage.setItem('cart_accommodation', '[]');
-            localStorage.setItem('cart_transportation', '[]');
-          } catch (e) {}
-          var skipDest = (isOptionG || isOptionI) ? 'cart.html?flow=' + flow : 'checkout.html?flow=' + flow;
-          window.location.href = skipDest;
-        });
-      }
-    })();
-
-    if (window.location.hash === '#ticket-section') {
-      document.documentElement.style.scrollBehavior = 'auto';
-      requestAnimationFrame(function() {
-        scrollToTicketSection('auto');
-        setTimeout(function() {
-          scrollToTicketSection('auto');
-          document.documentElement.style.scrollBehavior = '';
-        }, 120);
-      });
-    }
   </script>
   <script>
   (function() {
     var fsGallery = document.getElementById('fsGallery');
     var fsTrack = document.getElementById('fsGalleryTrack');
-    var fsThumbs = document.getElementById('fsGalleryThumbs');
+    var fsCounter = document.getElementById('fsGalleryCounter');
+    var fsDots = document.getElementById('fsGalleryDots');
     var fsClose = document.getElementById('fsGalleryClose');
     var fsViewport = document.getElementById('fsGalleryViewport');
-    var fsPrev = document.getElementById('fsGalleryPrev');
-    var fsNext = document.getElementById('fsGalleryNext');
     var galleryBtn = document.querySelector('.gallery-btn');
     if (!fsGallery || !galleryBtn) return;
 
@@ -1226,7 +1267,7 @@
 
     function buildSlides() {
       fsTrack.innerHTML = '';
-      fsThumbs.innerHTML = '';
+      fsDots.innerHTML = '';
       images.forEach(function(src, i) {
         var slide = document.createElement('div');
         slide.className = 'fs-gallery-slide';
@@ -1236,28 +1277,10 @@
         img.draggable = false;
         slide.appendChild(img);
         fsTrack.appendChild(slide);
-
-        var thumb = document.createElement('div');
-        thumb.className = 'fs-gallery-thumb' + (i === 0 ? ' active' : '');
-        var tImg = document.createElement('img');
-        tImg.src = src;
-        tImg.alt = 'Thumbnail ' + (i + 1);
-        thumb.appendChild(tImg);
-        thumb.addEventListener('click', (function(idx) { return function() { fsGoTo(idx); }; })(i));
-        fsThumbs.appendChild(thumb);
+        var dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        fsDots.appendChild(dot);
       });
-    }
-
-    function scrollThumbIntoView(idx) {
-      var th = fsThumbs.children[idx];
-      if (!th) return;
-      var left = th.offsetLeft - fsThumbs.offsetWidth / 2 + th.offsetWidth / 2;
-      fsThumbs.scrollTo({ left: left, behavior: 'smooth' });
-    }
-
-    function updateArrows() {
-      fsPrev.style.display = fsCurrent <= 0 ? 'none' : '';
-      fsNext.style.display = fsCurrent >= images.length - 1 ? 'none' : '';
     }
 
     function fsGoTo(idx) {
@@ -1265,10 +1288,9 @@
       if (idx >= images.length) idx = images.length - 1;
       fsCurrent = idx;
       fsTrack.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      var thumbs = fsThumbs.querySelectorAll('.fs-gallery-thumb');
-      thumbs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
-      scrollThumbIntoView(idx);
-      updateArrows();
+      fsCounter.textContent = (idx + 1) + ' / ' + images.length;
+      var dots = fsDots.querySelectorAll('.dot');
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
     }
 
     function openGallery() {
@@ -1288,8 +1310,6 @@
 
     galleryBtn.addEventListener('click', function(e) { e.preventDefault(); openGallery(); });
     fsClose.addEventListener('click', closeGallery);
-    fsPrev.addEventListener('click', function() { fsGoTo(fsCurrent - 1); });
-    fsNext.addEventListener('click', function() { fsGoTo(fsCurrent + 1); });
 
     fsGallery.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeGallery();
@@ -1360,7 +1380,7 @@
       });
     })();
   </script>
-  <script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='profile.html';}}</script>
-  <script src="../../../js/flow-param.js"></script>
+<script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
+  <script src="../js/flow-param.js"></script>
 </body>
 </html>

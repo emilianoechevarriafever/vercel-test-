@@ -322,8 +322,10 @@
     .sheet .sheet-row .sheet-stepper .amt-btn { width:28px; height:28px; border-radius:50%; border:1px solid var(--color-border-light); background:white; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; font-weight:400; color:var(--color-text); }
     .sheet .sheet-row .sheet-stepper .amt-count { width:28px; text-align:center; font-size:14px; font-weight:600; }
     .sheet .sheet-row.selected { border-color:#0079ca; }
-    .sheet .sheet-row.selected .sheet-row-right { background:var(--color-primary-weak); border-radius:0 12px 12px 0; }
-    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:var(--color-primary-weak); color:#0079ca; border:none; }
+    .sheet .sheet-row.selected .sheet-row-content { background:#e6f4ff; }
+    .sheet .sheet-row.selected .sheet-row-right { background:#e6f4ff; border-radius:0 12px 12px 0; padding:8px 12px 8px 4px; }
+    .sheet .sheet-row.selected .sheet-stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:#e6f4ff; color:#0079ca; border:none; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } .sheet { width:100vw; } }
     /* Tap feedback */

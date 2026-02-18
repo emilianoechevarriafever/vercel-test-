@@ -87,12 +87,9 @@
     .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; background:#f2f3f3; color:#a7b2ba; }
     .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
     .ticket-row.selected { --ticket-border:#0079ca; }
-    .ticket-row.selected .ticket-content { background:#e6f4ff; }
-    .ticket-row.selected .ticket-selector-right { background:#e6f4ff; padding:12px 16px 12px 8px; }
+    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); }
     .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
-    .ticket-row.selected .amt-btn { background:#e6f4ff; color:#0079ca; }
-    .ticket-row.selected .ticket-notch::before,
-    .ticket-row.selected .ticket-notch::after { background:#e6f4ff; }
+    .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:#0079ca; }
     .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform: translateX(50%); }
     .ticket-row .ticket-notch::before,
     .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg); box-sizing:border-box; }

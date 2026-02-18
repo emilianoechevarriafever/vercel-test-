@@ -122,12 +122,9 @@
 
     /* Selected state */
     .ticket-row.selected { --ticket-border:#0079ca; }
-    .ticket-row.selected .ticket-content { background:#e6f4ff; }
-    .ticket-row.selected .ticket-selector-right { background:#e6f4ff; padding:12px 16px 12px 8px; }
+    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); }
     .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
-    .ticket-row.selected .amt-btn { background:#e6f4ff; color:#0079ca; }
-    .ticket-row.selected .ticket-notch::before,
-    .ticket-row.selected .ticket-notch::after { background:#e6f4ff; }
+    .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:#0079ca; }
 
     /* Ticket notch divider */
     .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform: translateX(50%); }

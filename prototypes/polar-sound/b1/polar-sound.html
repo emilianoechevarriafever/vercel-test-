@@ -70,9 +70,8 @@
     html.u-in .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
     html.u-in .avatar-wrap img{display:block}
     html.u-in .avatar-wrap .avatar-placeholder{display:none}
-    /* === HERO GALLERY (Figma Channel Filter 778-26710) === */
-    .hero { position:relative; width:100%; height:390px; overflow:hidden; }
     /* === HERO GALLERY CAROUSEL === */
+    .hero { position:relative; width:100%; height:390px; overflow:hidden; }
     .hero .carousel-track { display:flex; height:100%; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); }
     .hero .carousel-slide { min-width:100%; height:100%; }
     .hero .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
@@ -295,7 +294,7 @@
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
     .sticky-cta .cta-btn:hover { background:#0079ca; }
     .sticky-cta .cta-btn:focus-visible { border-color:#005795; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
-    .sticky-cta .cta-btn:active { background:#0079ca; }
+    .sticky-cta .cta-btn:active { background:#0079ca; opacity:0.85; }
     .sticky-cta .cta-btn:disabled, .sticky-cta .cta-btn.disabled { background:#f2f3f3; color:#a7b2ba; border-color:transparent; box-shadow:none; cursor:default; opacity:1; }
 
     /* === BOTTOM SHEETS (Figma: Select your add-ons style) === */
@@ -323,12 +322,12 @@
     .sheet .sheet-row .sheet-stepper .amt-btn { width:28px; height:28px; border-radius:50%; border:1px solid var(--color-border-light); background:white; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; font-weight:400; color:var(--color-text); }
     .sheet .sheet-row .sheet-stepper .amt-count { width:28px; text-align:center; font-size:14px; font-weight:600; }
     .sheet .sheet-row.selected { border-color:#0079ca; }
-    .sheet .sheet-row.selected .sheet-row-right { background:var(--color-primary-weak); border-radius:0 12px 12px 0; }
-    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:var(--color-primary-weak); color:#0079ca; border:none; }
+    .sheet .sheet-row.selected .sheet-row-content { background:#e6f4ff; }
+    .sheet .sheet-row.selected .sheet-row-right { background:#e6f4ff; border-radius:0 12px 12px 0; padding:8px 12px 8px 4px; }
+    .sheet .sheet-row.selected .sheet-stepper { background:#fff; border-radius:100px; padding:4px 6px; }
+    .sheet .sheet-row.selected .sheet-stepper .amt-btn { background:#e6f4ff; color:#0079ca; border:none; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-cta { width:100vw; } .sheet { width:100vw; } }
-    /* Focus-visible */
-    button:focus-visible, a:focus-visible { outline: 2px solid #0079ca; outline-offset: 2px; }
     /* Tap feedback */
     .nav-icon-btn:active { opacity:0.6; }
     .ticket-pill:active { transform:scale(0.96); }
@@ -355,7 +354,7 @@
     .fs-gallery-thumb.active { border-color:#0079ca; }
     .fs-gallery-thumb img { width:100%; height:100%; object-fit:cover; }
   </style>
-  <link rel="stylesheet" href="../../../css/navbar.css">
+  <link rel="stylesheet" href="../css/navbar.css">
 <script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
 </head>
 <body>
@@ -365,11 +364,11 @@
     <nav class="navbar">
       <a href="index.html" class="logo-link"><img src="../img/fever-logo.svg" alt="Fever"></a>
       <div class="nav-icons">
-        <a class="nav-icon-btn" href="../../../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
+        <a class="nav-icon-btn" href="../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
         <a class="nav-icon-btn" href="index.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
         <a class="nav-icon-btn" href="../favorites.html" aria-label="Favorites"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M244 130.6l-12-13.5-4.2-4.7c-26-29.2-65.3-42.8-103.8-35.8c-53.3 9.7-92 56.1-92 110.3v3.5c0 32.3 13.4 63.1 37.1 85.1L253 446.8c.8 .7 1.9 1.2 3 1.2s2.2-.4 3-1.2L443 275.5c23.6-22 37-52.8 37-85.1v-3.5c0-54.2-38.7-100.6-92-110.3c-38.5-7-77.8 6.6-103.8 35.8l-4.2 4.7-12 13.5c-3 3.4-7.4 5.4-12 5.4s-8.9-2-12-5.4zm34.9-57.1C311 48.4 352.7 37.7 393.7 45.1C462.2 57.6 512 117.3 512 186.9v3.5c0 36-13.1 70.6-36.6 97.5c-3.4 3.8-6.9 7.5-10.7 11l-184 171.3c-.8 .8-1.7 1.5-2.6 2.2c-6.3 4.9-14.1 7.5-22.1 7.5c-9.2 0-18-3.5-24.8-9.7L47.2 299c-3.8-3.5-7.3-7.2-10.7-11C13.1 261 0 226.4 0 190.4v-3.5C0 117.3 49.8 57.6 118.3 45.1c40.9-7.4 82.6 3.2 114.7 28.4c6.7 5.3 13 11.1 18.7 17.6l4.2 4.7 4.2-4.7c4.2-4.7 8.6-9.1 13.3-13.1c1.8-1.5 3.6-3 5.4-4.5z"/></svg></a>
-        <a class="avatar-wrap" href="../../../login.html" aria-label="Profile"><img src="../../../img/profile-avatar.png" alt="Profile"><svg class="avatar-placeholder" viewBox="0 0 512 512" fill="#536B75"><path d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-64-40a64 64 0 1 0 128 0 64 64 0 1 0-128 0z"/></svg></a>
-<a class="nav-icon-btn" href="../../../category.html" aria-label="Menu"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z"/></svg></a>
+        <a class="avatar-wrap" href="../login.html" aria-label="Profile"><img src="../img/profile-avatar.png" alt="Profile"><svg class="avatar-placeholder" viewBox="0 0 512 512" fill="#536B75"><path d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-64-40a64 64 0 1 0 128 0 64 64 0 1 0-128 0z"/></svg></a>
+<a class="nav-icon-btn" href="../category.html" aria-label="Menu"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z"/></svg></a>
       </div>
     </nav>
     </header>
@@ -630,6 +629,11 @@
       <a class="reviews-see-all" href="javascript:void(0)">See all 462 reviews</a>
     </div>
 
+    <div class="help-section">
+      <span>Need help?</span>
+      <a href="javascript:void(0)">Contact Support here</a>
+    </div>
+
     <!-- About the Venue -->
     <div class="section-header">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
@@ -650,7 +654,7 @@
       <div class="loc-name">Baqueira Beret - Sector Bonaigua</div>
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
       <div class="map-placeholder">
-        <img src="../../../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
+        <img src="../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret">
       </div>
     </div>
 
@@ -816,116 +820,14 @@
     </div>
   </div>
 
-  <script src="../../../js/burger-menu.js"></script>
+  <script src="../js/burger-menu.js"></script>
   <script>
-
-    /* ── Hero Gallery Carousel ── */
-    (function initCarousel() {
-      var track = document.getElementById('carouselTrack');
-      if (!track) return;
-      var slides = track.querySelectorAll('.carousel-slide');
-      var bars = document.querySelectorAll('#slideIndicators .bar');
-      var total = slides.length;
-      var current = 0;
-      var DURATION = 4000;
-      var TICK = 40;
-      var elapsed = 0;
-      var timer = null;
-      var looping = false;
-
-      var clone = slides[0].cloneNode(true);
-      clone.classList.add('clone-slide');
-      track.appendChild(clone);
-
-      function updateBars() {
-        for (var i = 0; i < bars.length; i++) {
-          var fill = bars[i].querySelector('.fill');
-          bars[i].classList.remove('done');
-          if (i < current) {
-            bars[i].classList.add('done');
-            fill.style.width = '100%';
-            fill.style.transition = 'none';
-          } else if (i === current) {
-            fill.style.transition = 'none';
-            fill.style.width = '0%';
-          } else {
-            fill.style.width = '0%';
-            fill.style.transition = 'none';
-          }
-        }
-      }
-
-      function goTo(idx) {
-        if (looping) return;
-        if (idx < 0) idx = total - 1;
-        if (idx >= total) {
-          looping = true;
-          track.style.transform = 'translateX(-' + (total * 100) + '%)';
-          current = 0;
-          elapsed = 0;
-          updateBars();
-          setTimeout(function() {
-            track.style.transition = 'none';
-            track.style.transform = 'translateX(0%)';
-            void track.offsetWidth;
-            track.style.transition = '';
-            looping = false;
-          }, 480);
-          return;
-        }
-        current = idx;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
-        elapsed = 0;
-        updateBars();
-      }
-      function tick() {
-        elapsed += TICK;
-        var pct = Math.min((elapsed / DURATION) * 100, 100);
-        var fill = bars[current].querySelector('.fill');
-        fill.style.transition = 'width ' + TICK + 'ms linear';
-        fill.style.width = pct + '%';
-        if (elapsed >= DURATION) goTo(current + 1);
-      }
-      function start() { if (!timer) timer = setInterval(tick, TICK); }
-      function stop() { clearInterval(timer); timer = null; }
-      function restart() { stop(); elapsed = 0; start(); }
-      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) { e.stopPropagation(); goTo(current - 1); restart(); });
-      document.querySelector('.hero .nav-next').addEventListener('click', function(e) { e.stopPropagation(); goTo(current + 1); restart(); });
-
-      // Touch swipe support
-      var heroEl = document.getElementById('heroCarousel');
-      var touchStartX = 0, touchStartY = 0, isSwiping = false;
-      heroEl.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isSwiping = true;
-        stop();
-      }, { passive: true });
-      heroEl.addEventListener('touchmove', function(e) {
-        if (!isSwiping) return;
-        var dx = e.touches[0].clientX - touchStartX;
-        var dy = e.touches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      }, { passive: false });
-      heroEl.addEventListener('touchend', function(e) {
-        if (!isSwiping) return;
-        isSwiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) {
-          if (dx < 0) goTo(current + 1);
-          else goTo(current - 1);
-        }
-        restart();
-      });
-
-      goTo(0);
-      start();
-    })();
-
     // === SINGLE CTA BEHAVIOR ===
     const stickyBtn = document.getElementById('sticky-btn');
     const inlineCta = document.getElementById('cta-get-it');
     const ticketSection = document.getElementById('ticket-section');
+    let stickyMode = 'tickets'; // 'tickets' or 'getit'
+    let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
     function getStickyTopOffset() {
       var sh = document.querySelector('.sticky-header');
@@ -935,8 +837,6 @@
       var y = ticketSection.getBoundingClientRect().top + window.pageYOffset - getStickyTopOffset();
       window.scrollTo({ top: Math.max(0, y), behavior: behavior || 'auto' });
     }
-    let stickyMode = 'tickets'; // 'tickets' or 'getit'
-    let hasSeenTickets = false; // once true, CTA stays as "Get it" permanently
 
     // Intersection Observer: detect when ticket section is visible
     const observer = new IntersectionObserver((entries) => {
@@ -1220,16 +1120,131 @@
       localStorage.setItem('cart_transportation', JSON.stringify(tr));
       window.location.href = (window.flowHref||function(u){return u})('checkout.html');
     });
+
+    /* ── Hero Gallery Carousel ── */
+    (function initCarousel() {
+      var track = document.getElementById('carouselTrack');
+      if (!track) return;
+      var slides = track.querySelectorAll('.carousel-slide');
+      var bars = document.querySelectorAll('#slideIndicators .bar');
+      var total = slides.length;
+      var current = 0;
+      var DURATION = 4000;
+      var TICK = 40;
+      var elapsed = 0;
+      var timer = null;
+      var looping = false;
+
+      var clone = slides[0].cloneNode(true);
+      clone.classList.add('clone-slide');
+      track.appendChild(clone);
+
+      function updateBars() {
+        for (var i = 0; i < bars.length; i++) {
+          var fill = bars[i].querySelector('.fill');
+          bars[i].classList.remove('done');
+          if (i < current) {
+            bars[i].classList.add('done');
+            fill.style.width = '100%';
+            fill.style.transition = 'none';
+          } else if (i === current) {
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+          } else {
+            fill.style.width = '0%';
+            fill.style.transition = 'none';
+          }
+        }
+      }
+
+      function goTo(idx) {
+        if (looping) return;
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) {
+          looping = true;
+          track.style.transform = 'translateX(-' + (total * 100) + '%)';
+          current = 0;
+          elapsed = 0;
+          updateBars();
+          setTimeout(function() {
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0%)';
+            void track.offsetWidth;
+            track.style.transition = '';
+            looping = false;
+          }, 480);
+          return;
+        }
+        current = idx;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        elapsed = 0;
+        updateBars();
+      }
+
+      function tick() {
+        elapsed += TICK;
+        var pct = Math.min((elapsed / DURATION) * 100, 100);
+        var fill = bars[current].querySelector('.fill');
+        fill.style.transition = 'width ' + TICK + 'ms linear';
+        fill.style.width = pct + '%';
+        if (elapsed >= DURATION) {
+          goTo(current + 1);
+        }
+      }
+
+      function start() { if (!timer) timer = setInterval(tick, TICK); }
+      function stop() { clearInterval(timer); timer = null; }
+      function restart() { stop(); elapsed = 0; start(); }
+
+      document.querySelector('.hero .nav-prev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current - 1);
+        restart();
+      });
+      document.querySelector('.hero .nav-next').addEventListener('click', function(e) {
+        e.stopPropagation();
+        goTo(current + 1);
+        restart();
+      });
+
+      // Touch swipe support
+      var heroEl = document.getElementById('heroCarousel');
+      var touchStartX = 0, touchStartY = 0, isSwiping = false;
+      heroEl.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isSwiping = true;
+        stop();
+      }, { passive: true });
+      heroEl.addEventListener('touchmove', function(e) {
+        if (!isSwiping) return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+      }, { passive: false });
+      heroEl.addEventListener('touchend', function(e) {
+        if (!isSwiping) return;
+        isSwiping = false;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+        restart();
+      });
+
+      goTo(0);
+      start();
+    })();
   </script>
   <script>
   (function() {
     var fsGallery = document.getElementById('fsGallery');
     var fsTrack = document.getElementById('fsGalleryTrack');
-    var fsThumbs = document.getElementById('fsGalleryThumbs');
+    var fsCounter = document.getElementById('fsGalleryCounter');
+    var fsDots = document.getElementById('fsGalleryDots');
     var fsClose = document.getElementById('fsGalleryClose');
     var fsViewport = document.getElementById('fsGalleryViewport');
-    var fsPrev = document.getElementById('fsGalleryPrev');
-    var fsNext = document.getElementById('fsGalleryNext');
     var galleryBtn = document.querySelector('.gallery-btn');
     if (!fsGallery || !galleryBtn) return;
 
@@ -1249,7 +1264,7 @@
 
     function buildSlides() {
       fsTrack.innerHTML = '';
-      fsThumbs.innerHTML = '';
+      fsDots.innerHTML = '';
       images.forEach(function(src, i) {
         var slide = document.createElement('div');
         slide.className = 'fs-gallery-slide';
@@ -1259,28 +1274,10 @@
         img.draggable = false;
         slide.appendChild(img);
         fsTrack.appendChild(slide);
-
-        var thumb = document.createElement('div');
-        thumb.className = 'fs-gallery-thumb' + (i === 0 ? ' active' : '');
-        var tImg = document.createElement('img');
-        tImg.src = src;
-        tImg.alt = 'Thumbnail ' + (i + 1);
-        thumb.appendChild(tImg);
-        thumb.addEventListener('click', (function(idx) { return function() { fsGoTo(idx); }; })(i));
-        fsThumbs.appendChild(thumb);
+        var dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        fsDots.appendChild(dot);
       });
-    }
-
-    function scrollThumbIntoView(idx) {
-      var th = fsThumbs.children[idx];
-      if (!th) return;
-      var left = th.offsetLeft - fsThumbs.offsetWidth / 2 + th.offsetWidth / 2;
-      fsThumbs.scrollTo({ left: left, behavior: 'smooth' });
-    }
-
-    function updateArrows() {
-      fsPrev.style.display = fsCurrent <= 0 ? 'none' : '';
-      fsNext.style.display = fsCurrent >= images.length - 1 ? 'none' : '';
     }
 
     function fsGoTo(idx) {
@@ -1288,10 +1285,9 @@
       if (idx >= images.length) idx = images.length - 1;
       fsCurrent = idx;
       fsTrack.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      var thumbs = fsThumbs.querySelectorAll('.fs-gallery-thumb');
-      thumbs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
-      scrollThumbIntoView(idx);
-      updateArrows();
+      fsCounter.textContent = (idx + 1) + ' / ' + images.length;
+      var dots = fsDots.querySelectorAll('.dot');
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
     }
 
     function openGallery() {
@@ -1311,8 +1307,6 @@
 
     galleryBtn.addEventListener('click', function(e) { e.preventDefault(); openGallery(); });
     fsClose.addEventListener('click', closeGallery);
-    fsPrev.addEventListener('click', function() { fsGoTo(fsCurrent - 1); });
-    fsNext.addEventListener('click', function() { fsGoTo(fsCurrent + 1); });
 
     fsGallery.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeGallery();
@@ -1383,7 +1377,7 @@
       });
     })();
   </script>
-  <script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
-  <script src="../../../js/flow-param.js"></script>
+<script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
+  <script src="../js/flow-param.js"></script>
 </body>
 </html>
