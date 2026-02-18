@@ -85,7 +85,7 @@
     .hero .side-btn svg { width:20px; height:20px; color:var(--color-text); }
     .hero .side-btn.liked svg { fill:#FF3B30; stroke:#FF3B30; color:#FF3B30; }
     .hero .shadow-overlay { position:absolute; bottom:0; left:0; right:0; height:135px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 96%); display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end; padding:0 16px 16px; gap:16px; z-index:4; pointer-events:none; }
-    .hero .gallery-btn { display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.9); border:none; border-radius:4px; padding:6px 12px; font-family:var(--font); font-weight:600; font-size:14px; cursor:pointer; color:var(--color-text); pointer-events:auto; }
+    .hero .gallery-btn { display:inline-flex; align-items:center; gap:4px; background:#fff; border:none; border-radius:4rem; padding:0 12px; height:32px; font-family:var(--font); font-weight:600; font-size:14px; line-height:20px; cursor:pointer; color:#031419; pointer-events:auto; box-shadow:0 3px 3px rgba(0,70,121,0.2); }
     .hero .gallery-btn svg { width:16px; height:16px; }
     .hero .slide-indicators { display:flex; gap:4px; width:100%; pointer-events:none; }
     .hero .slide-indicators .bar { flex:1; min-width:0; height:3px; border-radius:100px; background:rgba(255,255,255,0.4); overflow:hidden; position:relative; }
@@ -390,7 +390,7 @@
         <button type="button" class="side-btn" aria-label="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
       </div>
       <div class="shadow-overlay">
-        <button type="button" class="gallery-btn"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg>Gallery</button>
+        <button type="button" class="gallery-btn"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M224 80c0-26.5-21.5-48-48-48H80C53.5 32 32 53.5 32 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80zm0 256c0-26.5-21.5-48-48-48H80c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336zM288 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48zM480 336c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336z"/></svg>Gallery</button>
         <div class="slide-indicators" id="slideIndicators">
           <div class="bar"><span class="fill"></span></div>
           <div class="bar"><span class="fill"></span></div>
