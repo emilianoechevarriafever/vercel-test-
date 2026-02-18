@@ -603,8 +603,15 @@
       }
     });
 
-    // Restore transport selections from cart (if user navigates back)
+    // Flow a1 (default "without cart"): start clean — no preselected transport
+    var isDefaultFlow = !flow || flow === 'a1';
+    if (isDefaultFlow) {
+      try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+    }
+
+    // Restore transport selections from cart (if user navigates back in other flows)
     (function restoreTransportFromCart() {
+      if (isDefaultFlow) return;
       try {
         var saved = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
         if (!Array.isArray(saved) || saved.length === 0) return;
@@ -620,22 +627,19 @@
       } catch (e) {}
     })();
 
+    // For a1/default flow, show "Skip transport" immediately
+    if (isDefaultFlow) {
+      hasSeenTransport = true;
+      stickyMode = 'continue';
+    }
 
     render();
     // Scroll to transport selector on load without animation (no visible autoscroll from hero).
-    // Temporarily override CSS scroll-behavior:smooth so the jump is instant.
     document.documentElement.style.scrollBehavior = 'auto';
     setTimeout(function() {
       scrollToTransport('auto');
       document.documentElement.style.scrollBehavior = '';
     }, 50);
-
-    // Flow a1 (default): show "Skip transport" CTA immediately (no transport preselected)
-    if (!flow) {
-      hasSeenTransport = true;
-      stickyMode = 'continue';
-      updateSticky();
-    }
 
     // === Cross-sell bottom sheet (Option H) ===
     function openCrossSellSheet() {
