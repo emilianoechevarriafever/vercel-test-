@@ -720,14 +720,14 @@
   <!-- Fullscreen Gallery Overlay -->
   <div class="fs-gallery" id="fsGallery">
     <div class="fs-gallery-topbar">
-      <button type="button" class="fs-gallery-close" id="fsGalleryClose" aria-label="Close gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <span class="fs-gallery-counter" id="fsGalleryCounter">1 / 1</span>
-      <div class="fs-gallery-spacer"></div>
+      <button type="button" class="fs-gallery-close" id="fsGalleryClose" aria-label="Close gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="fs-gallery-viewport" id="fsGalleryViewport">
       <div class="fs-gallery-track" id="fsGalleryTrack"></div>
+      <button type="button" class="fs-gallery-arrow prev" id="fsGalleryPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button type="button" class="fs-gallery-arrow next" id="fsGalleryNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
     </div>
-    <div class="fs-gallery-dots" id="fsGalleryDots"></div>
+    <div class="fs-gallery-thumbs" id="fsGalleryThumbs"></div>
   </div>
 
   <!-- Bottom sheet 1: Accommodation (ticket selector only) -->
@@ -1206,10 +1206,11 @@
   (function() {
     var fsGallery = document.getElementById('fsGallery');
     var fsTrack = document.getElementById('fsGalleryTrack');
-    var fsCounter = document.getElementById('fsGalleryCounter');
-    var fsDots = document.getElementById('fsGalleryDots');
+    var fsThumbs = document.getElementById('fsGalleryThumbs');
     var fsClose = document.getElementById('fsGalleryClose');
     var fsViewport = document.getElementById('fsGalleryViewport');
+    var fsPrev = document.getElementById('fsGalleryPrev');
+    var fsNext = document.getElementById('fsGalleryNext');
     var galleryBtn = document.querySelector('.gallery-btn');
     if (!fsGallery || !galleryBtn) return;
 
@@ -1229,7 +1230,7 @@
 
     function buildSlides() {
       fsTrack.innerHTML = '';
-      fsDots.innerHTML = '';
+      fsThumbs.innerHTML = '';
       images.forEach(function(src, i) {
         var slide = document.createElement('div');
         slide.className = 'fs-gallery-slide';
@@ -1239,10 +1240,28 @@
         img.draggable = false;
         slide.appendChild(img);
         fsTrack.appendChild(slide);
-        var dot = document.createElement('div');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        fsDots.appendChild(dot);
+
+        var thumb = document.createElement('div');
+        thumb.className = 'fs-gallery-thumb' + (i === 0 ? ' active' : '');
+        var tImg = document.createElement('img');
+        tImg.src = src;
+        tImg.alt = 'Thumbnail ' + (i + 1);
+        thumb.appendChild(tImg);
+        thumb.addEventListener('click', (function(idx) { return function() { fsGoTo(idx); }; })(i));
+        fsThumbs.appendChild(thumb);
       });
+    }
+
+    function scrollThumbIntoView(idx) {
+      var th = fsThumbs.children[idx];
+      if (!th) return;
+      var left = th.offsetLeft - fsThumbs.offsetWidth / 2 + th.offsetWidth / 2;
+      fsThumbs.scrollTo({ left: left, behavior: 'smooth' });
+    }
+
+    function updateArrows() {
+      fsPrev.style.display = fsCurrent <= 0 ? 'none' : '';
+      fsNext.style.display = fsCurrent >= images.length - 1 ? 'none' : '';
     }
 
     function fsGoTo(idx) {
@@ -1250,9 +1269,10 @@
       if (idx >= images.length) idx = images.length - 1;
       fsCurrent = idx;
       fsTrack.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      fsCounter.textContent = (idx + 1) + ' / ' + images.length;
-      var dots = fsDots.querySelectorAll('.dot');
-      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+      var thumbs = fsThumbs.querySelectorAll('.fs-gallery-thumb');
+      thumbs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
+      scrollThumbIntoView(idx);
+      updateArrows();
     }
 
     function openGallery() {
@@ -1272,6 +1292,8 @@
 
     galleryBtn.addEventListener('click', function(e) { e.preventDefault(); openGallery(); });
     fsClose.addEventListener('click', closeGallery);
+    fsPrev.addEventListener('click', function() { fsGoTo(fsCurrent - 1); });
+    fsNext.addEventListener('click', function() { fsGoTo(fsCurrent + 1); });
 
     fsGallery.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeGallery();
