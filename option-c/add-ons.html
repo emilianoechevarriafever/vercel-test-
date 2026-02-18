@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occident - Polar Sound 2026 – Add-ons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --color-primary: #0079ca;
+      --color-text: #031419;
+      --color-text-secondary: #536b75;
+      --color-border: #E6EAEE;
+      --color-bg: #ffffff;
+      --color-bg-neutral: #F5F7F9;
+      --font: 'Montserrat', sans-serif;
+    }
+    body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
+    .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; padding-bottom:100px; }
+
+    .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:#fff; border-top:none; border-bottom:1px solid #e6eaee; }
+    .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .navbar .logo-link img { height:38px; width:auto; display:block; object-fit:contain; }
+    .nav-icons { display:flex; align-items:center; gap:20px; }
+    .nav-icons svg { height:24px; width:auto; color:var(--color-text); cursor:pointer; }
+    .nav-icon-btn{all:unset;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;width:24px;height:24px;flex-shrink:0;box-sizing:border-box;overflow:visible}
+    .nav-icon-btn svg { height:24px; width:auto; color:var(--color-text); }
+    .avatar-wrap{all:unset;position:relative;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;width:24px;height:24px;flex-shrink:0;box-sizing:border-box}
+    .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; display:none;}
+    .avatar-wrap .avatar-placeholder { display:flex;}
+    html.u-in .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    html.u-in .avatar-wrap img{display:block}
+    html.u-in .avatar-wrap .avatar-placeholder{display:none}
+    .event-summary { display:flex; gap:12px; padding:16px; align-items:center; border-bottom:1px solid var(--color-border); }
+    .event-summary .event-thumb { width:56px; height:56px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+    .event-summary .event-thumb img { width:100%; height:100%; object-fit:cover; }
+    .event-summary .event-info { flex:1; }
+    .event-summary .event-name { font-size:14px; font-weight:600; margin-bottom:2px; }
+    .event-summary .event-venue { font-size:12px; color:var(--color-text-secondary); }
+
+    .addon-section { padding:16px; }
+    .addon-section h2 { font-size:16px; font-weight:700; margin-bottom:12px; }
+    .addon-card { display:flex; align-items:center; justify-content:space-between; padding:16px; background:var(--color-bg-neutral); border:1px solid var(--color-border); border-radius:12px; margin-bottom:12px; cursor:pointer; transition:border-color 0.2s; }
+    .addon-card:hover { border-color:var(--color-primary); }
+    .addon-card .left { display:flex; align-items:center; gap:12px; }
+    .addon-card .icon { width:40px; height:40px; border-radius:8px; background:var(--color-primary); opacity:0.15; display:flex; align-items:center; justify-content:center; }
+    .addon-card .icon svg { width:22px; height:22px; color:var(--color-primary); }
+    .addon-card .label { font-size:15px; font-weight:600; }
+    .addon-card .sublabel { font-size:12px; color:var(--color-text-secondary); margin-top:2px; }
+    .addon-card .right { font-size:14px; font-weight:600; color:var(--color-primary); }
+    .addon-card.added .right { color:var(--color-text-secondary); font-weight:500; }
+
+    .selected-summary { padding:0 16px 16px; font-size:13px; color:var(--color-text-secondary); }
+    .selected-summary .line { margin-bottom:4px; }
+
+    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:100; background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%); padding:12px 16px max(12px, env(safe-area-inset-bottom)); }
+    .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
+    .sticky-cta .cta-btn:hover { background:#0079ca; }
+    .sticky-cta .cta-btn:focus-visible { border-color:#005795; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
+    .sticky-cta .cta-btn:active { background:#0079ca; opacity:0.85; }
+    .sticky-cta .cta-btn:disabled, .sticky-cta .cta-btn.disabled { background:#f2f3f3; color:#a7b2ba; border-color:transparent; box-shadow:none; cursor:default; opacity:1; }
+
+    /* Bottom sheet */
+    .sheet-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:300; opacity:0; visibility:hidden; transition:opacity 0.25s, visibility 0.25s; }
+    .sheet-overlay.open { opacity:1; visibility:visible; }
+    .sheet { position:fixed; left:0; right:0; bottom:0; max-height:70vh; background:white; border-radius:16px 16px 0 0; z-index:301; transform:translateY(100%); transition:transform 0.3s; box-shadow:0 -4px 20px rgba(0,0,0,0.15); }
+    .sheet.open { transform:translateY(0); }
+    .sheet .sheet-handle { width:36px; height:4px; background:#ddd; border-radius:2px; margin:12px auto; }
+    .sheet .sheet-title { padding:0 16px 16px; font-size:18px; font-weight:700; }
+    .sheet .sheet-options { padding:0 16px 24px; max-height:50vh; overflow-y:auto; }
+    .sheet-option { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--color-border); cursor:pointer; }
+    .sheet-option:last-child { border-bottom:none; }
+    .sheet-option .name { font-size:15px; font-weight:500; }
+    .sheet-option .price { font-size:15px; font-weight:600; }
+    .sheet-option .price.free { color:var(--color-text-secondary); font-weight:500; }
+    .sheet-option.selected { background:var(--color-bg-neutral); border-radius:8px; padding-left:12px; padding-right:12px; }
+    .sheet .sheet-actions { padding:16px; border-top:1px solid var(--color-border); }
+    .sheet .sheet-actions button { width:100%; height:48px; border-radius:100px; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
+    .sheet .btn-cancel { background:#f0f0f0; color:var(--color-text); border:none; margin-bottom:8px; }
+    .sheet .btn-add { background:var(--color-primary); color:white; border:none; }
+    /* Tap feedback */
+    .nav-icon-btn:active { opacity:0.6; }
+    .ticket-pill:active { transform:scale(0.96); }
+  </style>
+  <link rel="stylesheet" href="../css/navbar.css">
+<script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
+</head>
+<body>
+  <div class="phone">
+    <header class="sticky-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo-link"><img src="../img/fever-logo.svg" alt="Fever"></a>
+      <div class="nav-icons">
+        <a class="nav-icon-btn" href="../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
+        <a class="nav-icon-btn" href="index.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
+        <a class="nav-icon-btn" href="../favorites.html" aria-label="Favorites"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M244 130.6l-12-13.5-4.2-4.7c-26-29.2-65.3-42.8-103.8-35.8c-53.3 9.7-92 56.1-92 110.3v3.5c0 32.3 13.4 63.1 37.1 85.1L253 446.8c.8 .7 1.9 1.2 3 1.2s2.2-.4 3-1.2L443 275.5c23.6-22 37-52.8 37-85.1v-3.5c0-54.2-38.7-100.6-92-110.3c-38.5-7-77.8 6.6-103.8 35.8l-4.2 4.7-12 13.5c-3 3.4-7.4 5.4-12 5.4s-8.9-2-12-5.4zm34.9-57.1C311 48.4 352.7 37.7 393.7 45.1C462.2 57.6 512 117.3 512 186.9v3.5c0 36-13.1 70.6-36.6 97.5c-3.4 3.8-6.9 7.5-10.7 11l-184 171.3c-.8 .8-1.7 1.5-2.6 2.2c-6.3 4.9-14.1 7.5-22.1 7.5c-9.2 0-18-3.5-24.8-9.7L47.2 299c-3.8-3.5-7.3-7.2-10.7-11C13.1 261 0 226.4 0 190.4v-3.5C0 117.3 49.8 57.6 118.3 45.1c40.9-7.4 82.6 3.2 114.7 28.4c6.7 5.3 13 11.1 18.7 17.6l4.2 4.7 4.2-4.7c4.2-4.7 8.6-9.1 13.3-13.1c1.8-1.5 3.6-3 5.4-4.5z"/></svg></a>
+        <a class="avatar-wrap" href="../login.html" aria-label="Profile"><img src="../img/profile-avatar.png" alt="Profile"><svg class="avatar-placeholder" viewBox="0 0 512 512" fill="#536B75"><path d="M406.5 399.6C387.4 352.9 341.5 320 288 320l-64 0c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3l64 0c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-64-40a64 64 0 1 0 128 0 64 64 0 1 0-128 0z"/></svg></a>
+<a class="nav-icon-btn" href="../category.html" aria-label="Menu"><svg viewBox="0 0 448 512" fill="currentColor"><path d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z"/></svg></a>
+      </div>
+    </nav>
+    </header>
+
+    <div class="event-summary">
+      <div class="event-thumb"><img src="../img/polar-sound-hero.png" alt="Polar Sound 2026"></div>
+      <div class="event-info">
+        <div class="event-name">Occident - Polar Sound 2026</div>
+        <div class="event-venue">Baqueira Beret · March 13 & 14, 2026</div>
+      </div>
+    </div>
+
+    <div class="addon-section">
+      <h2>Add-ons</h2>
+      <div class="addon-card" id="card-accommodation" data-sheet="sheet-accommodation">
+        <div class="left">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+          <div>
+            <div class="label">Hotel</div>
+            <div class="sublabel" id="accommodation-sublabel">Add hotel or apartment</div>
+          </div>
+        </div>
+        <div class="right" id="accommodation-status">Add</div>
+      </div>
+      <div class="addon-card" id="card-transport" data-sheet="sheet-transport">
+        <div class="left">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14v-5H5v5zM5 8h3l2-3h4l2 3h3v9H5V8z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg></div>
+          <div>
+            <div class="label">Transport</div>
+            <div class="sublabel" id="transport-sublabel">Add bus or shuttle</div>
+          </div>
+        </div>
+        <div class="right" id="transport-status">Add</div>
+      </div>
+    </div>
+
+    <div class="selected-summary" id="selected-summary"></div>
+
+    <div class="sticky-cta">
+      <button type="button" class="cta-btn" id="btn-checkout">Proceed to checkout</button>
+    </div>
+  </div>
+
+  <!-- Bottom sheet: Hotel -->
+  <div class="sheet-overlay" id="overlay-accommodation"></div>
+  <div class="sheet" id="sheet-accommodation">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Hotel</div>
+    <div class="sheet-options">
+      <div class="sheet-option" data-name="Hotel 2 nights" data-price="120" data-detail="Double room"><span class="name">Hotel 2 nights</span><span class="price">€120.00</span></div>
+      <div class="sheet-option" data-name="Apartment 2 nights" data-price="90" data-detail="Studio"><span class="name">Apartment 2 nights</span><span class="price">€90.00</span></div>
+      <div class="sheet-option" data-name="Skip" data-price="0" data-detail="I'll arrange my own"><span class="name">Skip</span><span class="price free">—</span></div>
+    </div>
+    <div class="sheet-actions">
+      <button type="button" class="btn-cancel" data-close="sheet-accommodation">Cancel</button>
+      <button type="button" class="btn-add" id="sheet-accommodation-add">Add</button>
+    </div>
+  </div>
+
+  <!-- Bottom sheet: Transport -->
+  <div class="sheet-overlay" id="overlay-transport"></div>
+  <div class="sheet" id="sheet-transport">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Transport</div>
+    <div class="sheet-options">
+      <div class="sheet-option" data-name="Bus Barcelona – Baqueira" data-price="49" data-detail="Round trip"><span class="name">Bus Barcelona – Baqueira</span><span class="price">€49.00</span></div>
+      <div class="sheet-option" data-name="Shuttle Madrid – Baqueira" data-price="69" data-detail="Round trip"><span class="name">Shuttle Madrid – Baqueira</span><span class="price">€69.00</span></div>
+    </div>
+    <div class="sheet-actions">
+      <button type="button" class="btn-cancel" data-close="sheet-transport">Cancel</button>
+      <button type="button" class="btn-add" id="sheet-transport-add">Add</button>
+    </div>
+  </div>
+
+  <script src="../js/burger-menu.js"></script>
+  <script>
+    let selectedAccommodation = null;
+    let selectedTransport = null;
+
+    function openSheet(id) {
+      document.getElementById('overlay-' + id).classList.add('open');
+      document.getElementById(id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSheet(id) {
+      var s = document.getElementById(id);
+      if (s) s.style.transform = '';
+      document.getElementById('overlay-' + id).classList.remove('open');
+      if (s) s.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.addon-card').forEach(card => {
+      card.addEventListener('click', function() {
+        openSheet(this.dataset.sheet);
+      });
+    });
+    document.querySelectorAll('.sheet-overlay').forEach(el => {
+      el.addEventListener('click', function() {
+        closeSheet(this.id.replace('overlay-', ''));
+      });
+    });
+    document.querySelectorAll('.btn-cancel').forEach(btn => {
+      btn.addEventListener('click', function() {
+        closeSheet(this.dataset.close);
+      });
+    });
+
+    // Swipe-to-dismiss for bottom sheets (touch + mouse)
+    (function() {
+      function enableSwipeDismiss(sheetEl, closeFn) {
+        if (!sheetEl) return;
+        var startY = 0, currentY = 0, isDragging = false;
+        function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
+        function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateY(' + dy + 'px)'; } }
+        function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeFn(); }
+        sheetEl.addEventListener('touchstart', function(e) { var sc = sheetEl.querySelector('.sheet-options'); if (sc && sc.scrollTop > 0) return; dragStart(e.touches[0].clientY); }, { passive: true });
+        sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
+        sheetEl.addEventListener('touchend', dragEnd);
+        sheetEl.addEventListener('mousedown', function(e) { var sc = sheetEl.querySelector('.sheet-options'); if (sc && sc.scrollTop > 0) return; e.preventDefault(); dragStart(e.clientY); });
+        document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
+        document.addEventListener('mouseup', dragEnd);
+      }
+      enableSwipeDismiss(document.getElementById('sheet-accommodation'), function() { closeSheet('sheet-accommodation'); });
+      enableSwipeDismiss(document.getElementById('sheet-transport'), function() { closeSheet('sheet-transport'); });
+    })();
+
+    document.querySelectorAll('#sheet-accommodation .sheet-option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('#sheet-accommodation .sheet-option').forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedAccommodation = { name: this.dataset.name, price: parseFloat(this.dataset.price), detail: this.dataset.detail };
+      });
+    });
+    document.querySelectorAll('#sheet-transport .sheet-option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('#sheet-transport .sheet-option').forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTransport = { name: this.dataset.name, price: parseFloat(this.dataset.price), detail: this.dataset.detail };
+      });
+    });
+
+    document.getElementById('sheet-accommodation-add').addEventListener('click', function() {
+      if (selectedAccommodation) {
+        const cart = [{ name: selectedAccommodation.name, detail: selectedAccommodation.detail, price: selectedAccommodation.price, qty: 1 }];
+        localStorage.setItem('cart_accommodation', JSON.stringify(cart));
+        document.getElementById('accommodation-sublabel').textContent = selectedAccommodation.name + (selectedAccommodation.price > 0 ? ' · €' + selectedAccommodation.price.toFixed(2) : '');
+        document.getElementById('accommodation-status').textContent = 'Added';
+        document.getElementById('card-accommodation').classList.add('added');
+        closeSheet('sheet-accommodation');
+        renderSummary();
+      }
+    });
+    document.getElementById('sheet-transport-add').addEventListener('click', function() {
+      if (selectedTransport) {
+        const cart = [{ name: selectedTransport.name, detail: selectedTransport.detail, price: selectedTransport.price, qty: 1 }];
+        localStorage.setItem('cart_transportation', JSON.stringify(cart));
+        document.getElementById('transport-sublabel').textContent = selectedTransport.name + (selectedTransport.price > 0 ? ' · €' + selectedTransport.price.toFixed(2) : '');
+        document.getElementById('transport-status').textContent = 'Added';
+        document.getElementById('card-transport').classList.add('added');
+        closeSheet('sheet-transport');
+        renderSummary();
+      }
+    });
+
+    function renderSummary() {
+      const acc = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+      const tr = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
+      const lines = [];
+      acc.forEach(a => { if (a.price > 0) lines.push('Hotel: ' + a.name + ' €' + (a.price * (a.qty || 1)).toFixed(2)); });
+      tr.forEach(t => { if (t.price > 0) lines.push('Transport: ' + t.name + ' €' + (t.price * (t.qty || 1)).toFixed(2)); });
+      document.getElementById('selected-summary').innerHTML = lines.length ? lines.map(l => '<div class="line">' + l + '</div>').join('') : '';
+    }
+
+    function loadSaved() {
+      const acc = JSON.parse(localStorage.getItem('cart_accommodation') || '[]');
+      const tr = JSON.parse(localStorage.getItem('cart_transportation') || '[]');
+      if (acc.length > 0) {
+        const a = acc[0];
+        document.getElementById('accommodation-sublabel').textContent = a.name + (a.price > 0 ? ' · €' + (a.price * (a.qty || 1)).toFixed(2) : '');
+        document.getElementById('accommodation-status').textContent = 'Added';
+        document.getElementById('card-accommodation').classList.add('added');
+      }
+      if (tr.length > 0) {
+        const t = tr[0];
+        document.getElementById('transport-sublabel').textContent = t.name + (t.price > 0 ? ' · €' + (t.price * (t.qty || 1)).toFixed(2) : '');
+        document.getElementById('transport-status').textContent = 'Added';
+        document.getElementById('card-transport').classList.add('added');
+      }
+      renderSummary();
+    }
+    loadSaved();
+
+    document.getElementById('btn-checkout').addEventListener('click', function() {
+      window.location.href = (window.flowHref||function(u){return u})('checkout.html');
+    });
+  </script>
+<script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
+  <script src="../js/flow-param.js"></script>
+</body>
+</html>
