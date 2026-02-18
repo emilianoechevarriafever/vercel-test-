@@ -294,7 +294,7 @@
       scroll-padding-left: 16px;
     }
     .card-scroll::-webkit-scrollbar { display: none; }
-    .card-scroll.can-scroll-right { -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent); mask-image: linear-gradient(to right, black calc(100% - 24px), transparent); }
+
     .card-scroll > * { scroll-snap-align: start; }
     .card-scroll .card-img {
       width: 150px;
@@ -1630,18 +1630,6 @@
         }
       }
       updateAvatar();
-    })();
-  </script>
-  <script>
-    (function() {
-      document.querySelectorAll('.card-scroll').forEach(function(el) {
-        function update() {
-          var canScroll = el.scrollWidth - el.scrollLeft - el.clientWidth > 2;
-          el.classList.toggle('can-scroll-right', canScroll);
-        }
-        el.addEventListener('scroll', update, { passive: true });
-        update();
-      });
     })();
   </script>
   <script>
