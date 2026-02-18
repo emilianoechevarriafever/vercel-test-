@@ -334,55 +334,39 @@
       transition: opacity 0.3s ease;
     }
     .event-card .card-img img.loaded { opacity: 1; }
-    .event-card .rank {
-      position: absolute;
-      bottom: 4px;
-      left: 8px;
-      font-size: 64px;
-      font-weight: 900;
-      color: white;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-      line-height: 1;
-      font-family: var(--font);
-      -webkit-text-stroke: 1px rgba(0,0,0,0.2);
-    }
-    /* Top 10: solo título; número en dos capas (trazo atrás, relleno blanco encima) para cero artefactos */
     .section-top10 .event-card .card-meta,
     .section-top10 .event-card .card-price { display: none; }
     .section-top10 .event-card .card-title { margin-top: 4px; }
-    .section-top10 .event-card .card-img .rank {
+    .section-top10 .event-card .card-img {
+      overflow: visible;
+      margin-bottom: 1.5rem;
+    }
+    .section-top10 .event-card .card-img .rank-number {
+      display: inline-block;
       position: absolute;
-      bottom: 8px;
-      left: 8px;
-      font-size: 80px;
-      font-weight: 900;
-      line-height: 1;
-      font-family: var(--font);
-      letter-spacing: -0.02em;
-      z-index: 1;
+      left: -6px;
+      bottom: -1px;
       pointer-events: none;
+      z-index: 1;
     }
-    .section-top10 .event-card .card-img .rank .rank-stroke,
-    .section-top10 .event-card .card-img .rank .rank-fill {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: 1;
-      font-family: inherit;
-      letter-spacing: inherit;
+    .section-top10 .event-card .card-img .rank-number__svg {
+      font-family: var(--font);
+      font-size: 88px;
+      line-height: 0.8em;
+      font-weight: 600;
+      fill: #fff;
+      width: 100px;
+      height: 88px;
     }
-    .section-top10 .event-card .card-img .rank .rank-stroke {
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 3px #000;
+    .section-top10 .event-card .card-img .rank-number__stroke {
+      stroke: #031419;
+      stroke-width: 6px;
+      stroke-linejoin: round;
     }
-    .section-top10 .event-card .card-img .rank .rank-fill {
-      color: #fff;
-      -webkit-text-fill-color: #fff;
-      -webkit-text-stroke: 0 transparent;
+    .section-top10 .event-card .card-img .rank-number__fill {
+      fill: #fafbfb;
     }
+
     .event-card .card-img .card-badge {
       position: absolute;
       top: 8px;
@@ -852,7 +836,7 @@
           <div class="card-img">
             <button type="button" class="card-like" aria-label="Add to favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="img/polar-sound-hero.png" alt="Polar Sound 2026">
-            <span class="rank"><span class="rank-stroke">1</span><span class="rank-fill">1</span></span>
+            <div class="rank-number"><svg class="rank-number__svg" viewBox="0 0 100 88"><text class="rank-number__stroke" x="2" y="84" text-anchor="start">1</text><text class="rank-number__fill" x="2" y="84" text-anchor="start">1</text></svg></div>
           </div>
           <div class="card-title">Occident - Polar Sound 2026: Tickets &amp; Accomodation</div>
           <div class="card-meta"><span class="rating">&#9733; 4.5</span> (462) &middot; 12 mar</div>
@@ -864,7 +848,7 @@
           <div class="card-img">
             <button type="button" class="card-like" aria-label="Add to favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/66fdd5ea-53dd-11ee-a3d8-bef8ce2e6ee8.jpg" alt="Brunch">
-            <span class="rank"><span class="rank-stroke">2</span><span class="rank-fill">2</span></span>
+            <div class="rank-number"><svg class="rank-number__svg" viewBox="0 0 100 88"><text class="rank-number__stroke" x="2" y="84" text-anchor="start">2</text><text class="rank-number__fill" x="2" y="84" text-anchor="start">2</text></svg></div>
           </div>
           <div class="card-title">Brunch with views of Gran V&iacute;a</div>
           <div class="card-meta"><span class="rating">&#9733; 4.6</span> (2199)</div>
@@ -876,7 +860,7 @@
           <div class="card-img">
             <button type="button" class="card-like" aria-label="Add to favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             <img src="https://applications-media.feverup.com/image/upload/f_auto,w_720,h_720/fever2/plan/photo/ce0edbfc-52a1-11f0-87c2-fe0e7cbe00f7.jpg" alt="Museo Banksy">
-            <span class="rank"><span class="rank-stroke">3</span><span class="rank-fill">3</span></span>
+            <div class="rank-number"><svg class="rank-number__svg" viewBox="0 0 100 88"><text class="rank-number__stroke" x="2" y="84" text-anchor="start">3</text><text class="rank-number__fill" x="2" y="84" text-anchor="start">3</text></svg></div>
           </div>
           <div class="card-title">Museo Banksy Madrid</div>
           <div class="card-meta"><span class="rating">&#9733; 4.8</span> (5300)</div>
