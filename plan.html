@@ -92,6 +92,8 @@
 
     .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
     .no-fees-banner { display:flex; align-items:center; justify-content:center; gap:8px; background:#f0ebfd; border-radius:8px; padding:16px; margin:16px 0; }
+    .no-fees-banner .info-icon { width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .no-fees-banner .info-icon img { width:16px; height:16px; display:block; }
     .no-fees-banner span { font-size:14px; font-weight:400; line-height:20px; color:var(--color-text); }
 
     .ticket-pills { display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
@@ -236,7 +238,8 @@
 
     <div class="ticket-selector">
       <div class="no-fees-banner">
-        <span>&#9432; No booking fees</span>
+        <span class="info-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/45f9ca19-1d8e-4183-9c26-57daf45780b8" alt=""></span>
+        <span>No booking fees</span>
       </div>
       <div class="ticket-pills" id="ticket-pills-row"></div>
       <div id="ticket-panels"></div>
