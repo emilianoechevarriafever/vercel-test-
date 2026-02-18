@@ -131,16 +131,33 @@
     .cta-primary:hover { background:#0066b3; }
 
     .reviews { padding:20px 16px; }
-    .reviews h3 { font-size:18px; font-weight:600; margin-bottom:16px; }
-    .rating-big { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
-    .rating-big .score { font-size:28px; font-weight:700; }
-    .rating-big .stars { color:#f5a623; font-size:16px; letter-spacing:2px; }
-    .rating-big .count { font-size:13px; color:var(--color-text-secondary); }
-    .review-card { border-bottom:1px dashed var(--color-border-light); padding:12px 0; }
+    .reviews .reviews-title { font-size:18px; font-weight:700; margin-bottom:20px; }
+    .reviews-summary { display:flex; gap:20px; align-items:flex-start; margin-bottom:16px; }
+    .reviews-score-col { display:flex; flex-direction:column; align-items:center; min-width:80px; }
+    .reviews-score-col .score-number { font-size:40px; font-weight:800; line-height:1; letter-spacing:-0.02em; }
+    .reviews-score-col .score-out-of { font-size:13px; color:var(--color-text-secondary); margin-top:2px; }
+    .reviews-score-col .score-stars { color:#f5a623; font-size:14px; letter-spacing:1px; margin-top:4px; }
+    .reviews-score-col .score-count { font-size:12px; color:var(--color-text-secondary); margin-top:4px; white-space:nowrap; }
+    .reviews-bars-col { flex:1; display:flex; flex-direction:column; gap:5px; padding-top:4px; }
+    .bar-row { display:flex; align-items:center; gap:8px; }
+    .bar-row .bar-label { font-size:12px; font-weight:600; color:var(--color-text-secondary); min-width:14px; text-align:right; }
+    .bar-row .bar-star { font-size:10px; color:#f5a623; }
+    .bar-row .bar-track { flex:1; height:6px; background:#E6EAEE; border-radius:3px; overflow:hidden; }
+    .bar-row .bar-fill { height:100%; background:#f5a623; border-radius:3px; transition:width 0.5s ease; }
+    .bar-row .bar-pct { font-size:11px; color:var(--color-text-secondary); min-width:28px; text-align:right; }
+    .reviews-verified { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--color-text-secondary); margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--color-border-light); }
+    .reviews-verified svg { width:14px; height:14px; color:#22ad5c; flex-shrink:0; }
+    .review-card { padding:14px 0; border-bottom:1px solid #f0f2f4; }
     .review-card:last-child { border-bottom:none; }
-    .review-card .reviewer { font-size:14px; font-weight:600; }
-    .review-card .review-date { font-size:12px; color:var(--color-text-secondary); margin:2px 0 6px; }
-    .review-card .review-text { font-size:14px; line-height:20px; }
+    .review-card-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .review-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:white; flex-shrink:0; }
+    .review-card-info { flex:1; }
+    .review-card-info .reviewer { font-size:14px; font-weight:600; line-height:18px; }
+    .review-card-info .review-date { font-size:12px; color:var(--color-text-secondary); line-height:16px; }
+    .review-card .review-stars { color:#f5a623; font-size:12px; letter-spacing:1px; margin-bottom:4px; }
+    .review-card .review-text { font-size:14px; line-height:20px; color:#1a2b33; }
+    .reviews-see-all { display:block; text-align:center; padding:14px 0 4px; font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; cursor:pointer; }
+    .reviews-see-all:hover { text-decoration:underline; }
 
     .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
     .help-section span { font-size:15px; font-weight:500; }
@@ -300,9 +317,12 @@
         location: { name: 'Museo Banksy Madrid', address: 'P.\u00ba de la Esperanza 1, Arganzuela, 28005 Madrid' },
         description: '<p>\ud83d\uddbc\ufe0f <strong>Banksy Museum Madrid</strong> \u2014 The universe of the mysterious British artist is now on permanent display in the heart of Madrid. Enter the Banksy Museum and discover the artist\'s most important and committed works.</p><p class="subtitle">Highlights</p><ul><li>\ud83d\uddbc\ufe0f An exhibition of works by the enigmatic and renowned artist Banksy, master of Street Art</li><li>\ud83c\udfa7 An exhibition that takes you from their most iconic pieces to the lesser known ones</li><li>\ud83c\udfa8 See "Banksy\'s Rage, the flower thrower" or "The girl with the red balloon" from up close</li><li>\ud83c\udfac An immersive exhibition in the heart of the city\'s cultural epicenter</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 On Thursdays from 10:00 AM to 9:00 PM (last entry at 8:15 PM)<br>\ud83d\udd52 Every day from 10:00 AM to 8:00 PM (last entry at 7:15 PM)<br>\u23f3 Duration: 1 hour (approximately)<br>\ud83d\udccd Location: Paseo de la Esperanza 1, Arganzuela<br>\ud83d\udc64 All ages (free access for children under 6)<br>\u267f Wheelchair accessible</p>',
         rating: 4.8, reviewCount: 5342,
+        breakdown: [78, 14, 5, 2, 1],
         reviews: [
-          { name: 'Ale L.', date: 'February 2026', text: 'The museum is excellent. It allows you to connect with Banksy\'s work in a global way that manages to transmit his essence. Super recommendable!' },
-          { name: 'Diego D.', date: 'January 2026', text: 'Very well-themed, the space is great and captures his work well. The environment created makes you feel like you\'re in the place where each piece was painted.' }
+          { name: 'Ale L.', date: 'Feb 2026', stars: 5, text: 'The museum is excellent. It allows you to connect with Banksy\'s work in a global way that manages to transmit his essence. Super recommendable!' },
+          { name: 'Diego D.', date: 'Jan 2026', stars: 5, text: 'Very well-themed, the space is great and captures his work well. The environment created makes you feel like you\'re in the place where each piece was painted.' },
+          { name: 'Marta G.', date: 'Jan 2026', stars: 4, text: 'I really liked how they set up the space. You see all or almost all of his works.' },
+          { name: 'Kristhyan B.', date: 'Feb 2026', stars: 5, text: 'It\'s super good! Much better than I imagined and an excellent plan for couples.' }
         ],
         ticketTypes: [
           { id: 'adult', label: 'Adult', tickets: [
@@ -333,9 +353,12 @@
         location: { name: 'Bas\u00edlica Pontificia de San Miguel', address: 'Calle de San Justo, 4, Madrid, 28005' },
         description: '<p>\ud83d\udd6f\ufe0f <strong>Candlelight</strong> brings the magic of a live musical experience to incredible locations in Madrid. Get your tickets for this Candlelight: Vivaldi\'s Four Seasons!</p><p class="subtitle">Program</p><ul><li>Sonata n.12 in d-minor "La Follia" RV 63</li><li>The Four Seasons: Winter (RV 297)</li><li>The Four Seasons: Autumn (RV 293)</li><li>The Four Seasons: Summer (RV 315)</li><li>The Four Seasons: Spring (RV 269)</li></ul><p class="subtitle">General Info</p><p>\ud83d\udccd Venue: Bas\u00edlica Pontificia de San Miguel, Madrid<br>\u23f3 Duration: 60 minutes (doors open 30 min before, no admission after start)<br>\ud83d\udc64 Ages 8+ (under 16 with adult)<br>\ud83e\ude91 Seats assigned on arrival by ticket zone</p>',
         rating: 4.8, reviewCount: 148,
+        breakdown: [82, 12, 4, 1, 1],
         reviews: [
-          { name: 'Ruben L.', date: 'January 2026', text: 'A magnificent event and a spectacular quartet. The acoustics of the basilica were phenomenal.' },
-          { name: 'Laura F.', date: 'December 2025', text: 'We loved the concert and the acoustics of the church. We will repeat the experience.' }
+          { name: 'Ruben L.', date: 'Jan 2026', stars: 5, text: 'A magnificent event and a spectacular quartet. The acoustics of the basilica were phenomenal.' },
+          { name: 'Laura F.', date: 'Dec 2025', stars: 5, text: 'We loved the concert and the acoustics of the church. We will repeat the experience.' },
+          { name: 'Carlos M.', date: 'Jan 2026', stars: 4, text: 'Beautiful venue and great performance. The candles made it truly special.' },
+          { name: 'Sofia P.', date: 'Dec 2025', stars: 5, text: 'Absolutely magical! One of the best evenings we\'ve had in Madrid.' }
         ],
         ticketTypes: [
           { id: 'zone-d', label: 'Zone D', tickets: [
@@ -365,9 +388,12 @@
         location: { name: 'Caf\u00e9 Berl\u00edn', address: 'Costanilla de los \u00c1ngeles, 20, Madrid, 28013' },
         description: '<p>\ud83c\udfb7 <strong>The Jazz Room</strong> takes you on a captivating musical journey to the heart of New Orleans. A street-style bar recreates 1920s New Orleans, where talented jazz musicians light up the stage with the best "hot jazz".</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udfb5 Live performance with talented jazz musicians and vocalists</li><li>\u2708\ufe0f Immerse yourself in the heart of New Orleans, the birthplace of jazz</li><li>\ud83c\udfba Soulful sounds of saxophone, trumpet, and other jazz instruments</li><li>\ud83e\udd29 Combination of pre-selected songs and improvisation</li><li>\ud83c\udf77 Set in an elegant and intimate bar</li></ul><p class="subtitle">Program</p><ul><li>Georgia on My Mind \u2013 Preservation Hall Band</li><li>On the Sunny Side of the Street \u2013 Louis Armstrong</li><li>When The Saints Go Marching In \u2013 Louis Armstrong</li><li>\u2026and many more</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 Multiple dates: Friday & Saturday<br>\u23f3 Duration: 1 hour<br>\ud83d\udccd Venue: Caf\u00e9 Berl\u00edn, Madrid<br>\ud83d\udc64 Ages 18+<br>\ud83e\ude91 Seats assigned first-come, first-served within each area</p>',
         rating: 4.7, reviewCount: 435,
+        breakdown: [72, 18, 6, 3, 1],
         reviews: [
-          { name: 'Fernanda G.', date: 'February 2026', text: 'We loved the experience! Caf\u00e9 Berl\u00edn has incredible acoustics and the band is very talented! At the end they walked through the whole space while playing the last song \u2014 a memorable experience \u2728' },
-          { name: 'Raul L.', date: 'January 2026', text: 'Fantastic show. Great musicians and good venue. Highly recommended.' }
+          { name: 'Fernanda G.', date: 'Feb 2026', stars: 5, text: 'We loved the experience! Caf\u00e9 Berl\u00edn has incredible acoustics and the band is very talented!' },
+          { name: 'Raul L.', date: 'Jan 2026', stars: 5, text: 'Fantastic show. Great musicians and good venue. Highly recommended.' },
+          { name: 'Ana B.', date: 'Jan 2026', stars: 4, text: 'Amazing atmosphere and talented musicians. The walking finale was unforgettable.' },
+          { name: 'Miguel T.', date: 'Dec 2025', stars: 5, text: 'If you like jazz, this is a must. Intimate setting and incredible talent.' }
         ],
         ticketTypes: [
           { id: 'zone-b', label: 'Zone B (standing)', tickets: [
@@ -397,9 +423,12 @@
         location: { name: 'Gran Teatro CaixaBank Pr\u00edncipe P\u00edo', address: 'Cuesta de San Vicente, 44, 28008 Madrid' },
         description: '<p>\ud83c\udfb8 <strong>We Will Rock You</strong> returns to Madrid! A musical produced by Brian May and Roger Taylor featuring more than 24 of Queen\'s greatest hits sung in English.</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udf1f Produced by Brian May and Roger Taylor</li><li>\ud83c\udfb5 24+ Queen songs including We Are the Champions, Bohemian Rhapsody, Another One Bites the Dust, Somebody to Love</li><li>\ud83c\udfb8 Already seen by over 16 million viewers in 19 countries</li><li>\ud83c\udfad Spectacular staging, live music, and electrifying performances</li></ul><p class="subtitle">The Story</p><p>Set in a dystopian future where music has been banned. Killer Queen enforces a society where everyone is equal and artistic expression is punished. Rebels fight against repression while awaiting the Dreamer, Galileo \u2014 a leader who will restore music and freedom through rock.</p><p class="subtitle">General Info</p><p>\ud83d\udcc5 20 Feb \u2013 25 Apr 2026<br>\ud83d\udccd Gran Teatro CaixaBank Pr\u00edncipe P\u00edo<br>\ud83d\udc64 All ages (free for children 0-2, standard ticket from age 3)</p>',
         rating: 4.6, reviewCount: 257,
+        breakdown: [68, 20, 8, 3, 1],
         reviews: [
-          { name: 'Anabel D.', date: 'February 2026', text: 'Incredible staging. Electrifying music and fabulous singers. Highly recommended.' },
-          { name: 'Luis D.', date: 'January 2026', text: 'Goosebumps during We Are the Champions \ud83d\ude0d\ud83d\ude0d' }
+          { name: 'Anabel D.', date: 'Feb 2026', stars: 5, text: 'Incredible staging. Electrifying music and fabulous singers. Highly recommended.' },
+          { name: 'Luis D.', date: 'Jan 2026', stars: 5, text: 'Goosebumps during We Are the Champions. Amazing cast!' },
+          { name: 'Maria E.', date: 'Feb 2026', stars: 4, text: 'A great show for Queen fans. The live band was fantastic.' },
+          { name: 'Jorge R.', date: 'Jan 2026', stars: 5, text: 'One of the best musicals I\'ve seen. The energy is contagious!' }
         ],
         ticketTypes: [
           { id: 'grada', label: 'Stalls/Stands', tickets: [
@@ -429,9 +458,12 @@
         location: { name: 'MADRING', address: 'Av. del Parten\u00f3n, 28042 Madrid' },
         description: '<p>\ud83c\udfc1 <strong>FORMULA 1\u00ae TAG HEUER SPANISH GRAND PRIX 2026</strong> \u2014 Madrid will host the Spanish Grand Prix at MADRING. The capital becomes the epicenter of speed!</p><p class="subtitle">Weekend Schedule</p><ul><li><strong>Friday, Sept 11:</strong> F3 & F2 Free Practice, F1 Free Practice 1 & 2, F3 & F2 Qualifying</li><li><strong>Saturday, Sept 12:</strong> F3 Sprint Race, F1 Free Practice 3, F2 Sprint Race, F1 Qualifying</li><li><strong>Sunday, Sept 13:</strong> F3 Feature Race, F2 Feature Race, F1 Race</li></ul><p class="subtitle">Highlights</p><ul><li>\ud83c\udfc6 Full 3-day access (Practice, Qualifying, Race)</li><li>\ud83c\udf7a Ca\u00f1as & Tapas Experience in official MADRING Fan Zones</li><li>\ud83c\udfb5 Beats of Madrid \u2013 DJs with a local touch</li><li>\ud83d\ude87 The best-connected circuit in the world (Metro, bus, train, taxi)</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 September 11\u201313, 2026<br>\ud83d\udccd MADRING, IFEMA Madrid<br>\ud83d\udc64 All ages</p>',
         rating: 4.5, reviewCount: 1840,
+        breakdown: [62, 22, 10, 4, 2],
         reviews: [
-          { name: 'Robert H.', date: 'September 2025', text: 'Incredible experience! The sound and speed of F1 cars is something you have to experience in person.' },
-          { name: 'Isabel F.', date: 'September 2025', text: 'We splurged on grandstand tickets and it was worth every penny. The atmosphere was electric!' }
+          { name: 'Robert H.', date: 'Sep 2025', stars: 5, text: 'Incredible experience! The sound and speed of F1 cars is something you have to experience in person.' },
+          { name: 'Isabel F.', date: 'Sep 2025', stars: 5, text: 'We splurged on grandstand tickets and it was worth every penny. The atmosphere was electric!' },
+          { name: 'David P.', date: 'Sep 2025', stars: 4, text: 'Great event organization. Easy access via public transport. Can\'t wait for the 2026 edition!' },
+          { name: 'Carmen R.', date: 'Sep 2025', stars: 4, text: 'The fan zones were a nice touch. Food options were decent. Overall a solid experience.' }
         ],
         ticketTypes: [
           { id: 'bronze', label: 'Bronze', tickets: [
@@ -460,9 +492,12 @@
         location: { name: 'Fever Hub Madrid', address: 'Calle de Raimundo Fern\u00e1ndez Villaverde, 57, Madrid, 28003' },
         description: '<p>\ud83c\udfdb\ufe0f <strong>Machu Picchu: Journey to the Lost City</strong>, featuring Terry Crews, takes you 450 years back to the heart of the ancient Inca Empire in an immersive virtual reality experience.</p><p class="subtitle">Highlights</p><ul><li>\ud83d\uddfb Discover one of the ancient world\'s greatest wonders without leaving Madrid</li><li>\ud83c\udf04 Terry Crews brings TERI, your friendly robot companion, to life</li><li>\ud83d\udcdc Created from exclusive access to Machu Picchu during the pandemic, using drones, LiDAR, photogrammetry</li><li>\u23f3 Over 50 engineers crafted this immersive world</li><li>\u2728 Perfect for families, history enthusiasts, and curious explorers</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 Select your date and time directly<br>\u23f3 Duration: 40 minutes<br>\ud83d\udccd Fever Hub Madrid (entrance via Orense)<br>\ud83d\udc64 Recommended age: 10+<br>\u267f Accessible for reduced mobility</p>',
         rating: 4.3, reviewCount: 2940,
+        breakdown: [55, 25, 12, 5, 3],
         reviews: [
-          { name: 'Esther R.', date: 'February 2026', text: 'Very good organization. The experience is incredible, the virtual reality is very well achieved and it even feels short.' },
-          { name: 'Arturo C.', date: 'January 2026', text: 'It is spectacular. The feeling of reality is impressive. Highly recommended.' }
+          { name: 'Esther R.', date: 'Feb 2026', stars: 5, text: 'Very good organization. The experience is incredible, the virtual reality is very well achieved and it even feels short.' },
+          { name: 'Arturo C.', date: 'Jan 2026', stars: 5, text: 'It is spectacular. The feeling of reality is impressive. Highly recommended.' },
+          { name: 'Pablo M.', date: 'Jan 2026', stars: 4, text: 'Really cool VR experience. The visuals are stunning. Could be a bit longer though.' },
+          { name: 'Lucia V.', date: 'Dec 2025', stars: 4, text: 'Fun for the whole family. Kids loved the virtual exploration of the ruins.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -492,9 +527,12 @@
         location: { name: 'Espacio Delicias', address: 'Paseo de las Delicias, 61, 28045 Madrid' },
         description: '<p>\ud83c\udf0c <strong>Avatar: The Experience</strong> \u2014 Step into Pandora and embark on an unforgettable journey across nine immersive zones inspired by James Cameron\'s masterpiece. Making its European debut in Madrid!</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udf0c Explore the moon of Pandora through cutting-edge technology</li><li>\ud83e\uddec See yourself "Avatarized" at the RDA Biotech Pavilion</li><li>\ud83c\udf3f Wander through the bioluminescent Forest of Pandora</li><li>\u26f0\ufe0f Encounter a life-sized banshee and soar over the Hallelujah Mountains</li><li>\ud83c\udf33 Discover the sacred Tree of Voices</li><li>\ud83d\udc6a Perfect for families, in the heart of Madrid</li></ul><p class="subtitle">General Info</p><p>\u231b Duration: ~50 minutes<br>\ud83d\udccd Espacio Delicias, Madrid<br>\ud83d\udc64 All ages! Children 3+ will especially enjoy it<br>\u267f Wheelchair accessible<br>\u2757 Strobe lights used in the experience</p>',
         rating: 4.5, reviewCount: 890,
+        breakdown: [64, 21, 9, 4, 2],
         reviews: [
-          { name: 'Clara S.', date: 'February 2026', text: 'The bioluminescent forest was absolutely stunning. My kids couldn\'t stop talking about the banshee encounter. A must-visit!' },
-          { name: 'James P.', date: 'February 2026', text: 'Really well done immersive experience. The Avatarized photo was a fun souvenir.' }
+          { name: 'Clara S.', date: 'Feb 2026', stars: 5, text: 'The bioluminescent forest was absolutely stunning. My kids couldn\'t stop talking about the banshee encounter. A must-visit!' },
+          { name: 'James P.', date: 'Feb 2026', stars: 4, text: 'Really well done immersive experience. The Avatarized photo was a fun souvenir.' },
+          { name: 'Ana M.', date: 'Feb 2026', stars: 5, text: 'Incredible! You really feel like you\'re on Pandora. The banshee flight was breathtaking.' },
+          { name: 'Roberto K.', date: 'Jan 2026', stars: 4, text: 'Great for Avatar fans. The technology is impressive and the experience is immersive.' }
         ],
         ticketTypes: [
           { id: 'general', label: 'General', tickets: [
@@ -525,9 +563,12 @@
         location: { name: 'Royal Palace of Madrid', address: 'Calle de Bail\u00e9n, s/n, Madrid, 28071' },
         description: '<p>\ud83c\udff0 <strong>Royal Palace of Madrid</strong> \u2014 Discover all the history hidden behind the walls of the Royal Palace in first person, while touring the rooms where great monarchs resided.</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udff0 Visit the largest palace in Western Europe</li><li>\ud83d\udc51 Centuries of Spanish history in one of the few official seats of a Head of State open to the public</li><li>\ud83d\uddbc\ufe0f Explore masterpieces of art and unique treasures</li></ul><p class="subtitle">What\'s Included</p><p>\u2714\ufe0f Skip-the-line ticket to the Royal Palace of Madrid</p><p class="subtitle">General Info</p><p>\ud83d\udd52 Winter: Mon-Sat 10:00-18:00, Sun 10:00-16:00<br>\ud83d\udd52 Summer: Mon-Sat 10:00-19:00, Sun 10:00-16:00<br>\u23f3 Self-guided tour: ~45 min (Halls) + 30 min (Royal Armory)<br>\u267f Wheelchair accessible<br>\ud83d\udc76 Children under 2 free</p>',
         rating: 4.5, reviewCount: 17302,
+        breakdown: [63, 22, 9, 4, 2],
         reviews: [
-          { name: 'Antonio C.', date: 'February 2026', text: 'Impressive building. A visit not only recommended but essential. The guide was a 10.' },
-          { name: 'Sergio M.', date: 'January 2026', text: 'Very complete guided visit. Recommendable.' }
+          { name: 'Antonio C.', date: 'Feb 2026', stars: 5, text: 'Impressive building. A visit not only recommended but essential. The guide was a 10.' },
+          { name: 'Sergio M.', date: 'Jan 2026', stars: 5, text: 'Very complete guided visit. Recommendable.' },
+          { name: 'Maria Luz S.', date: 'Jan 2026', stars: 5, text: 'A must-see visit. With the guide it improves enormously, they explain the history and significance of each room.' },
+          { name: 'Reyes L.', date: 'Dec 2025', stars: 4, text: 'We loved our guide. With a sense of humor and very enjoyable. The palace is a wonder.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -556,9 +597,12 @@
         location: { name: 'IKONO Madrid', address: 'Calle de S\u00e1nchez Bustillo, 7, Madrid, 28012' },
         description: '<p>\ud83d\udcf7 <strong>IKONO Madrid</strong> offers you an immersive journey through colorful, sensory worlds across 12 playful and creative spaces.</p><p class="subtitle">Highlights</p><ul><li>\ud83d\udcf7 Sensory and immersive experiences designed to spark curiosity</li><li>\ud83d\udca5 Different worlds spread across 600+ m\u00b2</li><li>\ud83d\uddbc\ufe0f Capture unforgettable memories throughout</li><li>\ud83d\udcab Unleash your inner child and rediscover the joy of play</li><li>\u2728 Be the star of your own adventure: explore and create</li><li>\ud83d\udeb6 One-hour experience across three floors in the heart of Madrid</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 Select your date and time<br>\ud83d\udc49 Arrive on time; up to 20 min after reserved time to enter<br>\u23f3 Duration: 45 min \u2013 1 hour<br>\ud83d\udccd IKONO, Madrid (near Atocha Renfe)<br>\ud83d\udc64 Open to all ages</p>',
         rating: 4.2, reviewCount: 446,
+        breakdown: [48, 28, 14, 7, 3],
         reviews: [
-          { name: 'Alicia G.', date: 'February 2026', text: 'Super entertaining. Ideal for going with family or groups.' },
-          { name: 'Blanca M.', date: 'January 2026', text: 'The staff was very friendly and the experience was really fun. We went as a group of 3 families \u2014 from age 10 to 58 \u2014 and honestly I couldn\'t tell you who had the most fun!!' }
+          { name: 'Alicia G.', date: 'Feb 2026', stars: 5, text: 'Super entertaining. Ideal for going with family or groups.' },
+          { name: 'Blanca M.', date: 'Jan 2026', stars: 5, text: 'The staff was very friendly and the experience was really fun. We went as a group of 3 families and honestly couldn\'t tell you who had the most fun!!' },
+          { name: 'Laura M.', date: 'Feb 2026', stars: 4, text: 'Fun experience for taking photos and awakening the senses for both adults and kids.' },
+          { name: 'Rebeca R.', date: 'Jan 2026', stars: 3, text: 'The space is cool and very beautiful to see. I would maybe change the order of things.' }
         ],
         ticketTypes: [
           { id: 'general', label: 'General', tickets: [
@@ -582,9 +626,12 @@
         location: { name: 'Centro Cultural Flamenco De Madrid', address: 'Conde de Xiquena, 6, 28004 Madrid' },
         description: '<p>\ud83d\udc83 <strong>Afternoons of Tablao Flamenco</strong> \u2014 Discover the magic of flamenco at a cultural center dedicated to this incredible art form!</p><p class="subtitle">What You Will Enjoy</p><ul><li>\ud83c\udfb6 Traditional live performance</li><li>\ud83d\udc83 Experience flamenco through dance and song</li><li>\ud83c\udfa8 Explore the Cultural Center\'s art gallery and shop</li><li>\ud83c\udfad Intimate atmosphere for up to 54 people</li><li>\ud83d\udccd Located in Chueca, near Chueca square</li></ul><p class="subtitle">Description</p><p>Experience a traditional live performance with dance, song, and guitar in an intimate setting. Enjoy the beauty and emotion of this unamplified show. Explore the center\'s art gallery and shop before or after!</p><p class="subtitle">General Info</p><p>\ud83d\udcc5 Select dates/times in calendar<br>\u23f3 Duration: 50 minutes<br>\ud83d\udc64 Ages 4+</p>',
         rating: 4.8, reviewCount: 97,
+        breakdown: [80, 14, 4, 1, 1],
         reviews: [
-          { name: 'George S.', date: 'January 2026', text: 'Great flamenco guitar, singing and dancing. Very enjoyable and you can see the artists enjoying it also. Do yourself a favour and visit this experience \u2014 it\'s an insight to the culture. Bravo.' },
-          { name: 'Paola G.', date: 'February 2026', text: 'Brilliant !!!! \ud83d\ude0d It\'s a Must!!!! Beautiful Artists!! Full of energy and Passion!! Loved IT!!!' }
+          { name: 'George S.', date: 'Jan 2026', stars: 5, text: 'Great flamenco guitar, singing and dancing. Very enjoyable and the artists are passionate. An insight to the culture. Bravo.' },
+          { name: 'Paola G.', date: 'Feb 2026', stars: 5, text: 'Brilliant! It\'s a Must! Beautiful Artists! Full of energy and Passion!' },
+          { name: 'Elena V.', date: 'Jan 2026', stars: 5, text: 'Authentic flamenco in an intimate setting. The dancers were mesmerizing.' },
+          { name: 'Thomas W.', date: 'Dec 2025', stars: 4, text: 'Wonderful show. Small venue makes it feel very personal and special.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -608,9 +655,12 @@
         location: { name: 'Ella Sky Bar Madrid', address: 'Gran V\u00eda, Madrid, 28013' },
         description: '<p>\ud83c\udf73 <strong>Brunch with views of Gran V\u00eda</strong> \u2014 Enjoy a stunning brunch experience on one of Madrid\'s most iconic rooftop terraces with breathtaking views of Gran V\u00eda.</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udf7d\ufe0f Curated brunch menu with freshly baked pastries and seasonal dishes</li><li>\ud83e\udd42 Unlimited mimosas and fresh juices</li><li>\ud83c\udfb6 Ambient music with panoramic views</li><li>\ud83c\udf05 360\u00b0 views of Gran V\u00eda and the Madrid skyline</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 21 Feb \u2013 30 Aug 2026<br>\ud83d\udccd Ella Sky Bar Madrid<br>\ud83d\udc64 All ages welcome</p>',
         rating: 4.6, reviewCount: 101,
+        breakdown: [70, 18, 8, 3, 1],
         reviews: [
-          { name: 'Laura M.', date: 'January 2026', text: 'Absolutely stunning views and the food was incredible. The mimosas were flowing and the vibe was perfect for a Saturday morning.' },
-          { name: 'James K.', date: 'December 2025', text: 'Best brunch in Madrid, hands down. The rooftop setting is unbeatable.' }
+          { name: 'Laura M.', date: 'Jan 2026', stars: 5, text: 'Absolutely stunning views and the food was incredible. The mimosas were flowing and the vibe was perfect.' },
+          { name: 'James K.', date: 'Dec 2025', stars: 5, text: 'Best brunch in Madrid, hands down. The rooftop setting is unbeatable.' },
+          { name: 'Marta R.', date: 'Jan 2026', stars: 4, text: 'Great food, amazing views. A bit crowded but the atmosphere makes up for it.' },
+          { name: 'David L.', date: 'Dec 2025', stars: 5, text: 'Perfect Saturday morning plan. The views are worth it alone.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -639,9 +689,12 @@
         location: { name: 'Four Seasons Hotel Madrid', address: 'C. de Sevilla, 3, 28014 Madrid' },
         description: '<p>\ud83c\udfac <strong>Candlelight: The Best of Hans Zimmer</strong> \u2014 Experience cinema\'s greatest film scores in a breathtaking candlelit setting at the Four Seasons Hotel Madrid.</p><p class="subtitle">Program</p><ul><li>Interstellar \u2013 First Step / Cornfield Chase</li><li>Inception \u2013 Time</li><li>The Dark Knight \u2013 Like a Dog Chasing Cars</li><li>Gladiator \u2013 Now We Are Free</li><li>The Lion King \u2013 This Land</li><li>Pirates of the Caribbean \u2013 He\'s a Pirate</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 1 Mar \u2013 5 Apr 2026<br>\u23f3 Duration: ~60 minutes (doors 30 min before)<br>\ud83d\udccd Four Seasons Hotel Madrid<br>\ud83d\udc64 Ages 8+ (under 16 with adult)<br>\ud83e\ude91 Seats assigned on arrival by zone</p>',
         rating: 4.5, reviewCount: 1885,
+        breakdown: [62, 24, 9, 3, 2],
         reviews: [
-          { name: 'Andrea P.', date: 'February 2026', text: 'Hearing "Time" from Inception surrounded by hundreds of candles in that gorgeous hotel was a spiritual experience. Absolutely unforgettable.' },
-          { name: 'Chris B.', date: 'January 2026', text: 'The string quartet was incredibly talented. The Interstellar pieces gave me chills. Highly recommend!' }
+          { name: 'Andrea P.', date: 'Feb 2026', stars: 5, text: 'Hearing "Time" from Inception surrounded by hundreds of candles was a spiritual experience. Unforgettable.' },
+          { name: 'Chris B.', date: 'Jan 2026', stars: 5, text: 'The string quartet was incredibly talented. The Interstellar pieces gave me chills. Highly recommend!' },
+          { name: 'Lucia S.', date: 'Jan 2026', stars: 4, text: 'Beautiful setting and great music. The Gladiator piece was especially moving.' },
+          { name: 'Marco D.', date: 'Dec 2025', stars: 5, text: 'A perfect evening. The Four Seasons Hotel is the ideal venue for this concert.' }
         ],
         ticketTypes: [
           { id: 'zone-c', label: 'Zone C', tickets: [
@@ -664,9 +717,12 @@
         location: { name: 'Parque Warner Madrid', address: 'Camino de la Warner, s/n, 28330 San Mart\u00edn de la Vega' },
         description: '<p>\ud83c\udfa2 <strong>Parque Warner Madrid: Pure Adrenaline!</strong> \u2014 Get ready for a day of non-stop thrills!</p><p class="subtitle">Highlights</p><ul><li>\ud83d\udee4 Over 40 rides and attractions</li><li>\ud83e\uddb8 DC Super Heroes World, Looney Tunes area, Hollywood Boulevard</li><li>\ud83c\udfad Daily live shows and character meet-and-greets</li><li>\ud83c\udf54 Multiple dining options across the park</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 28 Feb \u2013 10 May 2026<br>\ud83d\udccd San Mart\u00edn de la Vega, 30 min from Madrid<br>\ud83d\udc64 All ages</p>',
         rating: 4.7, reviewCount: 1263,
+        breakdown: [74, 16, 6, 3, 1],
         reviews: [
-          { name: 'Lucia R.', date: 'October 2025', text: 'Amazing park! The Batman roller coaster was insane. Kids loved the Looney Tunes area.' },
-          { name: 'Peter M.', date: 'September 2025', text: 'Great value for money. The express pass is worth it on busy days.' }
+          { name: 'Lucia R.', date: 'Oct 2025', stars: 5, text: 'Amazing park! The Batman roller coaster was insane. Kids loved the Looney Tunes area.' },
+          { name: 'Peter M.', date: 'Sep 2025', stars: 4, text: 'Great value for money. The express pass is worth it on busy days.' },
+          { name: 'Isabel G.', date: 'Oct 2025', stars: 5, text: 'We had a fantastic day. Great rides for all ages and the shows were entertaining.' },
+          { name: 'Daniel F.', date: 'Sep 2025', stars: 5, text: 'Best theme park near Madrid. The DC area is incredible for teenagers.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -696,9 +752,12 @@
         location: { name: 'Ateneo de Madrid', address: 'Calle del Prado, 21, 28014 Madrid' },
         description: '<p>\ud83d\udd6f\ufe0f <strong>Candlelight: Tribute to Taylor Swift</strong> \u2014 Experience Taylor Swift\'s most iconic songs reimagined by a string quartet in a magical candlelit setting.</p><p class="subtitle">Program Highlights</p><ul><li>Love Story</li><li>Blank Space</li><li>Shake It Off</li><li>All Too Well</li><li>Cruel Summer</li><li>Anti-Hero</li><li>\u2026and many more</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 22 Feb \u2013 10 May 2026<br>\u23f3 Duration: 60 minutes (doors open 30 min before)<br>\ud83d\udccd Ateneo de Madrid<br>\ud83d\udc64 Ages 8+ (under 16 with adult)</p>',
         rating: 4.9, reviewCount: 246,
+        breakdown: [90, 7, 2, 1, 0],
         reviews: [
-          { name: 'Sofia L.', date: 'February 2026', text: 'The most magical experience! Hearing All Too Well surrounded by candles in that gorgeous venue was pure emotion.' },
-          { name: 'Emma K.', date: 'January 2026', text: 'Beautiful performance. The string quartet captured Taylor\'s songs perfectly. Will definitely come back!' }
+          { name: 'Sofia L.', date: 'Feb 2026', stars: 5, text: 'The most magical experience! Hearing All Too Well surrounded by candles was pure emotion.' },
+          { name: 'Emma K.', date: 'Jan 2026', stars: 5, text: 'Beautiful performance. The string quartet captured Taylor\'s songs perfectly. Will definitely come back!' },
+          { name: 'Paula R.', date: 'Feb 2026', stars: 5, text: 'Absolutely incredible. Cruel Summer on strings gave me goosebumps. A must for Swifties!' },
+          { name: 'Andrea M.', date: 'Jan 2026', stars: 5, text: 'Perfect evening. The Ateneo de Madrid is a stunning venue for this.' }
         ],
         ticketTypes: [
           { id: 'zone-c', label: 'Zone C', tickets: [
@@ -721,9 +780,12 @@
         location: { name: 'Sweet Space Museum', address: 'C. de Serrano, 61, 28006 Madrid' },
         description: '<p>\ud83c\udf6c <strong>Sweet Space Museum</strong> \u2014 A candy-colored immersive experience where you can explore fantastical rooms filled with sweets, surprises, and Instagram-worthy backdrops.</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udf6d Multiple themed rooms with sweet-inspired installations</li><li>\ud83d\udcf8 The most Instagrammable experience in Madrid</li><li>\ud83c\udf89 Fun for all ages \u2013 families, couples, friends</li><li>\ud83c\udf6b Candy tastings throughout the experience</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 17 Feb \u2013 31 Jul 2026<br>\u23f3 Duration: ~45 minutes<br>\ud83d\udccd ABC Serrano, Madrid<br>\ud83d\udc64 All ages</p>',
         rating: 4.2, reviewCount: 6648,
+        breakdown: [46, 30, 14, 6, 4],
         reviews: [
-          { name: 'Carmen L.', date: 'February 2026', text: 'Such a fun experience! The rooms are beautiful and the candy tastings were a nice touch. Perfect for a girls\' day out.' },
-          { name: 'Pablo R.', date: 'January 2026', text: 'My kids absolutely loved it. Every room was a new surprise. Great photos too!' }
+          { name: 'Carmen L.', date: 'Feb 2026', stars: 5, text: 'Such a fun experience! The rooms are beautiful and the candy tastings were a nice touch. Perfect for a girls\' day out.' },
+          { name: 'Pablo R.', date: 'Jan 2026', stars: 5, text: 'My kids absolutely loved it. Every room was a new surprise. Great photos too!' },
+          { name: 'Lucia F.', date: 'Jan 2026', stars: 4, text: 'Cute and fun. Great for Instagram photos. The candy tastings were a nice bonus.' },
+          { name: 'Jorge P.', date: 'Dec 2025', stars: 3, text: 'Nice for kids but a bit short for the price. The rooms are well decorated though.' }
         ],
         ticketTypes: [
           { id: 'general', label: 'General', tickets: [
@@ -746,9 +808,12 @@
         location: { name: 'Parque de Atracciones de Madrid', address: 'Parque de Atracciones, Casa de Campo, 28011 Madrid' },
         description: '<p>\ud83c\udfa2 <strong>Parque de Atracciones de Madrid</strong> \u2014 Experience the thrills and fun of Madrid\'s iconic amusement park, nestled in the beautiful Casa de Campo.</p><p class="subtitle">Highlights</p><ul><li>\ud83c\udfa2 Classic and modern rides for all ages</li><li>\ud83c\udfad Live shows and entertainment</li><li>\ud83c\udf33 Beautiful setting in Casa de Campo park</li><li>\ud83c\udf55 Multiple dining and refreshment options</li></ul><p class="subtitle">General Info</p><p>\ud83d\udcc5 21 Feb \u2013 10 May 2026<br>\ud83d\udccd Casa de Campo, Madrid<br>\ud83d\udc64 All ages</p>',
         rating: 4.6, reviewCount: 879,
+        breakdown: [68, 20, 7, 3, 2],
         reviews: [
-          { name: 'Ana R.', date: 'March 2026', text: 'A classic that never gets old! Great mix of rides for all ages. The location in Casa de Campo is beautiful.' },
-          { name: 'Manuel G.', date: 'February 2026', text: 'Took the kids and they had the time of their lives. Good value tickets through Fever.' }
+          { name: 'Ana R.', date: 'Mar 2026', stars: 5, text: 'A classic that never gets old! Great mix of rides for all ages. The location in Casa de Campo is beautiful.' },
+          { name: 'Manuel G.', date: 'Feb 2026', stars: 5, text: 'Took the kids and they had the time of their lives. Good value tickets through Fever.' },
+          { name: 'Sara P.', date: 'Feb 2026', stars: 4, text: 'Fun day out for the family. Rides are great and the park is well maintained.' },
+          { name: 'Pedro J.', date: 'Jan 2026', stars: 4, text: 'Good park with a nice variety of attractions. The shows are entertaining too.' }
         ],
         ticketTypes: [
           { id: 'standard', label: 'Standard', tickets: [
@@ -788,13 +853,29 @@
     document.getElementById('plan-subtitle').textContent = plan.subtitle;
     document.getElementById('plan-description').innerHTML = plan.description;
 
-    var starsHtml = '';
-    for (var i = 0; i < 5; i++) starsHtml += i < Math.floor(plan.rating) ? '\u2605' : '\u2606';
+    var AVATAR_COLORS = ['#6f41d7','#0079ca','#e84393','#22ad5c','#f5a623','#e74c3c','#2c3e50','#fd7e14'];
+    function makeStars(n) { var s=''; for(var i=0;i<5;i++) s+=i<Math.floor(n)?'\u2605':'\u2606'; return s; }
+    function getInitials(name) { var parts=name.split(' '); return (parts[0]?parts[0][0]:'')+(parts[1]?parts[1][0]:''); }
+
     var reviewsEl = document.getElementById('reviews-section');
-    var reviewsHtml = '<h3>Reviews</h3><div class="rating-big"><span class="score">' + plan.rating.toFixed(1) + '</span><span class="stars">' + starsHtml + '</span><span class="count">(' + plan.reviewCount.toLocaleString() + ' reviews)</span></div>';
-    plan.reviews.forEach(function(r) {
-      reviewsHtml += '<div class="review-card"><div class="reviewer">' + r.name + '</div><div class="review-date">' + r.date + '</div><div class="review-text">' + r.text + '</div></div>';
+    var bd = plan.breakdown || [60,20,12,5,3];
+    var reviewsHtml = '<h3 class="reviews-title">User reviews</h3>';
+    reviewsHtml += '<div class="reviews-summary">';
+    reviewsHtml += '<div class="reviews-score-col"><span class="score-number">' + plan.rating.toFixed(1) + '</span><span class="score-out-of">/5</span><span class="score-stars">' + makeStars(plan.rating) + '</span><span class="score-count">' + plan.reviewCount.toLocaleString() + ' reviews</span></div>';
+    reviewsHtml += '<div class="reviews-bars-col">';
+    for (var bi=5; bi>=1; bi--) {
+      var pct = bd[5-bi] || 0;
+      reviewsHtml += '<div class="bar-row"><span class="bar-label">' + bi + '</span><span class="bar-star">\u2605</span><div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div><span class="bar-pct">' + pct + '%</span></div>';
+    }
+    reviewsHtml += '</div></div>';
+    reviewsHtml += '<div class="reviews-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Verified user reviews</div>';
+    plan.reviews.forEach(function(r, ri) {
+      var color = AVATAR_COLORS[ri % AVATAR_COLORS.length];
+      var initials = getInitials(r.name);
+      var rStars = makeStars(r.stars || 5);
+      reviewsHtml += '<div class="review-card"><div class="review-card-header"><div class="review-avatar" style="background:' + color + '">' + initials + '</div><div class="review-card-info"><div class="reviewer">' + r.name + '</div><div class="review-date">' + r.date + '</div></div></div><div class="review-stars">' + rStars + '</div><div class="review-text">' + r.text + '</div></div>';
     });
+    reviewsHtml += '<a class="reviews-see-all" href="javascript:void(0)">See all ' + plan.reviewCount.toLocaleString() + ' reviews</a>';
     reviewsEl.innerHTML = reviewsHtml;
 
     var venueEl = document.getElementById('venue-section');
