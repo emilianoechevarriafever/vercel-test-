@@ -66,8 +66,10 @@
     .nav-icon-btn svg { height:24px; width:auto; color:var(--color-text); }
     .avatar-wrap { position:relative; display:flex; align-items:center; }
     .avatar-wrap img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
-    .avatar-wrap::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
-
+    .avatar-wrap .avatar-placeholder { display:none; }
+    .avatar-wrap.logged-in::after { content:''; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:#22ad5c; border:1.5px solid white; border-radius:50%; }
+    .avatar-wrap.logged-out img { display:none; }
+    .avatar-wrap.logged-out .avatar-placeholder { display:flex; }
     /* === HERO GALLERY (Figma Channel Filter 778-26710) === */
     .hero { position:relative; width:100%; height:390px; overflow:hidden; }
     /* === HERO GALLERY CAROUSEL === */
