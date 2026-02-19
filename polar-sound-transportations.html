@@ -365,14 +365,18 @@
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
-    const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
+    const isSequentialFlow = (flow === 'c1' || flow === 'c2');
+    const isHubFlow = (!isSequentialFlow) && (isOptionF || isOptionG || isOptionH || isOptionI);
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isSequentialFlow || isHubFlow;
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
-    if (isHubFlow) {
-      // Hide stepper for hub flows EXCEPT cross-sell flows (e1/i show dynamic stepper)
+    if (isSequentialFlow) {
+      document.getElementById('flow-stepper').classList.add('stepper-hidden');
+      var generalInfoBlock = document.getElementById('general-info-block');
+      if (generalInfoBlock) generalInfoBlock.style.display = 'none';
+    } else if (isHubFlow) {
       if (!isCrossSellFlow) {
         document.getElementById('flow-stepper').classList.add('stepper-hidden');
       }
@@ -601,6 +605,12 @@
 
     function saveAndRedirect() {
       saveTransportToCart();
+
+      // Sequential c1/c2: go straight to checkout, preserving hotel selection
+      if (isSequentialFlow) {
+        window.location.href = 'checkout.html?flow=' + flow;
+        return;
+      }
 
       // Option H/I: show cross-sell bottom sheet if user came from hub (not from accommodation)
       if (isCrossSellFlow) {

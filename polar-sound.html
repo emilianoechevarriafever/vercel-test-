@@ -760,6 +760,16 @@
       </div>
     </div>
 
+    <div class="decision-overlay" id="continue-overlay"></div>
+    <div class="decision-sheet" id="continue-sheet">
+      <div class="handle"></div>
+      <h3>Would you like to add a hotel?</h3>
+      <div class="hub-actions">
+        <button type="button" class="hub-btn primary" id="continue-keep">Continue shopping</button>
+        <button type="button" class="hub-btn secondary" id="continue-checkout">Go to checkout</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- Fullscreen Gallery Overlay -->
@@ -787,9 +797,10 @@
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
-    const isHubFlow = isOptionE || isOptionF || isOptionG || isOptionH || isOptionI;
+    const isSequentialFlow = (flow === 'c1' || flow === 'c2');
+    const isHubFlow = (!isSequentialFlow) && (isOptionF || isOptionG || isOptionH || isOptionI);
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isSequentialFlow || isHubFlow;
     const flowSuffix = flow ? '?flow=' + flow : '';
 
     // Entering the tickets page resets hotel/transport selections (fresh flow start)
@@ -883,7 +894,9 @@
         saveTicketsToCart();
         try { sessionStorage.setItem('polar_flow_visited', '1'); } catch (e) {}
         try { sessionStorage.setItem('polar_step_nav', '1'); } catch (e) {}
-        if (isHubFlow) {
+        if (isSequentialFlow) {
+          openContinueSheet();
+        } else if (isHubFlow) {
           openAddonsHub();
         } else {
           window.location.href = 'polar-sound-accommodation.html' + flowSuffix;
@@ -1103,6 +1116,60 @@
           } catch (e) {}
           var skipDest = (isOptionG || isOptionI) ? 'cart.html?flow=' + flow : 'checkout.html?flow=' + flow;
           window.location.href = skipDest;
+        });
+      }
+    })();
+
+    // Sequential "Keep buying?" sheet for c1/c2 flows
+    function openContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var sheet = document.getElementById('continue-sheet');
+      if (overlay) overlay.classList.add('open');
+      if (sheet) sheet.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var sheet = document.getElementById('continue-sheet');
+      if (sheet) sheet.style.transform = '';
+      if (overlay) overlay.classList.remove('open');
+      if (sheet) sheet.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    (function() {
+      var sheetEl = document.getElementById('continue-sheet');
+      if (!sheetEl) return;
+      var startY = 0, currentY = 0, isDragging = false;
+      function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
+      function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)'; } }
+      function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeContinueSheet(); }
+      sheetEl.addEventListener('touchstart', function(e) { dragStart(e.touches[0].clientY); }, { passive: true });
+      sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
+      sheetEl.addEventListener('touchend', dragEnd);
+      sheetEl.addEventListener('mousedown', function(e) { e.preventDefault(); dragStart(e.clientY); });
+      document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
+      document.addEventListener('mouseup', dragEnd);
+    })();
+
+    (function bindContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var btnKeep = document.getElementById('continue-keep');
+      var btnCheckout = document.getElementById('continue-checkout');
+      if (overlay) overlay.addEventListener('click', closeContinueSheet);
+      if (btnKeep) {
+        btnKeep.addEventListener('click', function() {
+          window.location.href = 'polar-sound-accommodation.html?flow=' + flow + '&preselect=1';
+        });
+      }
+      if (btnCheckout) {
+        btnCheckout.addEventListener('click', function() {
+          try {
+            localStorage.setItem('cart_accommodation', '[]');
+            localStorage.setItem('cart_transportation', '[]');
+          } catch (e) {}
+          window.location.href = 'checkout.html?flow=' + flow;
         });
       }
     })();

@@ -384,6 +384,17 @@
         <button type="button" class="hub-btn primary" id="crosssell-no">Skip</button>
       </div>
     </div>
+
+    <!-- Sequential "Keep buying?" sheet for c1/c2 flows -->
+    <div class="crosssell-overlay" id="continue-overlay"></div>
+    <div class="crosssell-sheet" id="continue-sheet">
+      <div class="handle"></div>
+      <h3>Would you like to add transportation?</h3>
+      <div class="hub-actions">
+        <button type="button" class="hub-btn primary" id="continue-keep">Continue shopping</button>
+        <button type="button" class="hub-btn secondary" id="continue-checkout">Go to checkout</button>
+      </div>
+    </div>
   </div>
 
   <!-- Fullscreen Gallery Overlay -->
@@ -411,9 +422,10 @@
     const isOptionG = flow === 'd2';
     const isOptionH = flow === 'e1';
     const isOptionI = flow === 'e2';
-    const isHubFlow = isOptionF || isOptionG || isOptionH || isOptionI;
+    const isSequentialFlow = (flow === 'c1' || flow === 'c2');
+    const isHubFlow = (!isSequentialFlow) && (isOptionF || isOptionG || isOptionH || isOptionI);
     const isCrossSellFlow = isOptionH || isOptionI;
-    const isOptionalFlow = isOptionE || isHubFlow;
+    const isOptionalFlow = isSequentialFlow || isHubFlow;
     if (isOptionalFlow) {
       try { sessionStorage.setItem('polar_flow_mode', flow); } catch (e) {}
     }
@@ -618,6 +630,12 @@
           localStorage.setItem('cart_accommodation', '[]');
         }
 
+        // Sequential c1/c2: show "Keep buying?" sheet to offer transport
+        if (isSequentialFlow) {
+          openContinueSheet();
+          return;
+        }
+
         // Option H/I: show cross-sell bottom sheet if user came from hub (not from transportation)
         if (isCrossSellFlow) {
           var cameFrom = '';
@@ -641,7 +659,6 @@
           nextUrl = 'polar-sound-transportations.html' + (flow ? '?flow=' + flow : '');
         }
         if (isHubFlow) {
-          // For cross-sell flows, only clear transportation if user came from hub (not from transportation cross-sell)
           if (isCrossSellFlow) {
             var cameFromForClear = '';
             try { cameFromForClear = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
@@ -1008,6 +1025,54 @@
       function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
       function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)'; } }
       function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeCrossSellSheet(); }
+      sheetEl.addEventListener('touchstart', function(e) { dragStart(e.touches[0].clientY); }, { passive: true });
+      sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
+      sheetEl.addEventListener('touchend', dragEnd);
+      sheetEl.addEventListener('mousedown', function(e) { e.preventDefault(); dragStart(e.clientY); });
+      document.addEventListener('mousemove', function(e) { if (isDragging) dragMove(e.clientY, e); });
+      document.addEventListener('mouseup', dragEnd);
+    })();
+
+    // === Sequential "Keep buying?" sheet for c1/c2 flows ===
+    function openContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var sheet = document.getElementById('continue-sheet');
+      if (overlay) overlay.classList.add('open');
+      if (sheet) sheet.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var sheet = document.getElementById('continue-sheet');
+      if (sheet) sheet.style.transform = '';
+      if (overlay) overlay.classList.remove('open');
+      if (sheet) sheet.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    (function bindContinueSheet() {
+      var overlay = document.getElementById('continue-overlay');
+      var btnKeep = document.getElementById('continue-keep');
+      var btnCheckout = document.getElementById('continue-checkout');
+      if (overlay) overlay.addEventListener('click', closeContinueSheet);
+      if (btnKeep) {
+        btnKeep.addEventListener('click', function() {
+          window.location.href = 'polar-sound-transportations.html?flow=' + flow + '&preselect=1';
+        });
+      }
+      if (btnCheckout) {
+        btnCheckout.addEventListener('click', function() {
+          try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
+          window.location.href = 'checkout.html?flow=' + flow;
+        });
+      }
+    })();
+    (function() {
+      var sheetEl = document.getElementById('continue-sheet');
+      if (!sheetEl) return;
+      var startY = 0, currentY = 0, isDragging = false;
+      function dragStart(y) { startY = y; currentY = y; isDragging = true; sheetEl.style.transition = 'none'; }
+      function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); sheetEl.style.transform = 'translateX(-50%) translateY(' + dy + 'px)'; } }
+      function dragEnd() { if (!isDragging) return; isDragging = false; sheetEl.style.transition = ''; sheetEl.style.transform = ''; if (currentY - startY > 80) closeContinueSheet(); }
       sheetEl.addEventListener('touchstart', function(e) { dragStart(e.touches[0].clientY); }, { passive: true });
       sheetEl.addEventListener('touchmove', function(e) { dragMove(e.touches[0].clientY, e); }, { passive: false });
       sheetEl.addEventListener('touchend', dragEnd);
