@@ -724,6 +724,16 @@
       stickyMode = 'continue';
     }
 
+    // Hub flows: pre-select first transport option when no prior selection exists
+    if (isHubFlow && !counts.some(function(c) { return c > 0; })) {
+      var firstPaid = TRANSPORT_OPTIONS.findIndex(function(opt) { return opt.price > 0; });
+      if (firstPaid >= 0) {
+        counts[firstPaid] = 1;
+        hasSeenTransport = true;
+        stickyMode = 'continue';
+      }
+    }
+
     render();
     // Scroll to transport selector on load without animation (no visible autoscroll from hero).
     document.documentElement.style.scrollBehavior = 'auto';

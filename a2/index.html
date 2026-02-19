@@ -232,40 +232,30 @@
       border-radius: 4px;
       font-family: var(--font);
     }
-    /* Heart like button (ref: Top 10 Barcelona — circular, pequeño, outline blanco sobre fondo oscuro) */
+    /* Heart like button — Figma fa-icon/heart: filled dark heart with light stroke, no circle */
     .card-like {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      min-height: 32px;
+      top: 4px;
+      right: 4px;
+      width: 34px;
+      height: 34px;
       border: none;
-      background: rgba(3,20,25,0.35);
+      background: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
       padding: 0;
-      border-radius: 50%;
-      transition: background 0.2s;
+      transition: transform 0.15s;
     }
-    .card-like:hover { background: rgba(3,20,25,0.5); }
+    .card-like:hover { transform: scale(1.1); }
     .card-like svg {
-      width: 16px;
-      height: 16px;
+      width: 26px;
+      height: 26px;
       flex-shrink: 0;
-      color: white;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      transition: fill 0.2s, color 0.2s;
     }
-    .card-like.liked svg { fill: white; stroke: white; color: white; }
-    .card-like.liked { background: rgba(3,20,25,0.5); }
-    .card-like.liked:hover { background: rgba(3,20,25,0.6); }
+    .card-like.liked svg path { fill: #FF3B30; fill-opacity: 1; stroke: white; }
     .event-card .card-title {
       margin-top: 8px;
       font-size: 13px;
