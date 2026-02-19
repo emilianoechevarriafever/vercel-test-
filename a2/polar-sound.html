@@ -966,7 +966,7 @@
         const panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
         document.getElementById('panel-day').style.display = panelId === 'day' ? 'block' : 'none';
         document.getElementById('panel-2day').style.display = panelId === '2day' ? 'block' : 'none';
-        updateTotal();
+        if (hadAutoPreselect) preselectCheapest(); else updateTotal();
       });
     });
 
@@ -983,10 +983,12 @@
     }
 
     // Auto-preselect first ticket when arriving from outside Polar Sound flow
+    var hadAutoPreselect = false;
     (function() {
       var ref = document.referrer || '';
       if (ref.indexOf('polar-sound') === -1) {
         preselectCheapest();
+        hadAutoPreselect = true;
       }
     })();
 
