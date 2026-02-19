@@ -1,0 +1,124 @@
+/*  Shared navbar stabilisation — nuclear reset
+    Uses all:unset so <a> and <button> render identically.
+    Every icon slot is a rigid 22×22 box; no icon can shift the layout. */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e6eaee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar .logo-link {
+  all: unset;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.navbar .logo-link img {
+  height: 26px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-icons svg {
+  height: 22px;
+  width: auto;
+  color: var(--color-text-main, #031419);
+}
+
+/* Nuclear reset: strips every browser-default from <a> AND <button> */
+.nav-icon-btn {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  overflow: visible;
+  vertical-align: middle;
+}
+.nav-icon-btn svg {
+  display: block;
+  height: 22px;
+  width: auto;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.avatar-wrap {
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.avatar-wrap img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: none;
+}
+.avatar-wrap .avatar-placeholder {
+  display: flex;
+}
+html.u-in .avatar-wrap img {
+  display: block;
+}
+html.u-in .avatar-wrap .avatar-placeholder {
+  display: none;
+}
+html.u-in .avatar-wrap::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  background: #22ad5c;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+}
+
+/* Burger toggle — rigid 22×22, SVGs centered absolutely */
+.burger-toggle {
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+.burger-toggle svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.burger-toggle .icon-close {
+  display: none;
+}
+.phone.is-menu-open .burger-toggle .icon-menu {
+  display: none;
+}
+.phone.is-menu-open .burger-toggle .icon-close {
+  display: block;
+}
