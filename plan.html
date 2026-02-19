@@ -88,11 +88,11 @@
     .description ul { padding-left:20px; margin-bottom:12px; }
     .description ul li { margin-bottom:4px; }
 
-    .section-header { display:flex; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--color-border); }
-    .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
-    .section-header h2 { font-size:20px; font-weight:700; line-height:24px; flex:1; }
+    .section-header { display:flex; align-items:center; gap:8px; padding:8px 16px; background:#f2f3f3; }
+    .section-header svg { width:24px; height:24px; flex-shrink:0; color:#031419; }
+    .section-header h2 { font-size:18px; font-weight:400; line-height:24px; flex:1; color:#000; }
 
-    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+    .ticket-selector { padding:0 16px 16px; }
     .no-fees-banner { display:flex; align-items:center; justify-content:center; gap:8px; background:#f0ebfd; border-radius:8px; padding:16px; margin:16px 0; }
     .no-fees-banner .info-icon { width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .no-fees-banner .info-icon img { width:16px; height:16px; display:block; }
@@ -161,16 +161,15 @@
     .reviews-see-all { display:block; text-align:center; padding:14px 0 4px; font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; cursor:pointer; }
     .reviews-see-all:hover { text-decoration:underline; }
 
-    .help-section { padding:16px; border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); display:flex; align-items:center; justify-content:space-between; }
-    .help-section span { font-size:15px; font-weight:500; }
-    .help-section a { font-size:14px; font-weight:600; color:var(--color-primary); text-decoration:none; }
+    .help-content { padding:24px 16px; font-size:14px; line-height:20px; color:#031419; }
+    .help-content a { color:#0089e3; text-decoration:underline; }
 
-    .venue-section { padding:20px 16px; }
+    .venue-section { padding:24px 16px; }
     .venue-section .venue-img { width:100%; height:200px; border-radius:8px; object-fit:cover; margin-bottom:12px; }
     .venue-section .venue-name-lg { font-size:16px; font-weight:600; margin-bottom:6px; }
     .venue-section .venue-desc { font-size:14px; line-height:20px; color:var(--color-text-secondary); }
 
-    .location { padding:20px 16px; }
+    .location { padding:24px 16px; }
     .location .loc-name { font-weight:600; font-size:15px; margin-bottom:4px; }
     .location .loc-address { font-size:14px; color:var(--color-text-secondary); margin-bottom:12px; }
     .location .map-placeholder { width:100%; height:160px; background:#e8e8e8; border-radius:8px; overflow:hidden; }
@@ -272,10 +271,9 @@
     <div class="divider"></div>
 
     <div class="description" id="plan-description"></div>
-    <div class="divider"></div>
 
     <div class="section-header" id="ticket-section">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <svg viewBox="0 0 576 512" fill="currentColor"><path d="M64 64C28.7 64 0 92.7 0 128v64c0 8.8 7.4 15.7 15.7 18.6C34.5 217.1 48 235 48 256s-13.5 38.9-32.3 45.4C7.4 304.3 0 311.2 0 320v64c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64v-64c0-8.8-7.4-15.7-15.7-18.6C541.5 294.9 528 277 528 256s13.5-38.9 32.3-45.4c8.3-2.9 15.7-9.8 15.7-18.6v-64c0-35.3-28.7-64-64-64H64zm64 112l0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16V176c0-8.8-7.2-16-16-16H144c-8.8 0-16 7.2-16 16z"/></svg>
       <h2>Select date and session</h2>
     </div>
 
@@ -292,13 +290,30 @@
     <div class="reviews" id="reviews-section"></div>
 
     <div class="help-section">
-      <span>Need help?</span>
-      <a href="javascript:void(0)">Contact us</a>
+      <div class="section-header">
+        <svg viewBox="0 0 512 512" fill="currentColor"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        <h2>Need help?</h2>
+      </div>
+      <div class="help-content">
+        Contact Support <a href="javascript:void(0)">here</a>.
+      </div>
     </div>
 
-    <div class="venue-section" id="venue-section"></div>
+    <div class="venue-wrap">
+      <div class="section-header">
+        <svg viewBox="0 0 512 512" fill="currentColor"><path d="M243.4 2.6l-224 96c-14 6-21.8 21-18.7 35.8S16.8 160 32 160v8c0 13.3 10.7 24 24 24h400c13.3 0 24-10.7 24-24v-8c15.2 0 28.3-10.7 31.3-25.6s-4.8-29.9-18.7-35.8l-224-96c-8-3.4-17.2-3.4-25.2 0zM128 224H64v196.3c-.6.3-1.2.7-1.8 1.1l-48 32c-11.7 7.8-17 22.4-12.9 35.9S17.9 512 32 512h448c14.1 0 26.5-9.2 30.6-22.7s-1.1-28.1-12.9-35.9l-48-32c-.6-.4-1.2-.7-1.8-1.1V224h-64v196h-64V224h-64v196h-64V224h-64v196h-64V224z"/></svg>
+        <h2>About the venue</h2>
+      </div>
+      <div class="venue-section" id="venue-section"></div>
+    </div>
 
-    <div class="location" id="location-section"></div>
+    <div class="location-wrap">
+      <div class="section-header">
+        <svg viewBox="0 0 384 512" fill="currentColor"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+        <h2>Getting there</h2>
+      </div>
+      <div class="location" id="location-section"></div>
+    </div>
 
     <div class="similar">
       <h3>You might also like</h3>
