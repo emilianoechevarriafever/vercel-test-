@@ -218,7 +218,7 @@
       </div>
     </div>
     <div class="sheet-footer">
-      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-confirm">No hotel</button>
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-confirm">Skip hotel</button>
     </div>
   </div>
 
@@ -259,7 +259,7 @@
       </div>
     </div>
     <div class="sheet-footer">
-      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-confirm">No transport</button>
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-confirm">Skip transport</button>
     </div>
   </div>
 
@@ -436,7 +436,7 @@
         totalPrice += qty * price;
       });
       var btn = document.getElementById('sheet-acc-confirm');
-      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No hotel';
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Skip hotel';
     }
     function updateSheetTransportBtn() {
       var totalQty = 0, totalPrice = 0;
@@ -447,7 +447,7 @@
         totalPrice += qty * price;
       });
       var btn = document.getElementById('sheet-transport-confirm');
-      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No transport';
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Skip transport';
     }
     function bindSheetSteppers(sheetId, updateBtn) {
       var sheet = document.getElementById(sheetId);

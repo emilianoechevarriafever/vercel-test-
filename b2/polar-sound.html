@@ -778,7 +778,7 @@
       </div>
     </div>
     <div class="sheet-footer">
-      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-continue">No hotel</button>
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-acc-continue">Skip hotel</button>
     </div>
   </div>
 
@@ -819,7 +819,7 @@
       </div>
     </div>
     <div class="sheet-footer">
-      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-continue">Continue</button>
+      <button type="button" class="sheet-btn sheet-btn-primary" id="sheet-transport-continue">Skip transport</button>
     </div>
   </div>
 
@@ -1055,7 +1055,7 @@
         totalPrice += qty * price;
       });
       const btn = document.getElementById('sheet-acc-continue');
-      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'No hotel';
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Skip hotel';
     }
     function updateSheetTransportBtn() {
       let totalQty = 0;
@@ -1067,7 +1067,7 @@
         totalPrice += qty * price;
       });
       const btn = document.getElementById('sheet-transport-continue');
-      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Continue';
+      if (btn) btn.textContent = totalQty > 0 ? '\u20AC' + totalPrice.toFixed(2) + ' \u2014 Add it' : 'Skip transport';
     }
     function bindSheetSteppers(sheetId, updateBtn) {
       const sheet = document.getElementById(sheetId);
