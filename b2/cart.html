@@ -46,12 +46,19 @@
 
     .cart-section { padding:12px 16px; border-bottom:1px solid var(--color-border); }
     .cart-section h3 { font-size:16px; font-weight:700; margin-bottom:8px; }
-    .cart-item { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--color-border); gap:12px; }
-    .cart-item:last-child { border-bottom:none; }
-    .cart-item .item-info { flex:1; }
+
+    .swipe-container { position:relative; overflow:hidden; border-bottom:1px solid var(--color-border); }
+    .swipe-container:last-child { border-bottom:none; }
+    .swipe-delete { position:absolute; top:0; right:0; bottom:0; width:80px; background:#e53935; display:flex; align-items:center; justify-content:center; color:#fff; }
+    .swipe-delete svg { width:22px; height:22px; stroke:#fff; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .swipe-inner { position:relative; background:#fff; z-index:1; transition:transform 0.2s ease; }
+    .swipe-inner.swiping { transition:none; }
+
+    .cart-item { padding:10px 0; }
     .cart-item .item-name { font-size:14px; font-weight:500; margin-bottom:2px; }
-    .cart-item .item-detail { font-size:12px; color:var(--color-text-secondary); }
-    .cart-item .item-row { display:flex; align-items:center; gap:8px; margin-top:4px; }
+    .cart-item .item-detail { font-size:12px; color:var(--color-text-secondary); margin-bottom:6px; }
+    .cart-item .item-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
+    .cart-item .item-price { font-size:14px; font-weight:600; }
     .cart-item .qty-wrap { display:flex; align-items:center; gap:4px; }
     .cart-item .qty-wrap button { width:32px; height:32px; border:none; border-radius:50%; font-size:18px; cursor:pointer; line-height:1; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.15s, color 0.15s; }
     .cart-item .qty-wrap button:first-child { background:#f2f3f3; color:#a7b2ba; }
@@ -59,13 +66,9 @@
     .cart-item .qty-wrap input { width:36px; border:none; text-align:center; font-size:16px; font-weight:600; padding:0; background:transparent; color:#031419; -moz-appearance:textfield; }
     .cart-item .qty-wrap input::-webkit-outer-spin-button,
     .cart-item .qty-wrap input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
-    .cart-item .item-price { font-size:14px; font-weight:600; }
-    .cart-item .btn-remove { background:none; border:none; color:var(--color-text-secondary); cursor:pointer; padding:0; width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; }
-    .cart-item .btn-remove svg { width:16px; height:16px; display:block; stroke:currentColor; }
 
     .cart-total { padding:16px; font-size:16px; font-weight:700; display:flex; justify-content:space-between; }
-    .empty-state-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .empty-state-text { font-size:14px; color:var(--color-text-secondary); }
+    .empty-state-row { display:flex; align-items:center; justify-content:flex-end; padding:6px 0; }
     .empty-state-link {
       display:inline-flex;
       align-items:center;
@@ -76,12 +79,10 @@
       color:var(--color-primary);
       background:#F3FAFF;
       border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
+      padding:6px 14px;
+      font-size:13px;
       font-weight:600;
       line-height:16px;
-      cursor:pointer;
-      font-family:var(--font);
     }
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%); padding:12px 16px max(12px, env(safe-area-inset-bottom)); }
     .sticky-cta .cta-btn { display:block; width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
@@ -289,25 +290,45 @@
     }
 
     function renderItem(item, index, type) {
-      const div = document.createElement('div');
+      var trashSvg = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+
+      var container = document.createElement('div');
+      container.className = 'swipe-container';
+
+      var deleteStrip = document.createElement('div');
+      deleteStrip.className = 'swipe-delete';
+      deleteStrip.innerHTML = trashSvg;
+      container.appendChild(deleteStrip);
+
+      var inner = document.createElement('div');
+      inner.className = 'swipe-inner';
+
+      var div = document.createElement('div');
       div.className = 'cart-item';
       div.dataset.type = type;
       div.dataset.index = index;
-      const qty = item.qty != null ? item.qty : 1;
-      const price = (parseFloat(String(item.price).replace(/[^\d.,]/g, '').replace(',', '.')) || 0) * qty;
-      div.innerHTML = '<div class="item-info"><div class="item-name">' + (item.name || 'Item') + '</div>' +
+      var qty = item.qty != null ? item.qty : 1;
+      var unitPrice = parseFloat(String(item.price).replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+      var totalPrice = unitPrice * qty;
+      div.innerHTML =
+        '<div class="item-name">' + (item.name || 'Item') + '</div>' +
         (item.detail ? '<div class="item-detail">' + item.detail + '</div>' : '') +
-        '<div class="item-row"><div class="qty-wrap"><button type="button" aria-label="Less">−</button><input type="number" min="0" value="' + qty + '" aria-label="Quantity"><button type="button" aria-label="More">+</button></div></div></div>' +
-        '<div class="item-price">€' + price.toFixed(2) + '</div>' +
-        '<button type="button" class="btn-remove" aria-label="Remove item">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-            '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/>' +
-          '</svg>' +
-        '</button>';
-      const qtyInput = div.querySelector('input');
-      const lessBtn = div.querySelector('.qty-wrap button:first-child');
-      const moreBtn = div.querySelector('.qty-wrap button:last-child');
-      const removeBtn = div.querySelector('.btn-remove');
+        '<div class="item-bottom">' +
+          '<div class="item-price">€' + totalPrice.toFixed(2) + '</div>' +
+          '<div class="qty-wrap">' +
+            '<button type="button" aria-label="Less">−</button>' +
+            '<input type="number" min="0" value="' + qty + '" aria-label="Quantity">' +
+            '<button type="button" aria-label="More">+</button>' +
+          '</div>' +
+        '</div>';
+
+      inner.appendChild(div);
+      container.appendChild(inner);
+
+      var qtyInput = div.querySelector('input');
+      var lessBtn = div.querySelector('.qty-wrap button:first-child');
+      var moreBtn = div.querySelector('.qty-wrap button:last-child');
+
       function removeCurrentItem() {
         if (type === 'tickets') cartTickets.splice(index, 1);
         else if (type === 'accommodation') cartAccommodation.splice(index, 1);
@@ -316,10 +337,10 @@
         render();
       }
       function syncLessButtonState() {
-        const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
-        const qty = Math.max(0, (arr[index] && arr[index].qty != null ? arr[index].qty : 1));
-        if (qty <= 0) {
-          lessBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+        var arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
+        var q = Math.max(0, (arr[index] && arr[index].qty != null ? arr[index].qty : 1));
+        if (q <= 0) {
+          lessBtn.innerHTML = trashSvg;
           lessBtn.setAttribute('aria-label', 'Remove item');
         } else {
           lessBtn.innerHTML = '−';
@@ -327,30 +348,29 @@
         }
       }
       function updateQty(delta) {
-        const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
-        const currentQty = Math.max(0, (arr[index] && arr[index].qty != null ? arr[index].qty : 1));
-        if (delta < 0 && currentQty <= 0) {
-          removeCurrentItem();
-          return;
-        }
+        var arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
+        var currentQty = Math.max(0, (arr[index] && arr[index].qty != null ? arr[index].qty : 1));
+        if (delta < 0 && currentQty <= 0) { removeCurrentItem(); return; }
         arr[index].qty = Math.max(0, currentQty + delta);
         saveCart();
         render();
       }
-      lessBtn.addEventListener('click', () => updateQty(-1));
-      moreBtn.addEventListener('click', () => updateQty(1));
+      lessBtn.addEventListener('click', function() { updateQty(-1); });
+      moreBtn.addEventListener('click', function() { updateQty(1); });
       qtyInput.addEventListener('change', function() {
-        const v = parseInt(this.value, 10);
+        var v = parseInt(this.value, 10);
         if (!isNaN(v) && v >= 0) {
-          const arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
+          var arr = type === 'tickets' ? cartTickets : type === 'accommodation' ? cartAccommodation : cartTransportation;
           arr[index].qty = v;
           saveCart();
           render();
         }
       });
-      removeBtn.addEventListener('click', removeCurrentItem);
       syncLessButtonState();
-      return div;
+
+      initSwipe(container, inner, removeCurrentItem);
+
+      return container;
     }
 
     function getTotal() {
@@ -377,7 +397,7 @@
       return hasItems(cartTickets) || hasItems(cartAccommodation) || hasItems(cartTransportation);
     }
 
-    function renderEmptyState(message, ctaText, href) {
+    function renderEmptyState(ctaText, href) {
       return '<div class="empty-state-row"><a class="empty-state-link" href="' + href + '">' + ctaText + '</a></div>';
     }
 
@@ -386,19 +406,48 @@
     }
 
     function render() {
-      const ticketContainer = document.getElementById('ticket-items');
-      const accomContainer = document.getElementById('accommodation-items');
-      const transportContainer = document.getElementById('transportation-items');
+      var ticketContainer = document.getElementById('ticket-items');
+      var accomContainer = document.getElementById('accommodation-items');
+      var transportContainer = document.getElementById('transportation-items');
       ticketContainer.innerHTML = '';
       accomContainer.innerHTML = '';
       transportContainer.innerHTML = '';
-      cartTickets.forEach((item, i) => ticketContainer.appendChild(renderItem(item, i, 'tickets')));
-      cartAccommodation.forEach((item, i) => accomContainer.appendChild(renderItem(item, i, 'accommodation')));
-      cartTransportation.forEach((item, i) => transportContainer.appendChild(renderItem(item, i, 'transportation')));
-      if (cartTickets.length === 0) ticketContainer.innerHTML = renderEmptyState('', 'Add', 'polar-sound.html#ticket-section');
-      if (cartAccommodation.length === 0) accomContainer.innerHTML = renderEmptyStateBtn('Add', 'openSheet(\"sheet-acc\")');
-      if (cartTransportation.length === 0) transportContainer.innerHTML = renderEmptyStateBtn('Add', 'openSheet(\"sheet-transport\")');
+      cartTickets.forEach(function(item, i) { ticketContainer.appendChild(renderItem(item, i, 'tickets')); });
+      cartAccommodation.forEach(function(item, i) { accomContainer.appendChild(renderItem(item, i, 'accommodation')); });
+      cartTransportation.forEach(function(item, i) { transportContainer.appendChild(renderItem(item, i, 'transportation')); });
+      if (cartTickets.length === 0) ticketContainer.innerHTML = renderEmptyState('Add passes', 'polar-sound.html#ticket-section');
+      if (cartAccommodation.length === 0) accomContainer.innerHTML = renderEmptyStateBtn('Add hotel', 'openSheet(\"sheet-acc\")');
+      if (cartTransportation.length === 0) transportContainer.innerHTML = renderEmptyStateBtn('Add transport', 'openSheet(\"sheet-transport\")');
       document.getElementById('cart-grand-total').textContent = '€' + getTotal().toFixed(2);
+    }
+
+    function initSwipe(container, inner, onDelete) {
+      var startX = 0, startY = 0, currentX = 0, locked = false;
+      inner.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        currentX = 0;
+        locked = false;
+        inner.classList.add('swiping');
+      }, { passive: true });
+      inner.addEventListener('touchmove', function(e) {
+        if (locked) return;
+        var dx = e.touches[0].clientX - startX;
+        var dy = e.touches[0].clientY - startY;
+        if (Math.abs(dy) > Math.abs(dx) && currentX === 0) { locked = true; return; }
+        currentX = Math.min(0, dx);
+        inner.style.transform = 'translateX(' + currentX + 'px)';
+      }, { passive: true });
+      inner.addEventListener('touchend', function() {
+        inner.classList.remove('swiping');
+        if (currentX < -80) {
+          inner.style.transition = 'transform 0.25s ease';
+          inner.style.transform = 'translateX(-100%)';
+          setTimeout(function() { onDelete(); }, 250);
+        } else {
+          inner.style.transform = '';
+        }
+      });
     }
 
     // === BOTTOM SHEETS ===
