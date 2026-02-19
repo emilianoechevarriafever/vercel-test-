@@ -17,17 +17,17 @@
     :root {
       --color-primary: #0079ca;
       --color-text: #031419;
-      --color-text-secondary: #536b75;
-      --color-border: #E6EAEE;
+      --color-text-subtle: #536b75;
+      --color-border: #ccd2d8;
       --color-bg: #ffffff;
-      --color-bg-neutral: #F5F7F9;
+      --color-bg-neutral: #f2f3f3;
       --font: 'Montserrat', sans-serif;
     }
     body { font-family:var(--font); background:var(--color-bg-neutral); display:flex; justify-content:center; color:var(--color-text); overflow-x:hidden; }
     .phone { width:393px; max-width:100vw; background:var(--color-bg); min-height:100vh; position:relative; padding-bottom:100px; }
 
     .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
-    .navbar { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:#fff; border-top:none; border-bottom:1px solid #e6eaee; }
+    .navbar { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:#fff; border-top:none; border-bottom:1px solid #ccd2d8; }
     .navbar .logo-link { text-decoration:none; display:flex; align-items:center; }
     .navbar .logo-link img { height:38px; width:auto; display:block; object-fit:contain; }
     .nav-icons { display:flex; align-items:center; gap:20px; }
@@ -45,21 +45,21 @@
     .event-summary .event-thumb img { width:100%; height:100%; object-fit:cover; }
     .event-summary .event-info { flex:1; }
     .event-summary .event-name { font-size:14px; font-weight:600; margin-bottom:2px; }
-    .event-summary .event-venue { font-size:12px; color:var(--color-text-secondary); }
+    .event-summary .event-venue { font-size:12px; color:var(--color-text-subtle); }
 
     .addon-section { padding:16px; }
-    .addon-section h2 { font-size:16px; font-weight:700; margin-bottom:12px; }
-    .addon-card { display:flex; align-items:center; justify-content:space-between; padding:16px; background:var(--color-bg-neutral); border:1px solid var(--color-border); border-radius:12px; margin-bottom:12px; cursor:pointer; transition:border-color 0.2s; }
+    .addon-section h2 { font-size:16px; font-weight: 600; margin-bottom:12px; }
+    .addon-card { display:flex; align-items:center; justify-content:space-between; padding:16px; background:var(--color-bg-neutral); border:1px solid var(--color-border); border-radius:16px; margin-bottom:12px; cursor:pointer; transition:border-color 0.2s; }
     .addon-card:hover { border-color:var(--color-primary); }
     .addon-card .left { display:flex; align-items:center; gap:12px; }
     .addon-card .icon { width:40px; height:40px; border-radius:8px; background:var(--color-primary); opacity:0.15; display:flex; align-items:center; justify-content:center; }
     .addon-card .icon svg { width:22px; height:22px; color:var(--color-primary); }
-    .addon-card .label { font-size:15px; font-weight:600; }
-    .addon-card .sublabel { font-size:12px; color:var(--color-text-secondary); margin-top:2px; }
+    .addon-card .label { font-size:14px; font-weight:600; }
+    .addon-card .sublabel { font-size:12px; color:var(--color-text-subtle); margin-top:2px; }
     .addon-card .right { font-size:14px; font-weight:600; color:var(--color-primary); }
-    .addon-card.added .right { color:var(--color-text-secondary); font-weight:500; }
+    .addon-card.added .right { color:var(--color-text-subtle); font-weight:500; }
 
-    .selected-summary { padding:0 16px 16px; font-size:13px; color:var(--color-text-secondary); }
+    .selected-summary { padding:0 16px 16px; font-size:14px; color:var(--color-text-subtle); }
     .selected-summary .line { margin-bottom:4px; }
 
     .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:100; background:transparent; padding:12px 16px max(12px, env(safe-area-inset-bottom)); }
@@ -74,17 +74,17 @@
     .sheet-overlay.open { opacity:1; visibility:visible; }
     .sheet { position:fixed; left:0; right:0; bottom:0; max-height:70vh; background:white; border-radius:16px 16px 0 0; z-index:301; transform:translateY(100%); transition:transform 0.3s; box-shadow:0 -4px 20px rgba(0,0,0,0.15); }
     .sheet.open { transform:translateY(0); }
-    .sheet .sheet-handle { width:36px; height:4px; background:#ddd; border-radius:2px; margin:12px auto; }
-    .sheet .sheet-title { padding:0 16px 16px; font-size:18px; font-weight:700; }
+    .sheet .sheet-handle { width:36px; height:4px; background:#ddd; border-radius:4px; margin:12px auto; }
+    .sheet .sheet-title { padding:0 16px 16px; font-size:18px; font-weight: 600; }
     .sheet .sheet-options { padding:0 16px 24px; max-height:50vh; overflow-y:auto; }
     .sheet-option { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--color-border); cursor:pointer; }
     .sheet-option:last-child { border-bottom:none; }
-    .sheet-option .name { font-size:15px; font-weight:500; }
-    .sheet-option .price { font-size:15px; font-weight:600; }
-    .sheet-option .price.free { color:var(--color-text-secondary); font-weight:500; }
+    .sheet-option .name { font-size:14px; font-weight:500; }
+    .sheet-option .price { font-size:14px; font-weight:600; }
+    .sheet-option .price.free { color:var(--color-text-subtle); font-weight:500; }
     .sheet-option.selected { background:var(--color-bg-neutral); border-radius:8px; padding-left:12px; padding-right:12px; }
     .sheet .sheet-actions { padding:16px; border-top:1px solid var(--color-border); }
-    .sheet .sheet-actions button { width:100%; height:48px; border-radius:100px; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
+    .sheet .sheet-actions button { width:100%; height:48px; border-radius:64px; font-family:var(--font); font-weight:600; font-size:16px; cursor:pointer; }
     .sheet .btn-cancel { background:#f0f0f0; color:var(--color-text); border:none; margin-bottom:8px; }
     .sheet .btn-add { background:var(--color-primary); color:white; border:none; }
     /* Focus-visible */

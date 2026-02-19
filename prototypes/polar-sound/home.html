@@ -19,10 +19,9 @@
       --color-primary: #0079ca;
       --color-primary-weak: #E6F4FF;
       --color-text-main: #031419;
-      --color-text-secondary: #536b75;
       --color-text-subtle: #536b75;
-      --color-border: #E6EAEE;
-      --color-bg-neutral: #F5F7F9;
+      --color-border: #ccd2d8;
+      --color-bg-neutral: #f2f3f3;
       --radius: 0.75rem;
       --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
       --font: 'Montserrat', sans-serif;
@@ -52,7 +51,7 @@
       padding: 6px 16px 4px;
       background: white;
     }
-    .status-bar .time { font-family: -apple-system, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: -0.68px; }
+    .status-bar .time { font-family: -apple-system, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: -0.68px; }
     .status-bar .icons { display: flex; gap: 5px; align-items: center; }
     .status-bar .icons svg { height: 12px; }
 
@@ -66,7 +65,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #e6eaee;
+      border-bottom: 1px solid #ccd2d8;
     }
     .navbar .logo-link {
       text-decoration: none;
@@ -108,7 +107,7 @@
       top: 0; left: 50%;
       transform: translateX(-50%) translateY(-12px);
       width: 393px; max-width: 100vw;
-      background: #fafbfb;
+      background: #f2f3f3;
       max-height: 0; overflow: hidden;
       opacity: 0; z-index: 100;
       transition: max-height .35s cubic-bezier(.4,0,.2,1),
@@ -227,7 +226,7 @@
     }
     .hero-city {
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 600;
       color: white;
       display: flex;
       align-items: center;
@@ -255,9 +254,9 @@
     .search-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: white;
-      border-radius: 100px;
+      border-radius: 64px;
       padding: 12px 16px;
       height: 48px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.12);
@@ -280,7 +279,7 @@
       padding: 0 16px;
       margin-bottom: 16px;
     }
-    .section-header h2 { font-size: 20px; font-weight: 700; color: var(--color-text-main); line-height: 28px; }
+    .section-header h2 { font-size: 20px; font-weight: 600; color: var(--color-text-main); line-height: 28px; }
     .section-header a { font-size: 14px; font-weight: 600; color: #031419; text-decoration: underline; text-underline-offset: 2px; }
 
     /* Card Carousel — Top 10: portrait 2:3 aspect ratio (ref. correct layout) */
@@ -300,10 +299,10 @@
     .card-scroll .card-img {
       width: 150px;
       aspect-ratio: 1/1;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background: linear-gradient(90deg, #ccd2d8 25%, #f2f3f3 50%, #ccd2d8 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite ease-in-out;
     }
@@ -322,10 +321,10 @@
     .event-card .card-img {
       width: 150px;
       aspect-ratio: 1/1;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background: linear-gradient(90deg, #ccd2d8 25%, #f2f3f3 50%, #ccd2d8 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite ease-in-out;
     }
@@ -344,10 +343,10 @@
     .section-top10 .event-card .card-img {
       aspect-ratio: 2/3;
       overflow: visible;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .section-top10 .event-card .card-img img {
-      border-radius: 12px;
+      border-radius: 16px;
     }
     .section-top10 .event-card .card-img .rank-number {
       display: inline-block;
@@ -372,7 +371,7 @@
       stroke-linejoin: round;
     }
     .section-top10 .event-card .card-img .rank-number__fill {
-      fill: #fafbfb;
+      fill: #f2f3f3;
     }
 
     .event-card .card-img .card-badge {
@@ -432,7 +431,7 @@
     .event-card .card-meta .rating { color: #f5a623; }
     .event-card .card-price {
       margin-top: 2px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--color-text-main);
     }
@@ -449,10 +448,10 @@
     .featured-card .card-img {
       width: 150px;
       aspect-ratio: 1/1;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background: linear-gradient(90deg, #ccd2d8 25%, #f2f3f3 50%, #ccd2d8 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite ease-in-out;
     }
@@ -480,7 +479,7 @@
     }
     .featured-card .card-meta { margin-top: 4px; font-size: 12px; color: var(--color-text-subtle); }
     .featured-card .card-meta .rating { color: #f5a623; }
-    .featured-card .card-price { margin-top: 2px; font-size: 13px; font-weight: 600; }
+    .featured-card .card-price { margin-top: 2px; font-size: 14px; font-weight: 600; }
 
     /* Recently Viewed */
     .section-recently-viewed { display: none; }
@@ -496,7 +495,7 @@
     .section-recently-viewed .rv-card .card-img {
       width: 150px;
       aspect-ratio: 1/1;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
       background: var(--color-bg-neutral);
@@ -524,7 +523,7 @@
     .section-recently-viewed .rv-card .card-meta .rating { color: #f5a623; }
     .section-recently-viewed .rv-card .card-price {
       margin-top: 2px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--color-text-main);
     }
@@ -533,10 +532,10 @@
     .cities-section {
       margin: 40px 16px 0;
       background: var(--color-bg-neutral);
-      border-radius: 12px;
-      padding: 20px 16px;
+      border-radius: 16px;
+      padding: 24px 16px;
     }
-    .cities-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--color-text-main); }
+    .cities-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--color-text-main); }
     .city-chips {
       display: flex;
       flex-wrap: wrap;
@@ -548,8 +547,8 @@
       gap: 6px;
       padding: 6px 12px;
       border: 1px solid var(--color-border);
-      border-radius: 100px;
-      font-size: 13px;
+      border-radius: 64px;
+      font-size: 14px;
       color: var(--color-text-main);
       background: white;
       text-decoration: none;
@@ -566,8 +565,8 @@
       overflow: hidden;
       position: relative;
     }
-    .app-banner h3 { font-size: 20px; font-weight: 700; line-height: 28px; margin-bottom: 12px; }
-    .app-banner p { font-size: 13px; line-height: 20px; opacity: 0.8; margin-bottom: 20px; }
+    .app-banner h3 { font-size: 20px; font-weight: 600; line-height: 28px; margin-bottom: 12px; }
+    .app-banner p { font-size: 14px; line-height: 20px; opacity: 0.8; margin-bottom: 20px; }
     .app-banner .store-btns { display: flex; gap: 12px; }
     .app-banner .store-btns img { height: 40px; width: auto; max-width: 135px; object-fit: contain; }
 
@@ -578,25 +577,25 @@
     }
     .selling-point .icon-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
     .selling-point .icon-row span { font-size: 24px; }
-    .selling-point h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-    .selling-point p { font-size: 13px; line-height: 20px; color: var(--color-text-subtle); max-width: 320px; margin: 0 auto; }
+    .selling-point h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .selling-point p { font-size: 14px; line-height: 20px; color: var(--color-text-subtle); max-width: 320px; margin: 0 auto; }
     .dots { display: flex; gap: 4px; justify-content: center; margin-top: 12px; }
-    .dots span { width: 32px; height: 3px; border-radius: 2px; background: var(--color-border); }
+    .dots span { width: 32px; height: 3px; border-radius: 4px; background: var(--color-border); }
     .dots span.active { background: var(--color-text-main); }
 
     /* Footer */
     .footer { background: #031419; color: white; padding: 32px 16px 80px; }
     .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
-    .footer-col h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.01em; }
+    .footer-col h5 { font-size: 14px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.01em; }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { font-size: 13px; line-height: 22px; margin-bottom: 4px; }
+    .footer-col ul li { font-size: 14px; line-height: 20px; margin-bottom: 4px; }
     .footer-col ul li a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.15s; }
     .footer-col ul li a:hover { color: white; }
     .footer .legal { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); }
     .footer .legal a { color: white; }
 
     /* SEO text */
-    .seo-text { padding: 16px; font-size: 13px; line-height: 20px; color: var(--color-text-subtle); }
+    .seo-text { padding: 16px; font-size: 14px; line-height: 20px; color: var(--color-text-subtle); }
 
     /* City selector bottom sheet (location icon) */
     .city-sheet-overlay {

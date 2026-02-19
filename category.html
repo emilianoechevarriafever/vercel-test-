@@ -18,10 +18,9 @@
       --color-primary: #0079ca;
       --color-primary-weak: #E6F4FF;
       --color-text-main: #031419;
-      --color-text-secondary: #536b75;
       --color-text-subtle: #536b75;
-      --color-border: #E6EAEE;
-      --color-bg-neutral: #F5F7F9;
+      --color-border: #ccd2d8;
+      --color-bg-neutral: #f2f3f3;
       --radius: 0.75rem;
       --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
       --font: 'Montserrat', sans-serif;
@@ -53,7 +52,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #e6eaee;
+      border-bottom: 1px solid #ccd2d8;
     }
     .nav-left {
       display: flex;
@@ -106,12 +105,12 @@
 
     /* Category Header */
     .cat-header {
-      padding: 20px 16px;
-      border-bottom: 1px solid #E6EAEE;
+      padding: 24px 16px;
+      border-bottom: 1px solid #ccd2d8;
     }
     .cat-header h1 {
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 32px;
       margin-bottom: 4px;
     }
@@ -142,10 +141,10 @@
     .cat-card .cat-card-img {
       width: 100%;
       aspect-ratio: 3/4;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+      background: linear-gradient(90deg, #ccd2d8 25%, #f2f3f3 50%, #ccd2d8 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite ease-in-out;
     }
@@ -192,7 +191,7 @@
     }
     .cat-card .cat-card-like.liked svg path { fill: #FF3B30; fill-opacity: 1; stroke: white; }
     .cat-card .cat-card-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       line-height: 18px;
       margin-top: 8px;
@@ -208,12 +207,12 @@
     }
     .cat-card .cat-card-meta .rating { color: #f5a623; }
     .cat-card .cat-card-dates {
-      font-size: 11px;
+      font-size: 12px;
       color: #536b75;
       margin-top: 2px;
     }
     .cat-card .cat-card-price {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       margin-top: 4px;
     }
@@ -275,9 +274,9 @@
     /* Footer */
     .footer { background: #031419; color: white; padding: 32px 16px 80px; }
     .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
-    .footer-col h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.01em; }
+    .footer-col h5 { font-size: 14px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.01em; }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { font-size: 13px; line-height: 22px; margin-bottom: 4px; }
+    .footer-col ul li { font-size: 14px; line-height: 20px; margin-bottom: 4px; }
     .footer-col ul li a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.15s; }
     .footer-col ul li a:hover { color: white; }
     .footer .legal { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5); }
