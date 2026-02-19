@@ -915,6 +915,18 @@
 
     renderRooms();
 
+    // Pre-select first room when coming from "Add hotel" bottom sheet in c1/c2 flows
+    if (params.get('preselect') === '1' && (flow === 'c1' || flow === 'c2')) {
+      var rooms = getCurrentRooms();
+      var firstAvailable = rooms.findIndex(function(r) { return !r.soldout; });
+      if (firstAvailable >= 0 && !roomCounts[firstAvailable]) {
+        roomCounts[firstAvailable] = 1;
+        hasSeenTickets = true;
+        stickyMode = 'getit';
+        renderRooms();
+      }
+    }
+
     // Selections are auto-saved on every count change, so navigating
     // to Transport via stepper preserves the user's hotel choices.
 

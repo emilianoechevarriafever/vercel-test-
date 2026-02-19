@@ -1083,14 +1083,16 @@
         btnAccommodation.addEventListener('click', function() {
           try { localStorage.setItem('cart_transportation', '[]'); } catch (e) {}
           if (isCrossSellFlow) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
-          window.location.href = 'polar-sound-accommodation.html?flow=' + flow;
+          var preselectParam = (flow === 'c1' || flow === 'c2') ? '&preselect=1' : '';
+          window.location.href = 'polar-sound-accommodation.html?flow=' + flow + preselectParam;
         });
       }
       if (btnTransport) {
         btnTransport.addEventListener('click', function() {
           try { localStorage.setItem('cart_accommodation', '[]'); } catch (e) {}
           if (isCrossSellFlow) { try { sessionStorage.setItem('option_h_came_from', 'hub'); } catch(e) {} }
-          window.location.href = 'polar-sound-transportations.html?flow=' + flow;
+          var preselectParam = (flow === 'c1' || flow === 'c2') ? '&preselect=1' : '';
+          window.location.href = 'polar-sound-transportations.html?flow=' + flow + preselectParam;
         });
       }
       if (btnNone) {
