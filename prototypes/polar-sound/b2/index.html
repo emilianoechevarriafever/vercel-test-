@@ -134,7 +134,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .search-bar svg { width: 18px; height: 18px; color: #a7b2ba; flex-shrink: 0; }
-    .search-bar span { font-size: 14px; color: #a7b2ba; font-family: var(--font); }
+    .search-bar .search-static { font-size: 14px; color: #536b75; font-family: var(--font); white-space: nowrap; flex-shrink: 0; line-height: 20px; }
     .search-bar .rotating-text { position:relative; overflow:hidden; height:20px; flex:1; }
     .search-bar .rotating-text span { position:absolute; left:0; top:0; width:100%; opacity:0; transform:translateY(100%); transition:none; font-size:14px; color:#a7b2ba; font-family:var(--font); white-space:nowrap; line-height:20px; }
     .search-bar .rotating-text span.active { opacity:1; transform:translateY(0); animation:searchWordIn 0.4s ease-out; }
@@ -493,6 +493,7 @@
         <div class="hero-subtitle">Things to do: events, experiences and more</div>
         <a href="../../../search.html" class="search-bar" style="text-decoration:none;cursor:pointer;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
+          <span class="search-static">Search for</span>
           <div class="rotating-text" id="searchRotator">
             <span class="active">live shows</span>
             <span>Madrid</span>
