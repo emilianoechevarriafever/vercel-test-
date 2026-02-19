@@ -476,6 +476,53 @@
     .featured-card .card-meta .rating { color: #f5a623; }
     .featured-card .card-price { margin-top: 2px; font-size: 13px; font-weight: 600; }
 
+    /* Recently Viewed */
+    .section-recently-viewed { display: none; }
+    .section-recently-viewed.has-items { display: block; }
+    .section-recently-viewed .rv-card {
+      flex-shrink: 0;
+      width: 150px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s;
+    }
+    .section-recently-viewed .rv-card:hover { transform: translateY(-2px); }
+    .section-recently-viewed .rv-card .card-img {
+      width: 150px;
+      aspect-ratio: 1/1;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: var(--color-bg-neutral);
+    }
+    .section-recently-viewed .rv-card .card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .section-recently-viewed .rv-card .card-title {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--color-text-main);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .section-recently-viewed .rv-card .card-meta {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--color-text-subtle);
+      line-height: 16px;
+    }
+    .section-recently-viewed .rv-card .card-meta .rating { color: #f5a623; }
+    .section-recently-viewed .rv-card .card-price {
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
     /* Nearby Cities */
     .cities-section {
       margin: 24px 16px;
@@ -835,6 +882,14 @@
           </div>
         </a>
       </div>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div class="section section-recently-viewed" id="recently-viewed-section">
+      <div class="section-header">
+        <h2>Recently viewed</h2>
+      </div>
+      <div class="card-scroll" id="recently-viewed-scroll"></div>
     </div>
 
     <!-- Top 10 in Madrid -->
@@ -1637,6 +1692,57 @@
         words[current].classList.add('active');
         setTimeout(function() { words[prev].classList.remove('exit'); }, 400);
       }, 2500);
+    })();
+  </script>
+  <script>
+    (function() {
+      var RV_KEY = 'fever_recently_viewed';
+      var section = document.getElementById('recently-viewed-section');
+      var scroll = document.getElementById('recently-viewed-scroll');
+      if (!section || !scroll) return;
+
+      var items = [];
+      try { items = JSON.parse(localStorage.getItem(RV_KEY)) || []; } catch (e) { items = []; }
+      if (!Array.isArray(items) || !items.length) return;
+
+      var seen = {};
+      var unique = [];
+      for (var i = 0; i < items.length; i++) {
+        if (!items[i] || !items[i].id || seen[items[i].id]) continue;
+        seen[items[i].id] = true;
+        unique.push(items[i]);
+        if (unique.length >= 15) break;
+      }
+      if (!unique.length) return;
+
+      var heartSvg = '<svg viewBox="0 0 26 26" fill="none"><path d="M12.98 5.87C14.47 4.53 16.5 3.93 18.47 4.27l.003-.001c.003 0 .006.001.009.002l.003-.001C21.66 4.79 24 7.55 24 10.77v.19c0 1.92-.82 3.75-2.19 5.03l-7.07 6.6-.001-.001c-.51.5-1.17.66-1.74.66-.59 0-1.26-.16-1.78-.66v.001L4.15 15.99C2.77 14.7 2 12.87 2 10.96v-.19c0-3.21 2.29-5.97 5.47-6.5v-.001l.007-.001.01-.001v.001C9.46 3.93 11.49 4.53 12.98 5.87z" fill="#06232C" fill-opacity="0.7" stroke="#CCD2D8" stroke-width="2"/></svg>';
+
+      unique.forEach(function(item) {
+        var a = document.createElement('a');
+        a.className = 'rv-card';
+        a.href = item.href || '#';
+        var badgeHtml = item.badge ? '<span class="card-badge">' + item.badge + '</span>' : '';
+        var metaHtml = item.meta ? '<div class="card-meta">' + item.meta + '</div>' : '';
+        var priceHtml = item.price ? '<div class="card-price">' + item.price + '</div>' : '';
+        a.innerHTML =
+          '<div class="card-img">' +
+            '<button type="button" class="card-like" aria-label="Add to favorites">' + heartSvg + '</button>' +
+            '<img src="' + (item.image || '') + '" alt="' + (item.title || '') + '">' +
+            badgeHtml +
+          '</div>' +
+          '<div class="card-title">' + (item.title || '') + '</div>' +
+          metaHtml +
+          priceHtml;
+        scroll.appendChild(a);
+      });
+
+      section.classList.add('has-items');
+
+      scroll.querySelectorAll('.card-img img').forEach(function(img) {
+        if (img.complete && img.naturalWidth) { img.classList.add('loaded'); return; }
+        img.addEventListener('load', function() { img.classList.add('loaded'); });
+        img.addEventListener('error', function() { img.classList.add('loaded'); });
+      });
     })();
   </script>
   <script src="js/flow-param.js"></script>
