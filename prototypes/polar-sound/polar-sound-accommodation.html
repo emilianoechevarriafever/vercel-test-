@@ -939,8 +939,8 @@
 
     renderRooms();
 
-    // c1/c2: show "Skip hotel" CTA immediately (no pre-selection)
-    if (flow === 'c1' || flow === 'c2') {
+    // c1/c2/d1/d2: show "Skip hotel" CTA immediately (no pre-selection)
+    if (flow === 'c1' || flow === 'c2' || flow === 'd1' || flow === 'd2') {
       hasSeenTickets = true;
       stickyMode = 'getit';
       updateSticky();
