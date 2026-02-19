@@ -131,6 +131,12 @@
     }
     .search-bar svg { width: 18px; height: 18px; color: #a7b2ba; flex-shrink: 0; }
     .search-bar span { font-size: 14px; color: #a7b2ba; font-family: var(--font); }
+    .search-bar .rotating-text { position:relative; overflow:hidden; height:20px; flex:1; }
+    .search-bar .rotating-text span { position:absolute; left:0; top:0; width:100%; opacity:0; transform:translateY(100%); transition:none; font-size:14px; color:#a7b2ba; font-family:var(--font); white-space:nowrap; line-height:20px; }
+    .search-bar .rotating-text span.active { opacity:1; transform:translateY(0); animation:searchWordIn 0.4s ease-out; }
+    .search-bar .rotating-text span.exit { opacity:0; transform:translateY(-100%); animation:searchWordOut 0.4s ease-in; }
+    @keyframes searchWordIn { from { opacity:0; transform:translateY(100%); } to { opacity:1; transform:translateY(0); } }
+    @keyframes searchWordOut { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-100%); } }
 
     /* Section */
     .section { padding: 24px 0 0; }
@@ -482,7 +488,20 @@
         <div class="hero-subtitle">Things to do: events, experiences and more</div>
         <a href="../../../search.html" class="search-bar" style="text-decoration:none;cursor:pointer;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/></svg>
-          <span>Search for Candlelight concerts</span>
+          <div class="rotating-text" id="searchRotator">
+            <span class="active">live shows</span>
+            <span>Madrid</span>
+            <span>candlelight</span>
+            <span>London</span>
+            <span>experiences &amp; cities</span>
+            <span>São Paulo</span>
+            <span>exhibitions</span>
+            <span>Seoul</span>
+            <span>city tours</span>
+            <span>concerts</span>
+            <span>restaurants</span>
+            <span>cinema</span>
+          </div>
         </a>
       </div>
     </div>
@@ -872,6 +891,23 @@
     })();
   </script>
   <script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
+  <script>
+    (function() {
+      var rotator = document.getElementById('searchRotator');
+      if (!rotator) return;
+      var words = rotator.querySelectorAll('span');
+      if (words.length < 2) return;
+      var current = 0;
+      setInterval(function() {
+        var prev = current;
+        current = (current + 1) % words.length;
+        words[prev].classList.remove('active');
+        words[prev].classList.add('exit');
+        words[current].classList.add('active');
+        setTimeout(function() { words[prev].classList.remove('exit'); }, 400);
+      }, 2500);
+    })();
+  </script>
   <script src="../../../js/flow-param.js"></script>
 </body>
 </html>
