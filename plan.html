@@ -92,7 +92,10 @@
     .section-header svg { width:24px; height:24px; flex-shrink:0; color:var(--color-text); }
     .section-header h2 { font-size:20px; font-weight:700; line-height:24px; flex:1; }
 
-    .ticket-selector { padding:0 16px 16px; border-bottom:1px solid var(--color-border); }
+    .ticket-section-wrap { background:var(--color-bg-neutral); border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); }
+    .ticket-section-wrap .section-header { border-bottom:none; padding:20px 16px 4px; }
+    .ticket-section-wrap .section-header svg { width:22px; height:22px; }
+    .ticket-selector { padding:0 16px 4px; }
     .no-fees-banner { display:flex; align-items:center; justify-content:center; gap:8px; background:#f0ebfd; border-radius:8px; padding:16px; margin:16px 0; }
     .no-fees-banner .info-icon { width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .no-fees-banner .info-icon img { width:16px; height:16px; display:block; }
@@ -125,7 +128,7 @@
     .ticket-row.selected .amt-btn { background:#e6f4ff; border:none; color:#0079ca; }
     .ticket-row.selected .amt-btn.plus { background:#e6f4ff; border:none; color:#0079ca; }
     .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform:translateX(50%); }
-    .ticket-row .ticket-notch::before, .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg); }
+    .ticket-row .ticket-notch::before, .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg-neutral); }
     .ticket-row .ticket-notch::before { top:0; border:1px solid var(--ticket-border); border-top:none; border-radius:0 0 8px 8px; }
     .ticket-row .ticket-notch::after { bottom:0; border:1px solid var(--ticket-border); border-bottom:none; border-radius:8px 8px 0 0; }
 
@@ -272,21 +275,22 @@
     <div class="divider"></div>
 
     <div class="description" id="plan-description"></div>
-    <div class="divider"></div>
 
-    <div class="section-header" id="ticket-section">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <h2>Select date and session</h2>
-    </div>
-
-    <div class="ticket-selector">
-      <div class="no-fees-banner">
-        <span class="info-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/45f9ca19-1d8e-4183-9c26-57daf45780b8" alt=""></span>
-        <span>No booking fees</span>
+    <div class="ticket-section-wrap" id="ticket-section">
+      <div class="section-header">
+        <svg viewBox="0 0 448 512" fill="currentColor" width="24" height="24"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24v40H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V192 176 128c0-35.3-28.7-64-64-64h-40V24c0-13.3-10.7-24-24-24s-24 10.7-24 24v40H152V24zM48 192h352V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
+        <h2>Select date and session</h2>
       </div>
-      <div class="ticket-pills" id="ticket-pills-row"></div>
-      <div id="ticket-panels"></div>
-      <button class="cta-primary" id="buy-btn" disabled>Select tickets to continue</button>
+
+      <div class="ticket-selector">
+        <div class="no-fees-banner">
+          <span class="info-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/45f9ca19-1d8e-4183-9c26-57daf45780b8" alt=""></span>
+          <span>No booking fees</span>
+        </div>
+        <div class="ticket-pills" id="ticket-pills-row"></div>
+        <div id="ticket-panels"></div>
+        <button class="cta-primary" id="buy-btn" disabled>Select tickets to continue</button>
+      </div>
     </div>
 
     <div class="reviews" id="reviews-section"></div>
