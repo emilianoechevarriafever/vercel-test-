@@ -18,7 +18,9 @@
       --muted: #536b75;
       --line: #ccd2d8;
       --link: #0079ca;
-    }
+  --color-text-main: #031419;
+  --color-border: #ccd2d8;
+}
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: #e8ebef; color: var(--text); }
@@ -36,12 +38,12 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 10px 16px;
       background: #fff;
-      border-bottom: 1px solid #ccd2d8;
+      border-bottom: 1px solid var(--color-border);
       flex-shrink: 0;
     }
     .logo-link img { height: 38px; width: auto; display: block; }
     .nav-icons { display: flex; align-items: center; gap:20px; }
-    .nav-icons svg { height:24px; width:auto; color: #031419; }
+    .nav-icons svg { height:24px; width:auto; color: var(--color-text-main); }
     .nav-icon-btn{all:unset;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:inherit;width:24px;height:24px;flex-shrink:0;box-sizing:border-box;overflow:visible}
 
     /* Avatar states */
@@ -126,7 +128,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 10px 0; cursor: pointer; text-decoration: none; color: var(--text);
     }
-    .menu-row span { font-size: 14px; font-weight: 500; line-height: 20px; }
+    .menu-row span { font-size: 14px; font-weight: 600; line-height: 20px; }
     .menu-row .chevron { width: 18px; height: 18px; color: #a0adb5; flex-shrink: 0; }
 
     /* External link */
@@ -167,7 +169,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 0;
       border: none; background: none; width: 100%;
-      font-family: var(--font); font-size: 14px; font-weight: 500;
+      font-family: var(--font); font-size: 14px; font-weight: 600;
       line-height: 20px; color: var(--text); cursor: pointer;
     }
     .logout-row svg { width: 20px; height: 20px; color: var(--text); flex-shrink: 0; }

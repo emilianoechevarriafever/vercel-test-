@@ -52,7 +52,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #ccd2d8;
+      border-bottom: 1px solid var(--color-border);
     }
     .nav-left {
       display: flex;
@@ -106,7 +106,7 @@
     /* Category Header */
     .cat-header {
       padding: 24px 16px;
-      border-bottom: 1px solid #ccd2d8;
+      border-bottom: 1px solid var(--color-border);
     }
     .cat-header h1 {
       font-size: 24px;
@@ -116,12 +116,12 @@
     }
     .cat-header p {
       font-size: 14px;
-      color: #536b75;
+      color: var(--color-text-subtle);
       line-height: 20px;
     }
     .cat-count {
       font-size: 14px;
-      color: #536b75;
+      color: var(--color-text-subtle);
       padding: 12px 16px;
     }
 
@@ -144,7 +144,7 @@
       border-radius: 16px;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(90deg, #ccd2d8 25%, #f2f3f3 50%, #ccd2d8 75%);
+      background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-neutral) 50%, var(--color-border) 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite ease-in-out;
     }
@@ -202,13 +202,13 @@
     }
     .cat-card .cat-card-meta {
       font-size: 12px;
-      color: #536b75;
+      color: var(--color-text-subtle);
       margin-top: 2px;
     }
     .cat-card .cat-card-meta .rating { color: #f5a623; }
     .cat-card .cat-card-dates {
       font-size: 12px;
-      color: #536b75;
+      color: var(--color-text-subtle);
       margin-top: 2px;
     }
     .cat-card .cat-card-price {
@@ -227,7 +227,7 @@
       width: 361px;
       max-width: calc(100vw - 32px);
       background: #fff;
-      border: 1px solid #ccd2d8;
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       box-shadow: 0 12px 12px rgba(0,0,0,0.05);
       padding: 12px;
@@ -272,9 +272,9 @@
     }
 
     /* Footer */
-    .footer { background: #031419; color: white; padding: 32px 16px 80px; }
+    .footer { background: var(--color-text-main); color: white; padding: 32px 16px 80px; }
     .footer-cols { display: flex; justify-content: space-between; margin-bottom: 32px; }
-    .footer-col h5 { font-size: 14px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.01em; }
+    .footer-col h5 { font-size: 14px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.04em; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { font-size: 14px; line-height: 20px; margin-bottom: 4px; }
     .footer-col ul li a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.15s; }
@@ -286,12 +286,12 @@
     .cat-empty {
       padding: 48px 16px;
       text-align: center;
-      color: #536b75;
+      color: var(--color-text-subtle);
     }
     .cat-empty svg {
       width: 48px;
       height: 48px;
-      color: #ccd2d8;
+      color: var(--color-border);
       margin-bottom: 16px;
     }
     .cat-empty h2 {

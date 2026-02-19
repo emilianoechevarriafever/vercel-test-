@@ -15,20 +15,24 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #f2f3f3;
+      background: var(--color-bg-neutral);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      color: #031419;
+      color: var(--color-text-main);
     }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     :root {
       --color-action-primary: #0079ca;
       --color-action-primary-weak: #e6f4ff;
-    }
+  --color-text-main: #031419;
+  --color-text-subtle: #536b75;
+  --color-border: #ccd2d8;
+  --color-bg-neutral: #f2f3f3;
+}
     h1 {
       font-size: 24px;
       font-weight: 600;
@@ -54,7 +58,7 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 16px;
-      color: #536B75;
+      color: var(--color-text-subtle);
     }
     .buttons {
       display: grid;
@@ -65,11 +69,11 @@
       display: block;
       padding: 16px 16px;
       background: #fff;
-      border: 1.5px solid #ccd2d8;
+      border: 1.5px solid var(--color-border);
       border-radius: 16px;
       font-size: 14px;
       font-weight: 600;
-      color: #031419;
+      color: var(--color-text-main);
       text-decoration: none;
       text-align: center;
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -84,12 +88,12 @@
       justify-content: center;
       gap: 6px;
       text-align: center;
-      color: #536B75;
+      color: var(--color-text-subtle);
       font-size: 14px;
       text-decoration: none;
       font-weight: 600;
     }
-    .back-link:hover { color: #031419; }
+    .back-link:hover { color: var(--color-text-main); }
     @media (max-width: 420px) {
       .buttons { grid-template-columns: 1fr; }
     }
