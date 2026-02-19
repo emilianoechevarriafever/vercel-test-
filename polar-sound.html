@@ -399,7 +399,7 @@
     <!-- Hero Gallery Carousel -->
     <div class="hero" id="heroCarousel">
       <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide"><video src="https://applications-media.feverup.com/video/upload/f_auto,w_900,h_500,c_fill/fever2/plan/video/56fb36f8-a9b0-11f0-8820-5638fea30a91.mp4" poster="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/177ff826-8d70-11f0-b4b3-b26529526013.jpg" autoplay muted loop playsinline></video></div>
+        <div class="carousel-slide"><video src="https://applications-media.feverup.com/video/upload/f_auto,w_900,h_500,c_fill/fever2/plan/video/56fb36f8-a9b0-11f0-8820-5638fea30a91.mp4" poster="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/177ff826-8d70-11f0-b4b3-b26529526013.jpg" autoplay muted playsinline></video></div>
         <div class="carousel-slide"><img src="img/polar-sound-hero.png" alt="Polar Sound Festival"></div>
         <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/cabc0d3c-8346-11f0-8816-4a47ae28a019.jpg" alt="Polar Sound stage"></div>
         <div class="carousel-slide"><img src="https://applications-media.feverup.com/image/upload/f_auto,w_900,h_500,c_fill/fever2/plan/photo/cac66c14-8346-11f0-8816-4a47ae28a019.jpg" alt="Baqueira Beret venue"></div>
@@ -1225,6 +1225,13 @@
         }
       }
 
+      function resetSlideVideo(idx) {
+        var sl = slides[idx];
+        if (!sl) return;
+        var v = sl.querySelector('video');
+        if (v) { v.currentTime = 0; v.play(); }
+      }
+
       function goTo(idx) {
         if (looping) return;
         if (idx < 0) idx = total - 1;
@@ -1234,6 +1241,7 @@
           current = 0;
           elapsed = 0;
           updateBars();
+          resetSlideVideo(0);
           setTimeout(function() {
             track.style.transition = 'none';
             track.style.transform = 'translateX(0%)';
@@ -1247,16 +1255,25 @@
         track.style.transform = 'translateX(-' + (current * 100) + '%)';
         elapsed = 0;
         updateBars();
+        resetSlideVideo(current);
       }
 
       function tick() {
-        elapsed += TICK;
-        var pct = Math.min((elapsed / DURATION) * 100, 100);
-        var fill = bars[current].querySelector('.fill');
-        fill.style.transition = 'width ' + TICK + 'ms linear';
-        fill.style.width = pct + '%';
-        if (elapsed >= DURATION) {
-          goTo(current + 1);
+        var slide = slides[current];
+        var vid = slide ? slide.querySelector('video') : null;
+        if (vid && vid.duration && isFinite(vid.duration)) {
+          var pct = Math.min((vid.currentTime / vid.duration) * 100, 100);
+          var fill = bars[current].querySelector('.fill');
+          fill.style.transition = 'width ' + TICK + 'ms linear';
+          fill.style.width = pct + '%';
+          if (vid.ended) { goTo(current + 1); }
+        } else {
+          elapsed += TICK;
+          var pct = Math.min((elapsed / DURATION) * 100, 100);
+          var fill = bars[current].querySelector('.fill');
+          fill.style.transition = 'width ' + TICK + 'ms linear';
+          fill.style.width = pct + '%';
+          if (elapsed >= DURATION) { goTo(current + 1); }
         }
       }
 

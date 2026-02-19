@@ -912,7 +912,7 @@
       var vid = document.createElement('video');
       vid.src = plan.video.src;
       vid.poster = plan.video.poster;
-      vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
+      vid.autoplay = true; vid.muted = true; vid.playsInline = true;
       vid.setAttribute('playsinline', '');
       vSlide.appendChild(vid);
       trackEl.appendChild(vSlide);
@@ -1181,6 +1181,13 @@
         }
       }
 
+      function resetSlideVideo(idx) {
+        var sl = slides[idx];
+        if (!sl) return;
+        var v = sl.querySelector('video');
+        if (v) { v.currentTime = 0; v.play(); }
+      }
+
       function goTo(idx) {
         if (looping) return;
         if (idx < 0) idx = total - 1;
@@ -1190,6 +1197,7 @@
           current = 0;
           elapsed = 0;
           updateBars();
+          resetSlideVideo(0);
           setTimeout(function() {
             track.style.transition = 'none';
             track.style.transform = 'translateX(0%)';
@@ -1203,16 +1211,25 @@
         track.style.transform = 'translateX(-' + (current * 100) + '%)';
         elapsed = 0;
         updateBars();
+        resetSlideVideo(current);
       }
 
       function tick() {
-        elapsed += TICK;
-        var pct = Math.min((elapsed / DURATION) * 100, 100);
-        var fill = bars[current].querySelector('.fill');
-        fill.style.transition = 'width ' + TICK + 'ms linear';
-        fill.style.width = pct + '%';
-        if (elapsed >= DURATION) {
-          goTo(current + 1);
+        var slide = slides[current];
+        var vid = slide ? slide.querySelector('video') : null;
+        if (vid && vid.duration && isFinite(vid.duration)) {
+          var pct = Math.min((vid.currentTime / vid.duration) * 100, 100);
+          var fill = bars[current].querySelector('.fill');
+          fill.style.transition = 'width ' + TICK + 'ms linear';
+          fill.style.width = pct + '%';
+          if (vid.ended) { goTo(current + 1); }
+        } else {
+          elapsed += TICK;
+          var pct = Math.min((elapsed / DURATION) * 100, 100);
+          var fill = bars[current].querySelector('.fill');
+          fill.style.transition = 'width ' + TICK + 'ms linear';
+          fill.style.width = pct + '%';
+          if (elapsed >= DURATION) { goTo(current + 1); }
         }
       }
 
