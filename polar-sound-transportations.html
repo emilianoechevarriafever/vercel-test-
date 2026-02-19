@@ -90,12 +90,17 @@
     .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
     .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#fff; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
-    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; background:#f2f3f3; color:#a7b2ba; }
-    .ticket-amount .amt-count { width:40px; text-align:center; font-size:16px; font-weight:600; }
+    .ticket-amount .amt-btn { width:32px; height:32px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; font-weight:400; transition:background 0.15s, color 0.15s; background:#f2f3f3; color:#a7b2ba; }
+    .ticket-amount .amt-count { width:36px; text-align:center; font-size:16px; font-weight:600; line-height:20px; color:#031419; }
+    .ticket-row .amt-btn.plus { background:#e6f4ff; color:#0079ca; }
+    .ticket-row.qty-zero .amt-btn.minus { background:#f2f3f3; color:#a7b2ba; cursor:default; }
+    .ticket-row.qty-zero .amt-count { color:#a7b2ba; }
+    .ticket-row.qty-zero .amt-btn.plus { background:#e6f4ff; color:#0079ca; }
     .ticket-row.selected { --ticket-border:#0079ca; }
-    .ticket-row.selected .ticket-selector-right { background:var(--color-primary-weak); }
+    .ticket-row.selected .ticket-selector-right { background:#e6f4ff; border-radius:0 8px 8px 0; }
     .ticket-row.selected .stepper { background:#fff; border-radius:100px; padding:4px 6px; }
-    .ticket-row.selected .amt-btn { background:var(--color-primary-weak); color:#0079ca; }
+    .ticket-row.selected .amt-btn { background:#e6f4ff; color:#0079ca; }
+    .ticket-row.selected .amt-btn.plus { background:#e6f4ff; color:#0079ca; }
     .ticket-row .ticket-notch { position:absolute; right:136px; top:0; bottom:0; width:16px; pointer-events:none; z-index:3; transform: translateX(50%); }
     .ticket-row .ticket-notch::before,
     .ticket-row .ticket-notch::after { content:''; position:absolute; left:0; width:16px; height:8px; background:var(--color-bg); box-sizing:border-box; }
@@ -132,7 +137,7 @@
     .footer .legal { border-top:1px solid rgba(255,255,255,0.15); padding-top:16px; font-size:12px; color:rgba(255,255,255,0.5); }
     .footer .legal a { color:white; }
 
-    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 30%); padding:12px 16px max(12px, env(safe-area-inset-bottom)); }
+    .sticky-cta { position:fixed; bottom:0; width:393px; max-width:100vw; z-index:200; background:transparent; padding:12px 16px max(12px, env(safe-area-inset-bottom)); }
     .sticky-cta .cta-btn { width:100%; height:48px; background:#0079ca; border:2px solid transparent; border-radius:64px; color:#fff; font-family:var(--font); font-weight:600; font-size:16px; line-height:24px; cursor:pointer; transition:background 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s; outline:none; }
     .sticky-cta .cta-btn:hover { background:#0079ca; }
     .sticky-cta .cta-btn:focus-visible { border-color:#005795; box-shadow:0 0 0 4px rgba(0,121,202,0.32); }
@@ -393,30 +398,10 @@
       if (generalInfoBlock) generalInfoBlock.style.display = 'none';
     }
 
-    // Option H/I: rebuild stepper dynamically based on user's path (always 4 steps)
+    // e1/e2: hide stepper (no progress indicator for these flows)
     if (isCrossSellFlow) {
-      var hCameFrom = '';
-      try { hCameFrom = sessionStorage.getItem('option_h_came_from') || ''; } catch(e) {}
       var stepperEl = document.getElementById('flow-stepper');
-      if (stepperEl) {
-        var lastLabel = isOptionI ? 'Cart' : 'Checkout';
-        var html = '';
-        if (hCameFrom === 'accommodation') {
-          // Came from Accommodation cross-sell: Tickets ✓ → Accommodation ✓ → Transport ● → Checkout/Cart
-          html += '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
-          html += '<a href="polar-sound-accommodation.html?flow=' + flow + '" class="step done"><span class="dot"></span><span class="label">Hotel</span></a>';
-          html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
-          html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
-        } else {
-          // Came from hub: Tickets ✓ → Transport ● → Accommodation (future) → Checkout/Cart
-          html += '<a href="polar-sound.html?flow=' + flow + '#ticket-section" class="step done"><span class="dot"></span><span class="label">Tickets</span></a>';
-          html += '<div class="step current"><span class="dot"></span><span class="label">Transport</span></div>';
-          html += '<div class="step"><span class="dot"></span><span class="label">Hotel</span></div>';
-          html += '<div class="step"><span class="dot"></span><span class="label">' + lastLabel + '</span></div>';
-        }
-        stepperEl.innerHTML = html;
-        stepperEl.classList.remove('stepper-hidden');
-      }
+      if (stepperEl) stepperEl.classList.add('stepper-hidden');
     }
     if (isOptionB) {
       document.getElementById('nav-logo').href = 'a2/index.html';
@@ -516,7 +501,7 @@
       transportRowsEl.innerHTML = '';
       TRANSPORT_OPTIONS.forEach((opt, i) => {
         const row = document.createElement('div');
-        row.className = 'ticket-row' + (counts[i] > 0 ? ' selected' : '');
+        row.className = 'ticket-row' + (counts[i] > 0 ? ' selected' : '') + (counts[i] === 0 ? ' qty-zero' : '');
         row.innerHTML =
           '<div class="ticket-content">' +
             '<div class="ticket-name">' + opt.name + '</div>' +
@@ -526,9 +511,9 @@
           '<div class="ticket-notch"><span class="notch-line"></span></div>' +
           '<div class="ticket-selector-right">' +
             '<div class="ticket-amount stepper">' +
-              '<button type="button" class="amt-btn" data-i="' + i + '" data-delta="-1">−</button>' +
+              '<button type="button" class="amt-btn minus" data-i="' + i + '" data-delta="-1">&minus;</button>' +
               '<span class="amt-count">' + counts[i] + '</span>' +
-              '<button type="button" class="amt-btn" data-i="' + i + '" data-delta="1">+</button>' +
+              '<button type="button" class="amt-btn plus" data-i="' + i + '" data-delta="1">+</button>' +
             '</div>' +
           '</div>';
         transportRowsEl.appendChild(row);
