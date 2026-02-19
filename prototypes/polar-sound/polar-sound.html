@@ -16,21 +16,21 @@
     /* Fever Design System */
     :root {
       --color-primary: #0079ca;
-      --color-primary-weak: #E6F4FF;
+      --color-primary-weak: #e6f4ff;
       --color-primary-light: #f2fbfd;
       --color-text: #031419;
       --color-text-subtle: #536b75;
-      --color-text-disable: #ccc;
+      --color-text-disable: #a7b2ba;
       --color-border: #ccd2d8;
-      --color-border-light: #ccd2d8;
+      --color-border-light: #dde1e4;
       --color-accent: #6f41d7;
       --color-danger: #eb0052;
       --color-danger-text: #f43d7a;
-      --color-success: #06C167;
-      --color-warning: #f5a623;
+      --color-success: #24a865;
+      --color-warning: #ff8c00;
       --color-bg: #ffffff;
       --color-bg-disable: #f6f6f6;
-      --color-bg-dark: #031419;
+      --color-bg-dark: #06232c;
       --color-bg-neutral: #f2f3f3;
       --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
       --font: 'Montserrat', sans-serif;
@@ -57,7 +57,7 @@
     /* === STATUS BAR === */
     .status-bar { display:flex; align-items:center; justify-content:space-between; padding:6px 16px 4px; background:white; }
     .status-bar .time { font-weight:600; font-size:20px; letter-spacing:-0.68px; }
-    .status-bar .icons { display:flex; gap:5px; align-items:center; }
+    .status-bar .icons { display:flex; gap:4px; align-items:center; }
     .status-bar .icons svg { height:12px; }
 
     .sticky-header { position:sticky; top:0; z-index:100; background:#fff; }
@@ -144,7 +144,7 @@
     /* Ticket type pills */
     .ticket-pills { display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:20px; overflow-x:auto; scrollbar-width:none; }
     .ticket-pills::-webkit-scrollbar { display:none; }
-    .ticket-pill { flex-shrink:0; padding:10px 18px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:600; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
+    .ticket-pill { flex-shrink:0; padding:10px 16px; border:1px solid var(--color-border); border-radius:8px; font-size:14px; font-weight:600; color:var(--color-text); background:white; cursor:pointer; white-space:nowrap; text-align:center; transition:all 0.15s; }
     .ticket-pill.active { border-color:var(--color-primary); color:var(--color-primary); background:var(--color-primary-weak); }
     .pill-arrow { flex-shrink:0; width:32px; height:32px; display:none; align-items:center; justify-content:center; cursor:pointer; }
     .pill-arrow.visible { display:flex; }
@@ -174,7 +174,7 @@
     .ticket-row.ticket-info-expanded .ticket-info-detail { display:block; }
     .ticket-row.ticket-info-expanded .ticket-content { justify-content:flex-start; }
     .ticket-row .ticket-info-detail .ticket-info-intro { margin-bottom:8px; }
-    .ticket-row .ticket-info-detail ul { margin:0; padding-left:18px; list-style:disc; }
+    .ticket-row .ticket-info-detail ul { margin:0; padding-left:16px; list-style:disc; }
     .ticket-row .ticket-info-detail li { margin-bottom:2px; }
     .ticket-row .ticket-selector-right { width:136px; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid var(--ticket-border); border-left:none; border-radius:0 8px 8px 0; background:#ffffff; position:relative; }
     .ticket-row .stepper { display:flex; align-items:center; gap:4px; padding:0; background:transparent; border:none; }
@@ -243,7 +243,7 @@
     .reviews-score-col .score-out-of { font-size:14px; color:var(--color-text-subtle); margin-top:2px; }
     .reviews-score-col .score-stars { color:#f5a623; font-size:14px; letter-spacing:1px; margin-top:4px; }
     .reviews-score-col .score-count { font-size:12px; color:var(--color-text-subtle); margin-top:4px; white-space:nowrap; }
-    .reviews-bars-col { flex:1; display:flex; flex-direction:column; gap:5px; padding-top:4px; }
+    .reviews-bars-col { flex:1; display:flex; flex-direction:column; gap:4px; padding-top:4px; }
     .bar-row { display:flex; align-items:center; gap:8px; }
     .bar-row .bar-label { font-size:12px; font-weight:600; color:var(--color-text-subtle); min-width:14px; text-align:right; }
     .bar-row .bar-star { font-size:10px; color:#f5a623; }
