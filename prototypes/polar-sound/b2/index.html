@@ -237,12 +237,12 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      width: 28px;
-      height: 28px;
-      min-width: 28px;
-      min-height: 28px;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      min-height: 32px;
       border: none;
-      background: rgba(0,0,0,0.4);
+      background: rgba(3,20,25,0.35);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -252,19 +252,20 @@
       border-radius: 50%;
       transition: background 0.2s;
     }
-    .card-like:hover { background: rgba(0,0,0,0.55); }
+    .card-like:hover { background: rgba(3,20,25,0.5); }
     .card-like svg {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
       color: white;
       fill: none;
       stroke: currentColor;
+      stroke-width: 1.5;
       transition: fill 0.2s, color 0.2s;
     }
     .card-like.liked svg { fill: white; stroke: white; color: white; }
-    .card-like.liked { background: rgba(0,0,0,0.5); }
-    .card-like.liked:hover { background: rgba(0,0,0,0.6); }
+    .card-like.liked { background: rgba(3,20,25,0.5); }
+    .card-like.liked:hover { background: rgba(3,20,25,0.6); }
     .event-card .card-title {
       margin-top: 8px;
       font-size: 13px;

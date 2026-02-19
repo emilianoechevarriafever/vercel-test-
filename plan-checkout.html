@@ -167,7 +167,7 @@
 
     <div class="price-details">
       <h3>Price details</h3>
-      <div class="price-row"><span class="price-label">Tickets</span><span class="price-val" id="subtotal-tickets">&euro;0.00</span></div>
+      <div class="price-row"><span class="price-label">Subtotal</span><span class="price-val" id="subtotal-val">&euro;0.00</span></div>
       <div class="price-row"><span class="price-label">Fees</span><span class="price-val" id="fees-val">&euro;0.00</span></div>
       <div class="price-row"><span class="price-label">Tax (IVA)</span><span class="price-val" id="tax-val">&euro;0.00</span></div>
       <div class="price-row total"><span class="price-label">Total</span><span class="price-val" id="grand-total">&euro;0.00</span></div>
@@ -283,7 +283,7 @@
     var tax = Math.round(subtotal * 0.21 * 100) / 100;
     var grandTotal = subtotal + fees + tax;
 
-    document.getElementById('subtotal-tickets').textContent = '\u20ac' + subtotal.toFixed(2);
+    document.getElementById('subtotal-val').textContent = '\u20ac' + subtotal.toFixed(2);
     document.getElementById('fees-val').textContent = '\u20ac' + fees.toFixed(2);
     document.getElementById('tax-val').textContent = '\u20ac' + tax.toFixed(2);
     document.getElementById('grand-total').textContent = '\u20ac' + grandTotal.toFixed(2);
