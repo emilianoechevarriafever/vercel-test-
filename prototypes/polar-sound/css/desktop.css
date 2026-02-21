@@ -40,15 +40,23 @@
 @media (min-width: 1024px) {
 
   /* ── Global ── */
+  html {
+    overflow-x: clip !important;
+  }
+
   body {
-    background: #fff;
-    display: block;
+    background: #fff !important;
+    display: block !important;
+    justify-content: initial !important;
+    overflow: visible !important;
   }
 
   .phone {
     width: 100% !important;
     max-width: 100% !important;
-    background: #fff;
+    background: #fff !important;
+    margin: 0 auto;
+    overflow: visible !important;
   }
 
   /* ── Desktop Navbar ── */
@@ -64,22 +72,28 @@
   }
 
   .sticky-header {
-    position: sticky;
+    position: sticky !important;
     top: 0;
     z-index: 100;
   }
 
   .sticky-header .navbar {
     position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .navbar .logo-link img {
     height: 28px !important;
   }
 
-  /* Hide mobile-only burger/menu icon */
+  /* Hide mobile-only burger/menu icon and panel */
   .navbar .nav-icon-btn[aria-label="Menu"],
   .navbar .burger-toggle {
+    display: none !important;
+  }
+
+  .burger-menu-panel,
+  .burger-menu-backdrop {
     display: none !important;
   }
 
@@ -210,6 +224,7 @@
     margin: 0 auto;
     padding: 0 40px;
     align-items: flex-start;
+    overflow: visible !important;
   }
 
   .detail-main {
@@ -220,12 +235,15 @@
   .detail-sidebar {
     width: 416px;
     flex-shrink: 0;
-    position: sticky;
+    position: sticky !important;
     top: 96px;
     align-self: flex-start;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    border: 1px solid var(--color-border, #ccd2d8);
+    -webkit-box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    -moz-box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     padding: 0;
     margin-top: 24px;
     overflow: hidden;
@@ -233,6 +251,8 @@
 
   .detail-sidebar .section-header {
     border-radius: 12px 12px 0 0;
+    margin: 0;
+    padding: 12px 16px;
   }
 
   .detail-sidebar .ticket-selector {
@@ -254,8 +274,14 @@
 
   /* Hide mobile inline ticket section when desktop sidebar exists */
   .detail-main .section-header.mobile-ticket-header,
-  .detail-main .ticket-selector.mobile-ticket-selector {
+  .detail-main .ticket-selector.mobile-ticket-selector,
+  .detail-main .transport-options.mobile-ticket-selector {
     display: none;
+  }
+
+  .detail-sidebar .transport-options {
+    border-bottom: none;
+    padding-bottom: 24px;
   }
 
   /* Hide mobile sticky CTA on desktop (sidebar has its own CTA) */
@@ -420,7 +446,7 @@
   }
 
   .home-hero .search-bar {
-    max-width: 560px;
+    display: none;
   }
 
   /* Homepage sections */

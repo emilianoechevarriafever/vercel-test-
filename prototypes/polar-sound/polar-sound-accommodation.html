@@ -265,14 +265,23 @@
     .ticket-pill:active { transform:scale(0.96); }
   </style>
   <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/desktop.css">
 <script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
 </head>
 <body>
-  <div class="phone">
+  <div class="phone has-detail-layout">
 
     <header class="sticky-header">
     <nav class="navbar">
       <a href="home.html" class="logo-link" id="nav-logo-link"><img src="img/fever-logo.svg" alt="Fever"></a>
+      <div class="desktop-nav-center">
+        <button class="desk-location"><svg viewBox="0 0 384 512" fill="currentColor" width="16" height="16"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg> Madrid</button>
+        <button class="desk-categories"><svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> Categories</button>
+        <div class="desk-search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg><input type="text" placeholder="Search for Madrid"></div>
+      </div>
+      <div class="desktop-nav-right">
+        <button class="desk-lang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> EN</button>
+      </div>
       <div class="nav-icons">
         <a class="nav-icon-btn" href="search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
         <a class="nav-icon-btn" href="home.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
@@ -288,6 +297,9 @@
       <a href="checkout.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Checkout</span></a>
     </div>
     </header>
+
+    <div class="detail-layout">
+    <div class="detail-main">
 
     <!-- Hero Gallery (Figma Channel Filter) -->
     <div class="hero">
@@ -324,12 +336,12 @@
       </ul>
     </div>
 <!-- Ticket Selector -->
-    <div class="section-header" id="ticket-section">
+    <div class="section-header mobile-ticket-header" id="ticket-section">
       <img src="../../img/fa-ticket.svg" alt="">
       <h2>Select date and session</h2>
     </div>
 
-    <div class="ticket-selector">
+    <div class="ticket-selector mobile-ticket-selector">
       <!-- Level 1: Travelers -->
       <div class="pill-level" id="level-travelers">
         <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
@@ -379,6 +391,33 @@
       <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
       <div class="map-placeholder"><img src="img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
     </div>
+
+    </div><!-- /detail-main -->
+
+    <aside class="detail-sidebar">
+      <div class="section-header" id="ticket-section-desktop">
+        <img src="../../img/fa-ticket.svg" alt="">
+        <h2>Select date and session</h2>
+      </div>
+      <div class="ticket-selector" id="desktop-ticket-selector">
+        <div class="pill-level" id="desk-level-travelers">
+          <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
+          <div class="ticket-pill" data-value="3">Trip 3 people + Pass</div>
+          <div class="ticket-pill" data-value="4">Trip 4 people + Pass</div>
+          <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="pill-level" id="desk-level-nights">
+          <div class="ticket-pill active" data-value="3">3 nights (Mar 12, 13 &amp; 14)</div>
+          <div class="ticket-pill" data-value="2">2 nights (Mar 13 &amp; 14)</div>
+        </div>
+        <div class="pill-level" id="desk-level-name"></div>
+        <div id="desk-room-rows"></div>
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+        <button class="cta-primary" id="desk-cta"></button>
+      </div>
+    </aside>
+
+    </div><!-- /detail-layout -->
 
     <div class="footer">
       <div class="footer-cols">
@@ -832,6 +871,42 @@
       });
 
       updateSticky();
+      syncDesktopSidebar();
+    }
+
+    function syncDesktopSidebar() {
+      var deskRoomRows = document.getElementById('desk-room-rows');
+      if (!deskRoomRows) return;
+      var deskTravelers = document.getElementById('desk-level-travelers');
+      var deskNights = document.getElementById('desk-level-nights');
+      var deskName = document.getElementById('desk-level-name');
+      var deskCta = document.getElementById('desk-cta');
+      if (deskTravelers) deskTravelers.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.toggle('active', p.dataset.value === state.travelers); });
+      if (deskNights) deskNights.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.toggle('active', p.dataset.value === state.nights); });
+      if (deskName) {
+        deskName.innerHTML = levelName.innerHTML;
+        deskName.querySelectorAll('.ticket-pill').forEach(function(pill) {
+          pill.addEventListener('click', function() { state.name = this.textContent; roomCounts = {}; renderNamePills(); });
+        });
+      }
+      deskRoomRows.innerHTML = roomRowsEl.innerHTML;
+      var rooms = getCurrentRooms();
+      deskRoomRows.querySelectorAll('.ticket-row').forEach(function(row, i) {
+        if (rooms[i] && !rooms[i].soldout) {
+          var plus = row.querySelector('.amt-btn.plus');
+          var minus = row.querySelector('.amt-btn.minus');
+          if (plus) plus.addEventListener('click', function() { roomCounts[i]++; saveAccommodationSelection(); renderRooms(); });
+          if (minus) minus.addEventListener('click', function() { if (roomCounts[i] > 0) roomCounts[i]--; saveAccommodationSelection(); renderRooms(); });
+        }
+        var toggle = row.querySelector('.ticket-info-toggle');
+        if (toggle) toggle.addEventListener('click', function(e) { e.preventDefault(); var expanded = row.classList.toggle('ticket-info-expanded'); this.textContent = expanded ? 'Less info' : 'More info'; this.setAttribute('aria-expanded', expanded); });
+      });
+      if (deskCta) {
+        var total = getTotal();
+        deskCta.textContent = total > 0 ? '\u20AC' + total.toFixed(2) + ' \u2014 Add it' : 'Skip hotel';
+        deskCta.style.display = 'block';
+        deskCta.onclick = function() { stickyBtn.click(); };
+      }
     }
 
     // ========== PILL EVENTS ==========
@@ -950,6 +1025,27 @@
 
     updatePillsArrows();
     window.addEventListener('resize', updatePillsArrows);
+
+    (function setupDesktopPills() {
+      ['desk-level-travelers', 'desk-level-nights'].forEach(function(id) {
+        var level = document.getElementById(id);
+        if (!level) return;
+        var stateKey = id.indexOf('travelers') >= 0 ? 'travelers' : 'nights';
+        level.querySelectorAll('.ticket-pill').forEach(function(pill) {
+          pill.addEventListener('click', function() {
+            state[stateKey] = pill.dataset.value;
+            roomCounts = {};
+            state.name = null;
+            document.querySelectorAll('#level-' + stateKey.replace('travelers','travelers').replace('nights','nights') + ' .ticket-pill').forEach(function(p) { p.classList.remove('active'); });
+            var mobileId = id.replace('desk-level-', 'level-');
+            document.querySelectorAll('#' + mobileId + ' .ticket-pill').forEach(function(p) { p.classList.remove('active'); });
+            var mobilePill = document.querySelector('#' + mobileId + ' .ticket-pill[data-value="' + pill.dataset.value + '"]');
+            if (mobilePill) mobilePill.classList.add('active');
+            renderNamePills();
+          });
+        });
+      });
+    })();
 
     // Scroll to ticket selector on load without animation (no visible autoscroll from hero).
     // Temporarily override CSS scroll-behavior:smooth so the jump is instant.
