@@ -409,6 +409,8 @@
     column-gap: 40px;
     row-gap: 32px;
     align-items: start;
+    position: relative;
+    z-index: 20;
   }
 
   /* Collapse the two footer-cols wrappers so all 4 footer-col
