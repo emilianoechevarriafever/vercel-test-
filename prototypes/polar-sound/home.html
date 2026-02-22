@@ -1553,7 +1553,7 @@
         var citySheet = citySheetOverlay.querySelector('.city-sheet');
         if (!citySheet) return;
         var startY = 0, currentY = 0, isDragging = false;
-        function dragStart(y) { startY = y; currentY = y; isDragging = true; citySheet.style.transition = 'none'; }
+        function dragStart(y) { if (window.innerWidth >= 1024) return; startY = y; currentY = y; isDragging = true; citySheet.style.transition = 'none'; }
         function dragMove(y, e) { if (!isDragging) return; currentY = y; var dy = currentY - startY; if (dy < 0) dy = 0; if (dy > 0) { if (e) e.preventDefault(); citySheet.style.transform = 'translateY(' + dy + 'px)'; } }
         function dragEnd() { if (!isDragging) return; isDragging = false; citySheet.style.transition = ''; citySheet.style.transform = ''; if (currentY - startY > 80) closeCitySheet(); }
         citySheet.addEventListener('touchstart', function(e) { if (citySheet.scrollTop > 0) return; dragStart(e.touches[0].clientY); }, { passive: true });
