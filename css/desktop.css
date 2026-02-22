@@ -190,23 +190,26 @@
 
   /* ── Event Detail Two-Column Layout ── */
   .detail-layout {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: 1fr 416px;
+    column-gap: 40px;
     padding: 0 40px;
-    align-items: flex-start;
     overflow: visible !important;
   }
 
+  /* Hero spans both columns — must be a direct child of .detail-layout */
+  .detail-layout > .hero {
+    grid-column: 1 / -1;
+  }
+
   .detail-main {
-    flex: 1;
     min-width: 0;
   }
 
   .detail-sidebar {
     width: 416px;
-    flex-shrink: 0;
     position: sticky !important;
-    top: 96px;
+    top: 80px;
     align-self: flex-start;
     background: #fff;
     border-radius: 12px;
@@ -215,7 +218,7 @@
     -moz-box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     padding: 0;
-    margin-top: 24px;
+    margin-top: 0;
     overflow: hidden;
   }
 
@@ -260,15 +263,14 @@
   }
 
   /* ── Hero on desktop ── */
-  .detail-main .hero,
   .detail-layout .hero {
     border-radius: 12px;
     overflow: hidden;
     height: 480px;
-    margin-bottom: 8px;
+    margin-bottom: 32px;
   }
 
-  .detail-main .hero .rounded-top {
+  .detail-layout .hero .rounded-top {
     display: none;
   }
 
@@ -599,40 +601,40 @@
   }
 
   /* ── Hero Carousel desktop adjustments ── */
-  .detail-main .hero .nav-prev,
-  .detail-main .hero .nav-next {
+  .detail-layout .hero .nav-prev,
+  .detail-layout .hero .nav-next {
     cursor: pointer;
   }
 
-  .detail-main .hero .nav-prev {
+  .detail-layout .hero .nav-prev {
     width: 25%;
   }
 
-  .detail-main .hero .nav-next {
+  .detail-layout .hero .nav-next {
     width: 75%;
   }
 
-  .detail-main .hero .side-buttons {
+  .detail-layout .hero .side-buttons {
     top: 20px;
     right: 20px;
   }
 
-  .detail-main .hero .side-btn {
+  .detail-layout .hero .side-btn {
     width: 44px;
     height: 44px;
     transition: transform 0.15s, box-shadow 0.15s;
   }
 
-  .detail-main .hero .side-btn:hover {
+  .detail-layout .hero .side-btn:hover {
     transform: scale(1.08);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
-  .detail-main .hero .gallery-btn {
+  .detail-layout .hero .gallery-btn {
     transition: transform 0.15s, box-shadow 0.15s;
   }
 
-  .detail-main .hero .gallery-btn:hover {
+  .detail-layout .hero .gallery-btn:hover {
     transform: scale(1.04);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
