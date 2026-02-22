@@ -982,17 +982,18 @@
     background: transparent;
   }
 
-  /* ── Desktop carousels: disable scroll-snap, let cards flow naturally ── */
+  /* ── Desktop carousels: all sections scroll horizontally (matches real Fever) ── */
   .home-sections .card-scroll {
     scroll-snap-type: none;
-    -webkit-overflow-scrolling: auto;
-  }
-
-  /* Top 10 keeps horizontal scroll; others get grid-like wrapping */
-  .home-sections .section-top10 .card-scroll {
     overflow-x: auto;
     flex-wrap: nowrap;
     gap: 20px;
+    /* Hide scrollbar visually but keep functionality */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .home-sections .card-scroll::-webkit-scrollbar {
+    display: none;
   }
 
   /* Top 10 portrait cards: keep 2:3 aspect ratio, slightly wider on desktop */
@@ -1004,12 +1005,6 @@
     width: 170px !important;
     height: auto !important;
     aspect-ratio: 2/3 !important;
-  }
-
-  .home-sections .section:not(.section-top10) .card-scroll {
-    overflow-x: visible;
-    flex-wrap: wrap;
-    gap: 20px;
   }
 
   /* Featured cards (e.g. larger promos) match event-card sizing */
