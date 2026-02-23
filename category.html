@@ -222,6 +222,41 @@
       margin-top: 4px;
     }
 
+    /* All-categories view (no ?cat= param) */
+    .all-cats-header {
+      padding: 24px 16px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .all-cats-header h1 { font-size: 24px; font-weight: 700; line-height: 32px; margin-bottom: 4px; }
+    .all-cats-header p { font-size: 14px; color: var(--color-text-subtle); }
+    .all-cats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px;
+    }
+    .all-cat-card {
+      text-decoration: none;
+      color: inherit;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background: #fff;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: block;
+    }
+    .all-cat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .all-cat-card .all-cat-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--color-bg-neutral);
+    }
+    .all-cat-card .all-cat-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .all-cat-card .all-cat-body { padding: 10px 12px 12px; }
+    .all-cat-card .all-cat-name { font-size: 14px; font-weight: 600; line-height: 20px; }
+    .all-cat-card .all-cat-count { font-size: 12px; color: var(--color-text-subtle); margin-top: 2px; }
+
     /* Snackbar */
     .snackbar {
       position: fixed;
@@ -334,7 +369,7 @@
       </div>
       <div class="desktop-nav-center">
         <button class="desk-location"><svg viewBox="0 0 384 512" fill="currentColor" width="16" height="16"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg> Madrid</button>
-        <button class="desk-categories"><svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> Categories</button>
+        <button class="desk-categories" onclick="window.location.href='category.html'"><svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> Categories</button>
         <div class="desk-search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg><input type="text" placeholder="Search for Madrid"></div>
       </div>
       <div class="desktop-nav-right">
@@ -471,8 +506,23 @@
       var params = new URLSearchParams(window.location.search);
       var catSlug = params.get('cat');
 
+      // No category param → show all categories grid
       if (!catSlug || !CATEGORIES[catSlug]) {
-        window.location.href = (window.flowHref||function(u){return u})('home.html');
+        document.title = 'Fever - Explore Madrid';
+        var allHtml = '<div class="all-cats-header"><h1>Explore Madrid</h1><p>Discover the best experiences and things to do</p></div>';
+        allHtml += '<div class="all-cats-grid">';
+        Object.keys(CATEGORIES).forEach(function(slug) {
+          var cat = CATEGORIES[slug];
+          var firstPlan = PLANS[cat.plans[0]];
+          var img = firstPlan ? firstPlan.img : '';
+          allHtml += '<a class="all-cat-card" href="category.html?cat=' + slug + '">';
+          allHtml += '<div class="all-cat-img"><img src="' + img + '" alt="' + cat.name + '" loading="lazy"></div>';
+          allHtml += '<div class="all-cat-body"><div class="all-cat-name">' + cat.name + '</div>';
+          allHtml += '<div class="all-cat-count">' + cat.plans.length + ' experience' + (cat.plans.length !== 1 ? 's' : '') + '</div></div>';
+          allHtml += '</a>';
+        });
+        allHtml += '</div>';
+        document.getElementById('cat-content').innerHTML = allHtml;
         return;
       }
 
