@@ -1079,6 +1079,254 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP INTERACTIONS, ANIMATIONS & TRANSITIONS
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+
+  /* ── Search bar hover + focus ── */
+  .desk-search {
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    cursor: text;
+  }
+
+  .desk-search:hover {
+    background: #e8eaeb;
+  }
+
+  .desk-search:focus-within {
+    background: white;
+    box-shadow: 0 0 0 2px var(--color-primary, #0079ca);
+  }
+
+  .desk-search:focus-within svg {
+    color: var(--color-primary, #0079ca);
+    transition: color 0.15s;
+  }
+
+  /* ── Section carousel scroll arrows ── */
+  .home-sections .card-scroll-wrapper {
+    position: relative;
+  }
+
+  .section-scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: white;
+    border: 1px solid var(--color-border-light, #dde1e4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.14);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, box-shadow 0.15s, transform 0.15s;
+  }
+
+  .section-scroll-arrow.is-visible:not(.is-hidden) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .section-scroll-arrow.arrow-prev {
+    left: -22px;
+  }
+
+  .section-scroll-arrow.arrow-next {
+    right: -22px;
+  }
+
+  .section-scroll-arrow:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .section-scroll-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+    transition: transform 0.08s;
+  }
+
+  .section-scroll-arrow svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-text, #031419);
+    flex-shrink: 0;
+    display: block;
+  }
+
+  /* ── Top 10 rank number hover ── */
+  .section-top10 .event-card .card-img .rank-number {
+    transition: transform 0.2s ease;
+  }
+
+  .section-top10 .event-card:hover .rank-number {
+    transform: scale(1.08) translateY(-2px);
+  }
+
+  /* ── Nearby cities pill hover ── */
+  .city-pill {
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    cursor: pointer;
+  }
+
+  .city-pill:hover {
+    border-color: var(--color-primary, #0079ca);
+    color: var(--color-primary, #0079ca);
+    background: var(--color-primary-weak, #e6f4ff);
+  }
+
+  /* ── App download buttons hover ── */
+  .app-btn {
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+  }
+
+  .app-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+
+  /* ── Slide indicator bars hover (hero carousel) ── */
+  .detail-layout .hero .slide-indicators .bar {
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+
+  .detail-layout .hero .slide-indicators .bar:hover {
+    opacity: 0.9;
+  }
+
+  /* ── Hero carousel prev/next hover area ── */
+  .detail-layout .hero .nav-prev:hover ~ .side-buttons,
+  .detail-layout .hero .nav-next:hover ~ .side-buttons {
+    opacity: 1;
+  }
+
+  /* ── Ticket row selected state ── */
+  .ticket-row.selected {
+    box-shadow: 0 0 0 2px var(--color-primary, #0079ca);
+    transition: box-shadow 0.15s;
+  }
+
+  /* ── Sidebar CTA "Select a ticket" pulse on hover ── */
+  .detail-sidebar .cta-primary:hover {
+    background: #0068b0;
+    box-shadow: 0 6px 16px rgba(0,121,202,0.36);
+  }
+
+  /* ── Skip CTA hover ── */
+  .detail-sidebar .cta-secondary:hover,
+  .detail-sidebar [class*="skip"]:hover {
+    background: var(--color-bg-neutral, #f2f3f3);
+    border-color: var(--color-text, #031419);
+  }
+
+  /* ── Transport "More info" link hover ── */
+  .transport-row .more-info,
+  .ticket-row .more-info {
+    transition: color 0.15s;
+    cursor: pointer;
+  }
+
+  .transport-row .more-info:hover,
+  .ticket-row .more-info:hover {
+    color: #0068b0;
+    text-decoration: underline;
+  }
+
+  /* ── Hotel pill selectors hover (accommodation page) ── */
+  .hotel-pill,
+  .night-pill,
+  .hotel-type-pill {
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+
+  .hotel-pill:hover:not(.active),
+  .night-pill:hover:not(.active),
+  .hotel-type-pill:hover:not(.active) {
+    border-color: var(--color-primary, #0079ca);
+    color: var(--color-primary, #0079ca);
+  }
+
+  /* ── Similar experiences section title ── */
+  .similar h3 {
+    transition: color 0.15s;
+  }
+
+  /* ── "See all reviews" link hover ── */
+  .reviews-see-all {
+    transition: color 0.15s, text-decoration-color 0.15s;
+    cursor: pointer;
+  }
+
+  .reviews-see-all:hover {
+    color: var(--color-primary, #0079ca) !important;
+  }
+
+  /* ── Help section links hover ── */
+  .help-content a {
+    transition: color 0.15s;
+  }
+
+  .help-content a:hover {
+    color: #0068b0;
+  }
+
+  /* ── Section header link enhanced hover ── */
+  .home-sections .section-header a {
+    transition: color 0.15s, text-underline-offset 0.15s;
+    text-underline-offset: 2px;
+  }
+
+  .home-sections .section-header a:hover {
+    color: var(--color-primary, #0079ca);
+    text-underline-offset: 4px;
+  }
+
+  /* ── "No booking fees" banner interactive ── */
+  .no-fees-banner {
+    cursor: default;
+  }
+
+  /* ── Navbar sticky shadow reinforced when scrolled ── */
+  .navbar {
+    transition: box-shadow 0.2s ease;
+  }
+
+  /* ── Back/breadcrumb links ── */
+  a[href]:not([href="#"]) {
+    cursor: pointer;
+  }
+
+  /* ── Footer bottom legal links hover ── */
+  .footer .legal a {
+    transition: color 0.15s;
+  }
+
+  .footer .legal a:hover {
+    color: white !important;
+  }
+
+  /* ── Gallery thumbnails active state ── */
+  .fs-gallery-thumb.active {
+    box-shadow: 0 0 0 2px var(--color-primary, #0079ca);
+    opacity: 1 !important;
+  }
+
+  /* ── Smooth scroll for home sections ── */
+  html {
+    scroll-behavior: smooth;
+  }
+
+} /* end interactions @media (min-width: 1024px) */
+
 /* ---------- Utility: hide on mobile, show on desktop ---------- */
 .desktop-nav-center,
 .desktop-nav-right {

@@ -1776,5 +1776,75 @@
     })();
   </script>
   <script src="js/flow-param.js"></script>
+  <script>
+  /* ── Desktop Section Carousel Scroll Arrows ── */
+  (function() {
+    if (window.innerWidth < 1024) return;
+
+    var SCROLL_AMT = 480;
+
+    var prevSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+    var nextSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+
+    function setupSection(section) {
+      var scroll = section.querySelector('.card-scroll');
+      if (!scroll) return;
+
+      /* Wrap card-scroll */
+      var wrapper = document.createElement('div');
+      wrapper.className = 'card-scroll-wrapper';
+      scroll.parentNode.insertBefore(wrapper, scroll);
+      wrapper.appendChild(scroll);
+
+      /* Create arrows */
+      var prev = document.createElement('button');
+      prev.className = 'section-scroll-arrow arrow-prev';
+      prev.setAttribute('aria-label', 'Scroll left');
+      prev.innerHTML = prevSVG;
+
+      var next = document.createElement('button');
+      next.className = 'section-scroll-arrow arrow-next';
+      next.setAttribute('aria-label', 'Scroll right');
+      next.innerHTML = nextSVG;
+
+      wrapper.appendChild(prev);
+      wrapper.appendChild(next);
+
+      function updateVisibility() {
+        var atStart = scroll.scrollLeft <= 2;
+        var atEnd = scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth - 2;
+        prev.classList.toggle('is-hidden', atStart);
+        next.classList.toggle('is-hidden', atEnd);
+      }
+
+      prev.addEventListener('click', function(e) {
+        e.stopPropagation();
+        scroll.scrollBy({ left: -SCROLL_AMT, behavior: 'smooth' });
+      });
+
+      next.addEventListener('click', function(e) {
+        e.stopPropagation();
+        scroll.scrollBy({ left: SCROLL_AMT, behavior: 'smooth' });
+      });
+
+      scroll.addEventListener('scroll', updateVisibility, { passive: true });
+
+      section.addEventListener('mouseenter', function() {
+        prev.classList.add('is-visible');
+        next.classList.add('is-visible');
+        updateVisibility();
+      });
+
+      section.addEventListener('mouseleave', function() {
+        prev.classList.remove('is-visible');
+        next.classList.remove('is-visible');
+      });
+
+      updateVisibility();
+    }
+
+    document.querySelectorAll('.home-sections .section').forEach(setupSection);
+  })();
+  </script>
 </body>
 </html>
