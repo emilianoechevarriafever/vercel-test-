@@ -208,8 +208,7 @@
 
   .detail-sidebar {
     width: 416px;
-    position: sticky !important;
-    top: 80px;
+    position: relative;
     align-self: flex-start;
     background: #fff;
     border-radius: 12px;
