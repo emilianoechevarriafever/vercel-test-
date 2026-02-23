@@ -444,13 +444,13 @@
   /* ── Title Section ── */
   .detail-main .title-section h1 {
     font-size: 28px;
-    line-height: 36px;
+    line-height: 32px;
   }
 
   /* ── Description ── */
   .detail-main .description {
-    font-size: 15px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 20px;
     padding: 24px 0;
   }
 
@@ -715,7 +715,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-text-subtle, #536b75);
   }
@@ -723,7 +723,7 @@
   .checkout-desktop-secure svg {
     width: 16px;
     height: 16px;
-    color: #22a861;
+    color: var(--color-success, #24a865);
   }
 
   /* Hide mobile topbar title & back chevron on desktop (title moves to form-col) */
@@ -774,10 +774,10 @@
   .checkout-col-title {
     display: block !important;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-main, #031419);
     margin-bottom: 24px;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   /* Form column: remove inner padding, let the column manage it */
@@ -808,7 +808,7 @@
     border-radius: 64px;
     color: #fff;
     font-family: var(--font, 'Montserrat', sans-serif);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
@@ -831,7 +831,7 @@
   }
 
   .checkout-desktop-pay .pay-btn.method-apple:hover {
-    background: #0b3544;
+    background: #2c4751;
     box-shadow: 0 4px 16px rgba(6, 35, 44, 0.3);
   }
 
@@ -852,11 +852,11 @@
   .checkout-summary-col .event-summary .event-thumb {
     width: 64px;
     height: 64px;
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .checkout-summary-col .event-summary .event-name {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .checkout-summary-col .date-row {
@@ -885,7 +885,7 @@
     gap: 8px;
     padding: 12px 20px;
     background: #e6f4ff;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-primary, #0079ca);
     border-bottom: 1px solid var(--color-border, #ccd2d8);
@@ -1122,7 +1122,7 @@
   .ticket-pill:hover:not(.active) {
     border-color: var(--color-primary, #0079ca);
     color: var(--color-primary, #0079ca);
-    background: var(--color-primary-light, #f2fbfd);
+    background: var(--color-primary-light, #e6f4ff);
   }
 
   /* ── Ticket row hover ── */
@@ -1417,7 +1417,7 @@
 
   .seo-text {
     padding: 16px 0 !important;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 20px;
   }
 }
@@ -1470,7 +1470,7 @@
   }
 
   .desk-search:hover {
-    background: #e8eaeb;
+    background: var(--color-border, #ccd2d8);
   }
 
   .desk-search:focus-within {
@@ -1495,7 +1495,7 @@
     width: 44px;
     height: 44px;
     background: white;
-    border: 1px solid var(--color-border-light, #dde1e4);
+    border: 1px solid var(--color-border, #ccd2d8);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1817,7 +1817,7 @@
     flex: none !important;
     background: #fff !important;
     border: 1px solid var(--color-border, #ccd2d8) !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
     padding: 40px !important;
     max-width: 460px !important;
     width: 100% !important;
