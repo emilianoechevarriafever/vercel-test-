@@ -250,14 +250,23 @@
   </style>
   <link rel="stylesheet" href="../css/navbar.css">
 <script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
+  <link rel="stylesheet" href="../css/desktop.css">
 </head>
 <body>
-  <div class="phone">
+  <div class="phone has-detail-layout">
 
     <header class="sticky-header">
     <nav class="navbar">
       <a href="index.html" class="logo-link"><img src="../img/fever-logo.svg" alt="Fever"></a>
-      <div class="nav-icons">
+            <div class="desktop-nav-center">
+        <button class="desk-location js-location-btn"><svg viewBox="0 0 384 512" fill="currentColor" width="16" height="16"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg> Madrid</button>
+        <button class="desk-categories" onclick="window.location.href='../category.html'"><svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> Categories</button>
+        <div class="desk-search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg><input type="text" placeholder="Search for Madrid"></div>
+      </div>
+      <div class="desktop-nav-right">
+        <button class="desk-lang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> EN</button>
+      </div>
+<div class="nav-icons">
         <a class="nav-icon-btn" href="../search.html" aria-label="Search"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg></a>
         <a class="nav-icon-btn" href="index.html" aria-label="Location"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M352 192c0-88.4-71.6-160-160-160S32 103.6 32 192c0 15.6 5.4 37 16.6 63.4c10.9 25.9 26.2 54 43.6 82.1c34.1 55.3 74.4 108.2 99.9 140c25.4-31.8 65.8-84.7 99.9-140c17.3-28.1 32.7-56.3 43.6-82.1C346.6 229 352 207.6 352 192zm32 0c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192zm-240 0a48 48 0 1 0 96 0 48 48 0 1 0 -96 0zm48 80a80 80 0 1 1 0-160 80 80 0 1 1 0 160z"/></svg></a>
         <a class="nav-icon-btn" href="../favorites.html" aria-label="Favorites"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M244 130.6l-12-13.5-4.2-4.7c-26-29.2-65.3-42.8-103.8-35.8c-53.3 9.7-92 56.1-92 110.3v3.5c0 32.3 13.4 63.1 37.1 85.1L253 446.8c.8 .7 1.9 1.2 3 1.2s2.2-.4 3-1.2L443 275.5c23.6-22 37-52.8 37-85.1v-3.5c0-54.2-38.7-100.6-92-110.3c-38.5-7-77.8 6.6-103.8 35.8l-4.2 4.7-12 13.5c-3 3.4-7.4 5.4-12 5.4s-8.9-2-12-5.4zm34.9-57.1C311 48.4 352.7 37.7 393.7 45.1C462.2 57.6 512 117.3 512 186.9v3.5c0 36-13.1 70.6-36.6 97.5c-3.4 3.8-6.9 7.5-10.7 11l-184 171.3c-.8 .8-1.7 1.5-2.6 2.2c-6.3 4.9-14.1 7.5-22.1 7.5c-9.2 0-18-3.5-24.8-9.7L47.2 299c-3.8-3.5-7.3-7.2-10.7-11C13.1 261 0 226.4 0 190.4v-3.5C0 117.3 49.8 57.6 118.3 45.1c40.9-7.4 82.6 3.2 114.7 28.4c6.7 5.3 13 11.1 18.7 17.6l4.2 4.7 4.2-4.7c4.2-4.7 8.6-9.1 13.3-13.1c1.8-1.5 3.6-3 5.4-4.5z"/></svg></a>
@@ -273,6 +282,8 @@
       <a href="cart.html" class="step" id="stepper-step4"><span class="dot">4</span><span class="label">Cart</span></a>
     </div>
     </header>
+
+    <div class="detail-layout">
 
     <!-- Hero Gallery (Figma Channel Filter) -->
     <div class="hero">
@@ -294,6 +305,8 @@
       <div class="rounded-top"></div>
     </div>
 
+    <div class="detail-main">
+
     <div class="title-section">
       <div class="tag-selling">Tickets Selling Fast</div>
       <h1>Occident - Polar Sound 2026: Hotel</h1>
@@ -308,12 +321,12 @@
       </ul>
     </div>
 <!-- Ticket Selector -->
-    <div class="section-header" id="ticket-section">
+    <div class="section-header mobile-ticket-header" id="ticket-section">
       <img src="../img/fa-ticket.svg" alt="">
       <h2>Select date and session</h2>
     </div>
 
-    <div class="ticket-selector">
+    <div class="ticket-selector mobile-ticket-selector">
       <!-- Level 1: Travelers -->
       <div class="pill-level" id="level-travelers">
         <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
@@ -365,7 +378,78 @@
       <div class="map-placeholder"><img src="../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
     </div>
 
+
+    </div><!-- /detail-main -->
+
+    <aside class="detail-sidebar">
+      <div class="section-header" id="ticket-section-desktop">
+      <img src="../img/fa-ticket.svg" alt="">
+      <h2>Select date and session</h2>
+    </div>
+      <div class="ticket-selector" id="desktop-ticket-selector">
+        <!-- Level 1: Travelers -->
+        <div class="pill-level" id="level-travelers">
+          <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
+          <div class="ticket-pill" data-value="3">Trip 3 people + Pass</div>
+          <div class="ticket-pill" data-value="4">Trip 4 people + Pass</div>
+          <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+
+        <!-- Level 2: Nights -->
+        <div class="pill-level" id="level-nights">
+          <div class="ticket-pill active" data-value="3">3 nights (Mar 12, 13 &amp; 14)</div>
+          <div class="ticket-pill" data-value="2">2 nights (Mar 13 &amp; 14)</div>
+        </div>
+
+        <!-- Level 4: Hotel/Apartment name -->
+        <div class="pill-level" id="level-name">
+          <div class="pill-arrow" style="transform:rotate(180deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Room rows (populated by JS) -->
+        <div id="room-rows"></div>
+
+        <!-- Selling fast -->
+        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
+
+        <!-- Inline CTA (hidden, sticky handles it) -->
+        <button class="cta-primary" id="cta-inline"></button>
+      </div>
+
+
+      <div class="help-section">
+        <div class="section-header">
+          <img src="../img/fa-circle-question.svg" alt="">
+          <h2>Need help?</h2>
+        </div>
+        <div class="help-content">
+          Contact Support <a href="javascript:void(0)">here</a>.
+        </div>
+      </div>
+
+      <div class="section-header">
+        <img src="../img/fa-location-dot.svg" alt="">
+        <h2>Getting there</h2>
+      </div>
+      <div class="location">
+        <div class="loc-name">Baqueira Beret Ski Resort</div>
+        <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
+        <div class="map-placeholder"><img src="../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-cols">
+          <div class="footer-col"><h5>About Fever</h5><ul><li><a href="../press.html">Press</a></li><li><a href="../careers.html">Careers</a></li><li><a href="../gift-cards.html">Gift Cards</a></li><li><a href="../help-center.html">Help Center</a></li></ul></div>
+          <div class="footer-col"><h5>Partner with us</h5><ul><li><a href="../fever-zone.html">Fever Zone</a></li><li><a href="../list-event.html">List your event</a></li><li><a href="../affiliate.html">Affiliate Program</a></li></ul></div>
+        </div>
+        <div class="legal"><a href="../terms.html">Terms of Use</a> | <a href="../privacy.html">Privacy Policy</a> | <a href="../cookies.html">Cookie Policy</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
+      </div>
+    </aside>
+    </div><!-- /detail-layout -->
+
     <div class="footer">
+
       <div class="footer-cols">
         <div class="footer-col"><h5>About Fever</h5><ul><li><a href="../press.html">Press</a></li><li><a href="../careers.html">Careers</a></li><li><a href="../gift-cards.html">Gift Cards</a></li><li><a href="../help-center.html">Help Center</a></li></ul></div>
         <div class="footer-col"><h5>Partner with us</h5><ul><li><a href="../fever-zone.html">Fever Zone</a></li><li><a href="../list-event.html">List your event</a></li><li><a href="../affiliate.html">Affiliate Program</a></li></ul></div>

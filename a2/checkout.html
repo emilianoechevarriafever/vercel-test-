@@ -203,12 +203,33 @@
     .legal-links a svg { width:12px; height:12px; display:inline; margin-left:2px; vertical-align:middle; }
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
+      /* Desktop-only elements hidden on mobile */
+    .checkout-desktop-nav { display: none; }
+    .checkout-col-title { display: none; }
+    .checkout-desktop-pay { display: none; }
+    .no-fees-banner { display: none; }
+    /* On mobile, summary-col and form-col are plain block */
+    .checkout-summary-col,
+    .checkout-form-col { display: block; }
+    .checkout-summary-card { display: contents; }
   </style>
+  <link rel="stylesheet" href="../css/desktop.css">
+<script>if(localStorage.getItem("fever_logged_in")==="true")document.documentElement.classList.add("u-in")</script>
 </head>
 <body>
-  <div class="phone">
+  <div class="phone has-checkout-layout">
 
     <header class="sticky-header">
+      <!-- Desktop checkout navbar (hidden on mobile via CSS) -->
+      <nav class="checkout-desktop-nav">
+        <a class="checkout-nav-logo" href="../home.html">
+          <img src="../img/fever-logo.svg" alt="Fever" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=&quot;font-size:20px;font-weight:800;letter-spacing:-0.5px;color:#031419;&quot;>fever</span>'">
+        </a>
+        <div class="checkout-desktop-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Secure checkout
+        </div>
+      </nav>
       <div class="checkout-topbar">
         <a class="back-chevron" href="javascript:history.back()" aria-label="Go back">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -216,6 +237,18 @@
         <span class="topbar-title">Confirm and pay</span>
       </div>
     </header>
+
+    <div class="checkout-desktop-wrapper">
+
+      <!-- RIGHT column: order summary -->
+      <div class="checkout-summary-col">
+        <h2 class="checkout-col-title">Your order</h2>
+        <div class="checkout-summary-card">
+          <!-- No booking fees banner -->
+          <div class="no-fees-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No booking fees
+          </div>
 
     <!-- Event Summary -->
     <div class="event-summary">
@@ -273,6 +306,12 @@
       </div>
     </div>
 
+        </div><!-- /.checkout-summary-card -->
+      </div><!-- /.checkout-summary-col -->
+
+      <!-- LEFT column: payment form -->
+      <div class="checkout-form-col">
+        <h2 class="checkout-col-title">Confirm and pay</h2>
     <!-- Payment Method -->
     <div class="payment-section" id="payment-method">
       <h3>Payment method</h3>
@@ -365,6 +404,12 @@
         <a href="javascript:void(0)">Privacy policy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
     </div>
+
+        <div class="checkout-desktop-pay">
+          <button class="pay-btn" id="desktop-pay-btn">Pay</button>
+        </div>
+      </div><!-- /.checkout-form-col -->
+    </div><!-- /.checkout-desktop-wrapper -->
 
     <!-- Sticky Pay Footer -->
     <div class="sticky-pay">
