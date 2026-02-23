@@ -381,69 +381,26 @@
 
     </div><!-- /detail-main -->
 
-    <aside class="detail-sidebar">
+        <aside class="detail-sidebar">
       <div class="section-header" id="ticket-section-desktop">
-      <img src="../img/fa-ticket.svg" alt="">
-      <h2>Select date and session</h2>
-    </div>
+        <img src="../img/fa-ticket.svg" alt="">
+        <h2>Select date and session</h2>
+      </div>
       <div class="ticket-selector" id="desktop-ticket-selector">
-        <!-- Level 1: Travelers -->
-        <div class="pill-level" id="level-travelers">
+        <div class="pill-level" id="desk-level-travelers">
           <div class="ticket-pill active" data-value="2">Trip 2 people + Pass</div>
           <div class="ticket-pill" data-value="3">Trip 3 people + Pass</div>
           <div class="ticket-pill" data-value="4">Trip 4 people + Pass</div>
           <div class="pill-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
-
-        <!-- Level 2: Nights -->
-        <div class="pill-level" id="level-nights">
+        <div class="pill-level" id="desk-level-nights">
           <div class="ticket-pill active" data-value="3">3 nights (Mar 12, 13 &amp; 14)</div>
           <div class="ticket-pill" data-value="2">2 nights (Mar 13 &amp; 14)</div>
         </div>
-
-        <!-- Level 4: Hotel/Apartment name -->
-        <div class="pill-level" id="level-name">
-          <div class="pill-arrow" style="transform:rotate(180deg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- Room rows (populated by JS) -->
-        <div id="room-rows"></div>
-
-        <!-- Selling fast -->
+        <div class="pill-level" id="desk-level-name"></div>
+        <div id="desk-room-rows"></div>
         <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
-
-        <!-- Inline CTA (hidden, sticky handles it) -->
-        <button class="cta-primary" id="cta-inline"></button>
-      </div>
-
-
-      <div class="help-section">
-        <div class="section-header">
-          <img src="../img/fa-circle-question.svg" alt="">
-          <h2>Need help?</h2>
-        </div>
-        <div class="help-content">
-          Contact Support <a href="javascript:void(0)">here</a>.
-        </div>
-      </div>
-
-      <div class="section-header">
-        <img src="../img/fa-location-dot.svg" alt="">
-        <h2>Getting there</h2>
-      </div>
-      <div class="location">
-        <div class="loc-name">Baqueira Beret Ski Resort</div>
-        <div class="loc-address">Baqueira Beret Parking Lot, 25598</div>
-        <div class="map-placeholder"><img src="../img/map-baqueira.png" alt="Map area Baqueira – Estación de Esquí Baqueira Beret"></div>
-      </div>
-
-      <div class="footer">
-        <div class="footer-cols">
-          <div class="footer-col"><h5>About Fever</h5><ul><li><a href="../press.html">Press</a></li><li><a href="../careers.html">Careers</a></li><li><a href="../gift-cards.html">Gift Cards</a></li><li><a href="../help-center.html">Help Center</a></li></ul></div>
-          <div class="footer-col"><h5>Partner with us</h5><ul><li><a href="../fever-zone.html">Fever Zone</a></li><li><a href="../list-event.html">List your event</a></li><li><a href="../affiliate.html">Affiliate Program</a></li></ul></div>
-        </div>
-        <div class="legal"><a href="../terms.html">Terms of Use</a> | <a href="../privacy.html">Privacy Policy</a> | <a href="../cookies.html">Cookie Policy</a><div style="margin-top:8px;text-align:right;">&copy;2026 &ndash; Fever</div></div>
+        <button class="cta-primary" id="desk-cta"></button>
       </div>
     </aside>
     </div><!-- /detail-layout -->
@@ -831,7 +788,63 @@
       });
 
       updateSticky();
+      syncDesktopSidebar();
     }
+
+    function syncDesktopSidebar() {
+      var deskRoomRows = document.getElementById('desk-room-rows');
+      if (!deskRoomRows) return;
+      var deskTravelers = document.getElementById('desk-level-travelers');
+      var deskNights = document.getElementById('desk-level-nights');
+      var deskName = document.getElementById('desk-level-name');
+      var deskCta = document.getElementById('desk-cta');
+      if (deskTravelers) deskTravelers.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.toggle('active', p.dataset.value === state.travelers); });
+      if (deskNights) deskNights.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.toggle('active', p.dataset.value === state.nights); });
+      if (deskName) {
+        deskName.innerHTML = levelName.innerHTML;
+        deskName.querySelectorAll('.ticket-pill').forEach(function(pill) {
+          pill.addEventListener('click', function() { state.name = this.textContent; roomCounts = {}; renderNamePills(); });
+        });
+      }
+      deskRoomRows.innerHTML = roomRowsEl.innerHTML;
+      var rooms = getCurrentRooms();
+      deskRoomRows.querySelectorAll('.ticket-row').forEach(function(row, i) {
+        if (rooms[i] && !rooms[i].soldout) {
+          var plus = row.querySelector('.amt-btn.plus');
+          var minus = row.querySelector('.amt-btn.minus');
+          if (plus) plus.addEventListener('click', function() { roomCounts[i]++; saveAccommodationSelection(); renderRooms(); });
+          if (minus) minus.addEventListener('click', function() { if (roomCounts[i] > 0) roomCounts[i]--; saveAccommodationSelection(); renderRooms(); });
+        }
+        var toggle = row.querySelector('.ticket-info-toggle');
+        if (toggle) toggle.addEventListener('click', function(e) { e.preventDefault(); var expanded = row.classList.toggle('ticket-info-expanded'); this.textContent = expanded ? 'Less info' : 'More info'; this.setAttribute('aria-expanded', expanded); });
+      });
+      if (deskCta) {
+        var total = getTotal();
+        deskCta.textContent = total > 0 ? '\u20AC' + total.toFixed(2) + ' \u2014 Add it' : 'Skip hotel';
+        deskCta.style.display = 'block';
+        deskCta.onclick = function() { stickyBtn.click(); };
+      }
+    }
+
+    (function setupDesktopPills() {
+      ['desk-level-travelers', 'desk-level-nights'].forEach(function(id) {
+        var level = document.getElementById(id);
+        if (!level) return;
+        var stateKey = id.indexOf('travelers') >= 0 ? 'travelers' : 'nights';
+        level.querySelectorAll('.ticket-pill').forEach(function(pill) {
+          pill.addEventListener('click', function() {
+            state[stateKey] = pill.dataset.value;
+            roomCounts = {};
+            state.name = null;
+            var mobileId = id.replace('desk-level-', 'level-');
+            document.querySelectorAll('#' + mobileId + ' .ticket-pill').forEach(function(p) { p.classList.remove('active'); });
+            var mobilePill = document.querySelector('#' + mobileId + ' .ticket-pill[data-value="' + pill.dataset.value + '"]');
+            if (mobilePill) mobilePill.classList.add('active');
+            renderNamePills();
+          });
+        });
+      });
+    })();
 
     // ========== PILL EVENTS ==========
     function setupLevel(id, stateKey) {

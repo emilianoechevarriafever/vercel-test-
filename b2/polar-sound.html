@@ -725,100 +725,88 @@
 
     <aside class="detail-sidebar">
       <div class="section-header" id="ticket-section-desktop">
-      <img src="../img/fa-ticket.svg" alt="">
-      <h2>Select date and session</h2>
-    </div>
+        <img src="../img/fa-ticket.svg" alt="">
+        <h2>Select date and session</h2>
+      </div>
       <div class="ticket-selector" id="desktop-ticket-selector">
-        <!-- No booking fees -->
         <div class="no-fees-banner">
           <span class="info-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/45f9ca19-1d8e-4183-9c26-57daf45780b8" alt=""></span>
           <span>No booking fees</span>
         </div>
-
-        <!-- Type pills -->
-        <div class="ticket-pills" id="ticket-pills-row">
+        <div class="ticket-pills">
           <div class="ticket-pill active" data-panel="day">Day pass</div>
           <div class="ticket-pill" data-panel="2day">2-Day pass</div>
-          <div class="pill-arrow" id="pills-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-          </div>
         </div>
-
-        <div class="ticket-panel" id="panel-day" data-panel="day">
-        <!-- Ticket rows (coupon style) -->
-        <div class="ticket-row qty-zero">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1</div>
-            <div class="ticket-more">More info</div>
-            <div class="ticket-price">&euro;45.00</div>
-          </div>
-          <div class="ticket-notch"></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
+        <div class="ticket-panel" data-panel="day">
+          <div class="ticket-row qty-zero">
+            <div class="ticket-content">
+              <div class="ticket-name">Friday - Tier 1</div>
+              <div class="ticket-price">&euro;45.00</div>
+            </div>
+            <div class="ticket-notch"><span class="notch-line"></span></div>
+            <div class="ticket-selector-right">
+              <div class="stepper ticket-amount">
+                <button class="amt-btn minus">&minus;</button>
+                <span class="amt-count">0</span>
+                <button class="amt-btn plus">+</button>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2</div>
-            <div class="ticket-more">More info</div>
-            <div class="ticket-price">&euro;50.00</div>
-          </div>
-          <div class="ticket-notch"></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
+          <div class="ticket-row">
+            <div class="ticket-content">
+              <div class="ticket-name">Saturday - Tier 2</div>
+              <div class="ticket-price">&euro;50.00</div>
+            </div>
+            <div class="ticket-notch"><span class="notch-line"></span></div>
+            <div class="ticket-selector-right">
+              <div class="stepper ticket-amount">
+                <button class="amt-btn minus">&minus;</button>
+                <span class="amt-count">0</span>
+                <button class="amt-btn plus">+</button>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-more">More info</div>
-            <div class="ticket-price">&euro;85.00</div>
-          </div>
-          <div class="ticket-notch"></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
+          <div class="ticket-row">
+            <div class="ticket-content">
+              <div class="ticket-name">Friday - Tier 1 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+              <div class="ticket-price">&euro;85.00</div>
+            </div>
+            <div class="ticket-notch"><span class="notch-line"></span></div>
+            <div class="ticket-selector-right">
+              <div class="stepper ticket-amount">
+                <button class="amt-btn minus">&minus;</button>
+                <span class="amt-count">0</span>
+                <button class="amt-btn plus">+</button>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="ticket-row">
-          <div class="ticket-content">
-            <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
-            <div class="ticket-more">More info</div>
-            <div class="ticket-price">&euro;90.00</div>
-          </div>
-          <div class="ticket-notch"></div>
-          <div class="ticket-selector-right">
-            <div class="stepper ticket-amount">
-              <button class="amt-btn minus">&minus;</button>
-              <span class="amt-count">0</span>
-              <button class="amt-btn plus">+</button>
+          <div class="ticket-row">
+            <div class="ticket-content">
+              <div class="ticket-name">Saturday - Tier 2 - Polar Pack: Day Ticket + 40 tokens (+10 free)</div>
+              <div class="ticket-price">&euro;90.00</div>
+            </div>
+            <div class="ticket-notch"><span class="notch-line"></span></div>
+            <div class="ticket-selector-right">
+              <div class="stepper ticket-amount">
+                <button class="amt-btn minus">&minus;</button>
+                <span class="amt-count">0</span>
+                <button class="amt-btn plus">+</button>
+              </div>
             </div>
           </div>
+          <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
         </div>
-
-        <!-- Selling Fast banner -->
-        <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
-        </div>
-
-        <div class="ticket-panel" id="panel-2day" data-panel="2day" style="display:none;">
+        <div class="ticket-panel" data-panel="2day" style="display:none;">
           <div class="ticket-row qty-zero">
             <div class="ticket-content">
               <div class="ticket-name">General - Tier 5</div>
-              <div class="ticket-more">More info</div>
+              <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+              <div class="ticket-info-detail">
+                <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+                <ul>
+                  <li>Access to the 2 days of the festival</li>
+                </ul>
+              </div>
               <div class="ticket-price">&euro;87.50</div>
             </div>
             <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -833,7 +821,15 @@
           <div class="ticket-row">
             <div class="ticket-content">
               <div class="ticket-name">Polar Pack: General subscription + 60 tokens (+10 free) - Tier 5</div>
-              <div class="ticket-more">More info</div>
+              <button type="button" class="ticket-info-toggle" aria-expanded="false">More info</button>
+              <div class="ticket-info-detail">
+                <div class="ticket-info-intro">Ticket for 1 person, includes:</div>
+                <ul>
+                  <li>Access to the 2 days of the festival</li>
+                  <li>60 Tokens to spend in the event</li>
+                  <li>+10 bonus tokens</li>
+                </ul>
+              </div>
               <div class="ticket-price">&euro;147.50</div>
             </div>
             <div class="ticket-notch"><span class="notch-line"></span></div>
@@ -847,9 +843,7 @@
           </div>
           <div class="selling-fast-banner"><svg class="selling-fast-icon" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><path d="M11.625 8.03125C11.875 8.6875 12 9.375 12 10.0625C12 13.3438 9.28125 16 6 16C2.6875 16 0 13.3438 0 10.0625C0 9.375 0.09375 8.6875 0.34375 8.03125L0.375 7.96875C1.4375 5.03125 3.1875 2.40625 5.4375 0.28125L5.5625 0.1875C5.65625 0.0625 5.8125 0 6 0C6.15625 0 6.3125 0.0625 6.40625 0.1875L6.53125 0.28125C8.8125 2.40625 10.5312 5.03125 11.5938 7.96875L11.625 8.03125ZM5.875 4.65625L5.71875 4.875C5.40625 5.28125 5.25 5.78125 5.25 6.28125C5.25 6.90625 5.5 7.5 5.9375 7.9375L6.34375 8.375C6.59375 8.625 6.75 8.96875 6.75 9.34375C6.75 10.0938 6.125 10.6875 5.375 10.6875C4.59375 10.6875 4 10.0938 4 9.3125V7.9375C4 7.75 3.84375 7.59375 3.65625 7.59375C3.53125 7.59375 3.4375 7.65625 3.375 7.71875L3.15625 7.96875C2.71875 8.46875 2.5 9.09375 2.5 9.75V10C2.5 11.9375 4.0625 13.5 6 13.5H6.09375C7.96875 13.5 9.5 12 9.5 10.0938C9.5 9.125 9.09375 8.21875 8.40625 7.53125L6.78125 5.9375C6.59375 5.75 6.5 5.46875 6.5 5.21875V4.84375C6.5 4.65625 6.34375 4.5 6.15625 4.5C6.0625 4.5 5.9375 4.5625 5.875 4.65625Z"/></svg><span>Tickets selling fast</span></div>
         </div>
-
-        <!-- CTA buttons -->
-        <button class="cta-primary" id="cta-get-it" onclick="window.location.href=(window.flowHref||function(u){return u})('add-ons.html')">&euro;45.00 &mdash; Get it</button>
+        <button class="cta-primary" onclick="window.location.href=(window.flowHref||function(u){return u})('add-ons.html')">&euro;45.00 &mdash; Get it</button>
       </div>
     </aside>
     </div><!-- /detail-layout -->
@@ -1547,5 +1541,84 @@
 <script>if(localStorage.getItem('fever_logged_in')==='true'){document.documentElement.classList.add('u-in');var a=document.querySelector('.avatar-wrap');if(a){a.href='../profile.html';}}</script>
   <script src="../js/recently-viewed.js"></script>
   <script src="../js/flow-param.js"></script>
+<script>
+  // Desktop sidebar ticket sync
+  (function() {
+    if (window.innerWidth < 1024) return;
+    var deskSel = document.getElementById('desktop-ticket-selector');
+    if (!deskSel) return;
+
+    deskSel.querySelectorAll('.ticket-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        deskSel.querySelectorAll('.ticket-pill').forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        var panelId = pill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+        deskSel.querySelectorAll('.ticket-panel').forEach(function(p) {
+          p.style.display = p.getAttribute('data-panel') === panelId ? 'block' : 'none';
+        });
+        updateDesktopTotal();
+      });
+    });
+
+    deskSel.querySelectorAll('.ticket-row').forEach(function(row) {
+      var minus = row.querySelector('.amt-btn.minus');
+      var plus = row.querySelector('.amt-btn.plus');
+      var countEl = row.querySelector('.amt-count');
+      if (!countEl) return;
+      plus.addEventListener('click', function() {
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+        updateDesktopTotal();
+      });
+      minus.addEventListener('click', function() {
+        var val = parseInt(countEl.textContent);
+        if (val > 0) countEl.textContent = val - 1;
+        updateDesktopTotal();
+      });
+    });
+
+    deskSel.addEventListener('click', function(e) {
+      var btn = e.target.closest('.ticket-info-toggle');
+      if (!btn) return;
+      e.preventDefault();
+      var row = btn.closest('.ticket-row');
+      var expanded = row.classList.toggle('ticket-info-expanded');
+      btn.textContent = expanded ? 'Less info' : 'More info';
+    });
+
+    function getDesktopActivePanel() {
+      var activePill = deskSel.querySelector('.ticket-pill.active');
+      var panelId = activePill && activePill.getAttribute('data-panel') === '2day' ? '2day' : 'day';
+      return deskSel.querySelector('.ticket-panel[data-panel="' + panelId + '"]');
+    }
+
+    function updateDesktopTotal() {
+      var panel = getDesktopActivePanel();
+      if (!panel) return;
+      var pricesDay = [45.00, 50.00, 85.00, 90.00];
+      var prices2Day = [87.50, 147.50];
+      var prices = panel.getAttribute('data-panel') === '2day' ? prices2Day : pricesDay;
+      var total = 0;
+      panel.querySelectorAll('.ticket-row').forEach(function(row, i) {
+        var count = parseInt(row.querySelector('.amt-count').textContent);
+        total += count * (prices[i] || 0);
+        row.classList.toggle('selected', count > 0);
+        row.classList.toggle('qty-zero', count === 0);
+      });
+      var ctaBtn = deskSel.querySelector('.cta-primary');
+      if (ctaBtn) {
+        if (total > 0) {
+          var is2day = panel.getAttribute('data-panel') === '2day';
+          ctaBtn.textContent = '\u20AC' + total.toFixed(2) + ' \u2014 ' + (is2day ? 'Continue' : 'Get it');
+          ctaBtn.disabled = false;
+        } else {
+          ctaBtn.textContent = 'Select a ticket';
+          ctaBtn.disabled = false;
+        }
+      }
+    }
+
+    updateDesktopTotal();
+  })();
+</script>
 </body>
 </html>
