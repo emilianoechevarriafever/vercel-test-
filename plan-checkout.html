@@ -134,6 +134,13 @@
 
 
     @media (max-width:393px) { .phone { width:100vw; } .sticky-pay { width:100vw; } }
+    /* Desktop-only elements hidden on mobile */
+    .checkout-desktop-nav { display: none; }
+    .checkout-col-title { display: none; }
+    .checkout-desktop-pay { display: none; }
+    .no-fees-banner { display: none; }
+    .checkout-summary-col, .checkout-form-col { display: block; }
+    .checkout-summary-card { display: contents; }
     /* Focus-visible & active polish */
     button:focus-visible, a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
     .form-group .input-wrap .form-field:focus-visible { border-color:var(--color-input-border-focus); box-shadow:var(--color-input-focus-ring); }
@@ -142,10 +149,22 @@
     .checkbox-row .cb:active { transform: scale(0.9); }
     .nav-icon-btn:active { opacity: 0.6; }
   </style>
+  <link rel="stylesheet" href="css/desktop.css">
 </head>
 <body>
-  <div class="phone">
+  <div class="phone has-checkout-layout">
     <header class="sticky-header">
+      <!-- Desktop checkout navbar -->
+      <nav class="checkout-desktop-nav">
+        <a class="checkout-nav-logo" href="home.html">
+          <img src="img/fever-logo.svg" alt="Fever" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'font-size:20px;font-weight:800;letter-spacing:-0.5px;color:#031419;\'>fever</span>'">
+        </a>
+        <div class="checkout-desktop-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Secure checkout
+        </div>
+      </nav>
+      <!-- Mobile topbar -->
       <div class="checkout-topbar">
         <a class="back-chevron" href="javascript:history.back()" aria-label="Go back">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -154,34 +173,47 @@
       </div>
     </header>
 
-    <div class="event-summary">
-      <div class="event-thumb"><img id="event-thumb" src="" alt=""></div>
-      <div class="event-info">
-        <div class="event-name" id="event-name"></div>
-        <div class="event-venue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span id="event-venue-name"></span>
-        </div>
-      </div>
-    </div>
+    <div class="checkout-desktop-wrapper">
 
-    <div class="date-row">
-      <div class="label">Date</div>
-      <div class="value" id="event-date"></div>
-    </div>
+      <!-- RIGHT column: order summary -->
+      <div class="checkout-summary-col">
+        <h2 class="checkout-col-title">Your order</h2>
+        <div class="checkout-summary-card">
+          <div class="no-fees-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No booking fees
+          </div>
+          <div class="event-summary">
+            <div class="event-thumb"><img id="event-thumb" src="" alt=""></div>
+            <div class="event-info">
+              <div class="event-name" id="event-name"></div>
+              <div class="event-venue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="event-venue-name"></span>
+              </div>
+            </div>
+          </div>
+          <div class="date-row">
+            <div class="label">Date</div>
+            <div class="value" id="event-date"></div>
+          </div>
+          <div class="checkout-section" style="padding-top:16px;">
+            <h3>Your tickets</h3>
+            <div id="ticket-items"></div>
+          </div>
+          <div class="price-details">
+            <h3>Price details</h3>
+            <div class="price-row"><span class="price-label">Subtotal</span><span class="price-val" id="subtotal-val">&euro;0.00</span></div>
+            <div class="price-row"><span class="price-label">Fees</span><span class="price-val" id="fees-val">&euro;0.00</span></div>
+            <div class="price-row"><span class="price-label">Tax (IVA)</span><span class="price-val" id="tax-val">&euro;0.00</span></div>
+            <div class="price-row total"><span class="price-label">Total</span><span class="price-val" id="grand-total">&euro;0.00</span></div>
+          </div>
+        </div><!-- /.checkout-summary-card -->
+      </div><!-- /.checkout-summary-col -->
 
-    <div class="checkout-section" style="padding-top:16px;">
-      <h3>Your tickets</h3>
-      <div id="ticket-items"></div>
-    </div>
-
-    <div class="price-details">
-      <h3>Price details</h3>
-      <div class="price-row"><span class="price-label">Subtotal</span><span class="price-val" id="subtotal-val">&euro;0.00</span></div>
-      <div class="price-row"><span class="price-label">Fees</span><span class="price-val" id="fees-val">&euro;0.00</span></div>
-      <div class="price-row"><span class="price-label">Tax (IVA)</span><span class="price-val" id="tax-val">&euro;0.00</span></div>
-      <div class="price-row total"><span class="price-label">Total</span><span class="price-val" id="grand-total">&euro;0.00</span></div>
-    </div>
+      <!-- LEFT column: payment form -->
+      <div class="checkout-form-col">
+        <h2 class="checkout-col-title">Confirm and pay</h2>
 
     <div class="payment-section">
       <h3>Payment method</h3>
@@ -260,8 +292,17 @@
         <a href="javascript:void(0)">Privacy Policy</a>
         <a href="javascript:void(0)">Cookie Policy</a>
       </div>
+    </div><!-- /.payment-section -->
+
+    <!-- Desktop pay button -->
+    <div class="checkout-desktop-pay">
+      <button class="pay-btn" id="desk-pay-btn">Pay &euro;0.00</button>
     </div>
 
+      </div><!-- /.checkout-form-col -->
+    </div><!-- /.checkout-desktop-wrapper -->
+
+    <!-- Mobile sticky pay -->
     <div class="sticky-pay">
       <button class="pay-btn" id="pay-btn">Pay &euro;0.00</button>
     </div>
@@ -297,7 +338,9 @@
     document.getElementById('fees-val').textContent = '\u20ac' + fees.toFixed(2);
     document.getElementById('tax-val').textContent = '\u20ac' + tax.toFixed(2);
     document.getElementById('grand-total').textContent = '\u20ac' + grandTotal.toFixed(2);
-    document.getElementById('pay-btn').textContent = 'Pay \u20ac' + grandTotal.toFixed(2);
+    var payBtnText = 'Pay \u20ac' + grandTotal.toFixed(2);
+    document.getElementById('pay-btn').textContent = payBtnText;
+    if (document.getElementById('desk-pay-btn')) document.getElementById('desk-pay-btn').textContent = payBtnText;
 
     document.querySelectorAll('.cb').forEach(function(cb) {
       cb.addEventListener('click', function() { cb.classList.toggle('checked'); });
@@ -327,10 +370,14 @@
       cardFields.forEach(function(el) { el.style.display = selectedMethod === 'card' ? '' : 'none'; });
 
       var label = selectedMethod === 'apple' ? 'Apple Pay' : selectedMethod === 'paypal' ? 'PayPal' : 'Pay';
-      payBtn.textContent = label + ' ' + formatEur(grandTotal);
+      var btnText = label + ' ' + formatEur(grandTotal);
+      var deskBtn = document.getElementById('desk-pay-btn');
+      payBtn.textContent = btnText;
+      if (deskBtn) deskBtn.textContent = btnText;
       payBtn.classList.remove('method-apple', 'method-paypal');
-      if (selectedMethod === 'apple') payBtn.classList.add('method-apple');
-      else if (selectedMethod === 'paypal') payBtn.classList.add('method-paypal');
+      if (deskBtn) { deskBtn.classList.remove('method-apple', 'method-paypal'); }
+      if (selectedMethod === 'apple') { payBtn.classList.add('method-apple'); if (deskBtn) deskBtn.classList.add('method-apple'); }
+      else if (selectedMethod === 'paypal') { payBtn.classList.add('method-paypal'); if (deskBtn) deskBtn.classList.add('method-paypal'); }
     }
 
     cardRow.addEventListener('click', function() { selectedMethod = 'card'; refreshPayUI(); });
@@ -338,9 +385,12 @@
     paypalRow.addEventListener('click', function() { selectedMethod = 'paypal'; refreshPayUI(); });
     refreshPayUI();
 
-    payBtn.addEventListener('click', function() {
+    function handlePay() {
       alert('Payment simulated! \u20ac' + grandTotal.toFixed(2) + ' for ' + data.title + '. This is a prototype.');
-    });
+    }
+    payBtn.addEventListener('click', handlePay);
+    var deskPayBtn = document.getElementById('desk-pay-btn');
+    if (deskPayBtn) deskPayBtn.addEventListener('click', handlePay);
   })();
   </script>
   <script src="js/flow-param.js"></script>

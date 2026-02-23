@@ -21,6 +21,7 @@
     display: block !important;
     justify-content: initial !important;
     overflow: visible !important;
+    max-width: 100% !important;  /* Fix: pages with body { max-width: 480px } expand to full width */
   }
 
   .phone {
@@ -42,6 +43,64 @@
     z-index: 100;
     gap: 16px;
   }
+
+  /* ── Info/Footer Pages (no .phone wrapper) ── */
+  /* These static content pages have body { max-width: 480px } — fixed above.
+     Now constrain their inner content to a readable max-width. */
+
+  .page-hero {
+    padding: 40px 48px 64px !important;
+  }
+
+  .page-hero .page-hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .page-hero h1 {
+    font-size: 36px !important;
+    max-width: 880px;
+  }
+
+  .page-hero p {
+    font-size: 16px !important;
+    max-width: 640px;
+    margin-top: 12px !important;
+  }
+
+  .page-content {
+    max-width: 880px !important;
+    margin: 0 auto !important;
+    padding: 40px 0 64px !important;
+  }
+
+  /* Stat grid: more columns on wide screens */
+  .page-content .stat-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  /* Footer pages: expand footer to full width */
+  .footer {
+    padding: 48px 40px 56px !important;
+  }
+
+  .footer .footer-cols {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer .footer-bottom {
+    max-width: 1200px;
+    margin: 24px auto 0;
+  }
+
+  /* Navbar on info pages: hide back-btn, show logo bigger */
+  .nav-back {
+    display: none !important;
+  }
+
+  /* Info page: add basic desktop link back to home via logo */
+  /* No major changes needed to navbar for info pages */
 
   .sticky-header {
     position: sticky !important;
@@ -1520,6 +1579,127 @@
   /* ── Smooth scroll for home sections ── */
   html {
     scroll-behavior: smooth;
+  }
+
+  /* ── Category Page ── */
+  .cat-header {
+    padding: 28px 40px 12px !important;
+    max-width: 100%;
+  }
+
+  .cat-header h1 {
+    font-size: 28px !important;
+  }
+
+  .cat-count {
+    padding: 4px 40px 16px !important;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    padding: 0 40px 40px !important;
+    gap: 20px !important;
+  }
+
+  /* ── Top 10 Page ── */
+  .top10-header {
+    padding: 28px 40px 20px !important;
+  }
+
+  .top10-count {
+    padding: 8px 40px !important;
+  }
+
+  .top10-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+    padding: 0 40px 40px !important;
+    gap: 20px !important;
+  }
+
+  /* ── Search Page ── */
+  .search-section {
+    padding: 0 !important;
+  }
+
+  .search-bar {
+    margin: 16px 40px !important;
+    max-width: calc(100% - 80px) !important;
+  }
+
+  .search-initial,
+  #searchInitial {
+    max-width: 100%;
+  }
+
+  .search-group {
+    padding: 24px 40px 0 !important;
+  }
+
+  .results-header {
+    padding: 16px 40px 4px !important;
+  }
+
+  .results-count {
+    padding: 0 40px 8px !important;
+  }
+
+  /* search results share .cat-grid class */
+
+  /* ── Login Page ── */
+  .has-login-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+    background: var(--color-bg-neutral, #f2f3f3) !important;
+    padding-top: 72px !important;
+  }
+
+  .has-login-layout .navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    z-index: 200 !important;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.08) !important;
+  }
+
+  .has-login-layout .login-content {
+    flex: none !important;
+    background: #fff !important;
+    border: 1px solid var(--color-border, #ccd2d8) !important;
+    border-radius: 20px !important;
+    padding: 40px !important;
+    max-width: 460px !important;
+    width: 100% !important;
+    box-shadow: 0 4px 24px rgba(3,20,25,0.08) !important;
+    margin: 24px 0 40px !important;
+  }
+
+  /* ── Plan-Checkout Page (variant of checkout) ── */
+  .has-plan-checkout .checkout-desktop-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 416px;
+    gap: 32px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 40px;
+    align-items: start;
+  }
+
+  .has-plan-checkout .checkout-form-col {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .has-plan-checkout .checkout-summary-col {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 88px;
   }
 
 } /* end interactions @media (min-width: 1024px) */
