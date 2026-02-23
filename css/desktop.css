@@ -574,6 +574,20 @@
     left: auto;
   }
 
+  /* Cart / add-ons page content: center with max-width on wide screens */
+  .has-cart-layout .event-summary,
+  .has-cart-layout .date-row,
+  .has-cart-layout .cart-section,
+  .has-cart-layout .cart-total,
+  .has-cart-layout .addon-section,
+  .has-cart-layout .selected-summary {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   /* ── Checkout Desktop ── */
 
   /* Simplified checkout navbar (desktop-only) */
