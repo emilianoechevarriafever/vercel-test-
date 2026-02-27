@@ -14,19 +14,16 @@
   <style>
     :root {
       --font: 'Montserrat', sans-serif;
-      --text: #031419;
-      --muted: #536b75;
-      --line: #ccd2d8;
-      --link: #0079ca;
-  --color-text-main: #031419;
-  --color-text-subtle: #536b75;
-  --color-border: #ccd2d8;
-  --color-success: #24a865;
-  --elevation-sheet: 0 -4px 20px rgba(0,0,0,0.12);
-}
+      --color-text-main: #031419;
+      --color-text-subtle: #536b75;
+      --color-border: #ccd2d8;
+      --color-primary: #0079ca;
+      --color-success: #24a865;
+      --elevation-sheet: 0 -4px 20px rgba(0,0,0,0.12);
+    }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font); background: #eef0f1; color: var(--text); }
+    body { font-family: var(--font); background: #eef0f1; color: var(--color-text-main); }
 
     .phone {
       width: 100%; max-width: 430px; min-height: 100vh;
@@ -93,7 +90,7 @@
       height: 56px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       position: relative;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--color-border);
       border-radius: 16px 16px 0 0;
     }
     .sheet-header h1 { font-size: 16px; font-weight: 600; line-height: 24px; }
@@ -102,7 +99,7 @@
       border: none; background: none; cursor: pointer;
       width: 28px; height: 28px; display: inline-flex;
       align-items: center; justify-content: center;
-      color: var(--text); text-decoration: none;
+      color: var(--color-text-main); text-decoration: none;
     }
     .sheet-close svg { width: 20px; height: 20px; }
 
@@ -110,7 +107,7 @@
     .sheet-body { padding: 24px 16px 24px; }
 
     /* Sections */
-    .section { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .section { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--color-border); }
     .section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
     .section-title {
@@ -121,7 +118,7 @@
     /* Account email row */
     .account-email {
       display: flex; align-items: center; gap: 8px;
-      font-size: 14px; line-height: 20px; color: var(--text);
+      font-size: 14px; line-height: 20px; color: var(--color-text-main);
       margin-bottom: 16px;
     }
     .account-email .google-icon { width: 20px; height: 20px; flex-shrink: 0; }
@@ -129,7 +126,7 @@
     /* Menu rows */
     .menu-row {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 0; cursor: pointer; text-decoration: none; color: var(--text);
+      padding: 10px 0; cursor: pointer; text-decoration: none; color: var(--color-text-main);
     }
     .menu-row span { font-size: 14px; font-weight:600; line-height: 20px; }
     .menu-row .chevron { width: 18px; height: 18px; color: #a7b2ba; flex-shrink: 0; }
@@ -137,7 +134,7 @@
     /* External link */
     .ext-link {
       display: inline-flex; align-items: center; gap: 6px;
-      color: var(--link); font-size: 14px; font-weight: 600;
+      color: var(--color-primary); font-size: 14px; font-weight: 600;
       line-height: 20px; text-decoration: underline;
       text-underline-offset: 2px;
     }
@@ -158,7 +155,7 @@
       border-radius: 64px; background: #f2f3f3;
       padding: 6px 14px 6px 6px;
       font-size: 14px; font-weight: 600; line-height: 20px;
-      color: var(--text); margin-bottom: 8px;
+      color: var(--color-text-main); margin-bottom: 8px;
     }
     .club-pill .star-badge {
       width: 26px; height: 26px; border-radius: 50%;
@@ -173,9 +170,9 @@
       padding: 12px 0;
       border: none; background: none; width: 100%;
       font-family: var(--font); font-size: 14px; font-weight:600;
-      line-height: 20px; color: var(--text); cursor: pointer;
+      line-height: 20px; color: var(--color-text-main); cursor: pointer;
     }
-    .logout-row svg { width: 20px; height: 20px; color: var(--text); flex-shrink: 0; }
+    .logout-row svg { width: 20px; height: 20px; color: var(--color-text-main); flex-shrink: 0; }
     .logout-row:hover { opacity: 0.7; }
   </style>
   <link rel="stylesheet" href="../../css/navbar.css">

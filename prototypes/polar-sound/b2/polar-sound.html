@@ -17,27 +17,27 @@
     :root {
       --color-primary: #0079ca;
       --color-primary-weak: #e6f4ff;
-      --color-primary-light: #f2fbfd;
+      --color-primary-light: #e6f4ff;
       --color-text: #031419;
       --color-text-subtle: #536b75;
       --color-text-disable: #a7b2ba;
       --color-border: #ccd2d8;
-      --color-border-light: #dde1e4;
+      --color-border-light: #ccd2d8;
       --color-accent: #6f41d7;
       --color-danger: #eb0052;
       --color-danger-text: #f43d7a;
       --color-success: #24a865;
       --color-warning: #ff8c00;
       --color-bg: #ffffff;
-      --color-bg-disable: #f6f6f6;
+      --color-bg-disable: #f6f7f7;
       --color-bg-dark: #06232c;
       --color-bg-neutral: #f2f3f3;
       --elevation-01: 0 1px 3px 0 rgba(0,0,0,0.08);
       --font: 'Montserrat', sans-serif;
   --color-primary-hover: #0068b0;
   --color-text-main: #031419;
-  --color-rating: #f5a623;
-  --color-urgency-bg: #f5e6dc;
+  --color-rating: #ffa639;
+  --color-urgency-bg: #fff4e6;
   --color-urgency-text: #9f5800;
   --color-accent-weak: #f0ebfd;
   --elevation-02: 0 2px 4px rgba(0,0,0,0.12);
@@ -318,7 +318,7 @@
     .sheet-overlay.open { opacity:1; visibility:visible; }
     .sheet { position:fixed; left:50%; transform:translateX(-50%) translateY(100%); bottom:0; width:393px; max-width:100vw; max-height:75vh; background:white; border-radius:16px 16px 0 0; z-index:401; transition:transform 0.3s ease; box-shadow:var(--elevation-sheet); display:flex; flex-direction:column; }
     .sheet.open { transform:translateX(-50%) translateY(0); }
-    .sheet .sheet-handle { width:36px; height:4px; background:#dde1e4; border-radius:4px; margin:12px auto 0; flex-shrink:0; }
+    .sheet .sheet-handle { width:36px; height:4px; background:#ccd2d8; border-radius:4px; margin:12px auto 0; flex-shrink:0; }
     .sheet .sheet-header { display:flex; align-items:center; justify-content:center; position:relative; padding:8px 48px 16px; }
     .sheet .sheet-title { font-size:20px; font-weight: 600; color:var(--color-text); text-align:center; }
     .sheet .sheet-close { position:absolute; right:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; color:var(--color-text-subtle); }

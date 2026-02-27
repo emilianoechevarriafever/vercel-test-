@@ -1406,7 +1406,7 @@
      so remove the extra 16px side padding from mobile inline CSS */
   .app-banner {
     margin: 40px 0 0 !important;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   /* Selling point and SEO text: remove mobile horizontal padding

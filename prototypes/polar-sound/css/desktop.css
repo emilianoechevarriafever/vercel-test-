@@ -281,8 +281,8 @@
 
   /* ── Description ── */
   .detail-main .description {
-    font-size: 15px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 20px;
     padding: 24px 0;
   }
 
@@ -533,7 +533,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-text-subtle, #536b75);
   }
@@ -592,7 +592,7 @@
   .checkout-col-title {
     display: block !important;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-main, #031419);
     margin-bottom: 24px;
     line-height: 1.2;
@@ -626,7 +626,7 @@
     border-radius: 64px;
     color: #fff;
     font-family: var(--font, 'Montserrat', sans-serif);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
@@ -674,7 +674,7 @@
   }
 
   .checkout-summary-col .event-summary .event-name {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .checkout-summary-col .date-row {
@@ -703,7 +703,7 @@
     gap: 8px;
     padding: 12px 20px;
     background: #e6f4ff;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-primary, #0079ca);
     border-bottom: 1px solid var(--color-border, #ccd2d8);
@@ -940,7 +940,7 @@
   .ticket-pill:hover:not(.active) {
     border-color: var(--color-primary, #0079ca);
     color: var(--color-primary, #0079ca);
-    background: var(--color-primary-light, #f2fbfd);
+    background: var(--color-primary-light, #e6f4ff);
   }
 
   /* ── Ticket row hover ── */
@@ -1224,7 +1224,7 @@
      so remove the extra 16px side padding from mobile inline CSS */
   .app-banner {
     margin: 40px 0 0 !important;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   /* Selling point and SEO text: remove mobile horizontal padding
@@ -1235,7 +1235,7 @@
 
   .seo-text {
     padding: 16px 0 !important;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 20px;
   }
 }
@@ -1313,7 +1313,7 @@
     width: 44px;
     height: 44px;
     background: white;
-    border: 1px solid var(--color-border-light, #dde1e4);
+    border: 1px solid var(--color-border-light, #ccd2d8);
     border-radius: 50%;
     display: flex;
     align-items: center;
