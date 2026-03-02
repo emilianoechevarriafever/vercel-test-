@@ -313,26 +313,46 @@ python3 -m http.server 8000
 
 Tell the participant: "Your site is running at http://localhost:8000. Open it in your browser."
 
-## Step 9 -- Status summary
+## Step 9 -- Status summary and access recommendations
 
 Print a summary table like this:
 
 ```
-+----------------------------+------------+-----------------------------------+
-| Capability                 | Status     | Details                           |
-+----------------------------+------------+-----------------------------------+
-| GitHub CLI                 | OK / SKIP  | username: ...                     |
-| Fork                       | OK / SKIP  | repo: ...                         |
-| GitHub Pages               | OK / SKIP  | url: ... / using localhost:8000   |
-| Design System Toolkit      | OK / SKIP  | cloned / needs manual placement   |
-| Figma MCP                  | OK / SKIP  | connected / skipped               |
-| Cursor Rule                | OK         | .cursor/rules/fever-hackathon.mdc |
-+----------------------------+------------+-----------------------------------+
++----------------------------+--------+-------------------------------------------+
+| Capability                 | Status | Details                                   |
++----------------------------+--------+-------------------------------------------+
+| GitHub CLI                 | OK/NO  | username: ... / not installed              |
+| Fork of fever_replica      | OK/NO  | repo: ... / using local copy               |
+| GitHub Pages               | OK/NO  | url: ... / using localhost:8000            |
+| Design System Toolkit      | OK/NO  | cloned or downloaded / missing             |
+| Figma MCP                  | OK/NO  | connected / skipped                        |
+| Cursor Rule                | OK     | .cursor/rules/fever-hackathon.mdc          |
++----------------------------+--------+-------------------------------------------+
 ```
 
-Then tell the participant:
+Then, **if any capability has status NO**, print the following section:
 
-> **You're all set!** Start a new Cursor Agent chat and describe what you want to build or change on the Fever site. The AI already knows the project structure and design system. Happy hacking!
+---
+
+**You are missing some accesses that would improve your hackathon experience. Since you are running this before the hackathon day, you have time to request them. Here is what to do for each missing item:**
+
+- **GitHub CLI**: Install it with `brew install gh` (macOS) or `winget install --id GitHub.cli` (Windows), then run `gh auth login`. This lets you fork the project, push changes, and deploy via GitHub Pages.
+
+- **Fork of fever_replica**: You need to be added as a collaborator to the private repo. Ask the hackathon organizer (Emiliano Echevarria) to add your GitHub username by running: `gh api repos/emilianoechevarriafever/fever_replica/collaborators/YOUR_USERNAME -X PUT -f permission=read`. Once added, re-run this setup prompt and the fork will work.
+
+- **GitHub Pages**: This requires a successful fork (see above). Once you have forked the repo, GitHub Pages can be enabled automatically. Without it, you will work on localhost -- functional but you will not have a shareable public URL.
+
+- **Design System Toolkit**: You need either membership in the Feverup GitHub org (ask your manager or the hackathon organizer to invite you at https://github.com/orgs/Feverup/people), or download the zip manually from this link (open with your Fever Google account): https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing -- place its contents in a folder called `design-system-toolkit/` at your project root.
+
+- **Figma MCP**: You need a Figma **Dev** or **Designer** seat on the Fever workspace. Ask your manager or the Design team to grant you access. Once you have a seat, re-run this setup prompt and select "Yes" for Figma access.
+
+**The optimal experience requires all five items. But you can participate with just the project files and the Cursor Rule (both are already set up). Request the missing accesses now so everything is ready on hackathon day.**
+
+---
+
+If ALL capabilities have status OK, print instead:
+
+> **You have the full setup -- everything is ready for the hackathon!** You have a fork with GitHub Pages, the design system toolkit, and Figma MCP connected. Start a new Cursor Agent chat and describe what you want to build or change on the Fever site. Happy hacking!
 
 ---
 
