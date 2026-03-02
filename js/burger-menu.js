@@ -55,15 +55,15 @@
 
   /* ── Panel HTML ── */
   var categories = [
-    { slug: 'fever-originals', label: 'Fever Originals', img: 'https://www.figma.com/api/mcp/asset/7b2e86ce-a78f-442f-bc16-6f71eee07d8c' },
-    { slug: 'food-drinks',     label: 'Food & Drinks',   img: 'https://www.figma.com/api/mcp/asset/e0941f08-df38-4cbe-b647-618fbd7bb268' },
-    { slug: 'activities-games',label: 'Activities & Games',img: 'https://www.figma.com/api/mcp/asset/dbb1e8a5-7c01-4b7a-987a-2590c36feeb9' },
-    { slug: 'candlelight',     label: 'Candlelight Concerts', img: 'https://www.figma.com/api/mcp/asset/cbc97314-1c48-4c17-9f37-84055a16732d' },
-    { slug: 'culture-arts',    label: 'Culture, Arts & Fashion', img: 'https://www.figma.com/api/mcp/asset/33f691c3-6a6f-42c6-9127-65416cad28e7' },
-    { slug: 'shows',           label: 'Live Shows & Performances', img: 'https://www.figma.com/api/mcp/asset/1c263bd4-0f90-4ba5-949f-a7e796abd028' },
-    { slug: 'brunches',        label: 'Brunches',        img: 'https://www.figma.com/api/mcp/asset/9e34fb03-3db7-423a-9134-cba99707bdf3' },
-    { slug: 'family',          label: 'Family',          img: 'https://www.figma.com/api/mcp/asset/3c441b0e-0482-47cb-83ef-fdd1c4bd68b5' },
-    { slug: 'sports',          label: 'Sports & Outdoors', img: 'https://www.figma.com/api/mcp/asset/dbb1e8a5-7c01-4b7a-987a-2590c36feeb9' }
+    { slug: 'fever-originals', label: 'Fever Originals', img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/9f8fa516-1ab3-11f0-acbb-460e748c3556.jpg' },
+    { slug: 'food-drinks',     label: 'Food & Drinks',   img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/bf52f398-6fa3-11f0-ad5b-92ad15e8e5d8.jpg' },
+    { slug: 'activities-games',label: 'Activities & Games',img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/3bd77184-9533-11f0-9570-f251230785be.jpg' },
+    { slug: 'candlelight',     label: 'Candlelight Concerts', img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/66cd0d5a-1945-11f0-b4e1-16541c266220.jpg' },
+    { slug: 'culture-arts',    label: 'Culture, Arts & Fashion', img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/ce0edbfc-52a1-11f0-87c2-fe0e7cbe00f7.jpg' },
+    { slug: 'shows',           label: 'Live Shows & Performances', img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/c1e70f0e-4a3e-11f0-a8ba-42267e5a35fa.jpg' },
+    { slug: 'brunches',        label: 'Brunches',        img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/ee89a0dc-1aa8-11f0-87b3-ba3a3d0c034e.jpg' },
+    { slug: 'family',          label: 'Family',          img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/7342ce00-8bae-11ef-9248-e6d116a45f62.png' },
+    { slug: 'sports',          label: 'Sports & Outdoors', img: 'https://applications-media.feverup.com/image/upload/f_auto,w_100,h_80,c_fill/fever2/plan/photo/aa6979be-8fdc-11f0-86ac-628e8f210c54.jpg' }
   ];
 
   var listItems = categories.map(function (c) {
