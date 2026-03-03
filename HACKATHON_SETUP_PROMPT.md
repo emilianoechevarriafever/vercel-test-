@@ -17,21 +17,24 @@ Track these flags as you go (all start as `false`):
 
 ## Step 1 -- Get the project files
 
-This is the only step that must complete before the rest. The project lives in a **public** repo that anyone can clone:
+This is the only step that must complete before the rest. First, check if the current directory already has an `index.html` file (the participant may already have the project files). If so, skip the download and proceed to Step 2.
+
+If the project files are not present, download the password-protected zip:
 
 ```bash
-git clone https://github.com/emilianoechevarriafever/fever-hackathon-starter.git
+curl -L -o fever-hackathon-starter.zip "https://github.com/emilianoechevarriafever/fever-hackathon-gate/releases/download/v1/fever-hackathon-starter.zip"
+unzip -P "FeverHack2026" fever-hackathon-starter.zip
+rm fever-hackathon-starter.zip
+cd fever-hackathon-starter
 ```
 
-Then `cd fever-hackathon-starter`.
+If the download and unzip succeed, proceed to Step 2.
 
-If the clone succeeds, proceed to Step 2.
+If `curl` is not available or fails, tell the participant:
 
-If the clone fails (no `git` installed, network issues), check if the current directory already has an `index.html` file (the participant may have the files from a zip/Drive). If so, proceed to Step 2 from that directory.
-
-If there are no project files at all, tell the participant:
-
-> Could not clone the project. Make sure you have `git` installed, or download the project from: https://github.com/emilianoechevarriafever/fever-hackathon-starter (click the green "Code" button, then "Download ZIP"). Unzip it, open the folder in Cursor, and re-run this prompt.
+> Open this page in your browser: https://emilianoechevarriafever.github.io/fever-hackathon-gate/
+> Enter the password: **FeverHack2026**
+> Download and unzip the file, open the folder in Cursor, and re-run this prompt.
 
 Stop here until the participant has the files.
 

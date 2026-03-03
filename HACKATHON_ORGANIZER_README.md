@@ -6,10 +6,21 @@ Instructions for preparing and running the Fever design hackathon.
 
 ### 1. Project files -- already handled
 
-The project files live in a **public** repo that anyone can clone without authentication:
-https://github.com/emilianoechevarriafever/fever-hackathon-starter
+The project files are distributed as a **password-protected zip** via a GitHub release:
+- Download page (for humans): https://emilianoechevarriafever.github.io/fever-hackathon-gate/
+- Direct download URL (used by the setup prompt): `https://github.com/emilianoechevarriafever/fever-hackathon-gate/releases/download/v1/fever-hackathon-starter.zip`
+- Password: `FeverHack2026`
 
-No Drive links, no collaborator invites, no auth needed. The setup prompt clones from here automatically.
+The setup prompt downloads and unzips automatically. No GitHub account, no Drive, no auth needed -- just the password (which is embedded in the prompt).
+
+The source repo (`emilianoechevarriafever/fever-hackathon-starter`) remains **private**. The gate repo (`fever-hackathon-gate`) is public but only contains the download page -- the zip itself requires the password to extract.
+
+To update the zip (e.g. after fixing a bug): re-create the password-protected zip and upload a new release:
+```bash
+cd fever-hackathon-starter
+zip -r -P "FeverHack2026" /tmp/fever-hackathon-starter.zip .
+gh release upload v1 /tmp/fever-hackathon-starter.zip --repo emilianoechevarriafever/fever-hackathon-gate --clobber
+```
 
 ### 2. Prepare the Design System Toolkit (optional, nice-to-have)
 
@@ -42,7 +53,7 @@ If participants need to reference Figma designs:
 
 | Capability | No accounts at all | GitHub CLI | Feverup org member | Figma seat |
 |---|---|---|---|---|
-| **Clone starter repo** | Yes (public) | Yes | Yes | -- |
+| **Download starter kit** | Yes (password in prompt) | Yes | Yes | -- |
 | **Personal GitHub repo** | No | Yes | Yes | -- |
 | **GitHub Pages deploy** | No (localhost) | Yes | Yes | -- |
 | **Design System Toolkit** | No (inlined tokens) | No (inlined tokens) | Yes (full clone) | -- |
@@ -51,7 +62,7 @@ If participants need to reference Figma designs:
 | **Cursor Rule** | Yes | Yes | Yes | Yes |
 
 **Minimum viable setup**: A participant with NO GitHub and NO Figma can still participate. They will:
-1. Clone the public starter repo with plain `git`.
+1. Download the starter kit zip (password is in the setup prompt).
 2. Work on localhost.
 3. Have design system context via the Cursor Rule (tokens inlined).
 
@@ -95,7 +106,7 @@ Reset to the original state:
 git checkout main
 git reset --hard HEAD~N
 ```
-(Replace N with the number of commits to undo.) Or re-clone the starter repo.
+(Replace N with the number of commits to undo.) Or re-download the starter zip from the gate page.
 
 ---
 
