@@ -270,7 +270,9 @@ If Figma MCP is available, use the cheapest tool first:
 
 Adapt Figma output to this project's stack (vanilla HTML/CSS/JS) and existing component patterns.
 
-## Deploying changes
+## Viewing the site
+
+NEVER open HTML files directly from the filesystem (file:///). SVGs, images, and CSS will break. Always use one of these:
 
 If the project has a GitHub repo with Pages enabled:
 - After edits, run `git add -A && git commit -m "descriptive message" && git push origin main`.
@@ -278,6 +280,7 @@ If the project has a GitHub repo with Pages enabled:
 
 If working locally without GitHub Pages:
 - Serve with `python3 -m http.server 8000` (macOS/Linux) or `python -m http.server 8000` (Windows) and view at `http://localhost:8000`.
+- Alternatively, use the VS Code / Cursor "Live Server" extension.
 ```
 
 ## Step 8 -- Update .gitignore
@@ -292,7 +295,9 @@ design-system-toolkit/
 
 ## Step 9 -- Local development server
 
-If `HAS_PAGES=false`, start a local server. Detect the OS:
+**IMPORTANT**: The site MUST be viewed through a local server or GitHub Pages. Opening `index.html` directly from the file system (`file:///...`) will break images, SVGs, and CSS. NEVER tell the participant to open the HTML file directly -- always use a server.
+
+**Always** start a local server so the participant can preview changes immediately (even if Pages is enabled, localhost is faster for development). Detect the OS:
 
 **macOS / Linux:**
 ```bash
@@ -304,11 +309,11 @@ python3 -m http.server 8000
 python -m http.server 8000
 ```
 
-If `python` / `python3` is not found, try `py -m http.server 8000` (Windows Python Launcher). If none work, tell the participant to install Python from https://www.python.org/downloads/ or use the VS Code "Live Server" extension.
+If `python` / `python3` is not found, try `py -m http.server 8000` (Windows Python Launcher). If none work, tell the participant to install Python from https://www.python.org/downloads/ or use the VS Code / Cursor "Live Server" extension.
 
-Tell the participant: "Your site is running at http://localhost:8000. Open it in your browser."
+Tell the participant: "Your site is running at http://localhost:8000. Open it in your browser. Do NOT open the HTML files directly from the file explorer -- they will look broken."
 
-If `HAS_PAGES=true`, tell them their Pages URL instead.
+If `HAS_PAGES=true`, also tell them their Pages URL for sharing.
 
 ## Step 10 -- Status summary and access recommendations
 

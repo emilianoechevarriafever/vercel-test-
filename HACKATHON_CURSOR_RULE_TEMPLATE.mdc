@@ -112,11 +112,14 @@ If Figma MCP is available, use the cheapest tool first:
 
 Adapt Figma output to this project's stack (vanilla HTML/CSS/JS) and existing component patterns.
 
-## Deploying changes
+## Viewing the site
 
-If the project is a GitHub fork with Pages enabled:
+NEVER open HTML files directly from the filesystem (file:///). SVGs, images, and CSS will break. Always use one of these:
+
+If the project has a GitHub repo with Pages enabled:
 - After edits, run `git add -A && git commit -m "descriptive message" && git push origin main`.
 - GitHub Pages auto-deploys from the `main` branch. Allow ~60 seconds for propagation.
 
 If working locally without GitHub Pages:
 - Serve with `python3 -m http.server 8000` (macOS/Linux) or `python -m http.server 8000` (Windows) and view at `http://localhost:8000`.
+- Alternatively, use the VS Code / Cursor "Live Server" extension.
