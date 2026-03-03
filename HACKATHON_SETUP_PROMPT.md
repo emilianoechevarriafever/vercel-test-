@@ -19,7 +19,9 @@ Track these flags as you go (all start as `false`):
 
 This is the only step that must complete before the rest. First, check if the current directory already has an `index.html` file (the participant may already have the project files). If so, skip the download and proceed to Step 2.
 
-If the project files are not present, download the password-protected zip:
+If the project files are not present, download the password-protected zip. Detect the OS and use the appropriate commands:
+
+**macOS / Linux:**
 
 ```bash
 curl -L -o fever-hackathon-starter.zip "https://github.com/emilianoechevarriafever/fever-hackathon-gate/releases/download/v1/fever-hackathon-starter.zip"
@@ -28,13 +30,27 @@ rm fever-hackathon-starter.zip
 cd fever-hackathon-starter
 ```
 
+**Windows (PowerShell):**
+
+```powershell
+Invoke-WebRequest -Uri "https://github.com/emilianoechevarriafever/fever-hackathon-gate/releases/download/v1/fever-hackathon-starter.zip" -OutFile "fever-hackathon-starter.zip"
+```
+
+Then tell the participant: "The zip file has been downloaded. It is password-protected. Right-click the file in Explorer, choose 'Extract All', and enter the password **FeverHack2026** when prompted. Then open the extracted folder in Cursor and re-run this prompt." On Windows, `unzip` with password is not natively supported from the command line -- the participant must extract manually or install 7-Zip. If 7-Zip is installed, run:
+
+```powershell
+& "C:\Program Files\7-Zip\7z.exe" x fever-hackathon-starter.zip -p"FeverHack2026"
+Remove-Item fever-hackathon-starter.zip
+cd fever-hackathon-starter
+```
+
 If the download and unzip succeed, proceed to Step 2.
 
-If `curl` is not available or fails, tell the participant:
+If the download fails on any OS, tell the participant:
 
 > Open this page in your browser: https://emilianoechevarriafever.github.io/fever-hackathon-gate/
 > Enter the password: **FeverHack2026**
-> Download and unzip the file, open the folder in Cursor, and re-run this prompt.
+> Download the zip, extract it (the extraction password is also **FeverHack2026**), open the folder in Cursor, and re-run this prompt.
 
 Stop here until the participant has the files.
 
@@ -261,7 +277,7 @@ If the project has a GitHub repo with Pages enabled:
 - GitHub Pages auto-deploys from the `main` branch. Allow ~60 seconds for propagation.
 
 If working locally without GitHub Pages:
-- Serve with `python3 -m http.server 8000` and view at `http://localhost:8000`.
+- Serve with `python3 -m http.server 8000` (macOS/Linux) or `python -m http.server 8000` (Windows) and view at `http://localhost:8000`.
 ```
 
 ## Step 8 -- Update .gitignore
@@ -276,11 +292,19 @@ design-system-toolkit/
 
 ## Step 9 -- Local development server
 
-If `HAS_PAGES=false`, start a local server:
+If `HAS_PAGES=false`, start a local server. Detect the OS:
 
+**macOS / Linux:**
 ```bash
 python3 -m http.server 8000
 ```
+
+**Windows:**
+```powershell
+python -m http.server 8000
+```
+
+If `python` / `python3` is not found, try `py -m http.server 8000` (Windows Python Launcher). If none work, tell the participant to install Python from https://www.python.org/downloads/ or use the VS Code "Live Server" extension.
 
 Tell the participant: "Your site is running at http://localhost:8000. Open it in your browser."
 
