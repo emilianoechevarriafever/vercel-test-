@@ -4,80 +4,69 @@
 
 ---
 
-You are a setup assistant for a Fever hackathon. Your job is to bootstrap the participant's local environment by running through the steps below **in order**. At each step, detect whether the required tool/access is available. If it is, proceed. If it is not, use the fallback and move on. **Do not stop or ask questions unless explicitly indicated.** At the end, print a status summary table.
+You are a setup assistant for a Fever hackathon. Your job is to bootstrap the participant's local environment by running through the steps below. Each step is **independent** -- if one fails, skip it and move on to the next. **Do not stop or ask the participant questions unless explicitly indicated.** At the end, print a status summary and access recommendations.
 
-**Important**: The base repository (`emilianoechevarriafever/fever_replica`) is **private**. Participants need to have been added as collaborators to fork it. If they do not have access, they should use a local copy provided by the hackathon organizer.
+Track these flags as you go (all start as `false`):
+- `HAS_GH` -- GitHub CLI installed and authenticated
+- `HAS_REPO` -- project is in a GitHub repo the participant owns (fork or new)
+- `HAS_PAGES` -- GitHub Pages is enabled and deployed
+- `HAS_TOOLKIT` -- design system toolkit folder is available
+- `HAS_FIGMA` -- Figma MCP is configured
 
-## Step 1 -- GitHub CLI authentication
+---
 
-Run `gh auth status` to check if the GitHub CLI is installed and authenticated.
+## Step 1 -- Get the project files
 
-- **If `gh` is installed and authenticated**: note the GitHub username from the output. Store it mentally as `GH_USER`. Proceed to Step 2A.
-- **If `gh` is installed but NOT authenticated**: run `gh auth login --web -p https` and wait for the participant to complete the browser flow. Then proceed to Step 2A.
-- **If `gh` is NOT installed**: set a flag `NO_GH=true`. Proceed to Step 2B.
-
-## Step 2A -- Fork and clone (with GitHub)
-
-Try to fork the private repo:
-
-```bash
-gh repo fork emilianoechevarriafever/fever_replica --clone --remote
-```
-
-Then `cd fever_replica`.
-
-- **If it succeeds**: set flag `HAS_FORK=true` and proceed to Step 3.
-- **If the fork fails because a fork already exists**: run `git clone "https://github.com/$GH_USER/fever_replica.git" && cd fever_replica` (replace `$GH_USER` with the actual username). Set `HAS_FORK=true` and proceed to Step 3.
-- **If the fork fails because of a permission/404 error** (the participant has not been added as a collaborator): tell the participant "You don't have access to the private repo. Falling back to local copy." Set `HAS_FORK=false` and proceed to Step 2B.
-
-## Step 2B -- Work from local copy (no GitHub access or no CLI)
-
-Check if the current working directory already contains a `fever_replica` folder or if the current folder has an `index.html` file (indicating the participant already has the project files).
-
-- **If the project files are found**: `cd` into them if needed. Set `HAS_FORK=false`. Proceed to Step 2C.
-- **If the project files are NOT found**: try to download them automatically from the shared Drive:
+This is the only step that must complete before the rest. The project lives in a **public** repo that anyone can clone:
 
 ```bash
-curl -L -o fever_replica.zip "https://drive.google.com/uc?export=download&confirm=t&id=1kIIzRUwQX8CX6rLOM3Dx88bCr56wrgCS"
-unzip fever_replica.zip
-rm fever_replica.zip
+git clone https://github.com/emilianoechevarriafever/fever-hackathon-starter.git
 ```
 
-After unzipping, look for the folder that contains `index.html` and `cd` into it.
+Then `cd fever-hackathon-starter`.
 
-- **If the download or unzip succeeds**: set `HAS_FORK=false`. Proceed to Step 2C.
-- **If the download fails** (network error, access denied): tell the participant:
+If the clone succeeds, proceed to Step 2.
 
-> Could not download the project files automatically. Open this link in your browser, download the zip, unzip it, and open the folder in Cursor:
-> https://drive.google.com/file/d/1kIIzRUwQX8CX6rLOM3Dx88bCr56wrgCS/view?usp=sharing
-> Then re-run this setup prompt.
+If the clone fails (no `git` installed, network issues), check if the current directory already has an `index.html` file (the participant may have the files from a zip/Drive). If so, proceed to Step 2 from that directory.
+
+If there are no project files at all, tell the participant:
+
+> Could not clone the project. Make sure you have `git` installed, or download the project from: https://github.com/emilianoechevarriafever/fever-hackathon-starter (click the green "Code" button, then "Download ZIP"). Unzip it, open the folder in Cursor, and re-run this prompt.
 
 Stop here until the participant has the files.
 
-## Step 2C -- Initialize a personal Git repo (optional, for local-only participants)
+---
 
-If `HAS_FORK=false` and the participant wants to track their changes in git, initialize a new repo:
+**From here on, all steps are independent. If any step fails, skip it and continue to the next.**
+
+---
+
+## Step 2 -- GitHub CLI authentication
+
+Run `gh auth status` to check if the GitHub CLI is installed and authenticated.
+
+- **If `gh` is installed and authenticated**: note the GitHub username. Set `HAS_GH=true`.
+- **If `gh` is installed but NOT authenticated**: run `gh auth login --web -p https` and wait for the participant to complete the browser flow. Set `HAS_GH=true`.
+- **If `gh` is NOT installed**: set `HAS_GH=false`. Move on.
+
+## Step 3 -- Create a personal GitHub repo (requires HAS_GH)
+
+Skip this step if `HAS_GH=false`.
+
+The project was cloned from a public starter repo. Create the participant's own repo so they can push changes and enable Pages:
 
 ```bash
-git init
-git add -A
-git commit -m "Initial commit from fever_replica"
+gh repo create fever-hackathon --private --source . --push
 ```
 
-If the participant also has `gh` available and wants to push to their own GitHub:
+- **If it succeeds**: set `HAS_REPO=true`.
+- **If it fails** (repo already exists, or any error): try to check if a remote already exists with `git remote -v`. If `origin` points to the participant's own repo, set `HAS_REPO=true`. Otherwise set `HAS_REPO=false`.
 
-```bash
-gh repo create fever_replica --private --source . --push
-```
+## Step 4 -- Enable GitHub Pages (requires HAS_REPO)
 
-- **If repo creation succeeds**: set `HAS_OWN_REPO=true`. Proceed to Step 3.
-- **If it fails or the participant does not want GitHub**: set `HAS_OWN_REPO=false`. Proceed to Step 4.
+Skip this step if `HAS_REPO=false`.
 
-## Step 3 -- Enable GitHub Pages
-
-Only attempt this if `HAS_FORK=true` or `HAS_OWN_REPO=true`.
-
-First, get the owner/repo:
+Get the repo name:
 
 ```bash
 gh repo view --json nameWithOwner -q .nameWithOwner
@@ -86,50 +75,31 @@ gh repo view --json nameWithOwner -q .nameWithOwner
 Then enable GitHub Pages:
 
 ```bash
-gh api "repos/OWNER/REPO/pages" -X POST \
+gh api "repos/OWNER_REPO/pages" -X POST \
   -f build_type=legacy \
   -f source[branch]=main \
   -f source[path]=/
 ```
 
-(Replace `OWNER/REPO` with the actual value from the command above.)
+(Replace `OWNER_REPO` with the value from the command above.)
 
-- **If it succeeds**: set `PAGES_URL=https://OWNER.github.io/REPO/`. Set flag `HAS_PAGES=true`.
-- **If it fails** (403, 409 "already exists", or any error): that is fine. If 409, Pages is already enabled; run `gh api "repos/OWNER/REPO/pages" --jq '.html_url'` to get the URL. Otherwise set `HAS_PAGES=false`.
+- **If it succeeds or returns 409** (already exists): run `gh api "repos/OWNER_REPO/pages" --jq '.html_url'` to get the URL. Set `HAS_PAGES=true`.
+- **If it fails** with any other error: set `HAS_PAGES=false`.
 
-Proceed to Step 4.
+## Step 5 -- Fever Design System Toolkit
 
-## Step 4 -- Fever Design System Toolkit
+Check if a `design-system-toolkit/` folder already exists in the project root. If it does, set `HAS_TOOLKIT=true` and skip to Step 6.
 
-First, check if a `design-system-toolkit/` folder already exists in the project root. If it does, set `HAS_TOOLKIT=true` and skip to Step 5.
-
-If it does not exist, try to clone the toolkit repo:
+If it does not exist, try to clone it:
 
 ```bash
 git clone https://github.com/Feverup/AI-Product-Design-Toolkit.git design-system-toolkit
 ```
 
-- **If it succeeds**: set `HAS_TOOLKIT=true`. Proceed to Step 5.
-- **If it fails** (authentication error / 404 / private repo): try to download it from the shared Drive:
+- **If it succeeds**: set `HAS_TOOLKIT=true`.
+- **If it fails**: set `HAS_TOOLKIT=false`. This is fine -- the Cursor Rule created in Step 7 already includes the most important design token values inline.
 
-```bash
-curl -L -o design-toolkit.zip "https://drive.google.com/uc?export=download&confirm=t&id=1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV"
-unzip design-toolkit.zip
-rm design-toolkit.zip
-```
-
-After unzipping, look for the extracted folder and rename it to `design-system-toolkit` if needed (the zip may extract as `AI-Product-Design-Toolkit` or similar -- rename it to `design-system-toolkit`).
-
-- **If the download succeeds**: set `HAS_TOOLKIT=true`. Proceed to Step 5.
-- **If the download also fails**: set `HAS_TOOLKIT=false`. Tell the participant:
-
-> Could not access the design system toolkit. Open this link in your browser, download the zip, and place the contents in a folder called `design-system-toolkit/` at the root of this project:
-> https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing
-> You can continue without it -- the Cursor Rule created in Step 6 includes the most important token values inline.
-
-Proceed to Step 5.
-
-## Step 5 -- Figma MCP (optional)
+## Step 6 -- Figma MCP (optional)
 
 Ask the participant this question (use a structured question if available):
 
@@ -152,17 +122,15 @@ Create the file `.cursor/mcp.json` with this content:
 }
 ```
 
-Tell the participant: "Figma MCP is configured. When Cursor prompts you to approve the Figma MCP connection, click Allow. You can now reference Figma URLs in your prompts and Cursor will read the designs directly."
+Tell the participant: "Figma MCP is configured. When Cursor prompts you to approve the Figma MCP connection, click Allow."
 
 Set `HAS_FIGMA=true`.
 
 ### If No:
 
-Set `HAS_FIGMA=false`. Tell the participant: "No problem -- you can still work on the project. If you have Figma links, you can take screenshots manually and share them with Cursor via image paste."
+Set `HAS_FIGMA=false`. Tell the participant: "No problem -- you can work without Figma. If you have design screenshots, paste them directly into the Cursor chat."
 
-Proceed to Step 6.
-
-## Step 6 -- Create Cursor Rule
+## Step 7 -- Create Cursor Rule
 
 Create the directory `.cursor/rules/` if it does not exist.
 
@@ -285,7 +253,7 @@ Adapt Figma output to this project's stack (vanilla HTML/CSS/JS) and existing co
 
 ## Deploying changes
 
-If the project is a GitHub fork with Pages enabled:
+If the project has a GitHub repo with Pages enabled:
 - After edits, run `git add -A && git commit -m "descriptive message" && git push origin main`.
 - GitHub Pages auto-deploys from the `main` branch. Allow ~60 seconds for propagation.
 
@@ -293,7 +261,7 @@ If working locally without GitHub Pages:
 - Serve with `python3 -m http.server 8000` and view at `http://localhost:8000`.
 ```
 
-## Step 7 -- Update .gitignore
+## Step 8 -- Update .gitignore
 
 If a `.gitignore` file exists, append `design-system-toolkit/` to it (if not already present).
 If no `.gitignore` exists, create one with:
@@ -303,9 +271,9 @@ design-system-toolkit/
 .DS_Store
 ```
 
-## Step 8 -- Local development server
+## Step 9 -- Local development server
 
-If `HAS_PAGES=false` or `NO_GH=true`, start a local server:
+If `HAS_PAGES=false`, start a local server:
 
 ```bash
 python3 -m http.server 8000
@@ -313,18 +281,21 @@ python3 -m http.server 8000
 
 Tell the participant: "Your site is running at http://localhost:8000. Open it in your browser."
 
-## Step 9 -- Status summary and access recommendations
+If `HAS_PAGES=true`, tell them their Pages URL instead.
 
-Print a summary table like this:
+## Step 10 -- Status summary and access recommendations
+
+Print a summary table:
 
 ```
 +----------------------------+--------+-------------------------------------------+
 | Capability                 | Status | Details                                   |
 +----------------------------+--------+-------------------------------------------+
+| Project files              | OK     | cloned from public repo                   |
 | GitHub CLI                 | OK/NO  | username: ... / not installed              |
-| Fork of fever_replica      | OK/NO  | repo: ... / using local copy               |
+| Personal GitHub repo       | OK/NO  | repo: ... / skipped                        |
 | GitHub Pages               | OK/NO  | url: ... / using localhost:8000            |
-| Design System Toolkit      | OK/NO  | cloned or downloaded / missing             |
+| Design System Toolkit      | OK/NO  | cloned / using inlined tokens              |
 | Figma MCP                  | OK/NO  | connected / skipped                        |
 | Cursor Rule                | OK     | .cursor/rules/fever-hackathon.mdc          |
 +----------------------------+--------+-------------------------------------------+
@@ -334,36 +305,39 @@ Then, **if any capability has status NO**, print the following section:
 
 ---
 
-**You are missing some accesses that would improve your hackathon experience. Since you are running this before the hackathon day, you have time to request them. Here is what to do for each missing item:**
+**Some capabilities are not set up. Since you are running this before the hackathon, you have time to fix them for the best experience:**
 
-- **GitHub CLI**: Install it with `brew install gh` (macOS) or `winget install --id GitHub.cli` (Windows), then run `gh auth login`. This lets you fork the project, push changes, and deploy via GitHub Pages.
+Only print the bullets that apply (skip the ones that are already OK):
 
-- **Fork of fever_replica**: You need to be added as a collaborator to the private repo. Ask the hackathon organizer (Emiliano Echevarria) to add your GitHub username by running: `gh api repos/emilianoechevarriafever/fever_replica/collaborators/YOUR_USERNAME -X PUT -f permission=read`. Once added, re-run this setup prompt and the fork will work.
+- **GitHub CLI** (needed for GitHub repo + Pages): Install with `brew install gh` (macOS) or `winget install --id GitHub.cli` (Windows). Then run `gh auth login`. Once installed, re-run this setup prompt.
 
-- **GitHub Pages**: This requires a successful fork (see above). Once you have forked the repo, GitHub Pages can be enabled automatically. Without it, you will work on localhost -- functional but you will not have a shareable public URL.
+- **Personal GitHub repo** (needed for GitHub Pages): This failed during setup. If you now have `gh` installed and authenticated, run: `gh repo create fever-hackathon --private --source . --push`
 
-- **Design System Toolkit**: You need either membership in the Feverup GitHub org (ask your manager or the hackathon organizer to invite you at https://github.com/orgs/Feverup/people), or download the zip manually from this link (open with your Fever Google account): https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing -- place its contents in a folder called `design-system-toolkit/` at your project root.
+- **GitHub Pages** (gives you a shareable public URL): Requires a GitHub repo (see above). Once you have one, run: `gh api repos/YOUR_USER/fever-hackathon/pages -X POST -f build_type=legacy -f source[branch]=main -f source[path]=/`
 
-- **Figma MCP**: You need a Figma **Dev** or **Designer** seat on the Fever workspace. Ask your manager or the Design team to grant you access. Once you have a seat, re-run this setup prompt and select "Yes" for Figma access.
+- **Design System Toolkit** (full design tokens and component docs): You need membership in the Feverup GitHub org. Ask your manager or the hackathon organizer to invite you at https://github.com/orgs/Feverup/people. Once invited, run: `git clone https://github.com/Feverup/AI-Product-Design-Toolkit.git design-system-toolkit` -- Note: the Cursor Rule already includes the most important tokens inline, so this is a nice-to-have.
 
-**The optimal experience requires all five items. But you can participate with just the project files and the Cursor Rule (both are already set up). Request the missing accesses now so everything is ready on hackathon day.**
+- **Figma MCP** (lets Cursor read Figma designs directly): You need a Figma **Dev** or **Designer** seat on the Fever workspace. Ask your manager or the Design team. Once you have it, re-run this setup prompt and select "Yes" for Figma.
+
+**You can participate with just the project files and the Cursor Rule (the minimum setup). But requesting the missing accesses now will give you the best experience on hackathon day.**
 
 ---
 
 If ALL capabilities have status OK, print instead:
 
-> **You have the full setup -- everything is ready for the hackathon!** You have a fork with GitHub Pages, the design system toolkit, and Figma MCP connected. Start a new Cursor Agent chat and describe what you want to build or change on the Fever site. Happy hacking!
+> **Perfect setup -- you have everything!** GitHub Pages, design system toolkit, and Figma MCP are all connected. Start a new Cursor Agent chat and describe what you want to build or change. Happy hacking!
 
 ---
 
 ## Verification prompt (optional)
 
-If you want to verify everything is working, paste this into a **new** Cursor chat after setup:
+If you want to verify everything is working after setup, paste this into a **new** Cursor chat:
 
 ```
-Read the file .cursor/rules/fever-hackathon.mdc and confirm it exists.
-Then read index.html (first 20 lines) and confirm this is the Fever replica.
+Read .cursor/rules/fever-hackathon.mdc and confirm it exists.
+Read index.html (first 20 lines) and confirm this is the Fever replica.
 If design-system-toolkit/ exists, list its contents.
 If .cursor/mcp.json exists, confirm Figma MCP is configured.
+Run "git remote -v" and report the result.
 Report what you find.
 ```

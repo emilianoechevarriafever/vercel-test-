@@ -4,38 +4,20 @@ Instructions for preparing and running the Fever design hackathon.
 
 ## Pre-hackathon checklist
 
-### 1. Grant access to the fever_replica repo
+### 1. Project files -- already handled
 
-The repo `emilianoechevarriafever/fever_replica` is **private**. Participants need explicit access to fork it. You have two options:
+The project files live in a **public** repo that anyone can clone without authentication:
+https://github.com/emilianoechevarriafever/fever-hackathon-starter
 
-**Option A -- Add participants as collaborators** (preferred for fork + GitHub Pages workflow):
-```bash
-# Add one participant at a time:
-gh api repos/emilianoechevarriafever/fever_replica/collaborators/GITHUB_USERNAME -X PUT -f permission=read
-```
-Once added, they can fork the repo and deploy via GitHub Pages.
+No Drive links, no collaborator invites, no auth needed. The setup prompt clones from here automatically.
 
-**Option B -- Share the project files via Google Drive** (already done):
-The fever_replica zip is shared with all Fever employees at:
-https://drive.google.com/file/d/1kIIzRUwQX8CX6rLOM3Dx88bCr56wrgCS/view?usp=sharing
+### 2. Prepare the Design System Toolkit (optional, nice-to-have)
 
-The setup prompt already includes this link and will try to download it automatically via `curl`. If that fails, participants can open the link in their browser.
+The repo `Feverup/AI-Product-Design-Toolkit` is **private**. Participants in the Feverup GitHub org can clone it automatically. Others will skip it -- the Cursor Rule already has the key design tokens inlined.
 
-**Note**: The setup prompt (`HACKATHON_SETUP_PROMPT.md`) should be shared separately via Slack/email so participants can paste it into Cursor.
-
-### 2. Prepare the Design System Toolkit for sharing
-
-The repo `Feverup/AI-Product-Design-Toolkit` is **private**. Participants outside the Feverup GitHub org cannot clone it. You have two options:
-
-**Option A -- Add participants to the Feverup org** (preferred if they are Fever employees):
-- Go to https://github.com/orgs/Feverup/people and invite them.
-- They will be able to clone the toolkit automatically during setup.
-
-**Option B -- Share via Google Drive** (already done):
-The design system toolkit zip is shared with all Fever employees at:
-https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing
-
-The setup prompt already includes this link and will try to download it automatically via `curl`. If that fails, participants can open the link in their browser and place the contents in a folder called `design-system-toolkit` inside their project root.
+To give more participants access:
+- **Option A**: Invite them to the Feverup org at https://github.com/orgs/Feverup/people
+- **Option B**: Share the toolkit zip via Google Drive (Fever employees only): https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing
 
 ### 3. Confirm participants have Cursor installed
 
@@ -45,35 +27,37 @@ The setup prompt already includes this link and will try to download it automati
 
 ### 4. Distribute the setup prompt
 
-Share the file `HACKATHON_SETUP_PROMPT.md` with all participants via Slack, email, or the shared Drive. They paste its entire content into a new Cursor Agent chat.
+Share the content of `HACKATHON_SETUP_PROMPT.md` with all participants via Slack or email. They paste it into a new Cursor Agent chat. That's it.
 
 ### 5. (Optional) Figma seats
 
 If participants need to reference Figma designs:
 - They need a Figma **Dev** or **Designer** seat on the Fever workspace.
-- The setup prompt will configure the Figma MCP connection automatically.
-- If they do not have a seat, they can still work -- they just cannot pull designs from Figma directly.
+- The setup prompt configures the Figma MCP connection automatically.
+- Without a seat, they can still work -- they just can't pull designs from Figma directly.
 
 ---
 
 ## Access matrix
 
-This table shows what works depending on what access a participant has:
-
-| Capability | GitHub CLI + repo collaborator | Feverup org member | Figma seat | None of the above |
+| Capability | No accounts at all | GitHub CLI | Feverup org member | Figma seat |
 |---|---|---|---|---|
-| **Fork fever_replica** | Yes (if added as collaborator) | Yes (if added as collaborator) | -- | No (needs Drive/zip copy) |
-| **GitHub Pages deploy** | Yes (on their fork or own repo) | Yes | -- | No (localhost only) |
-| **Clone Design Toolkit** | Only if Feverup org | Yes | -- | No (needs Drive/zip copy) |
-| **Figma MCP** | -- | -- | Yes | No (manual screenshots) |
-| **Local development** | Yes | Yes | Yes | Yes (always works) |
-| **Cursor Rule (design system)** | Yes | Yes | Yes | Yes (embedded in prompt) |
+| **Clone starter repo** | Yes (public) | Yes | Yes | -- |
+| **Personal GitHub repo** | No | Yes | Yes | -- |
+| **GitHub Pages deploy** | No (localhost) | Yes | Yes | -- |
+| **Design System Toolkit** | No (inlined tokens) | No (inlined tokens) | Yes (full clone) | -- |
+| **Figma MCP** | No | No | No | Yes |
+| **Local development** | Yes | Yes | Yes | Yes |
+| **Cursor Rule** | Yes | Yes | Yes | Yes |
 
-**Minimum viable setup**: A participant with NO GitHub, NO Figma, and NO collaborator access can still participate. They will:
-1. Get both the `fever_replica` files and the `design-system-toolkit` from the shared Drive/zip.
+**Minimum viable setup**: A participant with NO GitHub and NO Figma can still participate. They will:
+1. Clone the public starter repo with plain `git`.
 2. Work on localhost.
-3. Optionally create their own private GitHub repo during setup (if they have `gh`).
-4. Have full design system context via the Cursor Rule (tokens are inlined).
+3. Have design system context via the Cursor Rule (tokens inlined).
+
+**Optimal setup**: GitHub CLI + Feverup org + Figma seat = fork, Pages, full toolkit, Figma MCP.
+
+The setup prompt tells each participant exactly what they're missing and how to request it before hackathon day.
 
 ---
 
@@ -82,61 +66,47 @@ This table shows what works depending on what access a participant has:
 ### "GitHub Pages shows 404"
 
 - Pages takes 1-2 minutes to deploy after enabling. Wait and refresh.
-- Verify Pages is enabled: `gh api repos/OWNER/fever_replica/pages --jq '.html_url'`.
-- Verify the source branch is `main`: `gh api repos/OWNER/fever_replica/pages --jq '.source'`.
-- If it says `build_type: workflow`, switch to legacy: `gh api repos/OWNER/fever_replica/pages -X PUT -f build_type=legacy -f source[branch]=main -f source[path]=/`.
-
-### "Permission denied forking fever_replica" / "Could not resolve to a Repository"
-
-The `fever_replica` repo is private. The participant has not been added as a collaborator. Two options:
-- Add them: `gh api repos/emilianoechevarriafever/fever_replica/collaborators/THEIR_USERNAME -X PUT -f permission=read`
-- Give them the project files via the shared Drive/zip. The setup prompt will guide them to create their own repo.
+- Verify Pages is enabled: `gh api repos/OWNER/REPO/pages --jq '.html_url'`
+- If it says `build_type: workflow`, switch to legacy: `gh api repos/OWNER/REPO/pages -X PUT -f build_type=legacy -f source[branch]=main -f source[path]=/`
 
 ### "gh: command not found"
 
-The participant does not have GitHub CLI installed. Two options:
-- Install it: `brew install gh` (macOS) or see https://cli.github.com/.
-- Skip it and work with HTTPS clone + localhost. The setup prompt handles this automatically.
+Install it: `brew install gh` (macOS) or see https://cli.github.com/. Then re-run the setup prompt.
 
 ### "Figma MCP is not connecting"
 
-- Verify `.cursor/mcp.json` exists in the project root with the correct content.
-- Restart Cursor after creating the file.
-- The participant must approve the MCP connection when Cursor prompts them.
-- If the participant does not have a Figma seat, MCP will not work regardless of the config.
+- Verify `.cursor/mcp.json` exists in the project root.
+- Restart Cursor after the file is created.
+- The participant must click "Allow" when Cursor prompts for MCP approval.
+- Without a Figma seat, MCP will not work regardless of config.
 
 ### "Permission denied cloning AI-Product-Design-Toolkit"
 
-The repo is private. The setup prompt tries to download it from Drive automatically. If that also fails:
-- Feverup org membership on GitHub, or
-- Manual download from: https://drive.google.com/file/d/1rRNVN_OXcqGy2KR3GxduRX7DNSr_PFJV/view?usp=sharing
+The repo is private. The participant needs Feverup org membership, or they can use the inlined tokens in the Cursor Rule.
 
 ### "My changes are not showing on GitHub Pages"
 
-After editing, the participant must commit and push:
-```bash
-git add -A && git commit -m "description" && git push origin main
-```
-Pages re-deploys automatically from `main`. Wait ~60 seconds.
+Commit and push: `git add -A && git commit -m "description" && git push origin main`. Wait ~60 seconds.
 
 ### "I accidentally broke the site"
 
-Since every participant works on their own fork, they can always reset:
+Reset to the original state:
 ```bash
 git checkout main
-git reset --hard origin/main
+git reset --hard HEAD~N
 ```
-Or re-fork from the original repo.
+(Replace N with the number of commits to undo.) Or re-clone the starter repo.
 
 ---
 
 ## What participants get after setup
 
-| Component | Location |
-|-----------|----------|
-| Fever website clone | Project root (`index.html`, `plan.html`, etc.) |
-| Design system tokens + docs | `design-system-toolkit/` folder |
-| AI context (Cursor Rule) | `.cursor/rules/fever-hackathon.mdc` |
-| Figma connection (optional) | `.cursor/mcp.json` |
-| Live deployment (optional) | `https://USERNAME.github.io/fever_replica/` |
-| Local server (fallback) | `http://localhost:8000` |
+| Component | Location | Required |
+|-----------|----------|----------|
+| Fever website files | Project root (`index.html`, `plan.html`, etc.) | Yes (always) |
+| AI context (Cursor Rule) | `.cursor/rules/fever-hackathon.mdc` | Yes (always) |
+| Personal GitHub repo | `github.com/USER/fever-hackathon` | Optional |
+| Live deployment | `https://USER.github.io/fever-hackathon/` | Optional |
+| Design system toolkit | `design-system-toolkit/` folder | Optional (tokens inlined) |
+| Figma connection | `.cursor/mcp.json` | Optional |
+| Local server | `http://localhost:8000` | Fallback if no Pages |
