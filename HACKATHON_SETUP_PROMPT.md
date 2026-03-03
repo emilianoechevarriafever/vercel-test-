@@ -324,24 +324,42 @@ Then commit: `git add .gitignore && git commit -m "Add .gitignore"`
 
 Make sure you are in the project root directory (the one that contains `index.html`). Then start a local server in the background. Try these options in order until one works:
 
-**Option A -- Python (macOS / Linux):**
+First check if Python is available: run `python3 --version` (macOS/Linux) or `python --version` / `py --version` (Windows).
+
+**If Python IS available:**
+
+macOS / Linux:
 ```bash
 python3 -m http.server 8000 &
 ```
 
-**Option A -- Python (Windows):**
+Windows:
 ```powershell
 Start-Process -NoNewWindow python -ArgumentList "-m","http.server","8000"
 ```
-If `python` is not found, try `py -m http.server 8000`.
 
-**Option B -- Node.js (any OS, if Python is not available):**
+**If Python is NOT available, try to install it automatically:**
+
+macOS (Homebrew):
+```bash
+brew install python3 && python3 -m http.server 8000 &
+```
+
+Windows (winget -- ships with Windows 10/11):
+```powershell
+winget install --id Python.Python.3.12 --accept-source-agreements --accept-package-agreements
+```
+After install, **close and reopen the terminal** (so PATH updates), then:
+```powershell
+Start-Process -NoNewWindow python -ArgumentList "-m","http.server","8000"
+```
+
+**If Python install fails or is too slow, use Node.js instead (any OS):**
 ```bash
 npx -y serve -l 8000
 ```
-(This works if Node.js is installed. The `-y` flag auto-confirms the package install.)
 
-**Option C -- No Python or Node.js:**
+**If nothing above works:**
 Tell the participant: "Install the **Live Server** extension in Cursor: open the Extensions panel (Ctrl+Shift+X), search for 'Live Server' by Ritwick Dey, install it. Then right-click `index.html` in the file explorer and choose 'Open with Live Server'."
 
 If port 8000 is already in use, try 8001, then 8080.
