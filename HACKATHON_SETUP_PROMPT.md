@@ -89,10 +89,17 @@ Then `cd` into the folder that contains `index.html`. Repeat until `ls index.htm
 
 Then check if a `.git` directory exists (run `git status`). If it does NOT exist (or the command errors), initialize git. **Before staging**, create a `.gitignore` file containing these five lines (one entry per line): `.DS_Store`, `Thumbs.db`, `desktop.ini`, `design-system-toolkit/`, `.cursor/mcp.json`. Use whatever file-creation method works on the current OS (e.g. the file-write tool, `echo`/`printf` redirect on macOS/Linux, or `Set-Content` on Windows).
 
-Then:
+Then initialize and make the first commit:
 ```bash
 git init
 git add -A
+git commit -m "Initial commit - Fever hackathon starter"
+```
+
+If `git commit` fails with "Please tell me who you are" (user.name/user.email not configured), set them for this repo only and retry:
+```bash
+git config user.name "Hackathon Participant"
+git config user.email "hackathon@fever.com"
 git commit -m "Initial commit - Fever hackathon starter"
 ```
 
